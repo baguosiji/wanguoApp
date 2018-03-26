@@ -39,10 +39,10 @@
   border-radius: 5px;
   background-color: #ffffff;
   position: absolute;
-  top: 1.2rem;
+  top: 0.2rem;
   right: 0.5rem;
   z-index: 1000;
-  width: 4.5rem;
+  width: 3.5rem;
   display: none;
   .arrow {
     width: 0px;
@@ -58,14 +58,14 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 1.4rem;
-    img {
-      width: 0.7rem;
+    height: 1rem;
+    span {
+      font-size: 0.5rem;
       margin-left: 0.2rem;
     }
     div {
       font-size: 16px;
-      width: 3rem;
+      width: 2rem;
       margin-right: 0.5rem;
       text-align: center;
     }
@@ -79,6 +79,7 @@
   background-color: #000;
   opacity: 0.2;
   position: absolute;
+  z-index: 500;
   display: none;
   top: 0;
   left: 0;

@@ -62,8 +62,13 @@
     height: 100%;
     line-height: 44px;
     text-align: right;
-    img {
-      width: 0.6rem;
+    span {
+      color: #fff;
+      font-size: .5rem;
     }
   }
+}
+// 修改mui-icon字体大小
+.mui-bar .mui-icon{
+  font-size: 20px;
 }

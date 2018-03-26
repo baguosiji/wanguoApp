@@ -164,7 +164,8 @@
 					"html/shoppingCart.html",
 					"html/evaluate.html",
 					"html/login.html",
-					"html/personalInformation.html"
+					"html/personalInformation.html",
+					"html/myCollection.html"
 				],
 				"priority": 0
 			},
@@ -189,7 +190,9 @@
 				"refer": [
 					"html/login.html",
 					"html/sellCart.html",
-					"html/news.html"
+					"html/news.html",
+					"html/goodDetail.html",
+					"html/QRCode.html"
 				],
 				"priority": 0
 			},
@@ -221,6 +224,20 @@
 				"resources": [],
 				"refer": [
 					"html/paymentMessage.html"
+				],
+				"priority": 0
+			},
+			"html/cartDetail.html": {
+				"resources": [],
+				"refer": [
+					"html/paymentMessage.html"
+				],
+				"priority": 0
+			},
+			"html/buyCart.html": {
+				"resources": [],
+				"refer": [
+					"html/cartDetail.html"
 				],
 				"priority": 0
 			}

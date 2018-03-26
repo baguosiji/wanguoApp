@@ -8,6 +8,7 @@
     <script src="../js/flexible.js"></script>
     <script src="../js/mui.min.js"></script>
     <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/iconfont.css">
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/shoppingMall.css">
     <title>商城</title>
@@ -16,25 +17,6 @@
 <body>
     <div class="mui-scroll-wrapper">
         <div class="mui-scroll">
-            <div class="out-div" id="popup">
-                <div class="arrow"></div>
-                <div class="popup-list">
-                    <img src="../img/order.png" alt="">
-                    <div>我的订单</div>
-                </div>
-                <div class="popup-list">
-                    <img src="../img/collection.png" alt="">
-                    <div>我的收藏</div>
-                </div>
-                <div class="popup-list" onclick="getajax()">
-                    <img src="../img/server.png" alt="">
-                    <div>帮助中心</div>
-                </div>
-                <div class="popup-list" onclick="captureImage()">
-                    <img src="../img/scan-code.png" alt="">
-                    <div>扫一扫</div>
-                </div>
-            </div>
             <!-- 轮播图 -->
             <div class="mui-slider">
                 <div class="mui-slider-group mui-slider-loop">
@@ -249,11 +231,33 @@
             </div>
         </div>
         <!-- 页面顶部搜索框定位 -->
+        <div class="out-div" id="popup">
+            <div class="arrow"></div>
+            <div class="popup-list">
+                <span class="iconfont icon-single"></span>
+                <div>我的订单</div>
+            </div>
+            <div class="popup-list">
+                <span class="iconfont icon-shoucang2"></span>
+                <div>我的收藏</div>
+            </div>
+            <div class="popup-list" onclick="getajax()">
+                <span class="iconfont icon-kefu"></span>
+                <div>帮助中心</div>
+            </div>
+            <div class="popup-list" onclick="captureImage()">
+                <span class="iconfont icon-richscan_icon"></span>
+                <div>扫一扫</div>
+            </div>
+        </div>
         <div id="shade" onclick="shadeHidden()">
 
         </div>
     </div>
-    <script>    
+    <script>  
+        mui.plusReady(function () {
+
+        })
         mui(".mui-scroll-wrapper").scroll({
             deceleration: 0.0005
         })
@@ -267,19 +271,7 @@
                 id: "goodDetail.html"
             })
         })
-
-        // 打开弹出框并且打开遮罩
-        function openmore() {
-            document.getElementById("add").style.transform = "rotate(" + 45 + "deg)";
-            document.getElementById("popup").style.display = "block";
-            document.getElementById("shade").style.display = "block";
-        }
-        //隐藏弹出框遮罩
-        function shadeHidden() {
-            document.getElementById("add").style.transform = "rotate(" + 90 + "deg)";
-            document.getElementById("popup").style.display = "none";
-            document.getElementById("shade").style.display = "none";
-        }
+       
         //选择不同分类
         var div = document.getElementsByClassName("shopping-mall-classification-every-last");
         for (var i = 0; i < div.length; i++) {

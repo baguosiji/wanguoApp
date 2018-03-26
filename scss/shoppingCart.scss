@@ -1,4 +1,4 @@
-.container{
+.container {
   padding-top: 45px;
 }
 // 顶部操作栏
@@ -148,7 +148,44 @@
     }
   }
 }
-.mui-scroll-wrapper{
+.mui-scroll-wrapper {
   top: 45px;
-  margin-top:1.173333rem
+  bottom: 1.306667rem;
+  margin-top: 1.173333rem;
+}
+
+//底部操作栏
+.bottom-nav {
+  height: 1.306667rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 10000;
+  width: 100%;
+  display: flex;
+  font-size: 0.4rem;
+  .bottom-nav-left {
+    padding-left: 0.3rem;
+    color: #000;
+    flex: 1;
+    background-color: #fff;
+    height: 1.306667rem;
+    line-height: 1.306667rem;
+    img {
+      width: 0.6rem;
+    }
+    .payable {
+      color: #FA3E19;
+      font-size: 0.45rem;
+    }
+  }
+  .bottom-nav-right {
+    width: 2.266667rem;
+    height: 1.306667rem;
+    text-align: center;
+    font-size: 0.45rem;
+    color: #ffffff;
+    line-height: 1.306667rem;
+    background: linear-gradient(to bottom right, #f6822f, #fd5a28);
+  }
 }

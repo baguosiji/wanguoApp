@@ -338,6 +338,16 @@
         </div>
 
     </div>
+    <div class="bottom-nav">
+        <div class="bottom-nav-left">
+            <span style="color: #999;font-size: .34rem;">不含运费</span>
+            <span>合计:</span>
+            <span class="payable">￥980:00</span>
+        </div>
+        <div class="bottom-nav-right">
+            去付款
+        </div>
+    </div>
     <script>    
         mui('.mui-scroll-wrapper').scroll({
             deceleration: 0.0005,
@@ -345,7 +355,6 @@
         });
         var select_shop = document.getElementsByClassName("select-shop");
         var select_good = document.getElementsByClassName("select-good");
-        console.log(select_shop);
         // 给选择店铺绑定上点击事件
         for (var shop = 0; shop < select_shop.length; shop++) {
             var select_shop_click = select_shop[shop];
@@ -384,7 +393,6 @@
                         number -= 1;
                     }
                 }
-                console.log(number);
                 if (Math.abs(number) == now_good.length && number > 0) {
                     parent_shop.src = "../img/selectTrue.png";
                 } else if (Math.abs(number) == now_good.length && number < 0) {
