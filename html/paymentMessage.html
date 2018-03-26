@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../js/mui.min.js"></script>
+    <script src="../js/flexible.js"></script>
+    <link rel="stylesheet" href="../fonts/mui-icons-extra.ttf">
+    <link rel="stylesheet" href="../css/mui.min.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/paymentMessage.css">
+    <title>支付信息</title>
+</head>
+
+<body>
+    <div class="action-bar-no-search">
+        <div class="title-left mui-action-back">
+            <div>
+                <span class="mui-icon mui-icon-back">
+
+                </span>
+                <span>
+
+                </span>
+            </div>
+        </div>
+        <div class="title-center">
+            付款信息
+        </div>
+        <div class="title-right">
+            <div class="title-right-left">
+                <img src="" />
+            </div>
+            <div class="title-right-right">
+                <img src="" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="container" style="background: #F7F5f4">
+        <div class="address-title">
+            <div>收货信息</div>
+        </div>
+        <div class="address">
+            <div class="address-left">
+                <div class="address-name-phone">
+                    <span>
+                        姓名：
+                    </span>
+                    <span>
+                        王先生
+                    </span>
+                    <span style="margin-left: 1rem">
+                        联系方式：
+                    </span>
+                    <span class="telephone">
+                        12345789629
+                    </span>
+                </div>
+                <div class="address-location">
+                    地址：
+                </div>
+            </div>
+            <div class="address-right">
+                <span class="mui-icon mui-icon-arrowright">
+
+                </span>
+            </div>
+        </div>
+        <div class="address-title">
+            <div>车辆信息</div>
+        </div>
+        <div class="settlement-good-message">
+            <div class="settlement-good-img">
+                <img src="../img/good02.png" alt="">
+            </div>
+            <div class="settlement-good-name-price">
+                <div class="good-name">
+                    NGK铱铂金火花塞比亚迪F0F3 G5S6S7M6L3G3F6G6速锐思 锐秦唐S8宋元...
+                </div>
+                <div class="good-price clearfloat">
+                    <span class="float-left">￥88</span>
+                    <span class="float-right">×1</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-nav">
+        <div class="bottom-nav-left">
+            <span>应付款</span>
+            <span class="payable">￥88.00</span>
+            &nbsp;
+            <span>
+                小计
+            </span>
+            <span class="payable">
+                1件
+            </span>
+        </div>
+        <div class="bottom-nav-right">
+            去付款
+        </div>
+        <div id="popup" class="popup">
+            <div class="popup-title">
+                <span>
+                    万国电商钱包
+                </span>
+                <div class="close">
+                    ×
+                </div>
+            </div>
+            <div class="popup-good-message">
+                <div class="popup-price">
+                    ￥88
+                </div>
+                <div class="popup-good-name">
+                    NGK铱铂金火花塞比亚迪F0F3G5S6S7M6L3 G3F6G6速锐思锐秦唐S8宋元
+                </div>
+            </div>
+            <div class="select-payment">
+                第三方支付
+            </div>
+            <div class="wechat">
+                <div class="wechat-icon">
+                    <span class="mui-icon mui-icon-weixin" style="font-size: .8rem;color:#07B906"></span>
+                    <span>微信支付</span>
+                </div>
+                <span class="mui-icon mui-icon-arrowright"></span>
+            </div>
+            <div class="alipay">
+                <div class="alipay-icon">
+                    <span class="mui-icon-extra mui-icon-extra-alipay" style="font-size: .6rem"></span>
+                    <span> 阿里支付</span>
+                </div>
+                <span class="mui-icon mui-icon-arrowright"></span>
+            </div>
+        </div>
+    </div>
+    <!-- 遮罩层 -->
+    <div id="mask">
+
+    </div>
+    <script>
+        //支付通道
+        var payment;
+        mui.plusReady(function () {
+            plus.payment.getChannels(function (channels) {
+                for (var i in channels) {
+                    if (channels[i].id == "wxpay") {
+                        wxChannel = channels[i];
+                    } else {
+                        aliChannel = channels[i];
+                    }
+                }
+            }, function (e) {
+                alert("获取支付通道列表失败：" + e.message);
+            });
+
+        })
+        //支付请求
+        function pay(pay) {
+            if (pay == "alipay") {
+                payment = aliChannel;
+            } else if (pay == "wxpay") {
+                payment = wxChannel;
+            } else {
+                return;
+            }
+            plus.payment.request(payment, "", function () {
+
+            })
+        }
+        //点击微信支付
+        mui("#popup").on("tap", ".wechat", function () {
+            pay("wxpay");
+        })
+        //点击支付宝支付
+        mui("#popup").on("tap", ".alipay", function () {
+            pay("alipay")
+        })
+        //点击关闭支付弹框
+        mui("#popup").on("tap", ".close", function () {
+            popup.style.bottom = -11 + "rem";
+            mask.style.display = "none";
+        })
+        var popup = document.getElementById("popup");
+        var mask = document.getElementById("mask");
+        mui(".bottom-nav").on("tap", ".bottom-nav-right", function () {
+            popup.style.bottom = 0;
+            mask.style.display = "block";
+        })
+        mask.addEventListener("tap", function () {
+            popup.style.bottom = -11 + "rem";
+            mask.style.display = "none";
+        })
+
+    </script>
+</body>
+
+</html>

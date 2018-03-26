@@ -1,0 +1,63 @@
+.user-header {
+  height: 1.173333rem;
+  padding: 0 0.3rem;
+  display: flex;
+  color: #333333;
+  font-size: 0.4rem;
+  justify-content: space-between;
+  align-items: center;
+  .select-img {
+    img {
+      height: 0.9rem;
+      width: 0.9rem;
+    }
+    line-height: 0.9rem;
+    span {
+      vertical-align: middle;
+    }
+  }
+}
+.common-list {
+  line-height: 1.173333rem;
+  padding: 0 0.3rem;
+  border-bottom: 1px solid #ebebeb;
+  display: flex;
+  align-items: center;
+  font-size: 0.4rem;
+  div {
+    width: 2rem;
+    span {
+      color: #333333;
+    }
+    line-height: 1.173333rem;
+  }
+  span {
+    color: #999999;
+  }
+  input {
+    margin: 0;
+    flex: 1;
+    height: 1.173333rem;
+    outline: none;
+    border: 0;
+    padding: 0;
+    color: #999999;
+  }
+  .mui-radio{
+      width: 2rem;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      input{
+          top: 7px;
+          right: 0;
+          left: 20px;
+      }
+  }
+  .float-right{
+      flex: 1;
+      text-align: right;
+      color: #333333;
+  }
+}

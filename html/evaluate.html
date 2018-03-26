@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../js/flexible.js"></script>
+    <script src="../js/mui.min.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/evaluate.css">
+    <title>我的评价</title>
+</head>
+
+<body>
+    <div id="" class="action-bar-no-search">
+        <div class="title-left mui-action-back">
+            <div>
+                <span class="mui-icon mui-icon-back">
+
+                </span>
+                <span>
+
+                </span>
+            </div>
+        </div>
+        <div class="title-center">
+            我的评价
+        </div>
+        <div class="title-right">
+            <div class="title-right-left">
+                <img src="../img/close.png" />
+            </div>
+            <div class="title-right-right">
+                <img src="" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="eva-tab">
+            <div class="active" data-wid="evaluateChild/all.html">
+                全部评价
+            </div>
+            <div data-wid="evaluateChild/haveImage.html">
+                有图评价
+            </div>
+        </div>
+    </div>
+    <script src="../js/webviewGroup.js"></script>
+    <script>
+        mui.init();
+
+        mui.plusReady(function () {
+            var _self = plus.webview.currentWebview();
+            var group = new webviewGroup(_self.id, {
+                items: [{
+                    id: "evaluateChild/all.html",
+                    url: "evaluateChild/all.html",
+                    extras: {},
+                    styles: {
+                        top: "90px"
+                    }
+                }, {
+                    id: "evaluateChild/haveImage.html",
+                    url: "evaluateChild/haveImage.html",
+                    extras: {},
+                    styles: {
+                        top: "90px"
+                    }
+                }],
+                onChange: function (obj) {
+                    var c = document.querySelector("div.active");
+                    if (c) {
+                        c.classList.remove("active");
+                    }
+                    var target = document.querySelector(".eva-tab div:nth-child(" + (parseInt(obj.index) + 1) + ")");
+                    target.classList.add("active");
+                    if (target.scrollIntoView) {
+                        target.scrollIntoView();
+                    }
+                }
+            });
+            mui(".eva-tab").on("tap", "div", function (e) {
+                var wid = this.getAttribute("data-wid");
+                group.switchTab(wid);
+            });
+
+        });
+        mui.back = function () {
+            var _self = plus.webview.currentWebview();
+            _self.close("auto");
+        }
+    </script>
+</body>
+
+</html>

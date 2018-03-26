@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <!--引入手淘rem-->
+    <script src="js/flexible.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script type="text/javascript" charset="utf-8">
+        mui.init();
+    </script>
+</head>
+
+<body>
+    <div id="" class="action-bar">
+        <div class="title-left">
+            <div>
+                <span>
+                    太原
+                </span>
+            </div>
+            <div>
+                <img src="img/down.png" />
+            </div>
+        </div>
+        <div class="title-center">
+            <div class="title-input">
+                <input placeholder="请输入搜索内容" type="text">
+            </div>
+        </div>
+        <div class="title-right">
+            <img src="img/close.png" />
+        </div>
+    </div>
+    <nav class="mui-bar mui-bar-tab">
+        <a id="a1" class="mui-tab-item mui-active" href="html/indexIndex.html">
+            <span class="mui-icon mui-icon-home"></span>
+            <span class="mui-tab-label">首页</span>
+        </a>
+        <a class="mui-tab-item" href="html/buyCart.html">
+            <span class="mui-icon mui-icon-phone"></span>
+            <span class="mui-tab-label">拍卖</span>
+        </a>
+        <a class="mui-tab-item" href="html/shoppingMall.html">
+            <span class="mui-icon mui-icon-email"></span>
+            <span class="mui-tab-label">商城</span>
+        </a>
+        <a href="html/my.html" class="mui-tab-item">
+            <span class="mui-icon mui-icon-gear"></span>
+            <span class="mui-tab-label">我的</span>
+        </a>
+    </nav>
+    <script>
+        var Index = 0;
+        var subpages = ["html/indexIndex.html", "html/buyCart.html", "html/shoppingMall.html", "html/my.html"];
+        mui.plusReady(function () {
+            var self = plus.webview.currentWebview();
+            for (var i = 0; i < subpages.length; i++) {
+                var sub = plus.webview.create(
+                    subpages[i],
+                    subpages[i], {
+                        top: "45px",
+                        bottom: "50px",
+                    }
+                );
+                if (i != Index) {
+                    sub.hide();
+                }
+                //将webview对象填充到窗口
+                self.append(sub);
+            }
+
+        })
+        //iframe代替多webview
+        var createIframe = function (el, opt) {
+            var elContainer = document.querySelector(el);
+            var wrapper = document.querySelector(".mui-iframe-wrapper");
+            alert(wrapper);
+            if (!wrapper) {
+                // 创建wrapper 和 iframe
+                wrapper = document.createElement('div');
+                wrapper.className = 'mui-iframe-wrapper';
+                for (var i in opt.style) {
+                    wrapper.style[i] = opt.style[i];
+                }
+                var iframe = document.createElement('iframe');
+                iframe.src = opt.url;
+                iframe.id = opt.id || opt.url;
+                iframe.name = opt.id;
+                wrapper.appendChild(iframe);
+                elContainer.appendChild(wrapper);
+            } else {
+                var iframe = wrapper.querySelector('iframe');
+                iframe.src = opt.url;
+                iframe.id = opt.id || opt.url;
+                iframe.name = iframe.id;
+            }
+        }
+        //当前激活选项
+        var activeTab = subpages[Index];
+        title = document.querySelector(".title-center")
+        console.log(mui(".mui-bar-tab"));
+        // mui('.mui-bar-tab').on('tap', 'a', function (e) {
+        //     // 获取目标子页的id
+        //     alert(Index);
+        //     var targetTab = this.getAttribute('href');
+        //     if (targetTab == activeTab) {
+        //         return;
+        //     }
+        //     // 更换标题
+        //     // title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
+        //     // 子页内容切换
+        //     if (mui.os.plus) {
+        //         alert("shangxia")
+        //         // 显示目标webview
+        //         plus.webview.show(targetTab);
+        //         // 隐藏当前webview
+        //         plus.webview.hide(activeTab);
+        //         // 更改当前活跃的选项卡
+        //         activeTab = targetTab;
+        //     } else {
+        //         alert("xia")
+        //         // 创建iframe代替子页面
+        //         createIframe('.mui-content', {
+        //             url: targetTab,
+        //             style: {
+        //                 top: '45px',//设置距离顶部的距离
+        //                 bottom: '50px'//设置距离底部的距离
+        //             }
+        //         });
+        //     }
+        // })
+        var url="html/order.html";                                            //点击右侧按钮的跳转路径
+        mui(".title-right").on("tap", "img", function (e) {
+            mui.openWindow({
+                url:url,
+                id: url,
+                show: {
+                    autoShow: false
+                }
+            })
+        })
+        mui('.mui-bar-tab').on('tap', 'a', function (e) {
+            //获取目标子页的id
+            var targetTab = this.getAttribute('href');
+            if (targetTab == activeTab) {
+                return;
+            }
+            //更换标题
+            // title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
+            if (this.querySelector(".mui-tab-label").innerHTML == "我的") {
+                title.getElementsByClassName("title-input")[0].style.display = "none";
+                title.innerHTML = this.querySelector(".mui-tab-label").innerHTML;
+                document.querySelector(".title-left").style.visibility="hidden";
+                document.querySelector(".title-right").querySelector("img").src="img/setting.png";
+                url="html/setting.html"
+            } else {
+                title.innerHTML = "";
+                url="html/order.html"
+                var div = document.createElement("div");
+                document.querySelector(".title-left").style.visibility="visible";
+                document.querySelector(".title-right").querySelector("img").src="img/close.png";
+                div.setAttribute("class", "title-input");
+                var input = document.createElement("input");
+                input.setAttribute("placeholder", "请输入搜索内容");
+                div.appendChild(input);
+                title.appendChild(div);
+            }
+            //显示目标选项卡
+            plus.webview.show(targetTab);
+            //隐藏当前选项卡
+            plus.webview.hide(activeTab);
+            //更改当前活跃的选项卡
+            activeTab = targetTab;
+        });
+
+    </script>
+</body>
+
+</html>

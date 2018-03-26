@@ -1,0 +1,174 @@
+.page-top {
+  width: 10rem;
+  height: 1.173333rem;
+  display: flex;
+  align-items: center;
+  background-color: #3fbeff;
+  .location-camera {
+    flex: 1;
+    justify-content: space-between;
+    text-align: center;
+    font-size: 16px;
+    color: #fff;
+    img {
+      width: 0.5rem;
+    }
+  }
+  .input {
+    width: 6rem;
+    height: 0.85rem;
+    background-color: #fff;
+    border-radius: 60px;
+    color: #333333;
+    padding: 0;
+    padding-left: 0.5rem;
+    margin: 0;
+  }
+}
+// 轮播图部分样式
+.mui-slider {
+  img {
+    height: 4rem;
+    width: 10rem;
+  }
+}
+/* 弹出框样式 */
+.out-div {
+  color: #000;
+  font-size: 16px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  position: absolute;
+  top: 1.2rem;
+  right: 0.5rem;
+  z-index: 1000;
+  width: 4.5rem;
+  display: none;
+  .arrow {
+    width: 0px;
+    height: 0px;
+    border-bottom: 10px solid #ffffff;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+    position: absolute;
+    top: -10px;
+    right: 0.5rem;
+  }
+  .popup-list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 1.4rem;
+    img {
+      width: 0.7rem;
+      margin-left: 0.2rem;
+    }
+    div {
+      font-size: 16px;
+      width: 3rem;
+      margin-right: 0.5rem;
+      text-align: center;
+    }
+  }
+}
+
+/* 遮罩层样式 */
+#shade {
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: 0.2;
+  position: absolute;
+  display: none;
+  top: 0;
+  left: 0;
+}
+// 分类部分样式
+.shopping-mall-classification {
+  height: 1.2rem;
+  width: 100%;
+  .padding {
+    width: 100%;
+    padding: 0 0.3rem;
+    display: flex;
+    .shopping-mall-classification-every-last {
+      flex: 1;
+      div {
+        margin: 0 auto;
+        height: 100%;
+        width: 90%;
+        text-align: center;
+        font-size: 14px;
+        line-height: 1.2rem;
+        color: #333333;
+        // border-bottom: 3px solid #fd5a28;
+        word-break: keep-all;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}
+// 商品列表部分样式
+.shopping-mall-good-list {
+  height: 2.24rem;
+  background-color: #ffffff;
+  border-top: 2px solid #f7f5f4;
+  display: flex;
+  .left {
+    width: 3rem;
+    height: 2.24rem;
+    line-height: 2.24rem;
+    text-align: center;
+    img {
+      vertical-align: middle;
+      height: 2rem;
+    }
+  }
+  .right {
+    width: 7rem;
+    padding: 0 0.3rem 0 0;
+    .right-top {
+      height: 0.8rem;
+      // padding-right: .3rem;
+      line-height: 1rem;
+      width: 100%;
+      color: #000000;
+      font-size: 16px;
+      word-break: keep-all;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .center {
+      height: 0.64rem;
+      width: 100%;
+      line-height: 0.64rem;
+      color: #f50606;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .right-bottom {
+      height: 0.8rem;
+      .float-left {
+        color: #666666;
+        font-size: 14px;
+        height: 0.8rem;
+        width: 3rem;
+        line-height: 0.8rem;
+      }
+      .float-right {
+        color: #ffffff;
+        width: 2rem;
+        border-radius: 5px;
+        border-radius: 0.04rem;
+        background: linear-gradient(to right, #f6832f, #fd5a28);
+        text-align: center;
+        line-height: 0.7rem;
+        font-size: 0.3rem;
+        color: #fff;
+      }
+    }
+  }
+}

@@ -1,0 +1,92 @@
+.car-detail-head {
+  padding: 0.3rem 0.3rem;
+  margin: 0 auto;
+  border-bottom: 0.0133333333rem solid #ebebeb;
+  p {
+    font-size: 0.48rem;
+    color: #333333;
+    margin-bottom: 0.2rem;
+  }
+  div {
+    font-size: 0.4rem;
+    color: #666666;
+    span {
+      color: #fa6801;
+    }
+  }
+}
+.car-tab {
+  padding: 0 0.3rem;
+  .car-tab-title {
+    display: flex;
+    height: 0.8rem;
+    div {
+      flex: 1;
+      text-align: center;
+      line-height: 0.8rem;
+      font-size: 0.35rem;
+      color: #333333;
+    }
+  }
+  .car-tab-content {
+    .car-tab-content-every-last {
+      width: 100%;
+      height: 0.8rem;
+      line-height: 0.8rem;
+      border-bottom: 1px solid #ebebeb;
+      color: #666666;
+      font-size: 0.35rem;
+    }
+  }
+  .car-list {
+    margin-top: 0.4rem;
+    width: 100%;
+    min-height: 0.9rem;
+    border: 1px solid #ebebeb;
+    border-bottom: 0;
+    .car-list-every-last {
+      display: flex;
+      height: 0.9rem;
+      align-items: center;
+      color: #666666;
+      font-size: 0.35rem;
+      border-bottom: 1px solid #ebebeb;
+      .left {
+        flex: 3;
+        padding-left: 0.3rem;
+        height: 100%;
+        border-right: 1px solid #ebebeb;
+        line-height: 0.9rem;
+      }
+      .right {
+        flex: 2;
+        padding-left: 0.3rem;
+      }
+    }
+  }
+}
+.func-btn {
+  height: 1.2rem;
+  width: 10rem;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  a {
+    height: 1.2rem;
+    width: 50%;
+    line-height: 1.2rem;
+    text-align: center;
+    font-size: 0.4rem;
+    color: #ffffff;
+  }
+  .float-left {
+    background: #ebc83b;
+  }
+  .float-right {
+    background: #eb6100;
+  }
+}
+.mui-scroll-wrapper{
+  top: 45px;
+  bottom:1.2rem;
+}

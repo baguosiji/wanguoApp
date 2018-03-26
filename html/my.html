@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../js/flexible.js"></script>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="../js/mui.min.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/my.css">
+    <title>我的</title>
+</head>
+
+<body>
+    <div class="mui-scroll-wrapper">
+        <div class="mui-scroll">
+            <div class="user-message">
+                <div class="user-header-img">
+                    <img src="../img/userHeader.png" alt="">
+                </div>
+                <div class="user-name">
+                    请登录
+                </div>
+                <div class="more">
+                    <img src="../img/right-black.png" alt="">
+                </div>
+            </div>
+            <div class="my-list">
+                <div class="my-list-every-last">
+                    <div class="left">
+                        <img style="width:.5rem" src="../img/my1.png" alt="">
+                    </div>
+                    <div class="center">我的订单</div>
+                    <div class="right">
+                        <img src="../img/right-black.png" alt="">
+                    </div>
+                </div>
+                <div class="my-list-every-last">
+                    <div class="left">
+                        <img style="width:.5rem" src="../img/my2.png" alt="">
+                    </div>
+                    <div class="center">我的评价</div>
+                    <div class="right">
+                        <img src="../img/right-black.png" alt="">
+                    </div>
+                </div>
+                <div class="my-list-every-last">
+                    <div class="left">
+                        <img src="../img/my3.png" alt="">
+                    </div>
+                    <div class="center">我的收藏</div>
+                    <div class="right">
+                        <img src="../img/right-black.png" alt="">
+                    </div>
+                </div>
+                <div class="my-list-every-last">
+                    <div class="left">
+                        <img src="../img/my4.png" alt="">
+                    </div>
+                    <div class="center">浏览记录</div>
+                    <div class="right">
+                        <img src="../img/right-black.png" alt="">
+                    </div>
+                </div>
+                <div class="my-list-every-last">
+                    <div class="left">
+                        <img src="../img/my5.png" alt="">
+                    </div>
+                    <div class="center">我的购物车</div>
+                    <div class="right">
+                        <img src="../img/right-black.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="sign-out">
+                退出
+            </div>
+        </div>
+    </div>
+    <script>
+        mui(".mui-scroll-wrapper").scroll({
+            deceleration: 0.0005
+        })
+        document.getElementsByClassName("sign-out")[0].addEventListener("tap", function () {
+            mui.openWindow({
+                id: "login.html",
+                url: "login.html"
+            })
+        });
+        document.getElementsByClassName("user-message")[0].addEventListener("tap", function () {
+            mui.openWindow({
+                url: "personalInformation.html",
+                id: "personalInformation.html",
+            })
+        })
+        mui(".my-list-every-last").on("tap", ".center", function () {
+            console.log(this);
+            var text = this.innerText;
+            var url;
+            if (text === "我的订单") {
+                url = "order.html";
+            } else if (text === "我的评价") {
+                url = "evaluate.html"
+            } else if (text === "我的收藏") {
+
+            } else if (text === "浏览记录") {
+
+            } else if (text === "我的购物车") {
+                url = "shoppingCart.html";
+            }
+            mui.openWindow({
+                id: url,
+                url: url
+            })
+        })
+
+    </script>
+</body>
+
+</html>

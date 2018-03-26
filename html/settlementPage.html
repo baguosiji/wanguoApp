@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../js/flexible.js"></script>
+    <script src="../js/mui.min.js"></script>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/mui.min.css">
+    <link rel="stylesheet" href="../css/settlementPage.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="action-bar-no-search">
+        <div class="title-left mui-action-back">
+            <div>
+                <span class="mui-icon mui-icon-back">
+
+                </span>
+                <span>
+
+                </span>
+            </div>
+        </div>
+        <div class="title-center">
+            商品结算
+        </div>
+        <div class="title-right">
+            <div class="title-right-left">
+                <img src="" alt="">
+            </div>
+            <div class="title-right-right">
+                <img src="" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="container" style="background: #F7F5f4">
+
+        <div class="address">
+            <div class="address-left">
+                <div class="address-name-phone">
+                    <span>
+                        姓名：
+                    </span>
+                    <span>
+                        王先生
+                    </span>
+                    <span style="margin-left: 1rem">
+                        联系方式：
+                    </span>
+                    <span class="telephone">
+                        12345789629
+                    </span>
+                </div>
+                <div class="address-location">
+                    地址：
+                </div>
+            </div>
+            <div class="address-right">
+                <span class="mui-icon mui-icon-arrowright">
+
+                </span>
+            </div>
+        </div>
+        <div class="settlement-good">
+            <div class="shop-name">
+                <img src="../img/userHeader.png" alt="">
+                <span style="margin-left: .5rem">阿迪达斯旗舰店</span>
+            </div>
+            <div class="settlement-good-message">
+                <div class="settlement-good-img">
+                    <img src="../img/good02.png" alt="">
+                </div>
+                <div class="settlement-good-name-price">
+                    <div class="good-name">
+                        NGK铱铂金火花塞比亚迪F0F3 G5S6S7M6L3G3F6G6速锐思 锐秦唐S8宋元...
+                    </div>
+                    <div class="good-price clearfloat">
+                        <span class="float-left">￥88</span>
+                        <span class="float-right">×1</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="discount">
+            <div class="discount-left">
+                <p>优惠券</p>
+                <div class="usable-discount-button">
+                    (
+                    <span>0</span>)张可用
+                </div>
+            </div>
+            <div class="discount-right">
+                <span style="margin-right: .3rem;color: #666;font-size: .38rem">未使用</span>
+                <span class="mui-icon mui-icon-arrowright"></span>
+            </div>
+        </div>
+        <div class="price-discount-message">
+            <div class="good-price">
+                <span class="float-left">
+                    商品金额：
+                </span>
+                <span class="float-right">
+                    ￥88.00元
+                </span>
+            </div>
+            <div class="discount-price">
+                <span class="float-left">
+                    活动优惠金额：
+                </span>
+                <span class="float-right">
+                    0.00元
+                </span>
+            </div>
+            <div class="activity-price">
+                <span class="float-left">
+                    优惠券优惠金额：
+                </span>
+                <span class="float-right">
+                    0.00元
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-nav">
+        <div class="bottom-nav-left">
+            <span>应付款</span>
+            <span class="payable">￥88.00</span>
+        </div>
+        <div class="bottom-nav-right">
+            去付款
+        </div>
+    </div>
+    <script>
+        mui(".bottom-nav").on("tap", ".bottom-nav-right", function () {
+            mui.openWindow({
+                url:"paymentMessage.html",
+                id:"paymentMessage.html"
+            })
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../js/mui.min.js"></script>
+    <script src="../js/flexible.js"></script>
+    <link rel="stylesheet" href="../css/mui.min.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/cartDetail.css">
+    <title>Document</title>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="action-bar-no-search">
+        <div class="title-left mui-action-back">
+            <div>
+                <span class="mui-icon mui-icon-back">
+
+                </span>
+                <span>
+
+                </span>
+            </div>
+        </div>
+        <div class="title-center">
+            车辆详情
+        </div>
+        <div class="title-right">
+            <div class="title-right-left">
+                <img src="" />
+            </div>
+            <div class="title-right-right">
+                <img src="" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <!--这里放置真实显示的DOM内容-->
+                <div class="mui-slider">
+                    <div class="mui-slider-group mui-slider-loop">
+
+                        <div class="mui-slider-item">
+                            <a href="#">
+                                <img style="height: 6rem" src="../img/1.png" />
+                            </a>
+                        </div>
+                        <div class="mui-slider-item">
+                            <a href="#">
+                                <img style="height: 6rem" src="../img/2.png" />
+                            </a>
+                        </div>
+                        <div class="mui-slider-item">
+                            <a href="#">
+                                <img style="height: 6rem" src="../img/3.png" />
+                            </a>
+                        </div>
+                        <div class="mui-slider-item">
+                            <a href="#">
+                                <img style="height: 6rem" src="../img/4.png" />
+                            </a>
+                        </div>
+                    </div>
+                    <div class="mui-slider-indicator">
+                        <div class="mui-indicator mui-active"></div>
+                        <div class="mui-indicator"></div>
+                        <div class="mui-indicator"></div>
+                        <div class="mui-indicator"></div>
+                    </div>
+                </div>
+                <div class="car-detail-head">
+                    <p>宝马5系 2014款 525Li豪华设计套装</p>
+                    <div>厂家指导价：
+                        <span>115万</span>
+                    </div>
+                </div>
+                <!-- 车辆信息部分 -->
+                <div class="car-tab">
+                    <div class="car-tab-title">
+                        <div>
+                            车辆信息
+                        </div>
+                        <div>
+                            车辆亮点
+                        </div>
+                        <div>
+                            购买说明
+                        </div>
+                        <div>
+                            购车须知
+                        </div>
+                    </div>
+                    <div class="car-tab-content">
+                        <div class="car-tab-content-every-last clearfloat">
+                            <span class="float-left">车辆性质：</span>
+                            <span class="float-right">非运营</span>
+                        </div>
+                        <div class="car-tab-content-every-last clearfloat">
+                            <span class="float-left">表显里程：</span>
+                            <span class="float-right">9.00万公里</span>
+                        </div>
+                        <div class="car-tab-content-every-last clearfloat">
+                            <span class="float-left">登记日期：</span>
+                            <span class="float-right">2016-9</span>
+                        </div>
+                    </div>
+                    <div class="car-list">
+                        <div class="car-list-every-last" style="color: #333">
+                            <div class="left">
+                                车辆信息
+                            </div>
+                            <div class="right">
+                                参数
+                            </div>
+                        </div>
+                        <div class="car-list-every-last">
+                            <div class="left">
+                                品牌
+                            </div>
+                            <div class="right">
+                                宝马
+                            </div>
+                        </div>
+                        <div class="car-list-every-last">
+                            <div class="left">
+                                车型
+                            </div>
+                            <div class="right">
+                                宝马5系
+                            </div>
+                        </div>
+                        <div class="car-list-every-last">
+                            <div class="left">
+                                变速器方式
+                            </div>
+                            <div class="right">
+                                自动挡
+                            </div>
+                        </div>
+                        <div class="car-list-every-last">
+                            <div class="left">
+                                座位数
+                            </div>
+                            <div class="right">
+                                5座
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="func-btn clearfloat">
+        <a href="" class="float-left">在线1元抵500</a>
+        <a href="javascript:layer.alert('请联系客服：')" class="float-right">更多方案</a>
+    </div>
+    <script>
+        //初始化scroll
+        mui(".mui-scroll-wrapper").scroll({
+            deceleration: 0.0005,
+        })
+        mui(".func-btn").on("tap", ".float-left", function () {
+            mui.openWindow({
+                url: "paymentMessage.html",
+                id: "paymentMessage.html"
+            })
+        })
+    </script>
+</body>
+
+</html>

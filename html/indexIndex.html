@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="../js/flexible.js"></script>
+    <script src="../js/mui.min.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/indexIndex.css">
+    <title>首页</title>
+</head>
+
+<body>
+
+    <!-- 页面顶部搜索框定位 -->
+
+    <div class="mui-scroll-wrapper">
+        <div class="mui-scroll">
+            <div class="out-div" id="popup">
+                <div class="arrow"></div>
+                <div class="popup-list">
+                    <img src="../img/order.png" alt="">
+                    <div>我的订单</div>
+                </div>
+                <div class="popup-list">
+                    <img src="../img/collection.png" alt="">
+                    <div>我的收藏</div>
+                </div>
+                <div class="popup-list" onclick="getajax()">
+                    <img src="../img/server.png" alt="">
+                    <div>帮助中心</div>
+                </div>
+                <div class="popup-list" onclick="captureImage()">
+                    <img src="../img/scan-code.png" alt="">
+                    <div>扫一扫</div>
+                </div>
+            </div>
+            <!-- 轮播图 -->
+            <div class="mui-slider">
+                <div class="mui-slider-group mui-slider-loop">
+
+                    <div class="mui-slider-item">
+                        <a href="#">
+                            <img src="../img/1.png" />
+                        </a>
+                    </div>
+                    <div class="mui-slider-item">
+                        <a href="#">
+                            <img src="../img/2.png" />
+                        </a>
+                    </div>
+                    <div class="mui-slider-item">
+                        <a href="#">
+                            <img src="../img/3.png" />
+                        </a>
+                    </div>
+                    <div class="mui-slider-item">
+                        <a href="#">
+                            <img src="../img/4.png" />
+                        </a>
+                    </div>
+                </div>
+                <div class="mui-slider-indicator">
+                    <div class="mui-indicator mui-active"></div>
+                    <div class="mui-indicator"></div>
+                    <div class="mui-indicator"></div>
+                    <div class="mui-indicator"></div>
+                </div>
+            </div>
+            <!--类别选项部分-->
+            <div class="category">
+                <div class="every-category">
+                    <div class="bgk" style="background-image: url(../img/ellipse8.png)">
+                        <img src="../img/car.png" />
+                    </div>
+                    <div class="text">我要买车</div>
+                </div>
+                <div class="every-category">
+                    <div class="bgk" style="background-image: url(../img/ellipse6.png)">
+                        <img src="../img/second-hand.png" />
+                    </div>
+                    <div class="text">我要卖车</div>
+                </div>
+                <div class="every-category">
+                    <div class="bgk" style="background-image: url(../img/ellipse2.png)">
+                        <img src="../img/shoping.png" />
+                    </div>
+                    <div class="text">汽配商城</div>
+                </div>
+                <div class="every-category">
+                    <div class="bgk">
+                        <img src="../img/credit.png" />
+                    </div>
+                    <div class="text">最新活动</div>
+                </div>
+                <div class="every-category">
+                    <div class="bgk" style="background-image: url(../img/ellipse7.png)">
+                        <img src="../img/car-kuaibao.png" />
+                    </div>
+                    <div class="text">分期计算</div>
+                </div>
+                <div class="every-category">
+                    <div class="bgk" style="background-image: url(../img/ellipse5.png)">
+                        <img src="../img/automobile-center.png" />
+                    </div>
+                    <div class="text">保险计算</div>
+                </div>
+                <div class="every-category">
+                    <div class="bgk" style="background-image: url(../img/ellipse1.png)">
+                        <img src="../img/automobile-insurance.png" />
+                    </div>
+                    <div class="text">汽车估价</div>
+                </div>
+                <div class="every-category">
+                    <div class="bgk" style="background-image: url(../img/ellipse3.png)">
+                        <img src="../img/llliegal.png" />
+                    </div>
+                    <div class="text">违章查询</div>
+                </div>
+            </div>
+            <!-- 视频播放 -->
+            <div class="video">
+                <div class="text-video">
+                    2017年01月01日万国电商拍卖会录像
+                </div>
+                <div class=play-video>
+                    <div class="play-button">
+                        <img src="../img/play.png" alt="">
+                    </div>
+                    <img src="../img/5.png" class="play" alt="">
+                </div>
+                <div class="video-message clearfloat">
+                    1347次播放
+                    <div class="video-comment-love-it float-right">
+                        <img src="../img/love-it.png" alt=""> 3
+                    </div>
+                    <div class="video-comment-love-it float-right">
+                        <img src="../img/comment.png" alt=""> 3
+                    </div>
+                </div>
+            </div>
+            <div class="all">
+                <div class="car-money">
+                    <div class="car-money-common">
+                        <img src="../img/index01.png" alt="">
+                        <div class="car-money-common-text">大平台有保障</div>
+                        <div class=common-button>
+                            提交保证金
+                        </div>
+                    </div>
+                    <div class="car-money-common">
+                        <img src="../img/index02.png" alt="">
+                        <div class="car-money-common-text">分期还款无压力</div>
+                        <div class=common-button>
+                            购车金融
+                        </div>
+                    </div>
+                    <div class="car-money-common">
+                        <img src="../img/index03.png" alt="">
+                        <div class="car-money-common-text">车险种类介绍</div>
+                        <div class=common-button>
+                            万国车险
+                        </div>
+                    </div>
+                </div>
+                <!-- 商品分区头部 -->
+                <div class="good-classification">
+                    <img src="../img/fire.png" alt="">
+                    <div style="font-size: 16px">人气推荐</div>
+                    <div class="more clearfloat">
+                        <div class="float-left">
+                            更多
+                        </div>
+                        <img src="../img/right.png" alt="">
+                    </div>
+                </div>
+                <!-- 商品列表区域 -->
+                <div class="good-area">
+                    <div class="good">
+                        <div class="good-img" style="background-image: url('../img/good01.png')">
+
+                        </div>
+                        <div class="good-message">
+                            悦卡 柔软鹿皮巾 洗车毛巾 擦车毛巾 合成鹿皮巾
+                        </div>
+                        <div class="good-price">
+                            ￥9.90
+                        </div>
+                    </div>
+                    <div class="good">
+                        <div class="good-img" style="background-image: url('../img/good02.png')">
+
+                        </div>
+                        <div class="good-message">
+                            路途乐 路路熊A新款 汽车 儿童安全座椅 约9个月
+                        </div>
+                        <div class="good-price">
+                            ￥629.00
+                        </div>
+                    </div>
+                    <div class="good">
+                        <div class="good-img" style="background-image: url('../img/good03.png')">
+
+                        </div>
+                        <div class="good-message">
+                            TMW正品【工艺低压】 17/18/19寸【适配】...
+                        </div>
+                        <div class="good-price">
+                            ￥820.00
+                        </div>
+                    </div>
+                    <div class="good">
+                        <div class="good-img" style="background-image: url('../img/good04.png')">
+
+                        </div>
+                        <div class="good-message">
+                            铁将军 无线胎压监测仪 内 外置汽车轮胎报警器86...
+                        </div>
+                        <div class="good-price">
+                            ￥499.00
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="shade" onclick="shadeHidden()">
+
+            </div>
+        </div>
+    </div>
+    <script>
+        function ck(message) {
+            plus.nativeUI.toast(message, { verticalAlign: "center" });
+        }
+        mui.plusReady(function () {
+
+        })
+
+        var gallery = mui('.mui-slider');
+        gallery.slider({
+            interval: 1000//自动轮播周期，若为0则不自动播放，默认为0；
+        });
+        mui('.mui-scroll-wrapper').scroll({
+            indicators: false,
+            deceleration: 0.0005,//flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+        });
+        // 获取分类
+        var activity = document.getElementsByClassName("every-category");
+        for (var i = 0; i < activity.length; i++) {
+            activity[i].index = i;
+        }
+        mui(".category").on("tap", ".every-category", function () {
+            console.log("dianji")
+            if (this.index == 0) {
+                mui.openWindow({
+                    url: "login.html",
+                    id: "login.html"
+                })
+            } else if (this.index == 1) {
+                mui.openWindow({
+                    url: "sellCart.html",
+                    id: "sellCart.html",
+                })
+            } else if (this.index == 2) {
+
+            } else if (this.index == 3) {
+                mui.openWindow({
+                    url: "news.html",
+                    id: "news.html",
+                })
+            } else {
+                ck("功能尚未开通，敬请期待！");
+            }
+        })
+    </script>
+</body>
+
+</html>
