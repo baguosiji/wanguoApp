@@ -1,17 +1,19 @@
 .user-header {
-  height: 1.173333rem;
+  height: 1.4rem;
   padding: 0 0.3rem;
   display: flex;
   color: #333333;
   font-size: 0.4rem;
   justify-content: space-between;
+  border-bottom: 1px solid #ebebeb;
   align-items: center;
   .select-img {
     img {
-      height: 0.9rem;
-      width: 0.9rem;
+      height: 1.2rem;
+      width: 1.2rem;
+      border-radius: 50%;
     }
-    line-height: 0.9rem;
+    line-height: 1.2rem;
     span {
       vertical-align: middle;
     }
@@ -43,21 +45,31 @@
     padding: 0;
     color: #999999;
   }
-  .mui-radio{
-      width: 2rem;
-      text-align: left;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      input{
-          top: 7px;
-          right: 0;
-          left: 20px;
-      }
+  .mui-radio {
+    width: 2rem;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    input {
+      top: 7px;
+      right: 0;
+      left: 20px;
+    }
   }
-  .float-right{
-      flex: 1;
-      text-align: right;
-      color: #333333;
+  .float-right {
+    flex: 1;
+    text-align: right;
+    color: #333333;
   }
+}
+.submit-button {
+  margin: 1rem auto 0 auto;
+  width: 95%;
+  height: 1.173333rem;
+  line-height: 1.173333rem;
+  text-align: center;
+  color: #fff;
+  background-color: #2ab6fd;
+  font-size: 0.4rem;
 }

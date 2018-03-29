@@ -6,10 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../js/flexible.js"></script>
     <script src="../js/mui.min.js"></script>
-    <script src="../js/mui.poppicker.js"></script>
-    <script src="../js/mui.picker.js"></script>
-    <link rel="stylesheet" href="../css/mui.picker.css">
-    <link rel="stylesheet" href="../css/mui.poppicker.css">
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/mui.min.css">
     <link rel="stylesheet" href="../css/personalInformation.css">
@@ -42,12 +38,12 @@
         </div>
     </div>
     <div class="container">
-        <div class="user-header">
+        <div id="picture-btn" class="user-header">
             <div class="text">
                 上传头像
             </div>
             <div class="select-img">
-                <img src="../img/userHeader.png" alt="">
+                <img id="user-header-img" src="../img/userHeader.png" alt="">
                 <span class="mui-icon mui-icon-arrowright">
 
                 </span>
@@ -93,28 +89,89 @@
             <span class="account-number">1993-07-20</span>
             <span class="mui-icon mui-icon-arrowright float-right"></span>
         </div>
+        <div class="submit-button">
+            保存
+        </div>
     </div>
     <script>
-        (function ($, doc) {
-            $.ready(function () {
-                var cityPicker = new $.PopPicker({
-                    layer: 3
-                });
-                cityPicker.setData();
-                var showCityPickerButton = doc.getElementById('birtady');
-                showCityPickerButton.addEventListener('tap', function (event) {
-                    cityPicker.show(function (items) {
-                        //返回 false 可以阻止选择框的关闭
-                        //return false;
-                    });
-                }, false);
-
-                $.plusReady(function () {
-
+        function plusReady() {
+        }
+        if (window.plus) {
+            plusReady();
+        } else {
+            document.addEventListener("plusready", plusReady, false);
+        }
+        mui(".container").on("tap", "#birtady", function () {
+            pickDate(this);
+        })
+        // 选择日期
+        function pickDate(data) {
+            plus.nativeUI.pickDate(function (e) {
+                var d = e.date;
+                data.querySelector(".account-number").innerText = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+                console.log("选择的日期：" + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate());
+            }, function (e) {
+                console.log("未选择日期：" + e.message);
+            });
+        }
+        //获取用户头像img
+        var user_header_img = document.getElementById("user-header-img");
+        //弹出选择按钮框
+        document.getElementById("picture-btn").addEventListener('tap', function () {
+            var btnArray = [{ title: "拍照" }, { title: "从相册选取" }];
+            plus.nativeUI.actionSheet({
+                title: "选择照片",
+                cancel: "取消",
+                buttons: btnArray
+            }, function (e) {
+                var index = e.index;
+                console.log(JSON.stringify(e));
+                switch (index) {
+                    case 0:
+                        break;
+                    case 1:
+                        camera();
+                        break;
+                    case 2:
+                        galleryImg();
+                        break;
+                }
+            });
+        });
+        //原生toast
+        function toast(message) {
+            plus.nativeUI.toast(message, { verticalAlign: "center" });
+        }
+        //调用相机的方法
+        function camera() {
+            var cmr = plus.camera.getCamera();
+            var res = cmr.supportedImageResolutions[0];
+            var fmt = cmr.supportedImageFormats[0];
+            cmr.captureImage(function (path) {
+                plus.io.resolveLocalFileSystemURL(path, function (entry) {
+                    var src = entry.toLocalURL();
+                    user_header_img.src = src;
                 })
-
-            })
-        })(mui, document);
+            },
+                function (error) {
+                    console.log(JSON.stringify(error));
+                },
+                { resolution: res, format: fmt }
+            );
+        }
+        //调用相册的方法
+        // 从相册中选择图片 
+        function galleryImg() {
+            // 从相册中选择图片
+            plus.gallery.pick(function (path) {
+                plus.io.resolveLocalFileSystemURL(path, function (entry) {
+                    var src = entry.toLocalURL();
+                    user_header_img.src = src;
+                })
+            }, function (e) {
+                console.log("取消选择图片");
+            }, { filter: "image" });
+        }
     </script>
 </body>
 

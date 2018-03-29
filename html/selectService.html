@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../js/flexible.js"></script>
+    <script src="../js/mui.min.js"></script>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/selectService.css">
+    <link rel="stylesheet" href="../css/iconfont.css">
+    <link rel="stylesheet" href="../css/mui.min.css">
+    <title>选择服务类型</title>
+</head>
+
+<body>
+    <div class="action-bar-no-search">
+        <div class="title-left mui-action-back">
+            <div>
+                <span class="mui-icon mui-icon-back">
+
+                </span>
+                <span>
+
+                </span>
+            </div>
+        </div>
+        <div class="title-center">
+            选择服务类型
+        </div>
+        <div class="title-right">
+            <div class="title-right-left">
+                <img src="" />
+            </div>
+            <div class="title-right-right">
+                <img src="" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="container" style="background-color: #F7F5F4">
+        <div class="settlement-good-message">
+            <div class="settlement-good-img">
+                <img src="../img/good02.png" alt="">
+            </div>
+            <div class="settlement-good-name-price">
+                <div class="good-name">
+                    NGK铱铂金火花塞比亚迪F0F3 G5S6S7M6L3G3F6G6速锐思 锐秦唐S8宋元...
+                </div>
+                <div class="good-price clearfloat">
+                    <span class="float-left">￥88</span>
+                    <span class="float-right">×1</span>
+                </div>
+            </div>
+        </div>
+        <div class="select-service">
+            <div>
+                <div>
+                    <span class="iconfont icon-tuikuantuihuo"></span>
+                </div>
+                <div>
+                    <span>仅退款</span>
+                </div>
+            </div>
+            <span class="iconfont icon-gengduo1">
+
+            </span>
+        </div>
+        <div class="select-service">
+            <div>
+                <div>
+                    <span class="iconfont icon-huanhuo"></span>
+                </div>
+                <div>
+                    <span>退款退货</span>
+                </div>
+            </div>
+            <span class="iconfont icon-gengduo1">
+
+            </span>
+        </div>
+        <div class="select-service">
+            <div>
+                <div>
+                    <span class="iconfont icon-tuihuo"></span>
+                </div>
+                <div>
+                    <span>退货</span>
+                </div>
+            </div>
+            <span class="iconfont icon-gengduo1">
+
+            </span>
+        </div>
+    </div>
+    <script>
+        var url;
+        mui(".container").on("tap", ".select-service", function () {
+            console.log(this.innerHTML.indexOf("退货"))
+            if (this.innerHTML.indexOf("仅退款") >= 0) {
+                url = "applicationForRefund.html"
+            } else if (this.innerHTML.indexOf("退款退货") >= 0) {
+                url = "applicationRefundAndReturn.html"
+            } else {
+                url = "applicationForReturn.html";
+            }
+            mui.openWindow({
+                url: url,
+                id: url
+            })
+        })
+    </script>
+</body>
+
+</html>

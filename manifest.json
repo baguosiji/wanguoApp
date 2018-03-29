@@ -44,6 +44,9 @@
 			"autoclose": true,/*是否自动关闭程序启动界面，true表示应用加载应用入口页面后自动关闭；false则需调plus.navigator.closeSplashscreen()关闭*/
 			"waiting": true
 		},
+		"statusbar": {
+			"background":"#39ACE5"
+		},
 		"runmode": "liberate",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
 		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保留给应用签名，暂不使用*/
 		"distribute": {
@@ -142,9 +145,12 @@
 				"priority": 0
 			},
 			"html/order.html": {
-				"resources": [],
+				"resources": [
+					"html/order/all.html"
+				],
 				"refer": [
-					"index.html"
+					"index.html",
+					"html/order/pendingPayment.html"
 				],
 				"priority": 0
 			},
@@ -238,6 +244,21 @@
 				"resources": [],
 				"refer": [
 					"html/cartDetail.html"
+				],
+				"priority": 0
+			},
+			"html/order/all.html": {
+				"resources": [],
+				"refer": [
+					"html/selectService.html"
+				],
+				"priority": 0
+			},
+			"html/selectService.html": {
+				"resources": [],
+				"refer": [
+					"html/applicationForRefund.html",
+					"html/applicationForReturn.html"
 				],
 				"priority": 0
 			}

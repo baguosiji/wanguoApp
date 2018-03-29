@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../js/flexible.js"></script>
+    <script src="../js/mui.min.js"></script>
+    <link rel="stylesheet" href="../css/mui.min.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <title>收货地址</title>
+</head>
+<style>
+    .mui-scroll-wrapper {
+        top: 45px;
+        bottom: 1.2rem;
+    }
+
+    .address-list {
+        padding: 0 .3rem;
+        background-color: #ffffff;
+        font-size: .38rem;
+        color: #333;
+        margin-bottom: .2rem;
+    }
+
+    .address-message {
+        border-bottom: 1px solid #f7f5f4;
+    }
+
+    .name-phone,
+    .location {
+        padding: .1rem 0;
+    }
+
+    .location {
+        border-bottom: 1px solid #F7F5F4;
+    }
+
+    .operation {
+        display: flex;
+        justify-content: space-between;
+        padding: .1rem 0;
+        color: #999;
+    }
+
+    .operation-left {
+        width: 3rem;
+        text-align: left;
+    }
+
+    .operation-right {
+        width: 4rem;
+        text-align: right;
+        display: flex;
+    }
+
+    .operation-right>.edit {
+        flex: 1;
+        text-align: center;
+    }
+
+    .operation-right>.delect {
+        flex: 1;
+        text-align: center;
+    }
+
+    .bottom-button {
+        height: 1.2rem;
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        color: #ffffff;
+        background-color: #2AB7FD;
+        text-align: center;
+        line-height: 1.2rem;
+        font-size: .4rem;
+    }
+
+    .mui-icon {
+        font-size: .5rem;
+    }
+
+    .active {
+        color: red;
+    }
+</style>
+
+<body>
+    <div class="action-bar-no-search">
+        <div class="title-left mui-action-back">
+            <div>
+                <span class="mui-icon mui-icon-back">
+
+                </span>
+                <span>
+
+                </span>
+            </div>
+        </div>
+        <div class="title-center">
+            收货地址
+        </div>
+        <div class="title-right">
+            <div class="title-right-left">
+                <img src="" />
+            </div>
+            <div class="title-right-right">
+                <img src="" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="mui-scroll-wrapper">
+        <div class="mui-scroll">
+            <div class="address-list">
+                <div class="address-message">
+                    <div class="name-phone clearfloat">
+                        <span class="float-left">
+                            王海栋
+                        </span>
+                        <span class="float-right">
+                            18135238363
+                        </span>
+                    </div>
+                    <div class="location">
+                        山西省临汾市尧都区郭家庄向阳新城3号楼
+                    </div>
+                </div>
+                <div class="operation">
+                    <div class="operation-left">
+                        <span class="mui-icon mui-icon-checkmarkempty active"></span>
+                        <span class="moren">默认地址</span>
+                    </div>
+                    <div class="operation-right">
+                        <div class="edit">
+                            <span class="mui-icon mui-icon-compose"></span>
+                            <span>编辑</span>
+                        </div>
+                        <div class="delect">
+                            <span class="mui-icon mui-icon-trash"></span>
+                            <span>编辑</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="address-list">
+                <div class="address-message">
+                    <div class="name-phone clearfloat">
+                        <span class="float-left">
+                            王海栋
+                        </span>
+                        <span class="float-right">
+                            18135238363
+                        </span>
+                    </div>
+                    <div class="location">
+                        山西省临汾市尧都区郭家庄向阳新城3号楼
+                    </div>
+                </div>
+                <div class="operation">
+                    <div class="operation-left">
+                        <span class="mui-icon mui-icon-checkmarkempty active"></span>
+                        <span class="moren">默认地址</span>
+                    </div>
+                    <div class="operation-right">
+                        <div class="edit">
+                            <span class="mui-icon mui-icon-compose"></span>
+                            <span>编辑</span>
+                        </div>
+                        <div class="delect">
+                            <span class="mui-icon mui-icon-trash"></span>
+                            <span>编辑</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="address-list">
+                <div class="address-message">
+                    <div class="name-phone clearfloat">
+                        <span class="float-left">
+                            王海栋
+                        </span>
+                        <span class="float-right">
+                            18135238363
+                        </span>
+                    </div>
+                    <div class="location">
+                        山西省临汾市尧都区郭家庄向阳新城3号楼
+                    </div>
+                </div>
+                <div class="operation">
+                    <div class="operation-left">
+                        <span class="mui-icon mui-icon-checkmarkempty active"></span>
+                        <span class="moren">默认地址</span>
+                    </div>
+                    <div class="operation-right">
+                        <div class="edit">
+                            <span class="mui-icon mui-icon-compose"></span>
+                            <span>编辑</span>
+                        </div>
+                        <div class="delect">
+                            <span class="mui-icon mui-icon-trash"></span>
+                            <span>编辑</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="address-list">
+                <div class="address-message">
+                    <div class="name-phone clearfloat">
+                        <span class="float-left">
+                            王海栋
+                        </span>
+                        <span class="float-right">
+                            18135238363
+                        </span>
+                    </div>
+                    <div class="location">
+                        山西省临汾市尧都区郭家庄向阳新城3号楼
+                    </div>
+                </div>
+                <div class="operation">
+                    <div class="operation-left">
+                        <span class="mui-icon mui-icon-checkmarkempty active"></span>
+                        <span class="moren">默认地址</span>
+                    </div>
+                    <div class="operation-right">
+                        <div class="edit">
+                            <span class="mui-icon mui-icon-compose"></span>
+                            <span>编辑</span>
+                        </div>
+                        <div class="delect">
+                            <span class="mui-icon mui-icon-trash"></span>
+                            <span>编辑</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="address-list">
+                <div class="address-message">
+                    <div class="name-phone clearfloat">
+                        <span class="float-left">
+                            王海栋
+                        </span>
+                        <span class="float-right">
+                            18135238363
+                        </span>
+                    </div>
+                    <div class="location">
+                        山西省临汾市尧都区郭家庄向阳新城3号楼
+                    </div>
+                </div>
+                <div class="operation">
+                    <div class="operation-left">
+                        <span class="mui-icon mui-icon-checkmarkempty active"></span>
+                        <span class="moren">默认地址</span>
+                    </div>
+                    <div class="operation-right">
+                        <div class="edit">
+                            <span class="mui-icon mui-icon-compose"></span>
+                            <span>编辑</span>
+                        </div>
+                        <div class="delect">
+                            <span class="mui-icon mui-icon-trash"></span>
+                            <span>编辑</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="address-list">
+                <div class="address-message">
+                    <div class="name-phone clearfloat">
+                        <span class="float-left">
+                            王海栋
+                        </span>
+                        <span class="float-right">
+                            18135238363
+                        </span>
+                    </div>
+                    <div class="location">
+                        山西省临汾市尧都区郭家庄向阳新城3号楼
+                    </div>
+                </div>
+                <div class="operation">
+                    <div class="operation-left">
+                        <span class="mui-icon mui-icon-checkmarkempty active"></span>
+                        <span class="moren">默认地址</span>
+                    </div>
+                    <div class="operation-right">
+                        <div class="edit">
+                            <span class="mui-icon mui-icon-compose"></span>
+                            <span>编辑</span>
+                        </div>
+                        <div class="delect">
+                            <span class="mui-icon mui-icon-trash"></span>
+                            <span>编辑</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="address-list">
+                <div class="address-message">
+                    <div class="name-phone clearfloat">
+                        <span class="float-left">
+                            王海栋
+                        </span>
+                        <span class="float-right">
+                            18135238363
+                        </span>
+                    </div>
+                    <div class="location">
+                        山西省临汾市尧都区郭家庄向阳新城3号楼
+                    </div>
+                </div>
+                <div class="operation">
+                    <div class="operation-left">
+                        <span class="mui-icon mui-icon-checkmarkempty active"></span>
+                        <span class="moren">默认地址</span>
+                    </div>
+                    <div class="operation-right">
+                        <div class="edit">
+                            <span class="mui-icon mui-icon-compose"></span>
+                            <span>编辑</span>
+                        </div>
+                        <div class="delect">
+                            <span class="mui-icon mui-icon-trash"></span>
+                            <span>编辑</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="address-list">
+                <div class="address-message">
+                    <div class="name-phone clearfloat">
+                        <span class="float-left">
+                            王海栋
+                        </span>
+                        <span class="float-right">
+                            18135238363
+                        </span>
+                    </div>
+                    <div class="location">
+                        山西省临汾市尧都区郭家庄向阳新城3号楼
+                    </div>
+                </div>
+                <div class="operation">
+                    <div class="operation-left">
+                        <span class="mui-icon mui-icon-checkmarkempty active"></span>
+                        <span class="moren">默认地址</span>
+                    </div>
+                    <div class="operation-right">
+                        <div class="edit">
+                            <span class="mui-icon mui-icon-compose"></span>
+                            <span>编辑</span>
+                        </div>
+                        <div class="delect">
+                            <span class="mui-icon mui-icon-trash"></span>
+                            <span>编辑</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="address-list">
+                <div class="address-message">
+                    <div class="name-phone clearfloat">
+                        <span class="float-left">
+                            王海栋
+                        </span>
+                        <span class="float-right">
+                            18135238363
+                        </span>
+                    </div>
+                    <div class="location">
+                        山西省临汾市尧都区郭家庄向阳新城3号楼
+                    </div>
+                </div>
+                <div class="operation">
+                    <div class="operation-left">
+                        <span class="mui-icon mui-icon-checkmarkempty active"></span>
+                        <span class="moren">默认地址</span>
+                    </div>
+                    <div class="operation-right">
+                        <div class="edit">
+                            <span class="mui-icon mui-icon-compose"></span>
+                            <span>编辑</span>
+                        </div>
+                        <div class="delect">
+                            <span class="mui-icon mui-icon-trash"></span>
+                            <span>编辑</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="address-list">
+                <div class="address-message">
+                    <div class="name-phone clearfloat">
+                        <span class="float-left">
+                            王海栋
+                        </span>
+                        <span class="float-right">
+                            18135238363
+                        </span>
+                    </div>
+                    <div class="location">
+                        山西省临汾市尧都区郭家庄向阳新城3号楼
+                    </div>
+                </div>
+                <div class="operation">
+                    <div class="operation-left">
+                        <span class="mui-icon mui-icon-checkmarkempty active"></span>
+                        <span class="moren">默认地址</span>
+                    </div>
+                    <div class="operation-right">
+                        <div class="edit">
+                            <span class="mui-icon mui-icon-compose"></span>
+                            <span>编辑</span>
+                        </div>
+                        <div class="delect">
+                            <span class="mui-icon mui-icon-trash"></span>
+                            <span>编辑</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="address-list">
+                <div class="address-message">
+                    <div class="name-phone clearfloat">
+                        <span class="float-left">
+                            王海栋
+                        </span>
+                        <span class="float-right">
+                            18135238363
+                        </span>
+                    </div>
+                    <div class="location">
+                        山西省临汾市尧都区郭家庄向阳新城3号楼
+                    </div>
+                </div>
+                <div class="operation">
+                    <div class="operation-left">
+                        <span class="mui-icon mui-icon-checkmarkempty active"></span>
+                        <span class="moren">默认地址</span>
+                    </div>
+                    <div class="operation-right">
+                        <div class="edit">
+                            <span class="mui-icon mui-icon-compose"></span>
+                            <span>编辑</span>
+                        </div>
+                        <div class="delect">
+                            <span class="mui-icon mui-icon-trash"></span>
+                            <span>编辑</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-button">
+        添加新地址
+    </div>
+    <script>
+        mui('.mui-scroll-wrapper').scroll({
+            deceleration: 0.0005
+        });
+        document.querySelector(".bottom-button").addEventListener("tap", function () {
+            mui.openWindow({
+                url: "addAddress.html",
+                id: "addAddress.html"
+            })
+        }, false)
+    </script>
+</body>
+
+</html>

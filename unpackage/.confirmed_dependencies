@@ -15,9 +15,13 @@
 	},
 	"html/order.html": {
 		"refer": [
-			"index.html"
+			"index.html",
+			"html/order/all.html",
+			"html/order/pendingPayment.html"
 		],
-		"resources": []
+		"resources": [
+			"html/order/all.html"
+		]
 	},
 	"html/shoppingMall.html": {
 		"resources": [
@@ -96,6 +100,17 @@
 	"html/settlementPage.html": {
 		"refer": [
 			"html/paymentMessage.html"
+		]
+	},
+	"html/order/all.html": {
+		"refer": [
+			"html/selectService.html"
+		]
+	},
+	"html/selectService.html": {
+		"refer": [
+			"html/applicationForRefund.html",
+			"html/applicationForReturn.html"
 		]
 	}
 }

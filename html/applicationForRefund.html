@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../js/flexible.js"></script>
+    <script src="../js/mui.min.js"></script>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/iconfont.css">
+    <link rel="stylesheet" href="../css/mui.min.css">
+    <link rel="stylesheet" href="../css/applicationForRefund.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="action-bar-no-search">
+        <div class="title-left mui-action-back">
+            <div>
+                <span class="mui-icon mui-icon-back">
+
+                </span>
+                <span>
+
+                </span>
+            </div>
+        </div>
+        <div class="title-center">
+            退款
+        </div>
+        <div class="title-right">
+            <div class="title-right-left">
+                <img src="" />
+            </div>
+            <div class="title-right-right">
+                <img src="" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="mui-scroll-wrapper">
+        <div class="mui-scroll">
+            <div class="settlement-good-message">
+                <div class="settlement-good-img">
+                    <img src="../img/good02.png" alt="">
+                </div>
+                <div class="settlement-good-name-price">
+                    <div class="good-name">
+                        NGK铱铂金火花塞比亚迪F0F3 G5S6S7M6L3G3F6G6速锐思 锐秦唐S8宋元...
+                    </div>
+                    <div class="good-price clearfloat">
+                        <span class="float-left">￥88</span>
+                        <span class="float-right">×1</span>
+                    </div>
+                </div>
+            </div>
+            <div class="exchange-goods">
+                <div class="reason">
+                    <span>
+                        货物状态
+                    </span>
+                    <div id="confirm" class="select-exchange-goods-reason">
+                        <div>
+                            <span id="good-state" class="change-text">请选择</span>
+                        </div>
+                        <div>
+                            <span class="mui-icon mui-icon-arrowright"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="reason">
+                    <span>
+                        退款原因
+                    </span>
+                    <div id="select-exchange-goods-reason" class="select-exchange-goods-reason">
+                        <div>
+                            <span id="refund-reason" class="change-text">请选择</span>
+                        </div>
+                        <div>
+                            <span class="mui-icon mui-icon-arrowright"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="address">
+                <div class="address-message">
+                    <div>
+                        退款金额：
+                    </div>
+                    <input id="consignee" type="text" placeholder="请输入收货人姓名">
+                </div>
+                <div class="address-message">
+                    <div>
+                        退款说明：
+                    </div>
+                    <input id="phone" type="text" placeholder="选填">
+                </div>
+                <div class="prompt-message">
+                    万国汽车码头暂不支持退款原路返回，退款需输入以下信息！
+                </div>
+            </div>
+            <div class="bank">
+                <div class="reason">
+                    <span>
+                        开户银行
+                    </span>
+                    <div id="select-bank-popup" class="select-exchange-goods-reason">
+                        <div>
+                            <span id="bank" class="change-text">请选择</span>
+                        </div>
+                        <div>
+                            <span class="mui-icon mui-icon-arrowright"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="address-message">
+                    <div>
+                        银行户名：
+                    </div>
+                    <input id="bank-user-name" type="text" placeholder="请输入户名">
+                </div>
+                <div class="address-message">
+                    <div>
+                        银行卡号：
+                    </div>
+                    <input id="bank-card-number" type="text" placeholder="请输入银行卡号">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-button">
+        <div class="submit-button">
+            提交
+        </div>
+        <div id="popup" class="popup">
+            <div class="scroll-wrapper" style="height: 8rem;">
+                <div class="mui-scroll">
+                    <div class="refund-reason">
+                        <div class="popup-title">
+                            退款原因
+                        </div>
+                        <div class="reason-list">
+                            <span class="text">七天无理由退换货</span>
+                            <span class="iconfont icon-duihaocheckmark17"></span>
+                        </div>
+                        <div class="reason-list">
+                            <span class="text">不喜欢/不想要</span>
+                            <span class="iconfont icon-duihaocheckmark17"></span>
+                        </div>
+                        <div class="reason-list">
+                            <span class="text">空包裹</span>
+                            <span class="iconfont icon-duihaocheckmark17"></span>
+                        </div>
+                        <div class="reason-list">
+                            <span class="text">快递/物流无跟踪记录</span>
+                            <span class="iconfont icon-duihaocheckmark17"></span>
+                        </div>
+                        <div class="reason-list">
+                            <span class="text">货物破损已拒签</span>
+                            <span class="iconfont icon-duihaocheckmark17"></span>
+                        </div>
+                        <div class="reason-list">
+                            <span class="text">其他</span>
+                            <span class="iconfont icon-duihaocheckmark17"></span>
+                        </div>
+                    </div>
+                    <div class="select-bank">
+                        <div class="popup-title">
+                            开户行
+                        </div>
+                        <div class="reason-list-bank">
+                            <span class="text">中国银行</span>
+                            <span class="iconfont icon-duihaocheckmark17"></span>
+                        </div>
+                        <div class="reason-list-bank">
+                            <span class="text">工商银行</span>
+                            <span class="iconfont icon-duihaocheckmark17"></span>
+                        </div>
+                        <div class="reason-list-bank">
+                            <span class="text">建设银行</span>
+                            <span class="iconfont icon-duihaocheckmark17"></span>
+                        </div>
+                        <div class="reason-list-bank">
+                            <span class="text">农业银行</span>
+                            <span class="iconfont icon-duihaocheckmark17"></span>
+                        </div>
+                        <div class="reason-list-bank">
+                            <span class="text">邮政银行</span>
+                            <span class="iconfont icon-duihaocheckmark17"></span>
+                        </div>
+                        <div class="reason-list-bank">
+                            <span class="text">浦发银行</span>
+                            <span class="iconfont icon-duihaocheckmark17"></span>
+                        </div>
+                        <div class="reason-list-bank">
+                            <span class="text">兴业银行</span>
+                            <span class="iconfont icon-duihaocheckmark17"></span>
+                        </div>
+                        <div class="reason-list-bank">
+                            <span class="text">华夏银行</span>
+                            <span class="iconfont icon-duihaocheckmark17"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 遮罩层 -->
+    <div id="mask">
+
+    </div>
+    <script>
+        //初始化scroll
+        mui('.mui-scroll-wrapper').scroll({
+            deceleration: 0.0005
+        });
+        mui(".scroll-wrapper").scroll({
+            deceleration: 0.0005
+        })
+        //获取弹出框dom
+        var popup = document.getElementById("popup");
+        // 获取遮罩层dom
+        var mask = document.getElementById("mask");
+        //popup中退款原因dom
+        var refund_reason = popup.querySelector(".refund-reason");
+        //popup中银行dom
+        var bank = popup.querySelector(".select-bank")
+        // 选择退款原因
+        document.getElementById("select-exchange-goods-reason").addEventListener("tap", function () {
+            refund_reason.style.display = "block";
+            bank.style.display = "none";
+            popup.style.bottom = 0;
+            mask.style.display = "block";
+        }, false)
+        // 选择银行
+        mui(".bank").on("tap", ".reason", function () {
+            refund_reason.style.display = "none";
+            bank.style.display = "block";
+            popup.style.bottom = 0;
+            mask.style.display = "block";
+        })
+        //点击遮罩层关闭遮罩层与遮罩层
+        mask.addEventListener("tap", function () {
+            mask.style.display = "none";
+            popup.style.bottom = -8 + "rem";
+        }, false);
+        //上一次选择的退货原因
+        var before_select;
+        //选择退货原因后关闭遮罩层与弹出框
+        mui("#popup").on("tap", ".reason-list", function () {
+            if (before_select) {
+                before_select.classList.remove("select-change-goods-reason");
+            }
+            this.classList.add("select-change-goods-reason");
+            before_select = this;
+            document.getElementById("refund-reason").innerText = this.getElementsByClassName("text")[0].innerText;
+            mask.style.display = "none";
+            popup.style.bottom = -8 + "rem";
+        })
+        //上一次选择的银行
+        var before_select_bank;
+        //选择银行后关闭遮罩层与弹出框
+        mui("#popup").on("tap", ".reason-list-bank", function () {
+            if (before_select_bank) {
+                before_select.classList.remove("select-change-goods-reason");
+            }
+            this.classList.add("select-change-goods-reason");
+            before_select_bank = this;
+            document.getElementById("bank").innerText = this.getElementsByClassName("text")[0].innerText;
+            mask.style.display = "none";
+            popup.style.bottom = -8 + "rem";
+        })
+        //选择货物状态
+        document.getElementById("confirm").addEventListener("tap", function () {
+            var btnArray = ['没收到', '收到了'];
+            mui.confirm('您已经收到货物？', '货物状态', btnArray, function (e) {
+                if (e.index == 1) {
+                    document.getElementById("good-state").innerText = "已收货"
+                } else {
+                    document.getElementById("good-state").innerText = "未收货"
+                }
+            })
+        }, false)
+        //原生toast
+        function toast(message) {
+            plus.nativeUI.toast(message, { verticalAlign: "center" });
+        }
+        //银行户名：输入框dom
+        var bank_user_name = document.getElementById("bank-user-name");
+        //银行卡号：输入框dom
+        var bank_card_number = document.getElementById("bank-card-number");
+        //用户名正则
+        var names = /^[\u4E00-\u9FA5\uf900-\ufa2d·s]{2,20}$/;
+        //银行卡正则
+        var card_number = /^([1-9]{1})(\d{14}|\d{18})$/
+        //防止多次点击
+        var multiple = false;
+        function submit() {
+            if (multiple) { return };
+            multiple = true;
+            if (document.getElementById("good-state").innerText == "请选择") {
+                multiple = false;
+                toast("请选择货物状态");
+            } else if (document.getElementById("refund-reason").innerText == "请选择") {
+                multiple = false;
+                toast("请选择退款原因")
+            } else if (document.getElementById("bank").innerText == "请选择") {
+                multiple = false;
+                toast("请选择银行")
+            } else if (!names.test(bank_user_name.value)) {
+                multiple = false;
+                toast("请输入正确银行用户名")
+            } else if (!card_number.test(bank_card_number.value)) {
+                multiple = false;
+                toast("请输入正确银行卡号")
+            }
+        }
+        document.querySelector(".submit-button").addEventListener("tap", function () {
+            submit();
+        }, false)
+    </script>
+</body>
+
+</html>

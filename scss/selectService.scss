@@ -1,0 +1,62 @@
+// 退货商品信息部分样式
+.settlement-good-message {
+  margin-top: 0.1rem;
+  margin-bottom: 0.2rem;
+  padding: 0 0.3rem;
+  height: 2rem;
+  background-color: #fff;
+  display: flex;
+  .settlement-good-img {
+    height: 2rem;
+    width: 2rem;
+    img {
+      width: 2rem;
+      height: 2rem;
+      text-align: center;
+    }
+  }
+  .settlement-good-name-price {
+    flex: 1;
+    height: 1rem;
+    .good-name {
+      height: 1rem;
+      overflow: hidden;
+      font-size: 0.38rem;
+      color: #333333;
+    }
+    .good-price {
+      height: 1rem;
+      line-height: 1rem;
+      font-size: 0.38rem;
+      color: #666666;
+      .float-left {
+        color: #000000;
+      }
+    }
+  }
+}
+.select-service {
+  padding: 0 0.3rem;
+  height: 1.173333rem;
+  background-color: #fff;
+  border-bottom: 1px solid #f7f5f4;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  div {
+    & > div:last-child {
+      margin-left: 0.3rem;
+    }
+    display: flex;
+    div {
+      span {
+        font-size: 0.4rem;
+        line-height: 1.173333rem;
+      }
+      .iconfont {
+        color: #fc7919;
+        font-size: 0.7rem;
+      }
+    }
+  }
+}

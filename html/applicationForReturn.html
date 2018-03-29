@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../js/flexible.js"></script>
+    <script src="../js/mui.min.js"></script>
+    <script src="../js/mui.poppicker.js"></script>
+    <script src="../js/mui.picker.js"></script>
+    <link rel="stylesheet" href="../css/mui.picker.css">
+    <link rel="stylesheet" href="../css/mui.poppicker.css">
+    <link rel="stylesheet" href="../css/mui.min.css">
+    <link rel="stylesheet" href="../css/iconfont.css">
+    <link rel="stylesheet" href="../css/applicationForReturn.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="action-bar-no-search">
+        <div class="title-left mui-action-back">
+            <div>
+                <span class="mui-icon mui-icon-back">
+
+                </span>
+                <span>
+
+                </span>
+            </div>
+        </div>
+        <div class="title-center">
+            申请退货
+        </div>
+        <div class="title-right">
+            <div class="title-right-left">
+                <img src="" />
+            </div>
+            <div class="title-right-right">
+                <img src="" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="mui-scroll-wrapper">
+        <div class="mui-scroll">
+            <div class="settlement-good-message">
+                <div class="settlement-good-img">
+                    <img src="../img/good02.png" alt="">
+                </div>
+                <div class="settlement-good-name-price">
+                    <div class="good-name">
+                        NGK铱铂金火花塞比亚迪F0F3 G5S6S7M6L3G3F6G6速锐思 锐秦唐S8宋元...
+                    </div>
+                    <div class="good-price clearfloat">
+                        <span class="float-left">￥88</span>
+                        <span class="float-right">×1</span>
+                    </div>
+                </div>
+            </div>
+            <div class="exchange-goods">
+                <div class="reason">
+                    <span>
+                        换货原因
+                    </span>
+                    <div id="select-exchange-goods-reason" class="select-exchange-goods-reason">
+                        <div>
+                            <span id="change-text" class="change-text">请选择</span>
+                        </div>
+                        <div>
+                            <span class="mui-icon mui-icon-arrowright"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="explain">
+                    <div>换货说明：</div>
+                    <input type="text" placeholder="选填">
+                </div>
+            </div>
+            <div class="address">
+                <div class="address-message">
+                    <div>
+                        收货人：
+                    </div>
+                    <input id="consignee" type="text" placeholder="请输入收货人姓名">
+                </div>
+                <div class="address-message">
+                    <div>
+                        联系方式：
+                    </div>
+                    <input id="phone" type="text" placeholder="请输入手机号码">
+                </div>
+                <div class="reason" id="showCityPicker">
+                    <span>
+                        所在地区
+                    </span>
+                    <div class="select-exchange-goods-reason">
+                        <div>
+                            <span class="change-text">请选择</span>
+                        </div>
+                        <div>
+                            <span class="mui-icon mui-icon-arrowright"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="detail-address">
+                    <div>
+                        详细地址
+                    </div>
+                    <textarea name="a">请输入详细地址信息，如道路、门牌号、小区楼栋号、单元室等"</textarea>
+                </div>
+            </div>
+            <div class="img-upload">
+                <p>上传凭证</p>
+                <div class="img-container">
+                    <div id="img-container">
+
+                    </div>
+                    <!-- <img src="_doc/photo_001.png" alt=""> -->
+                    <div id="picture-btn" class="square">
+                        <div class="iconfont icon-zhaoxiangji">
+                        </div>
+                        <p>上传凭证</p>
+                        <p>(最多三张)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-button">
+        <div class="submit-button">
+            提交
+        </div>
+        <div id="popup" class="popup">
+            <div class="popup-title">
+                退款原因
+            </div>
+            <div class="reason-list">
+                <span class="text">商品有瑕疵</span>
+                <span class="iconfont icon-duihaocheckmark17"></span>
+            </div>
+            <div class="reason-list">
+                <span class="text">尺寸不合适</span>
+                <span class="iconfont icon-duihaocheckmark17"></span>
+            </div>
+            <div class="reason-list">
+                <span class="text">不喜欢</span>
+                <span class="iconfont icon-duihaocheckmark17"></span>
+            </div>
+            <div class="reason-list">
+                <span class="text">其他</span>
+                <span class="iconfont icon-duihaocheckmark17"></span>
+            </div>
+        </div>
+    </div>
+    <!-- 遮罩层 -->
+    <div id="mask">
+
+    </div>
+    <script>
+        // 初始化页面
+        mui.init();
+        //初始化scroll
+        mui('.mui-scroll-wrapper').scroll({
+            deceleration: 0.0005
+        });
+        //三级联动
+        (function ($, doc) {
+            $.ready(function () {
+                var cityPicker = new $.PopPicker({
+                    layer: 3
+                });
+                cityPicker.setData();
+                var showCityPickerButton = doc.getElementById('showCityPicker');
+                showCityPickerButton.addEventListener('tap', function (event) {
+                    cityPicker.show(function (items) {
+                        //返回 false 可以阻止选择框的关闭
+                        //return false;
+                    });
+                }, false);
+
+                $.plusReady(function () {
+
+                })
+
+            })
+        })(mui, document);
+        //获取弹出框dom
+        var popup = document.getElementById("popup");
+        // 获取遮罩层dom
+        var mask = document.getElementById("mask");
+        // 选择退货原因
+        document.getElementById("select-exchange-goods-reason").addEventListener("tap", function () {
+            popup.style.bottom = 0;
+            mask.style.display = "block";
+        }, false)
+        //点击遮罩层关闭遮罩层与遮罩层
+        mask.addEventListener("tap", function () {
+            mask.style.display = "none";
+            popup.style.bottom = -7 + "rem";
+        }, false);
+        //上一次选择的退货原因
+        var before_select;
+        //选择退货原因后关闭遮罩层与弹出框
+        mui("#popup").on("tap", ".reason-list", function () {
+            if (before_select) {
+                before_select.classList.remove("select-change-goods-reason");
+            }
+            this.classList.add("select-change-goods-reason");
+            before_select = this;
+            document.getElementById("change-text").innerText = this.getElementsByClassName("text")[0].innerText;
+            mask.style.display = "none";
+            popup.style.bottom = -7 + "rem";
+        })
+        //弹出选择按钮框
+        document.getElementById("picture-btn").addEventListener('tap', function () {
+            if (img_container.children.length >= 3) {
+                toast("图片最多上传三张");
+                return;
+            }
+            var btnArray = [{ title: "拍照" }, { title: "从相册选取" }];
+            plus.nativeUI.actionSheet({
+                title: "选择照片",
+                cancel: "取消",
+                buttons: btnArray
+            }, function (e) {
+                var index = e.index;
+                console.log(JSON.stringify(e));
+                switch (index) {
+                    case 0:
+                        break;
+                    case 1:
+                        camera();
+                        break;
+                    case 2:
+                        galleryImg();
+                        break;
+                }
+            });
+        });
+        //原生toast
+        function toast(message) {
+            plus.nativeUI.toast(message, { verticalAlign: "center" });
+        }
+        //调用相机的方法
+        var img_container = document.getElementById("img-container");
+        function camera() {
+            var cmr = plus.camera.getCamera();
+            var res = cmr.supportedImageResolutions[0];
+            var fmt = cmr.supportedImageFormats[0];
+            cmr.captureImage(function (path) {
+                plus.io.resolveLocalFileSystemURL(path, function (entry) {
+                    var src = entry.toLocalURL();
+                    var img = document.createElement("img");
+                    img.src = src;
+                    img_container.appendChild(img);
+                })
+            },
+                function (error) {
+                    console.log(JSON.stringify(error));
+                },
+                { resolution: res, format: fmt }
+            );
+        }
+        //调用相册的方法
+        // 从相册中选择图片 
+        function galleryImg() {
+            // 从相册中选择图片
+            plus.gallery.pick(function (path) {
+                plus.io.resolveLocalFileSystemURL(path, function (entry) {
+                    var src = entry.toLocalURL();
+                    var img = document.createElement("img");
+                    img.src = src;
+                    img_container.appendChild(img);
+                })
+            }, function (e) {
+                console.log("取消选择图片");
+            }, { filter: "image" });
+        }
+        //获取收货人input
+        var consignee = document.getElementById("consignee");
+        //获取收货人手机号码input
+        var phone = document.getElementById("phone");
+        //姓名正则
+        var username = /^[\u4E00-\u9FA5A-Za-z]+$/;
+        // 电话号码正则
+        var myreg = /^[1][3,4,5,7,8][0-9]{9}$/;
+        //防止多次点击
+        var multiple = false;
+        //点击提交按钮
+        document.querySelector(".submit-button").addEventListener("tap", function () {
+            submit();
+        }, false)
+        function submit() {
+            if (multiple) {
+                return
+            }
+            multiple = true;
+            console.log(consignee.value);
+            if (document.getElementById("change-text").innerText == "请选择") {
+                toast("请选择换货原因");
+                multiple = false;
+            } else if (!username.test(consignee.value)) {
+                toast("收货人请输入汉字或英文");
+                multiple = false;
+            } else if (!myreg.test(phone.value)) {
+                toast("请输入正确手机号码");
+                multiple = false;
+            } else {
+                mui.openWindow({
+
+                })
+            }
+        }
+    </script>
+</body>
+
+</html>
