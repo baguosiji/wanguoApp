@@ -113,7 +113,7 @@
       border: 1px solid #666666;
       text-align: center;
       color: #666666;
-      width: 1.5rem;
+      padding: 0 .2rem;
     }
   }
 }
@@ -149,6 +149,99 @@
     }
   }
 }
-.mui-scroll-wrapper{
+.mui-scroll-wrapper {
   bottom: 0;
+}
+
+#bottom{
+  position: fixed;
+  height: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10000;
+}
+//支付弹出框样式
+.popup {
+  position: absolute;
+  bottom: -11rem;
+  height: 11rem;
+  z-index: 20;
+  transition: all 0.5s;
+  background-color: #ffffff;
+  width: 10rem;
+  .popup-title {
+    padding: 0 0.3rem;
+    position: relative;
+    line-height: 1.173333rem;
+    font-size: 0.45rem;
+    text-align: center;
+    color: #333333;
+    border-bottom: 1px solid #ededed;
+    .close {
+      position: absolute;
+      left: 0.3rem;
+      top: 0;
+      width: 1.173333rem;
+      line-height: 1.173333rem;
+      font-size: 1rem;
+    }
+  }
+  .popup-good-message {
+    height: 4.15rem;
+    .popup-price {
+      height: 60%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      //   flex-direction: column-reverse;
+      font-size: 1.4rem;
+      color: #fe4403;
+    }
+    .popup-good-name {
+      height: 40%;
+      width: 70%;
+      margin: 0 auto;
+      font-size: 0.35rem;
+    }
+  }
+  .select-payment {
+    line-height: 1.173333rem;
+    color: #999999;
+    font-size: 0.4rem;
+    padding: 0 0.3rem;
+    border-bottom: 1px solid #ededed;
+  }
+  .wechat {
+    line-height: 1.173333rem;
+    color: #999999;
+    font-size: 0.4rem;
+    padding: 0 0.3rem;
+    border-bottom: 1px solid #ededed;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .alipay {
+    line-height: 1.173333rem;
+    color: #999999;
+    font-size: 0.4rem;
+    padding: 0 0.3rem;
+    border-bottom: 1px solid #ededed;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+// 遮罩层样式
+#mask {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: none;
+  background-color: #000000;
+  opacity: 0.3;
+  z-index: 9000;
 }

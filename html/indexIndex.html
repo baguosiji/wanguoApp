@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <script src="../js/flexible.js"></script>
     <script src="../js/mui.min.js"></script>
+    <script src="../js/httprequest.js"></script>
     <link href="../css/mui.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/iconfont.css">
@@ -14,7 +15,7 @@
 </head>
 
 <body>
-    <div class="mui-scroll-wrapper">
+    <div id="app" class="mui-scroll-wrapper">
         <div class="mui-scroll">
             <!-- 轮播图 -->
             <div class="mui-slider">
@@ -157,50 +158,17 @@
                 </div>
                 <!-- 商品列表区域 -->
                 <div class="good-area">
-                    <div class="good">
-                        <div class="good-img" style="background-image: url('../img/good01.png')">
+                    <!-- <div class="good">
+                        <div class="good-img" style="background-image: url(" ")">
 
                         </div>
                         <div class="good-message">
-                            悦卡 柔软鹿皮巾 洗车毛巾 擦车毛巾 合成鹿皮巾
-                        </div>
-                        <div class="good-price">
-                            ￥9.90
-                        </div>
-                    </div>
-                    <div class="good">
-                        <div class="good-img" style="background-image: url('../img/good02.png')">
 
                         </div>
-                        <div class="good-message">
-                            路途乐 路路熊A新款 汽车 儿童安全座椅 约9个月
-                        </div>
                         <div class="good-price">
-                            ￥629.00
-                        </div>
-                    </div>
-                    <div class="good">
-                        <div class="good-img" style="background-image: url('../img/good03.png')">
 
                         </div>
-                        <div class="good-message">
-                            TMW正品【工艺低压】 17/18/19寸【适配】...
-                        </div>
-                        <div class="good-price">
-                            ￥820.00
-                        </div>
-                    </div>
-                    <div class="good">
-                        <div class="good-img" style="background-image: url('../img/good04.png')">
-
-                        </div>
-                        <div class="good-message">
-                            铁将军 无线胎压监测仪 内 外置汽车轮胎报警器86...
-                        </div>
-                        <div class="good-price">
-                            ￥499.00
-                        </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -228,6 +196,28 @@
 
     </div>
     <script>
+        var goods;
+        //获取数据
+        var dom = document.querySelector(".good-area");
+        mui.getJSON('http://192.168.50.50:81/api.php/Index/index', function (data) {
+            goods = data.data.goods;
+            console.log(goods);
+            for (var i = 0; i < goods.length; i++) {
+                dom.innerHTML += `
+                            <div class="good">
+                        <div class="good-img" style="background-image: url('${goods[i].pic}')">
+                            
+                        </div>
+                        <div class="good-message">
+                            ${goods[i].goods_name}
+                        </div>
+                        <div class="good-price">
+                               ￥ ${goods[i].shop_price}
+                        </div>
+                    </div>`
+            }
+        }
+        );
         // H5 plus事件处理
         function plusReady() {
             parent = plus.webview.currentWebview().parent();                //获取父窗口
@@ -237,9 +227,9 @@
         } else {
             document.addEventListener('plusready', plusReady, false);
         }
-        function captureImage(){
+        function captureImage() {
             mui.openWindow({
-                url:"QRCode.html"
+                url: "QRCode.html"
             })
         }
         // 打开弹出框并且打开遮罩

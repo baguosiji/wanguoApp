@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../js/flexible.js"></script>
+    <script src="../js/mui.min.js"></script>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/iconfont.css">
+    <link rel="stylesheet" href="../css/mui.min.css">
+    <link rel="stylesheet" href="../css/publicationEvaluation.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="action-bar-no-search">
+        <div class="title-left mui-action-back">
+            <div>
+                <span class="mui-icon mui-icon-back">
+
+                </span>
+                <span>
+
+                </span>
+            </div>
+        </div>
+        <div class="title-center">
+            商品评价
+        </div>
+        <div class="title-right">
+            <div class="title-right-left">
+                <img src="../img/close.png" />
+            </div>
+            <div class="title-right-right">
+                <img src="" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="container" style="background-color:#f7f5f4">
+        <div class="prompt">
+            <div class="top">
+                <div class="background">
+                    <span class="mui-icon mui-icon-checkmarkempty" style="color: #ffffff">
+
+                    </span>
+                </div>
+                <div class="text">
+                    交易成功！宝贝等待您的评价
+                </div>
+            </div>
+            <div class="bottom">
+                我们正不断的完善自己，期待小主的再次光临！
+            </div>
+        </div>
+        <div class="content">
+            <div class="stars">
+                <div class="left-text">
+                    评分
+                </div>
+                <div class="select-stars">
+                    <span class="iconfont icon-xingxing"></span>
+                    <span class="iconfont icon-xingxing"></span>
+                    <span class="iconfont icon-xingxing"></span>
+                    <span class="iconfont icon-xingxing"></span>
+                    <span class="iconfont icon-xingxing"></span>
+                </div>
+                <div id="right-text">
+
+                </div>
+            </div>
+            <div class="evaluate">
+                <div class="left-text">
+                    买家印象
+                </div>
+                <div class="select-button">
+                    <div class="button">
+                        质量好
+                    </div>
+                    <div class="button">
+                        如实描述
+                    </div>
+                    <div class="button">
+                        快递不错
+                    </div>
+                    <div class="button">
+                        效果好
+                    </div>
+                    <div class="button">
+                        品类齐全
+                    </div>
+                </div>
+            </div>
+            <div class="user-input">
+                <div class="left-text">
+                    宝贝评价
+                </div>
+                <textarea name="" id="" cols="30" rows="4"></textarea>
+            </div>
+            <div class="img-upload">
+                <p>上传照片</p>
+                <div class="img-container">
+                    <div id="img-container">
+
+                    </div>
+                    <div id="picture-btn" class="square">
+                        <div class="iconfont icon-zhaoxiangji">
+                        </div>
+                        <p>上传照片</p>
+                        <p>(最多三张)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-button">
+        提交评价
+    </div>
+    <script>
+        mui.plusReady(function () {
+            //弹出选择按钮框
+            document.getElementById("picture-btn").addEventListener('tap', function () {
+                if (img_container.children.length >= 3) {
+                    toast("图片最多上传三张");
+                    return;
+                }
+                var btnArray = [{ title: "拍照" }, { title: "从相册选取" }];
+                plus.nativeUI.actionSheet({
+                    title: "选择照片",
+                    cancel: "取消",
+                    buttons: btnArray
+                }, function (e) {
+                    var index = e.index;
+                    console.log(JSON.stringify(e));
+                    switch (index) {
+                        case 0:
+                            break;
+                        case 1:
+                            camera();
+                            break;
+                        case 2:
+                            galleryImg();
+                            break;
+                    }
+                });
+            });
+        })
+
+        //原生toast
+        function toast(message) {
+            plus.nativeUI.toast(message, { verticalAlign: "center" });
+        }
+        //调用相机的方法
+        var img_container = document.getElementById("img-container");
+        function camera() {
+            var cmr = plus.camera.getCamera();
+            var res = cmr.supportedImageResolutions[0];
+            var fmt = cmr.supportedImageFormats[0];
+            cmr.captureImage(function (path) {
+                plus.io.resolveLocalFileSystemURL(path, function (entry) {
+                    var src = entry.toLocalURL();
+                    var img = document.createElement("img");
+                    img.src = src;
+                    img_container.appendChild(img);
+                })
+            },
+                function (error) {
+                    console.log(JSON.stringify(error));
+                },
+                { resolution: res, format: fmt }
+            );
+        }
+        //调用相册的方法
+        // 从相册中选择图片 
+        function galleryImg() {
+            // 从相册中选择图片
+            plus.gallery.pick(function (path) {
+                plus.io.resolveLocalFileSystemURL(path, function (entry) {
+                    var src = entry.toLocalURL();
+                    var img = document.createElement("img");
+                    img.src = src;
+                    img_container.appendChild(img);
+                })
+            }, function (e) {
+                console.log("取消选择图片");
+            }, { filter: "image" });
+        }
+        // 选择星星之后提示文字dom
+        var text = document.getElementById("right-text");
+        //获取所有星星的dom
+        var stars = document.querySelector(".select-stars").getElementsByClassName("iconfont");
+        for (var i = 0; i < stars.length; i++) {
+            stars[i].index = i + 1;
+            stars[i].addEventListener("tap", function () {
+                if (this.index == 1) {
+                    text.innerText = "非常差";
+                } else if (this.index == 2) {
+                    text.innerText = "差";
+                } else if (this.index == 3) {
+                    text.innerText = "一般";
+                } else if (this.index == 4) {
+                    text.innerText = "好";
+                } else {
+                    text.innerText = "非常好";
+                }
+                for (var j = 0; j < this.index; j++) {
+                    stars[j].classList.remove("icon-xingxing");
+                    stars[j].classList.add("icon-star");
+                    stars[j].classList.add("active");
+                }
+                for (var x = 0; x < (stars.length - this.index); x++) {
+                    stars[j + x].classList.remove("icon-star");
+                    stars[j + x].classList.remove("active");
+                    stars[j + x].classList.add("icon-xingxing");
+                }
+            }, false)
+        }
+        //点击选择好评标签
+        mui(".select-button").on("tap", ".button", function () {
+            if (this.classList.length == 1) {
+                this.classList.add("button-active");
+            } else {
+                this.classList.remove("button-active");
+            }
+        })
+        //点击提交按钮
+        document.querySelector(".bottom-button").addEventListener("tap", function () {
+            if (text.innerText) {
+                toast("感谢您的支持");
+                mui.back();
+            } else {
+                toast("请对本次购物进行评分");
+            }
+        }, false)
+    </script>
+</body>
+
+</html>

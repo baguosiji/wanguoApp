@@ -57,14 +57,11 @@
                     </div>
                 </div>
                 <div class="order-button">
-                    <div class="evaluate">
-                        评价
-                    </div>
                     <div class="logistics" style="width: 2rem">
-                        查看物流
+                        立即付款
                     </div>
                     <div class="more">
-                        更多
+                        删除订单
                     </div>
                 </div>
             </div>
@@ -107,14 +104,11 @@
                     </div>
                 </div>
                 <div class="order-button">
-                    <div class="evaluate">
-                        评价
-                    </div>
                     <div class="logistics" style="width: 2rem">
-                        查看物流
+                        立即付款
                     </div>
                     <div class="more">
-                        更多
+                        删除订单
                     </div>
                 </div>
             </div>
@@ -157,14 +151,11 @@
                     </div>
                 </div>
                 <div class="order-button">
-                    <div class="evaluate">
-                        评价
-                    </div>
                     <div class="logistics" style="width: 2rem">
-                        查看物流
+                        立即付款
                     </div>
                     <div class="more">
-                        更多
+                        删除订单
                     </div>
                 </div>
             </div>
@@ -207,25 +198,77 @@
                     </div>
                 </div>
                 <div class="order-button">
-                    <div class="evaluate">
-                        评价
-                    </div>
-                    <div class="logistics" style="width: 2rem">
-                        查看物流
+                    <div class="logistics">
+                        立即付款
                     </div>
                     <div class="more">
-                        更多
+                        删除订单
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script>    
-        window.onload = function () {
-            mui.plusReady(function () {
+    <!-- 支付框弹出 -->
+    <div id="bottom">
+        <div id="popup" class="popup">
+            <div class="popup-title">
+                <span>
+                    万国电商钱包
+                </span>
+                <div class="close">
+                    ×
+                </div>
+            </div>
+            <div class="popup-good-message">
+                <div class="popup-price">
+                    ￥88
+                </div>
+                <div class="popup-good-name">
+                    NGK铱铂金火花塞比亚迪F0F3G5S6S7M6L3 G3F6G6速锐思锐秦唐S8宋元
+                </div>
+            </div>
+            <div class="select-payment">
+                第三方支付
+            </div>
+            <div class="wechat">
+                <div class="wechat-icon">
+                    <span class="mui-icon mui-icon-weixin" style="font-size: .8rem;color:#07B906"></span>
+                    <span>微信支付</span>
+                </div>
+                <span class="mui-icon mui-icon-arrowright"></span>
+            </div>
+            <div class="alipay">
+                <div class="alipay-icon">
+                    <span class="mui-icon-extra mui-icon-extra-alipay" style="font-size: .6rem"></span>
+                    <span> 阿里支付</span>
+                </div>
+                <span class="mui-icon mui-icon-arrowright"></span>
+            </div>
+        </div>
+    </div>
 
-            });
-        }
+    <!-- 遮罩层 -->
+    <div id="mask">
+
+    </div>
+    <script>    
+        mui.init({
+            swipeBack: false,
+            keyEventBind: {
+                backbutton: false //关闭back按键监听
+            },
+
+            pullRefresh: {
+                container: '.mui-scroll-wrapper',
+                up: {
+                    contentrefresh: '正在加载...',
+                    callback: pullupRefresh
+                },
+                down: {
+                    callback: pullup
+                }
+            }
+        });
         mui('.mui-scroll-wrapper').scroll({
             deceleration: 0.0005, //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
             indicators: false
@@ -237,6 +280,37 @@
                 id: "../selectService.html",
             })
         })
+        // 获取弹出框
+        var popup = document.getElementById("popup");
+        //获取遮罩层
+        var mask = document.getElementById("mask");
+        //弹出支付支付方式弹框
+        function popup_close() {
+            popup.style.bottom = -11 + "rem";
+            mask.style.display = "none";
+        }
+        //点击遮罩层关闭弹出框
+        mask.addEventListener("tap", function () {
+            popup_close();
+        }, false)
+
+        var number = 100
+        //点击弹出支付框
+        mui(".every-last-order").on("tap", ".logistics", function () {
+            popup.style.bottom = 0;
+            mask.style.display = "block";
+        })
+        //上拉加载示例
+        function pullupRefresh() {
+            setTimeout(function () {
+                alert("上拉加载成功！")
+            }, 1000)
+        }
+        function pullup() {
+            setTimeout(function () {
+                alert("下拉加载成功！")
+            }, 1000)
+        }
     </script>
 </body>
 

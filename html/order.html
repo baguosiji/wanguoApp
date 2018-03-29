@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <div id="" class="action-bar-no-search">
+    <div class="action-bar-no-search">
         <div class="title-left mui-action-back">
             <div>
                 <span class="mui-icon mui-icon-back">
@@ -72,7 +72,7 @@
     <script src="../js/webviewGroup.js"></script>
     <script>    
         mui.init();
-
+        var pendingPaymentPage;
         mui.plusReady(function () {
             var _self = plus.webview.currentWebview();
             var group = new webviewGroup(_self.id, {
@@ -136,7 +136,9 @@
             });
             mui(".padding").on("tap", ".shopping-mall-classification-every-last", function (e) {
                 var wid = this.getAttribute("data-wid");
+                pendingPaymentPage = plus.webview.getWebviewById("order/pendingPayment.html");
                 group.switchTab(wid);
+                pendingPaymentPage.evalJS("popup_close()");
             });
 
         });
@@ -144,26 +146,6 @@
             var _self = plus.webview.currentWebview();
             _self.close("auto");
         }
-        //选择不同分类
-        // var div = document.getElementsByClassName("shopping-mall-classification-every-last");
-        // for (var i = 0; i < div.length; i++) {
-        //     var every_last = div[i].getElementsByTagName("div")[0];
-        //     every_last.index = i;
-        //     last_click = 0;
-        //     div[0].getElementsByTagName("div")[0].style.borderBottom = "3px solid #fd5a28";
-        //     div[0].getElementsByTagName("div")[0].style.color = "#fd5a28";
-        //     every_last.onclick = function () {
-        //         if (last_click === this.index) {
-
-        //         } else {
-        //             div[last_click].getElementsByTagName("div")[0].style.borderBottom = "0";
-        //             div[last_click].getElementsByTagName("div")[0].style.color = "#333333";
-        //             last_click = this.index;
-        //             this.style.borderBottom = "3px solid #fd5a28";
-        //             this.style.color = "#fd5a28";
-        //         }
-        //     }
-        // }
     </script>
 </body>
 

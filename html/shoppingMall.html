@@ -7,7 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="../js/flexible.js"></script>
     <script src="../js/mui.min.js"></script>
-    <link href="../css/mui.min.css" rel="stylesheet" />
+    <script src="../js/httprequest.js"></script>
+    <link rel="stylesheet" href="../css/mui.min.css" />
     <link rel="stylesheet" href="../css/iconfont.css">
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/shoppingMall.css">
@@ -55,35 +56,49 @@
                 </div>
             </div>
             <!-- 分类部分 -->
-            <div class="shopping-mall-classification">
-                <div class="padding">
-                    <div class="shopping-mall-classification-every-last">
-                        <div>
-                            全部商品
-                        </div>
-                    </div>
-                    <div class="shopping-mall-classification-every-last">
-                        <div>
-                            汽车耗材
-                        </div>
-                    </div>
-                    <div class="shopping-mall-classification-every-last">
-                        <div>
-                            汽车用品
-                        </div>
-                    </div>
-                    <div class="shopping-mall-classification-every-last">
-                        <div>
-                            汽车装潢
-                        </div>
-                    </div>
-                    <div class="shopping-mall-classification-every-last">
-                        <div>
-                            汽车周边
+            <div class="mui-segmented-control mui-segmented-control-inverted mui-segmented-control-primary">
+                <a class="mui-control-item mui-active" href="#item1mobile">
+                    全部商品
+                </a>
+                <a class="mui-control-item" href="#item2mobile">
+                    汽车耗材
+                </a>
+                <a class="mui-control-item" href="#item3mobile">
+                    汽车用品
+                </a>
+                <a class="mui-control-item" href="#item4mobile">
+                    汽车装潢
+                </a>
+                <a class="mui-control-item" href="#item5mobile">
+                    汽车周边
+                </a>
+            </div>
+            <div class="mui-slider-group">
+                <div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+                    <div id="scroll1" class="mui-scroll-wrapper">
+                        <div class="mui-scroll">
+
                         </div>
                     </div>
                 </div>
+                <div id="item2mobile" class="mui-slider-item mui-control-content">
+                    <div id="scroll2" class="mui-scroll-wrapper">
+                        <div class="mui-scroll">
+
+                        </div>
+                    </div>
+
+                </div>
+                <div id="item3mobile" class="mui-slider-item mui-control-content">
+                    <div id="scroll3" class="mui-scroll-wrapper">
+                        <div class="mui-scroll">
+
+                        </div>
+                    </div>
+
+                </div>
             </div>
+
             <!-- 商品列表部分 -->
             <div class="shopping-mall-good-list">
                 <div class="left">
@@ -271,7 +286,7 @@
                 id: "goodDetail.html"
             })
         })
-       
+
         //选择不同分类
         var div = document.getElementsByClassName("shopping-mall-classification-every-last");
         for (var i = 0; i < div.length; i++) {
