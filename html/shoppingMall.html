@@ -3,272 +3,557 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="../js/flexible.js"></script>
-    <script src="../js/mui.min.js"></script>
     <script src="../js/httprequest.js"></script>
     <link rel="stylesheet" href="../css/mui.min.css" />
     <link rel="stylesheet" href="../css/iconfont.css">
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/shoppingMall.css">
     <title>商城</title>
+    <style>
+        .mui-card .mui-control-content {
+            /* padding: 10px; */
+        }
+
+        .mui-control-content {
+
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            top: 5.4rem;
+
+        }
+    </style>
 </head>
 
 <body>
-    <div class="mui-scroll-wrapper">
-        <div class="mui-scroll">
-            <!-- 轮播图 -->
-            <div class="mui-slider">
-                <div class="mui-slider-group mui-slider-loop">
-                    <!--支持循环，需要重复图片节点-->
-                    <div class="mui-slider-item mui-slider-item-duplicate">
-                        <a href="#">
-                            <img src="../img/4.png" />
-                        </a>
-                    </div>
-                    <div class="mui-slider-item">
-                        <a href="#">
-                            <img src="../img/1.png" />
-                        </a>
-                    </div>
-                    <div class="mui-slider-item">
-                        <a href="#">
-                            <img src="../img/2.png" />
-                        </a>
-                    </div>
-                    <div class="mui-slider-item">
-                        <a href="#">
-                            <img src="../img/3.png" />
-                        </a>
-                    </div>
-                    <div class="mui-slider-item">
-                        <a href="#">
-                            <img src="../img/4.png" />
-                        </a>
-                    </div>
-                    <!--支持循环，需要重复图片节点-->
-                    <div class="mui-slider-item mui-slider-item-duplicate">
-                        <a href="#">
-                            <img src="1.jpg" />
-                        </a>
-                    </div>
-                </div>
+    <div class="mui-slider">
+        <div class="mui-slider-group mui-slider-loop">
+
+            <div class="mui-slider-item">
+                <a href="#">
+                    <img src="../img/1.png" />
+                </a>
             </div>
-            <!-- 分类部分 -->
-            <div class="mui-segmented-control mui-segmented-control-inverted mui-segmented-control-primary">
-                <a class="mui-control-item mui-active" href="#item1mobile">
+            <div class="mui-slider-item">
+                <a href="#">
+                    <img src="../img/2.png" />
+                </a>
+            </div>
+            <div class="mui-slider-item">
+                <a href="#">
+                    <img src="../img/3.png" />
+                </a>
+            </div>
+            <div class="mui-slider-item">
+                <a href="#">
+                    <img src="../img/4.png" />
+                </a>
+            </div>
+        </div>
+        <div class="mui-slider-indicator">
+            <div class="mui-indicator mui-active"></div>
+            <div class="mui-indicator"></div>
+            <div class="mui-indicator"></div>
+            <div class="mui-indicator"></div>
+        </div>
+    </div>
+    <div class="shopping-mall-classification">
+        <div class="padding mui-segmented-control mui-segmented-control-inverted mui-segmented-control-primary">
+            <div class="shopping-mall-classification-every-last">
+                <a class="mui-control-item mui-active" href="#item1">
                     全部商品
                 </a>
-                <a class="mui-control-item" href="#item2mobile">
+            </div>
+            <div class="shopping-mall-classification-every-last">
+                <a class="mui-control-item" href="#item2">
                     汽车耗材
                 </a>
-                <a class="mui-control-item" href="#item3mobile">
+            </div>
+            <div class="shopping-mall-classification-every-last">
+                <a class="mui-control-item" href="#item3">
                     汽车用品
                 </a>
-                <a class="mui-control-item" href="#item4mobile">
+            </div>
+            <div class="shopping-mall-classification-every-last">
+                <a class="mui-control-item" href="#item4">
                     汽车装潢
                 </a>
-                <a class="mui-control-item" href="#item5mobile">
+            </div>
+            <div class="shopping-mall-classification-every-last">
+                <a class="mui-control-item" href="#item5">
                     汽车周边
                 </a>
             </div>
-            <div class="mui-slider-group">
-                <div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
-                    <div id="scroll1" class="mui-scroll-wrapper">
-                        <div class="mui-scroll">
-
-                        </div>
-                    </div>
-                </div>
-                <div id="item2mobile" class="mui-slider-item mui-control-content">
-                    <div id="scroll2" class="mui-scroll-wrapper">
-                        <div class="mui-scroll">
-
-                        </div>
-                    </div>
-
-                </div>
-                <div id="item3mobile" class="mui-slider-item mui-control-content">
-                    <div id="scroll3" class="mui-scroll-wrapper">
-                        <div class="mui-scroll">
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- 商品列表部分 -->
-            <div class="shopping-mall-good-list">
-                <div class="left">
-                    <img src="../img/shoppingMall1.png" alt="">
-                </div>
-                <div class="right">
-                    <div class="right-top">
-                        邓禄普汽车轮胎SP T1 205/55R强劲动力买了不亏
-                    </div>
-                    <div class="center">
-                        ￥365
-                    </div>
-                    <div class="right-bottom clearfloat">
-                        <div class="float-left">
-                            成交量
-                            <strong>
-                                5468
-                            </strong>
-                        </div>
-                        <div class="float-right buy-now">
-                            立即购买
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="shopping-mall-good-list">
-                <div class="left">
-                    <img src="../img/shoppingMall1.png" alt="">
-                </div>
-                <div class="right">
-                    <div class="right-top">
-                        邓禄普汽车轮胎SP T1 205/55R强劲动力买了不亏
-                    </div>
-                    <div class="center">
-                        ￥365
-                    </div>
-                    <div class="right-bottom clearfloat">
-                        <div class="float-left">
-                            成交量
-                            <strong>
-                                5468
-                            </strong>
-                        </div>
-                        <div class="float-right buy-now">
-                            立即购买
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="shopping-mall-good-list">
-                <div class="left">
-                    <img src="../img/shoppingMall1.png" alt="">
-                </div>
-                <div class="right">
-                    <div class="right-top">
-                        邓禄普汽车轮胎SP T1 205/55R强劲动力买了不亏
-                    </div>
-                    <div class="center">
-                        ￥365
-                    </div>
-                    <div class="right-bottom clearfloat">
-                        <div class="float-left">
-                            成交量
-                            <strong>
-                                5468
-                            </strong>
-                        </div>
-                        <div class="float-right buy-now">
-                            立即购买
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="shopping-mall-good-list">
-                <div class="left">
-                    <img src="../img/shoppingMall1.png" alt="">
-                </div>
-                <div class="right">
-                    <div class="right-top">
-                        邓禄普汽车轮胎SP T1 205/55R强劲动力买了不亏
-                    </div>
-                    <div class="center">
-                        ￥365
-                    </div>
-                    <div class="right-bottom clearfloat">
-                        <div class="float-left">
-                            成交量
-                            <strong>
-                                5468
-                            </strong>
-                        </div>
-                        <div class="float-right buy-now">
-                            立即购买
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="shopping-mall-good-list">
-                <div class="left">
-                    <img src="../img/shoppingMall1.png" alt="">
-                </div>
-                <div class="right">
-                    <div class="right-top">
-                        邓禄普汽车轮胎SP T1 205/55R强劲动力买了不亏
-                    </div>
-                    <div class="center">
-                        ￥365
-                    </div>
-                    <div class="right-bottom clearfloat">
-                        <div class="float-left">
-                            成交量
-                            <strong>
-                                5468
-                            </strong>
-                        </div>
-                        <div class="float-right buy-now">
-                            立即购买
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="shopping-mall-good-list">
-                <div class="left">
-                    <img src="../img/shoppingMall1.png" alt="">
-                </div>
-                <div class="right">
-                    <div class="right-top">
-                        邓禄普汽车轮胎SP T1 205/55R强劲动力买了不亏
-                    </div>
-                    <div class="center">
-                        ￥365
-                    </div>
-                    <div class="right-bottom clearfloat">
-                        <div class="float-left">
-                            成交量
-                            <strong>
-                                5468
-                            </strong>
-                        </div>
-                        <div class="float-right buy-now">
-                            立即购买
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- 页面顶部搜索框定位 -->
-        <div class="out-div" id="popup">
-            <div class="arrow"></div>
-            <div class="popup-list">
-                <span class="iconfont icon-single"></span>
-                <div>我的订单</div>
-            </div>
-            <div class="popup-list">
-                <span class="iconfont icon-shoucang2"></span>
-                <div>我的收藏</div>
-            </div>
-            <div class="popup-list" onclick="getajax()">
-                <span class="iconfont icon-kefu"></span>
-                <div>帮助中心</div>
-            </div>
-            <div class="popup-list" onclick="captureImage()">
-                <span class="iconfont icon-richscan_icon"></span>
-                <div>扫一扫</div>
-            </div>
-        </div>
-        <div id="shade" onclick="shadeHidden()">
-
         </div>
     </div>
+    </div>
+    <div id="item1" class="mui-control-content mui-active">
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <div class="shopping-mall-good-list">
+                    <div class="left">
+                        <img src="../img/shoppingMall1.png" alt="">
+                    </div>
+                    <div class="right">
+                        <div class="right-top">
+                            邓禄普汽车轮胎SP T1 205/55R强劲动力买了不亏
+                        </div>
+                        <div class="center">
+                            ￥365
+                        </div>
+                        <div class="right-bottom clearfloat">
+                            <div class="float-left">
+                                成交量
+                                <strong>
+                                    5468
+                                </strong>
+                            </div>
+                            <div class="float-right buy-now">
+                                立即购买
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="item2" class="mui-control-content">
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <div class="shopping-mall-good-list">
+                    <div class="left">
+                        <img src="../img/shoppingMall1.png" alt="">
+                    </div>
+                    <div class="right">
+                        <div class="right-top">
+                            邓禄普汽车轮胎SP T1 205/55R强劲动力买了不亏
+                        </div>
+                        <div class="center">
+                            ￥365
+                        </div>
+                        <div class="right-bottom clearfloat">
+                            <div class="float-left">
+                                成交量
+                                <strong>
+                                    5468
+                                </strong>
+                            </div>
+                            <div class="float-right buy-now">
+                                立即购买
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="shopping-mall-good-list">
+                    <div class="left">
+                        <img src="../img/shoppingMall1.png" alt="">
+                    </div>
+                    <div class="right">
+                        <div class="right-top">
+                            邓禄普汽车轮胎SP T1 205/55R强劲动力买了不亏
+                        </div>
+                        <div class="center">
+                            ￥365
+                        </div>
+                        <div class="right-bottom clearfloat">
+                            <div class="float-left">
+                                成交量
+                                <strong>
+                                    5468
+                                </strong>
+                            </div>
+                            <div class="float-right buy-now">
+                                立即购买
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="shopping-mall-good-list">
+                    <div class="left">
+                        <img src="../img/shoppingMall1.png" alt="">
+                    </div>
+                    <div class="right">
+                        <div class="right-top">
+                            邓禄普汽车轮胎SP T1 205/55R强劲动力买了不亏
+                        </div>
+                        <div class="center">
+                            ￥365
+                        </div>
+                        <div class="right-bottom clearfloat">
+                            <div class="float-left">
+                                成交量
+                                <strong>
+                                    5468
+                                </strong>
+                            </div>
+                            <div class="float-right buy-now">
+                                立即购买
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="shopping-mall-good-list">
+                    <div class="left">
+                        <img src="../img/shoppingMall1.png" alt="">
+                    </div>
+                    <div class="right">
+                        <div class="right-top">
+                            邓禄普汽车轮胎SP T1 205/55R强劲动力买了不亏
+                        </div>
+                        <div class="center">
+                            ￥365
+                        </div>
+                        <div class="right-bottom clearfloat">
+                            <div class="float-left">
+                                成交量
+                                <strong>
+                                    5468
+                                </strong>
+                            </div>
+                            <div class="float-right buy-now">
+                                立即购买
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="shopping-mall-good-list">
+                    <div class="left">
+                        <img src="../img/shoppingMall1.png" alt="">
+                    </div>
+                    <div class="right">
+                        <div class="right-top">
+                            邓禄普汽车轮胎SP T1 205/55R强劲动力买了不亏
+                        </div>
+                        <div class="center">
+                            ￥365
+                        </div>
+                        <div class="right-bottom clearfloat">
+                            <div class="float-left">
+                                成交量
+                                <strong>
+                                    5468
+                                </strong>
+                            </div>
+                            <div class="float-right buy-now">
+                                立即购买
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="shopping-mall-good-list">
+                    <div class="left">
+                        <img src="../img/shoppingMall1.png" alt="">
+                    </div>
+                    <div class="right">
+                        <div class="right-top">
+                            邓禄普汽车轮胎SP T1 205/55R强劲动力买了不亏
+                        </div>
+                        <div class="center">
+                            ￥365
+                        </div>
+                        <div class="right-bottom clearfloat">
+                            <div class="float-left">
+                                成交量
+                                <strong>
+                                    5468
+                                </strong>
+                            </div>
+                            <div class="float-right buy-now">
+                                立即购买
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="shopping-mall-good-list">
+                    <div class="left">
+                        <img src="../img/shoppingMall1.png" alt="">
+                    </div>
+                    <div class="right">
+                        <div class="right-top">
+                            邓禄普汽车轮胎SP T1 205/55R强劲动力买了不亏
+                        </div>
+                        <div class="center">
+                            ￥365
+                        </div>
+                        <div class="right-bottom clearfloat">
+                            <div class="float-left">
+                                成交量
+                                <strong>
+                                    5468
+                                </strong>
+                            </div>
+                            <div class="float-right buy-now">
+                                立即购买
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="shopping-mall-good-list">
+                    <div class="left">
+                        <img src="../img/shoppingMall1.png" alt="">
+                    </div>
+                    <div class="right">
+                        <div class="right-top">
+                            邓禄普汽车轮胎SP T1 205/55R强劲动力买了不亏
+                        </div>
+                        <div class="center">
+                            ￥365
+                        </div>
+                        <div class="right-bottom clearfloat">
+                            <div class="float-left">
+                                成交量
+                                <strong>
+                                    5468
+                                </strong>
+                            </div>
+                            <div class="float-right buy-now">
+                                立即购买
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="shopping-mall-good-list">
+                    <div class="left">
+                        <img src="../img/shoppingMall1.png" alt="">
+                    </div>
+                    <div class="right">
+                        <div class="right-top">
+                            邓禄普汽车轮胎SP T1 205/55R强劲动力买了不亏
+                        </div>
+                        <div class="center">
+                            ￥365
+                        </div>
+                        <div class="right-bottom clearfloat">
+                            <div class="float-left">
+                                成交量
+                                <strong>
+                                    5468
+                                </strong>
+                            </div>
+                            <div class="float-right buy-now">
+                                立即购买
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="shopping-mall-good-list">
+                    <div class="left">
+                        <img src="../img/shoppingMall1.png" alt="">
+                    </div>
+                    <div class="right">
+                        <div class="right-top">
+                            邓禄普汽车轮胎SP T1 205/55R强劲动力买了不亏
+                        </div>
+                        <div class="center">
+                            ￥365
+                        </div>
+                        <div class="right-bottom clearfloat">
+                            <div class="float-left">
+                                成交量
+                                <strong>
+                                    5468
+                                </strong>
+                            </div>
+                            <div class="float-right buy-now">
+                                立即购买
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="shopping-mall-good-list">
+                    <div class="left">
+                        <img src="../img/shoppingMall1.png" alt="">
+                    </div>
+                    <div class="right">
+                        <div class="right-top">
+                            邓禄普汽车轮胎SP T1 205/55R强劲动力买了不亏
+                        </div>
+                        <div class="center">
+                            ￥365
+                        </div>
+                        <div class="right-bottom clearfloat">
+                            <div class="float-left">
+                                成交量
+                                <strong>
+                                    5468
+                                </strong>
+                            </div>
+                            <div class="float-right buy-now">
+                                立即购买
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="item3" class="mui-control-content">
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <div class="shopping-mall-good-list">
+                    <div class="left">
+                        <img src="../img/shoppingMall1.png" alt="">
+                    </div>
+                    <div class="right">
+                        <div class="right-top">
+                            邓禄普汽车轮胎SP T1 205/55R强劲动力买了不亏
+                        </div>
+                        <div class="center">
+                            ￥365
+                        </div>
+                        <div class="right-bottom clearfloat">
+                            <div class="float-left">
+                                成交量
+                                <strong>
+                                    5468
+                                </strong>
+                            </div>
+                            <div class="float-right buy-now">
+                                立即购买
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="item4" class="mui-control-content">
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <div class="shopping-mall-good-list">
+                    <div class="left">
+                        <img src="../img/shoppingMall1.png" alt="">
+                    </div>
+                    <div class="right">
+                        <div class="right-top">
+                            邓禄普汽车轮胎SP T1 205/55R强劲动力买了不亏
+                        </div>
+                        <div class="center">
+                            ￥365
+                        </div>
+                        <div class="right-bottom clearfloat">
+                            <div class="float-left">
+                                成交量
+                                <strong>
+                                    5468
+                                </strong>
+                            </div>
+                            <div class="float-right buy-now">
+                                立即购买
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="shopping-mall-good-list">
+                    <div class="left">
+                        <img src="../img/shoppingMall1.png" alt="">
+                    </div>
+                    <div class="right">
+                        <div class="right-top">
+                            邓禄普汽车轮胎SP T1 205/55R强劲动力买了不亏
+                        </div>
+                        <div class="center">
+                            ￥365
+                        </div>
+                        <div class="right-bottom clearfloat">
+                            <div class="float-left">
+                                成交量
+                                <strong>
+                                    5468
+                                </strong>
+                            </div>
+                            <div class="float-right buy-now">
+                                立即购买
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="item5" class="mui-control-content">
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <div class="shopping-mall-good-list">
+                    <div class="left">
+                        <img src="../img/shoppingMall1.png" alt="">
+                    </div>
+                    <div class="right">
+                        <div class="right-top">
+                            邓禄普汽车轮胎SP T1 205/55R强劲动力买了不亏
+                        </div>
+                        <div class="center">
+                            ￥365
+                        </div>
+                        <div class="right-bottom clearfloat">
+                            <div class="float-left">
+                                成交量
+                                <strong>
+                                    5468
+                                </strong>
+                            </div>
+                            <div class="float-right buy-now">
+                                立即购买
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="shopping-mall-good-list">
+                    <div class="left">
+                        <img src="../img/shoppingMall1.png" alt="">
+                    </div>
+                    <div class="right">
+                        <div class="right-top">
+                            邓禄普汽车轮胎SP T1 205/55R强劲动力买了不亏
+                        </div>
+                        <div class="center">
+                            ￥365
+                        </div>
+                        <div class="right-bottom clearfloat">
+                            <div class="float-left">
+                                成交量
+                                <strong>
+                                    5468
+                                </strong>
+                            </div>
+                            <div class="float-right buy-now">
+                                立即购买
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="shopping-mall-good-list">
+                    <div class="left">
+                        <img src="../img/shoppingMall1.png" alt="">
+                    </div>
+                    <div class="right">
+                        <div class="right-top">
+                            邓禄普汽车轮胎SP T1 205/55R强劲动力买了不亏
+                        </div>
+                        <div class="center">
+                            ￥365
+                        </div>
+                        <div class="right-bottom clearfloat">
+                            <div class="float-left">
+                                成交量
+                                <strong>
+                                    5468
+                                </strong>
+                            </div>
+                            <div class="float-right buy-now">
+                                立即购买
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../js/mui.min.js"></script>
     <script>  
         mui.plusReady(function () {
 
@@ -286,27 +571,6 @@
                 id: "goodDetail.html"
             })
         })
-
-        //选择不同分类
-        var div = document.getElementsByClassName("shopping-mall-classification-every-last");
-        for (var i = 0; i < div.length; i++) {
-            var every_last = div[i].getElementsByTagName("div")[0];
-            every_last.index = i;
-            last_click = 0;
-            div[0].getElementsByTagName("div")[0].style.borderBottom = "3px solid #fd5a28";
-            div[0].getElementsByTagName("div")[0].style.color = "#fd5a28";
-            every_last.onclick = function () {
-                if (last_click === this.index) {
-
-                } else {
-                    div[last_click].getElementsByTagName("div")[0].style.borderBottom = "0";
-                    div[last_click].getElementsByTagName("div")[0].style.color = "#333333";
-                    last_click = this.index;
-                    this.style.borderBottom = "3px solid #fd5a28";
-                    this.style.color = "#fd5a28";
-                }
-            }
-        }
     </script>
 </body>
 

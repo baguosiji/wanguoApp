@@ -48,7 +48,6 @@
 }
 // 每个商品样式
 .every-last-good {
-  margin-bottom: 0.2rem;
   padding-left: 0.3rem;
   background-color: #fff;
   .shop-name {
@@ -165,6 +164,17 @@
   display: flex;
   font-size: 0.4rem;
   .bottom-nav-left {
+    // .select-all {
+    //   height: 1.306667rem;
+    //   width: 1.306667rem;
+    //   text-align: center;
+    //   vertical-align: 1.30667rem;
+    img {
+      height: 0.6rem;
+      width: 0.6rem;
+      vertical-align: middle;
+    }
+    // }
     padding-left: 0.3rem;
     color: #000;
     flex: 1;
@@ -175,7 +185,7 @@
       width: 0.6rem;
     }
     .payable {
-      color: #FA3E19;
+      color: #fa3e19;
       font-size: 0.45rem;
     }
   }

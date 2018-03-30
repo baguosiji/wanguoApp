@@ -231,6 +231,21 @@
         var newsDOM = document.querySelector(".news-message");
         //商品容器
         var goodsDOM = document.querySelector(".good-area");
+        // mui.ajax('http://192.168.50.50:81/api.php/Index/index', {
+        //     dataType: 'json',//服务器返回json格式数据
+        //     type: 'get',//HTTP请求类型
+        //     timeout: 10000,//超时时间设置为10秒；
+        //     headers: {
+        //         "Authorization": '12354647864646546413544163'
+        //     },
+        //     success: function (data) {
+
+        //     },
+        //     error: function (xhr, type, errorThrown) {
+        //         //异常处理；
+        //         console.log(type);
+        //     }
+        // });
         mui.getJSON('http://192.168.50.50:81/api.php/Index/index', function (data) {
             var car = data.data.car;
             var news = data.data.news;
@@ -258,7 +273,7 @@
                 goodsDOM.innerHTML += `
                             <div class="good">
                         <div class="good-img" style="background-image: url('${goods[i].pic}')">
-                            
+
                         </div>
                         <div class="good-message">
                             ${goods[i].goods_name}
