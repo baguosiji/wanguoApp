@@ -76,49 +76,53 @@
                 self.append(sub);
             }
             indexSubject = plus.webview.getWebviewById("html/indexIndex.html");
+            document.querySelector(".title-right").addEventListener("tap",function(){
+                indexSubject.evalJS("openmore()");
+            })
         })
         //当前激活选项
         var activeTab = subpages[Index];
         title = document.querySelector(".title-center")
         var url = "html/order.html";                                            //点击右侧按钮的跳转路径
         var indexSubject;
-        mui(".title-right").on("tap", "span", function (e) {
-            indexSubject.evalJS(" openmore()");
-        })
         var activeA = document.getElementsByClassName("mui-bar-tab")[0].getElementsByTagName("a");  //获取所有点击的a
-        mui('.mui-bar-tab').on('tap', 'a', function (e) {
-            //获取目标子页的id
-            var targetTab = this.getAttribute('href');
-            if (targetTab == activeTab) {
-                return;
-            }
-            //更换标题
-            // title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
-            if (this.querySelector(".mui-tab-label").innerHTML == "我的") {
-                title.getElementsByClassName("title-input")[0].style.display = "none";
-                title.innerHTML = this.querySelector(".mui-tab-label").innerHTML;
-                document.querySelector(".title-left").style.visibility = "hidden";
-                // document.querySelector(".title-right").querySelector("span") = "img/setting.png";
-                url = "html/setting.html"
-            } else {
-                title.innerHTML = "";
-                url = "html/order.html"
-                var div = document.createElement("div");
-                document.querySelector(".title-left").style.visibility = "visible";
-                // document.querySelector(".title-right").querySelector("span").src = "img/close.png";
-                div.setAttribute("class", "title-input");
-                var input = document.createElement("input");
-                input.setAttribute("placeholder", "请输入搜索内容");
-                div.appendChild(input);
-                title.appendChild(div);
-            }
-            //显示目标选项卡
-            plus.webview.show(targetTab);
-            //隐藏当前选项卡
-            plus.webview.hide(activeTab);
-            //更改当前活跃的选项卡
-            activeTab = targetTab;
-        });
+        //顶部右侧按钮
+        var action_bar_right=document.querySelector(".title-right").querySelector(".mui-icon")
+            mui('.mui-bar-tab').on('tap', 'a', function (e) {
+                //获取目标子页的id
+                var targetTab = this.getAttribute('href');
+                if (targetTab == activeTab) {
+                    return;
+                }
+                //更换标题
+                // title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
+                if (this.querySelector(".mui-tab-label").innerHTML == "我的") {
+                    title.getElementsByClassName("title-input")[0].style.display = "none";
+                    title.innerHTML = this.querySelector(".mui-tab-label").innerHTML;
+                    document.querySelector(".title-left").style.visibility = "hidden";
+                    action_bar_right.style.visibility="hidden";
+                    // document.querySelector(".title-right").querySelector("span") = "img/setting.png";
+                    url = "html/setting.html"
+                } else {
+                    title.innerHTML = "";
+                    url = "html/order.html"
+                    var div = document.createElement("div");
+                    document.querySelector(".title-left").style.visibility = "visible";
+                    action_bar_right.style.visibility="hidden";
+                    // document.querySelector(".title-right").querySelector("span").src = "img/close.png";
+                    div.setAttribute("class", "title-input");
+                    var input = document.createElement("input");
+                    input.setAttribute("placeholder", "请输入搜索内容");
+                    div.appendChild(input);
+                    title.appendChild(div);
+                }
+                //显示目标选项卡
+                plus.webview.show(targetTab);
+                //隐藏当前选项卡
+                plus.webview.hide(activeTab);
+                //更改当前活跃的选项卡
+                activeTab = targetTab;
+            });
         //子页面点击切换页面的方法
         function changeView(now) {
             var targetTab = now;

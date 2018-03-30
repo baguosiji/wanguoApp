@@ -101,7 +101,7 @@
                 </div>
             </div>
             <!-- 视频播放 -->
-            <div class="video">
+            <!-- <div class="video">
                 <div class="text-video">
                     2017年01月01日万国电商拍卖会录像
                 </div>
@@ -119,6 +119,35 @@
                     <div class="video-comment-love-it float-right">
                         <img src="../img/comment.png" alt=""> 3
                     </div>
+                </div>
+            </div> -->
+            <!-- 精品推荐 -->
+            <div class="boutique-area">
+                <div class="title">
+                    <div class="title-left">
+                        精品推荐
+                    </div>
+                    <div class="title-right">
+                        <span>查看详情</span>
+                        <span class="iconfont icon-gengduo1"></span>
+                    </div>
+                </div>
+                <div class="boutique-message">
+                </div>
+            </div>
+            <!-- 新闻部分 -->
+            <div class="news-area">
+                <div class="title">
+                    <div class="title-left">
+                        养车常识
+                    </div>
+                    <div class="title-right">
+                        <span>更多</span>
+                        <span class="iconfont icon-gengduo1"></span>
+                    </div>
+                </div>
+                <div class="news-message">
+
                 </div>
             </div>
             <div class="all">
@@ -148,7 +177,7 @@
                 <!-- 商品分区头部 -->
                 <div class="good-classification">
                     <img src="../img/fire.png" alt="">
-                    <div style="font-size: 16px">人气推荐</div>
+                    <div style="font-size: .5rem">人气推荐</div>
                     <div class="more clearfloat">
                         <div class="float-left">
                             更多
@@ -183,11 +212,11 @@
             <span class="iconfont icon-shoucang2"></span>
             <div>我的收藏</div>
         </div>
-        <div class="popup-list" onclick="getajax()">
+        <div class="popup-list">
             <span class="iconfont icon-kefu"></span>
             <div>帮助中心</div>
         </div>
-        <div class="popup-list" onclick="captureImage()">
+        <div class="popup-list">
             <span class="iconfont icon-richscan_icon"></span>
             <div>扫一扫</div>
         </div>
@@ -196,14 +225,37 @@
 
     </div>
     <script>
-        var goods;
-        //获取数据
-        var dom = document.querySelector(".good-area");
+        // 精品区域
+        var carDOM = document.querySelector(".boutique-message");
+        //新闻容器
+        var newsDOM = document.querySelector(".news-message");
+        //商品容器
+        var goodsDOM = document.querySelector(".good-area");
         mui.getJSON('http://192.168.50.50:81/api.php/Index/index', function (data) {
-            goods = data.data.goods;
-            console.log(goods);
+            var car = data.data.car;
+            var news = data.data.news;
+            var goods = data.data.goods;
+            for (var j = 0; j < car.length; j++) {
+                carDOM.innerHTML += `
+                    <div class="boutique-good">
+                        <img src="${car[j].pic}">
+                        <p>${car[j].title}</p>
+                        <p style="color: #f51212">￥${car[j].price}</p>
+                        <p style="font-size: .3rem;">${car[j].djrq} | ${car[j].bxlc}万公里</p>
+                    </div>`
+            }
+            for (var n = 0; n < news.length; n++) {
+                newsDOM.innerHTML += ` <div class="news">
+                        <div class="news-icon">
+                            知识
+                        </div>
+                        <div class="news-title">
+                            ${news[n].title}
+                        </div>
+                    </div>`
+            }
             for (var i = 0; i < goods.length; i++) {
-                dom.innerHTML += `
+                goodsDOM.innerHTML += `
                             <div class="good">
                         <div class="good-img" style="background-image: url('${goods[i].pic}')">
                             

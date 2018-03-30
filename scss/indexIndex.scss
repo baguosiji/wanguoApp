@@ -59,7 +59,7 @@
     text-align: center;
     line-height: 1.066667rem;
     letter-spacing: 5px;
-    font-size: 14px;
+    font-size: .4rem;
     color: #000000;
   }
   .play-video {
@@ -87,7 +87,7 @@
   }
   .video-message {
     height: 1rem;
-    font-size: 14px;
+    font-size: .4rem;
     letter-spacing: 5px;
     line-height: 1rem;
     .video-comment-love-it {
@@ -101,10 +101,104 @@
     }
   }
 }
+//精品推荐区域样式
+.boutique-area {
+  padding: 0 0.3rem;
+  background-color: #fff;
+  .title {
+    border-bottom: 1px solid #ededed;
+    height: 1.173333rem;
+    display: flex;
+    .title-left {
+      width: 2rem;
+      font-size: 0.4rem;
+      line-height: 1.173333rem;
+    }
+    .title-right {
+      flex: 1;
+      line-height: 1.173333rem;
+      text-align: right;
+      font-size: 0.38rem;
+      color: #999999;
+    }
+  }
+  .boutique-message {
+    margin-top: 0.3rem;
+    display: flex;
+    justify-content: space-around;
+    .boutique-good {
+      width: 33%;
+      height: 4rem;
+      img {
+        width: 100%;
+        height: 2rem;
+      }
+      p {
+        padding: 0;
+        margin: 0;
+        text-align: center;
+        color: #333333;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+}
+//新闻部分样式
+.news-area {
+  padding: 0 0.3rem;
+  background-color: #fff;
+  .title {
+    border-bottom: 1px solid #ededed;
+    height: 1.173333rem;
+    display: flex;
+    .title-left {
+      width: 2rem;
+      font-size: 0.4rem;
+      line-height: 1.173333rem;
+    }
+    .title-right {
+      flex: 1;
+      line-height: 1.173333rem;
+      text-align: right;
+      font-size: 0.38rem;
+      color: #999999;
+    }
+  }
+  .news-message {
+    margin-top: 0.3rem;
+    .news {
+      height: 0.8rem;
+      display: flex;
+      align-items: center;
+      .news-icon {
+        width: 0.8rem;
+        height: 0.6rem;
+        line-height: 0.6rem;
+        font-size: 0.32rem;
+        color: #f39800;
+        border: 2px solid #f39800;
+        border-radius: 3px;
+        text-align: center;
+      }
+      .news-title {
+        flex: 1;
+        line-height: 0.8rem;
+        color: #333333;
+        padding: 0 0.3rem;
+        font-size: 0.38rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+}
 // 保险部分样式
 .all {
   width: 10rem;
-  padding: 0 0.5rem;
+  padding: 0 0.3rem;
   background: #ffffff;
   .car-money {
     width: 100%;
@@ -119,7 +213,7 @@
         height: 2.8rem;
       }
       .car-money-common-text {
-        font-size: 15px;
+        font-size: .38rem;
         color: #000000;
         text-align: center;
       }
@@ -128,7 +222,7 @@
         height: 0.7rem;
         border: 2px solid #f39800;
         border-radius: 4px;
-        font-size: 14px;
+        font-size: .38rem;
         color: #f39800;
         margin: 0 auto;
         text-align: center;
@@ -144,7 +238,7 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
+  font-size: .38rem;
   align-items: center;
   margin: 0.1rem 0;
   img {
@@ -188,7 +282,7 @@
   }
   .good-message {
     height: 1rem;
-    font-size: 14px;
+    font-size: .39rem;
     margin: 0.1rem 0;
 
     overflow: hidden;
@@ -199,7 +293,7 @@
   }
   .good-price {
     height: 0.7rem;
-    font-size: 16px;
+    font-size: .5rem;
     font-weight: bold;
     color: #fd0006;
   }
@@ -209,7 +303,7 @@
 /* 弹出框样式 */
 .out-div {
   color: #000;
-  font-size: 16px;
+  font-size: .4rem;
   border-radius: 5px;
   background-color: #ffffff;
   position: absolute;
@@ -238,9 +332,9 @@
       margin-left: 0.2rem;
     }
     div {
-      font-size: 16px;
+      font-size: .4rem;
       width: 2rem;
-      margin-right: 0.5rem;
+      margin-right: 0.3rem;
       text-align: center;
     }
   }
@@ -267,7 +361,7 @@
     margin-left: 0.2rem;
   }
   div {
-    font-size: 16px;
+    font-size: .5rem;
     width: 3rem;
     margin-right: 0.5rem;
     text-align: center;
