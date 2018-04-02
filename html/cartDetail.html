@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="../js/mui.min.js"></script>
     <script src="../js/flexible.js"></script>
+    <script src="../js/vue.min.js"></script>
     <link rel="stylesheet" href="../css/mui.min.css">
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/cartDetail.css">
@@ -38,7 +39,7 @@
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container" id="container">
         <div class="mui-scroll-wrapper">
             <div class="mui-scroll">
                 <!--这里放置真实显示的DOM内容-->
@@ -160,6 +161,10 @@
         <a href="javascript:layer.alert('请联系客服：')" class="float-right">更多方案</a>
     </div>
     <script>
+        mui.plusReady(function () {
+            console.log(JSON.stringify(plus.webview.all()[plus.webview.all().length - 1]));
+            console.log(JSON.stringify(plus.webview.all()[plus.webview.all().length - 2]));
+        })
         //初始化scroll
         mui(".mui-scroll-wrapper").scroll({
             deceleration: 0.0005,

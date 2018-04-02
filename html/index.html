@@ -5,15 +5,22 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <title></title>
-    <script src="js/mui.min.js"></script>
+    <script src="../js/mui.min.js"></script>
     <!--引入手淘rem-->
-    <script src="js/flexible.js"></script>
-    <link href="css/mui.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/iconfont.css">
-    <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/index.css">
+    <script src="../js/flexible.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/iconfont.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/index.css">
     <script type="text/javascript" charset="utf-8">
-        mui.init();
+        //初始化预加载详情页面
+        mui.init({
+            preloadPages: [{
+                id: "goodDetail.html",
+                url: "goodDetail.html",
+            }
+            ]
+        });
     </script>
 </head>
 
@@ -26,7 +33,7 @@
                 </span>
             </div>
             <div>
-                <img src="img/down.png" />
+                <span class="iconfont icon-xiala"></span>
             </div>
         </div>
         <div class="title-center">
@@ -39,26 +46,26 @@
         </div>
     </div>
     <nav class="mui-bar mui-bar-tab">
-        <a id="a1" class="mui-tab-item mui-active" href="html/indexIndex.html">
+        <a id="a1" class="mui-tab-item mui-active" href="indexIndex.html">
             <span class="mui-icon iconfont icon-shouye2"></span>
             <span class="mui-tab-label">首页</span>
         </a>
-        <a class="mui-tab-item" href="html/buyCart.html">
-            <span class="mui-icon iconfont icon-sifapaimai"></span>
+        <a class="mui-tab-item" href="buyCart.html">
+            <span class="mui-icon iconfont icon-iconfontzhizuobiaozhun06"></span>
             <span class="mui-tab-label">买车</span>
         </a>
-        <a class="mui-tab-item" href="html/shoppingMall.html">
+        <a class="mui-tab-item" href="shoppingMall.html">
             <span class="mui-icon iconfont icon-weibiaoti-"></span>
             <span class="mui-tab-label">商城</span>
         </a>
-        <a href="html/my.html" class="mui-tab-item">
+        <a href="my.html" class="mui-tab-item">
             <span class="mui-icon iconfont icon-geren"></span>
             <span class="mui-tab-label">我的</span>
         </a>
     </nav>
     <script>
         var Index = 0;
-        var subpages = ["html/indexIndex.html", "html/buyCart.html", "html/shoppingMall.html", "html/my.html"];
+        var subpages = ["indexIndex.html", "buyCart.html", "shoppingMall.html", "my.html"];
         mui.plusReady(function () {
             var self = plus.webview.currentWebview();
             for (var i = 0; i < subpages.length; i++) {
@@ -75,54 +82,54 @@
                 //将webview对象填充到窗口
                 self.append(sub);
             }
-            indexSubject = plus.webview.getWebviewById("html/indexIndex.html");
-            document.querySelector(".title-right").addEventListener("tap",function(){
+            indexSubject = plus.webview.getWebviewById("indexIndex.html");
+            document.querySelector(".title-right").addEventListener("tap", function () {
                 indexSubject.evalJS("openmore()");
             })
         })
         //当前激活选项
         var activeTab = subpages[Index];
         title = document.querySelector(".title-center")
-        var url = "html/order.html";                                            //点击右侧按钮的跳转路径
+        var url = "order.html";                                            //点击右侧按钮的跳转路径
         var indexSubject;
         var activeA = document.getElementsByClassName("mui-bar-tab")[0].getElementsByTagName("a");  //获取所有点击的a
         //顶部右侧按钮
-        var action_bar_right=document.querySelector(".title-right").querySelector(".mui-icon")
-            mui('.mui-bar-tab').on('tap', 'a', function (e) {
-                //获取目标子页的id
-                var targetTab = this.getAttribute('href');
-                if (targetTab == activeTab) {
-                    return;
-                }
-                //更换标题
-                // title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
-                if (this.querySelector(".mui-tab-label").innerHTML == "我的") {
-                    title.getElementsByClassName("title-input")[0].style.display = "none";
-                    title.innerHTML = this.querySelector(".mui-tab-label").innerHTML;
-                    document.querySelector(".title-left").style.visibility = "hidden";
-                    action_bar_right.style.visibility="hidden";
-                    // document.querySelector(".title-right").querySelector("span") = "img/setting.png";
-                    url = "html/setting.html"
-                } else {
-                    title.innerHTML = "";
-                    url = "html/order.html"
-                    var div = document.createElement("div");
-                    document.querySelector(".title-left").style.visibility = "visible";
-                    action_bar_right.style.visibility="hidden";
-                    // document.querySelector(".title-right").querySelector("span").src = "img/close.png";
-                    div.setAttribute("class", "title-input");
-                    var input = document.createElement("input");
-                    input.setAttribute("placeholder", "请输入搜索内容");
-                    div.appendChild(input);
-                    title.appendChild(div);
-                }
-                //显示目标选项卡
-                plus.webview.show(targetTab);
-                //隐藏当前选项卡
-                plus.webview.hide(activeTab);
-                //更改当前活跃的选项卡
-                activeTab = targetTab;
-            });
+        var action_bar_right = document.querySelector(".title-right").querySelector(".mui-icon")
+        mui('.mui-bar-tab').on('tap', 'a', function (e) {
+            //获取目标子页的id
+            var targetTab = this.getAttribute('href');
+            if (targetTab == activeTab) {
+                return;
+            }
+            //更换标题
+            // title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
+            if (this.querySelector(".mui-tab-label").innerHTML == "我的") {
+                title.getElementsByClassName("title-input")[0].style.display = "none";
+                title.innerHTML = this.querySelector(".mui-tab-label").innerHTML;
+                document.querySelector(".title-left").style.visibility = "hidden";
+                action_bar_right.style.visibility = "hidden";
+                // document.querySelector(".title-right").querySelector("span") = "img/setting.png";
+                url = "setting.html"
+            } else {
+                title.innerHTML = "";
+                url = "order.html"
+                var div = document.createElement("div");
+                document.querySelector(".title-left").style.visibility = "visible";
+                action_bar_right.style.visibility = "visible";
+                // document.querySelector(".title-right").querySelector("span").src = "img/close.png";
+                div.setAttribute("class", "title-input");
+                var input = document.createElement("input");
+                input.setAttribute("placeholder", "请输入搜索内容");
+                div.appendChild(input);
+                title.appendChild(div);
+            }
+            //显示目标选项卡
+            plus.webview.show(targetTab);
+            //隐藏当前选项卡
+            plus.webview.hide(activeTab);
+            //更改当前活跃的选项卡
+            activeTab = targetTab;
+        });
         //子页面点击切换页面的方法
         function changeView(now) {
             var targetTab = now;
@@ -142,10 +149,10 @@
                 title.innerHTML = that.querySelector(".mui-tab-label").innerHTML;
                 document.querySelector(".title-left").style.visibility = "hidden";
                 // document.querySelector(".title-right").querySelector("span") = "img/setting.png";
-                url = "html/setting.html"
+                url = "setting.html"
             } else {
                 title.innerHTML = "";
-                url = "html/order.html"
+                url = "order.html"
                 var div = document.createElement("div");
                 document.querySelector(".title-left").style.visibility = "visible";
                 // document.querySelector(".title-right").querySelector("span").src = "img/close.png";

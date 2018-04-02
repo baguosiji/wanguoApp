@@ -8,6 +8,7 @@
     <script src="../js/mui.min.js"></script>
     <script src="../js/flexible.js"></script>
     <link rel="stylesheet" href="../css/mui.min.css">
+    <link rel="stylesheet" href="../css/iconfont.css">
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/goodDetail.css">
     <title>Document</title>
@@ -37,7 +38,7 @@
             </div>
         </div>
     </div>
-    <div class="container" style="background-color: #F7F5F4;">
+    <div id="container" class="container" style="background-color: #F7F5F4;">
         <div class="mui-scroll-wrapper">
             <div class="mui-scroll">
                 <div class="goodDetail-img">
@@ -229,192 +230,184 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="bottom-nav">
-        <div class="left">
-            <div>
-                <p>
-                    <span>T</span>
-                </p>
-                <p>
-                    店铺
-                </p>
-            </div>
-            <div>
-                <p>
-                    <span>T</span>
-                </p>
-                <p>
-                    客服
-                </p>
-            </div>
-            <div>
-                <p>
-                    <span>F</span>
-                </p>
-                <p>
-                    收藏
-                </p>
-            </div>
-        </div>
-        <div class="center">
-            加入购物车
-        </div>
-        <div class="right">
-            立刻购买
-        </div>
-        <!-- 弹出选择商品分类框 -->
-        <div id="popup" class="popup">
-            <div class="popup-top">
-                <div class="popup-img">
-                    <img src="../img/good03.png" alt="">
+        <div class="bottom-nav">
+            <div class="left">
+                <div>
+                    <p>
+                        <span class="iconfont icon-kefu font"></span>
+                    </p>
+                    <p>
+                        客服
+                    </p>
                 </div>
-                <div class="popup-good-message">
-                    <div class="popup-good-name">
-                        博世 铂金火花塞 适用于大众--高 尔夫系列
+                <div @tap="collection($event)">
+                    <p>
+                        <span class="iconfont icon-shoucang1 font"></span>
+                    </p>
+                    <p>
+                        收藏
+                    </p>
+                </div>
+            </div>
+            <div class="center">
+                加入购物车
+            </div>
+            <div class="right">
+                立刻购买
+            </div>
+            <!-- 弹出选择商品分类框 -->
+            <div id="popup" class="popup">
+                <div class="popup-top">
+                    <div class="popup-img">
+                        <img src="../img/good03.png" alt="">
                     </div>
-                    <div class="popup-price-specification">
-                        <div class="popup-price">
-                            ￥299
+                    <div class="popup-good-message">
+                        <div class="popup-good-name">
+                            博世 铂金火花塞 适用于大众--高 尔夫系列
                         </div>
-                        <div class="popup-specification">
-                            请选择商品属性
+                        <div class="popup-price-specification">
+                            <div class="popup-price">
+                                ￥299
+                            </div>
+                            <div class="popup-specification">
+                                请选择商品属性
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="scroll-wrapper">
-                <div class="mui-scroll">
-                    <div class="popup-center">
-                        <div class="good-attribute">
-                            属性：
+                <div class="scroll-wrapper">
+                    <div class="mui-scroll">
+                        <div class="popup-center">
+                            <div class="good-attribute">
+                                属性：
+                            </div>
+                            <div class="good-attribute-list">
+                                <div class="good-attribute-list-every-last">
+                                    FR8DPP30X（4支）
+                                </div>
+                                <div class="good-attribute-list-every-last">
+                                    FR7HPP332W（4支）
+                                </div>
+                                <div class="good-attribute-list-every-last">
+                                    FR5KPP332S（4支）
+                                </div>
+                                <div class="good-attribute-list-every-last">
+                                    FR6HI332（4支）
+                                </div>
+                                <div class="good-attribute-list-every-last">
+                                    FR8DPP30X（4支）
+                                </div>
+                                <div class="good-attribute-list-every-last">
+                                    FR7HPP332W（4支）
+                                </div>
+                                <div class="good-attribute-list-every-last">
+                                    FR5KPP332S（4支）
+                                </div>
+                                <div class="good-attribute-list-every-last">
+                                    FR6HI332（4支）
+                                </div>
+                                <div class="good-attribute-list-every-last">
+                                    FR8DPP30X（4支）
+                                </div>
+                                <div class="good-attribute-list-every-last">
+                                    FR7HPP332W（4支）
+                                </div>
+                                <div class="good-attribute-list-every-last">
+                                    FR5KPP332S（4支）
+                                </div>
+                                <div class="good-attribute-list-every-last">
+                                    FR6HI332（4支）
+                                </div>
+                                <div class="good-attribute-list-every-last">
+                                    FR8DPP30X（4支）
+                                </div>
+                                <div class="good-attribute-list-every-last">
+                                    FR7HPP332W（4支）
+                                </div>
+                                <div class="good-attribute-list-every-last">
+                                    FR5KPP332S（4支）
+                                </div>
+                                <div class="good-attribute-list-every-last">
+                                    FR6HI332（4支）
+                                </div>
+                                <div class="good-attribute-list-every-last">
+                                    FR8DPP30X（4支）
+                                </div>
+                                <div class="good-attribute-list-every-last">
+                                    FR7HPP332W（4支）
+                                </div>
+                                <div class="good-attribute-list-every-last">
+                                    FR5KPP332S（4支）
+                                </div>
+                                <div class="good-attribute-list-every-last">
+                                    FR6HI332（4支）
+                                </div>
+                                <div class="good-attribute-list-every-last">
+                                    FR8DPP30X（4支）
+                                </div>
+                                <div class="good-attribute-list-every-last">
+                                    FR7HPP332W（4支）
+                                </div>
+                                <div class="good-attribute-list-every-last">
+                                    FR5KPP332S（4支）
+                                </div>
+                                <div class="good-attribute-list-every-last">
+                                    FR6HI332（4支）
+                                </div>
+                                <div class="good-attribute-list-every-last">
+                                    FR8DPP30X（4支）
+                                </div>
+                                <div class="good-attribute-list-every-last">
+                                    FR7HPP332W（4支）
+                                </div>
+                                <div class="good-attribute-list-every-last">
+                                    FR5KPP332S（4支）
+                                </div>
+                                <div class="good-attribute-list-every-last">
+                                    FR6HI332（4支）
+                                </div>
+                                <div class="good-attribute-list-every-last">
+                                    FR8DPP30X（4支）
+                                </div>
+                                <div class="good-attribute-list-every-last">
+                                    FR7HPP332W（4支）
+                                </div>
+                                <div class="good-attribute-list-every-last">
+                                    FR5KPP332S（4支）
+                                </div>
+                                <div class="good-attribute-list-every-last">
+                                    FR6HI332（4支）
+                                </div>
+                            </div>
                         </div>
-                        <div class="good-attribute-list">
-                            <div class="good-attribute-list-every-last">
-                                FR8DPP30X（4支）
+                        <div class="buy-number">
+                            <div class="buy-number-text">
+                                购买数量
                             </div>
-                            <div class="good-attribute-list-every-last">
-                                FR7HPP332W（4支）
-                            </div>
-                            <div class="good-attribute-list-every-last">
-                                FR5KPP332S（4支）
-                            </div>
-                            <div class="good-attribute-list-every-last">
-                                FR6HI332（4支）
-                            </div>
-                            <div class="good-attribute-list-every-last">
-                                FR8DPP30X（4支）
-                            </div>
-                            <div class="good-attribute-list-every-last">
-                                FR7HPP332W（4支）
-                            </div>
-                            <div class="good-attribute-list-every-last">
-                                FR5KPP332S（4支）
-                            </div>
-                            <div class="good-attribute-list-every-last">
-                                FR6HI332（4支）
-                            </div>
-                            <div class="good-attribute-list-every-last">
-                                FR8DPP30X（4支）
-                            </div>
-                            <div class="good-attribute-list-every-last">
-                                FR7HPP332W（4支）
-                            </div>
-                            <div class="good-attribute-list-every-last">
-                                FR5KPP332S（4支）
-                            </div>
-                            <div class="good-attribute-list-every-last">
-                                FR6HI332（4支）
-                            </div>
-                            <div class="good-attribute-list-every-last">
-                                FR8DPP30X（4支）
-                            </div>
-                            <div class="good-attribute-list-every-last">
-                                FR7HPP332W（4支）
-                            </div>
-                            <div class="good-attribute-list-every-last">
-                                FR5KPP332S（4支）
-                            </div>
-                            <div class="good-attribute-list-every-last">
-                                FR6HI332（4支）
-                            </div>
-                            <div class="good-attribute-list-every-last">
-                                FR8DPP30X（4支）
-                            </div>
-                            <div class="good-attribute-list-every-last">
-                                FR7HPP332W（4支）
-                            </div>
-                            <div class="good-attribute-list-every-last">
-                                FR5KPP332S（4支）
-                            </div>
-                            <div class="good-attribute-list-every-last">
-                                FR6HI332（4支）
-                            </div>
-                            <div class="good-attribute-list-every-last">
-                                FR8DPP30X（4支）
-                            </div>
-                            <div class="good-attribute-list-every-last">
-                                FR7HPP332W（4支）
-                            </div>
-                            <div class="good-attribute-list-every-last">
-                                FR5KPP332S（4支）
-                            </div>
-                            <div class="good-attribute-list-every-last">
-                                FR6HI332（4支）
-                            </div>
-                            <div class="good-attribute-list-every-last">
-                                FR8DPP30X（4支）
-                            </div>
-                            <div class="good-attribute-list-every-last">
-                                FR7HPP332W（4支）
-                            </div>
-                            <div class="good-attribute-list-every-last">
-                                FR5KPP332S（4支）
-                            </div>
-                            <div class="good-attribute-list-every-last">
-                                FR6HI332（4支）
-                            </div>
-                            <div class="good-attribute-list-every-last">
-                                FR8DPP30X（4支）
-                            </div>
-                            <div class="good-attribute-list-every-last">
-                                FR7HPP332W（4支）
-                            </div>
-                            <div class="good-attribute-list-every-last">
-                                FR5KPP332S（4支）
-                            </div>
-                            <div class="good-attribute-list-every-last">
-                                FR6HI332（4支）
-                            </div>
-                        </div>
-                    </div>
-                    <div class="buy-number">
-                        <div class="buy-number-text">
-                            购买数量
-                        </div>
-                        <div class="number">
-                            <div class="add">
-                                <span class="mui-icon mui-icon-plusempty">
+                            <div class="number">
+                                <div class="add">
+                                    <span class="mui-icon mui-icon-plusempty">
 
-                                </span>
-                            </div>
-                            <input value="1" class="buy-number-input" type="text">
+                                    </span>
+                                </div>
+                                <input value="1" class="buy-number-input" type="text">
 
-                            <div class="remove">
-                                <span>
-                                    －
-                                </span>
+                                <div class="remove">
+                                    <span>
+                                        －
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="popup-bottom">
-                <div class="add-shoppingcart">
-                    加入购物车
-                </div>
-                <div class="buy">
-                    立刻购买
+                <div class="popup-bottom">
+                    <div class="add-shoppingcart">
+                        加入购物车
+                    </div>
+                    <div class="buy">
+                        立刻购买
+                    </div>
                 </div>
             </div>
         </div>
@@ -423,7 +416,14 @@
     <div id="mask">
 
     </div>
+    <script src="../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
     <script>
+        var goodDetail = new Vue({
+            el: "#container",
+            data: {
+
+            },
+        })
         //初始化input value值;
         var number = 1;         //购买数量
         var inputDom = document.querySelector(".popup").getElementsByClassName("buy-number-input")[0];
@@ -442,6 +442,12 @@
                 inputDom.value = number;
             }
         })
+        //点击选择收藏商品
+        function collection(e) {
+            console.log(123456)
+            console.log(e.currentTarget);
+
+        }
         //选择商品属性
         var goodAttribute = document.getElementsByClassName("good-attribute-list-every-last");
         console.log(goodAttribute);

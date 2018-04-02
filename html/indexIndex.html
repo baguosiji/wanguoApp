@@ -4,9 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <script src="../js/flexible.js"></script>
-    <script src="../js/mui.min.js"></script>
-    <script src="../js/httprequest.js"></script>
     <link href="../css/mui.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/iconfont.css">
@@ -127,12 +124,18 @@
                     <div class="title-left">
                         精品推荐
                     </div>
-                    <div class="title-right">
+                    <div class="title-right" @tap="jump_buycar()">
                         <span>查看详情</span>
                         <span class="iconfont icon-gengduo1"></span>
                     </div>
                 </div>
                 <div class="boutique-message">
+                    <div class="boutique-good" v-for="item in cars">
+                        <img v-bind:src="item.pic">
+                        <p>{{item.title}}</p>
+                        <p style="color: #f51212">￥{{item.price}}</p>
+                        <p style="font-size: .3rem;">{{item.djrq}} | {{item.bxlc}}万公里</p>
+                    </div>`
                 </div>
             </div>
             <!-- 新闻部分 -->
@@ -141,13 +144,20 @@
                     <div class="title-left">
                         养车常识
                     </div>
-                    <div class="title-right">
+                    <div class="title-right" @tap="jump_open_new_page('news.html')">
                         <span>更多</span>
                         <span class="iconfont icon-gengduo1"></span>
                     </div>
                 </div>
                 <div class="news-message">
-
+                    <div class="news" v-for="item in news">
+                        <div class="news-icon">
+                            知识
+                        </div>
+                        <div class="news-title">
+                            {{item.title}}
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="all">
@@ -187,17 +197,17 @@
                 </div>
                 <!-- 商品列表区域 -->
                 <div class="good-area">
-                    <!-- <div class="good">
-                        <div class="good-img" style="background-image: url(" ")">
+                    <div class="good" v-for="item in goods">
+                        <div class="good-img" v-bind:style="{backgroundImage:'url(' + item.pic + ')'}">
 
                         </div>
                         <div class="good-message">
-
+                            {{item.goods_name}}
                         </div>
                         <div class="good-price">
-
+                            {{item.shop_price}}
                         </div>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -205,25 +215,31 @@
     <div class="out-div" id="popup">
         <div class="arrow"></div>
         <div class="popup-list">
-            <span class="iconfont icon-single"></span>
+            <span class="iconfont icon-gouwuche"></span>
+            <div>购物车</div>
+        </div>
+        <div class="popup-list">
+            <span class="iconfont  icon-single"></span>
             <div>我的订单</div>
         </div>
         <div class="popup-list">
             <span class="iconfont icon-shoucang2"></span>
             <div>我的收藏</div>
         </div>
-        <div class="popup-list">
-            <span class="iconfont icon-kefu"></span>
-            <div>帮助中心</div>
-        </div>
-        <div class="popup-list">
+        <!-- <div class="popup-list">
             <span class="iconfont icon-richscan_icon"></span>
             <div>扫一扫</div>
-        </div>
+        </div> -->
     </div>
     <div id="shade" onclick="shadeHidden()">
 
     </div>
+    <script src="../js/flexible.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/mui.min.js"></script>
+    <script src="../js/md5.js"></script>
+    <script src="../js/httprequest.js"></script>
+    <script src="../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
     <script>
         // 精品区域
         var carDOM = document.querySelector(".boutique-message");
@@ -231,60 +247,39 @@
         var newsDOM = document.querySelector(".news-message");
         //商品容器
         var goodsDOM = document.querySelector(".good-area");
-        // mui.ajax('http://192.168.50.50:81/api.php/Index/index', {
-        //     dataType: 'json',//服务器返回json格式数据
-        //     type: 'get',//HTTP请求类型
-        //     timeout: 10000,//超时时间设置为10秒；
-        //     headers: {
-        //         "Authorization": '12354647864646546413544163'
-        //     },
-        //     success: function (data) {
+        var good_list = new Vue({
+            el: "#app",
+            data: {
+                cars: [],
+                goods: [],
+                news: []
+            }
+        })
 
-        //     },
-        //     error: function (xhr, type, errorThrown) {
-        //         //异常处理；
-        //         console.log(type);
-        //     }
-        // });
-        mui.getJSON('http://192.168.50.50:81/api.php/Index/index', function (data) {
-            var car = data.data.car;
-            var news = data.data.news;
-            var goods = data.data.goods;
-            for (var j = 0; j < car.length; j++) {
-                carDOM.innerHTML += `
-                    <div class="boutique-good">
-                        <img src="${car[j].pic}">
-                        <p>${car[j].title}</p>
-                        <p style="color: #f51212">￥${car[j].price}</p>
-                        <p style="font-size: .3rem;">${car[j].djrq} | ${car[j].bxlc}万公里</p>
-                    </div>`
+        var password = hex_md5(http_urls + http_time + 'wanguo.net!@#');
+        console.log(http_time);
+        console.log(http_urls + http_time);
+        mui.ajax(http_url, {
+            dataType: 'json',//服务器返回json格式数据
+            type: 'get',//HTTP请求类型
+            timeout: 10000,//超时时间设置为10秒；
+            headers: {
+                "apitoken": password,
+            },
+            success: function (data) {
+                alert
+            },
+            error: function (xhr, type, errorThrown) {
+                //异常处理；
+                console.log(type);
             }
-            for (var n = 0; n < news.length; n++) {
-                newsDOM.innerHTML += ` <div class="news">
-                        <div class="news-icon">
-                            知识
-                        </div>
-                        <div class="news-title">
-                            ${news[n].title}
-                        </div>
-                    </div>`
-            }
-            for (var i = 0; i < goods.length; i++) {
-                goodsDOM.innerHTML += `
-                            <div class="good">
-                        <div class="good-img" style="background-image: url('${goods[i].pic}')">
-
-                        </div>
-                        <div class="good-message">
-                            ${goods[i].goods_name}
-                        </div>
-                        <div class="good-price">
-                               ￥ ${goods[i].shop_price}
-                        </div>
-                    </div>`
-            }
-        }
-        );
+        });
+        // mui.getJSON('http://192.168.50.50:81/api.php/Index/index', function (data) {
+        //     good_list.cars = data.data.car;
+        //     good_list.news = data.data.news;
+        //     good_list.goods = data.data.goods;
+        // }
+        // );
         // H5 plus事件处理
         function plusReady() {
             parent = plus.webview.currentWebview().parent();                //获取父窗口
@@ -296,7 +291,8 @@
         }
         function captureImage() {
             mui.openWindow({
-                url: "QRCode.html"
+                url: "QRCode.html",
+                id: "QRCode.html"
             })
         }
         // 打开弹出框并且打开遮罩
@@ -329,11 +325,45 @@
         for (var i = 0; i < activity.length; i++) {
             activity[i].index = i;
         }
+        var goodDetailPage = null;
         //给每个商品添加点击事件跳转到商品详情页
         mui(".good-area").on("tap", ".good", function () {
+            var id = this.id;
+            if (!goodDetailPage) {
+                goodDetailPage = plus.webview.getWebviewById("goodDetail.html");
+
+            }
+            mui.fire(goodDetailPage, 'goodId', { id: id });
             mui.openWindow({
-                url: "goodDetail.html",
-                id: "goodDetail.html"
+                id: "goodDetail.html",
+            })
+        })
+        //点击跳转
+        function jump_buycar() {
+            parent.evalJS("changeView('buyCart.html')")
+        }
+        //点击跳转到新的页面
+        function jump_open_new_page(url) {
+            console.log(url);
+            mui.openWindow({
+                url: url,
+                id: url,
+            })
+        }
+        //弹出框中的点击跳转
+        mui("#popup").on("tap", ".popup-list", function () {
+            var url;
+            if (this.innerHTML.indexOf("我的订单") >= 0) {
+                url = "order.html";
+            } else if (this.innerHTML.indexOf("购物车") >= 0) {
+                url = "shoppingCart.html";
+            } else {
+                url = "myCollection.html"
+            }
+            shadeHidden();
+            mui.openWindow({
+                url: url,
+                id: url
             })
         })
         //父窗口
@@ -341,14 +371,14 @@
         mui(".category").on("tap", ".every-category", function () {
             console.log("dianji")
             if (this.index == 0) {
-                parent.evalJS("changeView('html/buyCart.html')")
+                parent.evalJS("changeView('buyCart.html')")
             } else if (this.index == 1) {
                 mui.openWindow({
                     url: "sellCart.html",
                     id: "sellCart.html",
                 })
             } else if (this.index == 2) {
-                parent.evalJS("changeView('html/shoppingMall.html')")
+                parent.evalJS("changeView('shoppingMall.html')")
             } else if (this.index == 3) {
                 mui.openWindow({
                     url: "news.html",

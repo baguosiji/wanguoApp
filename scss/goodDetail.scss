@@ -200,6 +200,12 @@
         text-align: center;
         font-size: 0.373333rem;
         color: #666666;
+        .font{
+          font-size: .5rem;
+        }
+        .active{
+          color: #e77f1d
+        }
       }
     }
   }

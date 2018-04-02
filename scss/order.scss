@@ -5,7 +5,7 @@
 .every-last-order {
   margin-bottom: 0.2rem;
   width: 10rem;
-  height: 5.226667rem;
+  height: 5.426667rem;
   background-color: #ffffff;
   .shop-message {
     height: 0.88rem;
@@ -33,30 +33,30 @@
   .good-message {
     width: 10rem;
     padding: 0 0.3rem;
-    height: 2rem;
+    height: 2.2rem;
     background-color: #faf9f8;
     display: flex;
     .left {
       width: 35%;
-      height: 2rem;
-      line-height: 2rem;
+      height: 2.2rem;
+      line-height: 2.2rem;
       text-align: center;
       img {
         vertical-align: middle;
-        height: 1.7rem;
+        height: 1.9rem;
       }
     }
     .right {
       width: 65%;
-      height: 2rem;
+      height: 2.2rem;
       .right-top {
-        height: 45%;
+        height: 50%;
         width: 100%;
         display: flex;
         .right-top-left {
           width: 65%;
           height: 100%;
-          font-size: 14px;
+          font-size: .4rem;
           color: #000000;
         }
         .right-top-right {
@@ -71,11 +71,11 @@
       }
       .right-center {
         width: 100%;
-        font-size: 14px;
+        font-size: 0.38rem;
         color: #666666;
       }
       .right-bottom {
-        font-size: 13px;
+        font-size: .3rem;
         height: 0.5rem;
         width: 1.6rem;
         text-align: center;
@@ -113,7 +113,7 @@
       border: 1px solid #666666;
       text-align: center;
       color: #666666;
-      padding: 0 .2rem;
+      padding: 0 0.2rem;
     }
   }
 }
@@ -153,7 +153,7 @@
   bottom: 0;
 }
 
-#bottom{
+#bottom {
   position: fixed;
   height: 0;
   bottom: 0;

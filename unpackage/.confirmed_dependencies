@@ -112,5 +112,17 @@
 			"html/applicationForRefund.html",
 			"html/applicationForReturn.html"
 		]
+	},
+	"html/index.html": {
+		"resources": [
+			"html/indexIndex.html"
+		],
+		"refer": [
+			"html/my.html",
+			"html/indexIndex.html",
+			"html/shoppingMall.html",
+			"html/buyCart.html",
+			"html/goodDetail.html"
+		]
 	}
 }
