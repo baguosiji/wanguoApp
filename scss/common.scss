@@ -5,10 +5,18 @@
   list-style: none;
   text-decoration: none;
 }
-a:link{text-decoration:none;}
-a:visited{text-decoration:none; }
-a:hover{text-decoration:none}
-a:active{text-decoration:none;}
+a:link {
+  text-decoration: none;
+}
+a:visited {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+a:active {
+  text-decoration: none;
+}
 img {
   vertical-align: middle;
 }
@@ -83,7 +91,7 @@ body {
         font-size: 0.8rem;
       }
       span {
-        font-size: .48rem;
+        font-size: 0.48rem;
         margin-right: 5px;
         color: #fff;
       }
@@ -129,4 +137,14 @@ body {
 .mui-icon {
   font-size: 0.45rem;
   vertical-align: middle;
+}
+/* 轮播图片部分样式 */
+
+.mui-slider-indicator .mui-indicator {
+  margin: -0.2rem 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background: none;
 }

@@ -38,7 +38,6 @@
         </div>
     </div>
     <div class="container" style="background: #F7F5f4">
-
         <div class="address">
             <div class="address-left">
                 <div class="address-name-phone">
@@ -133,13 +132,100 @@
         <div class="bottom-nav-right">
             去付款
         </div>
+
+        <!-- 弹出支付方式框 -->
+        <div id="popup" class="popup">
+            <div class="popup-title">
+                <span>
+                    万国电商钱包
+                </span>
+                <div class="close">
+                    ×
+                </div>
+            </div>
+            <div class="popup-good-message">
+                <div class="popup-price">
+                    ￥88
+                </div>
+                <div class="popup-good-name">
+                    NGK铱铂金火花塞比亚迪F0F3G5S6S7M6L3 G3F6G6速锐思锐秦唐S8宋元
+                </div>
+            </div>
+            <div class="select-payment">
+                第三方支付
+            </div>
+            <div class="wechat">
+                <div class="wechat-icon">
+                    <span class="mui-icon mui-icon-weixin" style="font-size: .8rem;color:#07B906"></span>
+                    <span>微信支付</span>
+                </div>
+                <span class="mui-icon mui-icon-arrowright"></span>
+            </div>
+            <div class="alipay">
+                <div class="alipay-icon">
+                    <span class="mui-icon-extra mui-icon-extra-alipay" style="font-size: .6rem"></span>
+                    <span> 阿里支付</span>
+                </div>
+                <span class="mui-icon mui-icon-arrowright"></span>
+            </div>
+        </div>
+    </div>
+    <!-- 遮罩层 -->
+    <div id="mask">
+
     </div>
     <script>
-        mui(".bottom-nav").on("tap", ".bottom-nav-right", function () {
-            mui.openWindow({
-                url:"paymentMessage.html",
-                id:"paymentMessage.html"
+        //支付通道
+        var payment;
+        mui.plusReady(function () {
+            plus.payment.getChannels(function (channels) {
+                for (var i in channels) {
+                    if (channels[i].id == "wxpay") {
+                        wxChannel = channels[i];
+                    } else {
+                        aliChannel = channels[i];
+                    }
+                }
+            }, function (e) {
+                alert("获取支付通道列表失败：" + e.message);
+            });
+
+        })
+        //支付请求
+        function pay(pay) {
+            if (pay == "alipay") {
+                payment = aliChannel;
+            } else if (pay == "wxpay") {
+                payment = wxChannel;
+            } else {
+                return;
+            }
+            plus.payment.request(payment, "", function () {
+
             })
+        }
+        //点击微信支付
+        mui("#popup").on("tap", ".wechat", function () {
+            pay("wxpay");
+        })
+        //点击支付宝支付
+        mui("#popup").on("tap", ".alipay", function () {
+            pay("alipay")
+        })
+        //点击关闭支付弹框
+        mui("#popup").on("tap", ".close", function () {
+            popup.style.bottom = -11 + "rem";
+            mask.style.display = "none";
+        })
+        var popup = document.getElementById("popup");
+        var mask = document.getElementById("mask");
+        mui(".bottom-nav").on("tap", ".bottom-nav-right", function () {
+            popup.style.bottom = 0;
+            mask.style.display = "block";
+        })
+        mask.addEventListener("tap", function () {
+            popup.style.bottom = -11 + "rem";
+            mask.style.display = "none";
         })
     </script>
 </body>

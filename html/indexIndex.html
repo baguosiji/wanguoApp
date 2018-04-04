@@ -17,7 +17,11 @@
             <!-- 轮播图 -->
             <div class="mui-slider">
                 <div class="mui-slider-group mui-slider-loop">
-
+                    <div class="mui-slider-item mui-slider-item-duplicate">
+                        <a href="#">
+                            <img src="../img/1.png" />
+                        </a>
+                    </div>
                     <div class="mui-slider-item">
                         <a href="#">
                             <img src="../img/1.png" />
@@ -34,6 +38,11 @@
                         </a>
                     </div>
                     <div class="mui-slider-item">
+                        <a href="#">
+                            <img src="../img/4.png" />
+                        </a>
+                    </div>
+                    <div class="mui-slider-item mui-slider-item-duplicate">
                         <a href="#">
                             <img src="../img/4.png" />
                         </a>
@@ -197,7 +206,7 @@
                 </div>
                 <!-- 商品列表区域 -->
                 <div class="good-area">
-                    <div class="good" v-for="item in goods">
+                    <div class="good" v-for="item in goods" v-bind:id="item.goods_id">
                         <div class="good-img" v-bind:style="{backgroundImage:'url(' + item.pic + ')'}">
 
                         </div>
@@ -256,31 +265,23 @@
             }
         })
 
-        var password = hex_md5(http_urls + http_time + 'wanguo.net!@#');
-        console.log(http_time);
-        console.log(http_urls + http_time);
-        mui.ajax(http_url, {
-            dataType: 'json',//服务器返回json格式数据
-            type: 'get',//HTTP请求类型
-            timeout: 10000,//超时时间设置为10秒；
-            headers: {
-                "apitoken": password,
-            },
+        var password = hex_md5('/api.php/Index/index' + http_time + 'wanguo.net!@#');
+        mui.ajax(http_url + '/api.php/Index/index', {
+            dataType: 'json',
+            type: 'get',
+            timeout: 10000,
+            headers: { 'Content-Type': 'application/json', "apitoken": password, },
             success: function (data) {
-                alert
+                good_list.cars = data.data.car;
+                good_list.news = data.data.news;
+                good_list.goods = data.data.goods;
             },
             error: function (xhr, type, errorThrown) {
                 //异常处理；
                 console.log(type);
             }
         });
-        // mui.getJSON('http://192.168.50.50:81/api.php/Index/index', function (data) {
-        //     good_list.cars = data.data.car;
-        //     good_list.news = data.data.news;
-        //     good_list.goods = data.data.goods;
-        // }
-        // );
-        // H5 plus事件处理
+
         function plusReady() {
             parent = plus.webview.currentWebview().parent();                //获取父窗口
         }
@@ -311,10 +312,10 @@
         mui.plusReady(function () {
 
         })
-
+        // 初始化轮播图
         var gallery = mui('.mui-slider');
         gallery.slider({
-            interval: 1000//自动轮播周期，若为0则不自动播放，默认为0；
+            interval: 2000//自动轮播周期，若为0则不自动播放，默认为0；
         });
         mui('.mui-scroll-wrapper').scroll({
             indicators: false,

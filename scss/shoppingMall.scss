@@ -33,40 +33,40 @@
   }
 }
 // 分类部分样式
-.shopping-mall-classification {
-  height: 1.2rem;
-  background-color: #ffffff;
-  width: 100%;
-  .padding {
-    width: 100%;
-    padding: 0 0.3rem;
-    display: flex;
-    .shopping-mall-classification-every-last {
-      flex: 1;
-      a {
-        flex: 1;
-        margin: 0 auto;
-        height: 100%;
-        width: 90%;
-        display: block;
-        text-align: center;
-        border: 0;
-        color: #333333;
-        font-size: 0.4rem;
-        line-height: 1.2rem;
-        // border-bottom: 3px solid #fd5a28;
-        word-break: keep-all;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      .mui-acitve {
-        color: #3fbeff;
-        border-bottom: 2px solid #3fbeff;
-      }
-    }
-  }
-}
+// .shopping-mall-classification {
+//   height: 1.2rem;
+//   background-color: #ffffff;
+//   width: 100%;
+//   .padding {
+//     width: 100%;
+//     padding: 0 0.3rem;
+//     display: flex;
+//     .shopping-mall-classification-every-last {
+//       flex: 2.5rem;
+//       a {
+//         flex: 1;
+//         margin: 0 auto;
+//         height: 100%;
+//         width: 90%;
+//         display: block;
+//         text-align: center;
+//         border: 0;
+//         color: #333333;
+//         font-size: 0.4rem;
+//         line-height: 1.2rem;
+//         // border-bottom: 3px solid #fd5a28;
+//         word-break: keep-all;
+//         white-space: nowrap;
+//         overflow: hidden;
+//         text-overflow: ellipsis;
+//       }
+//       .mui-acitve {
+//         color: #3fbeff;
+//         border-bottom: 2px solid #3fbeff;
+//       }
+//     }
+//   }
+// }
 // 商品列表部分样式
 .shopping-mall-good-list {
   height: 2.5rem;
@@ -87,12 +87,12 @@
     width: 7rem;
     padding: 0 0.3rem 0 0;
     .right-top {
-      height: .9rem;
+      height: 0.9rem;
       // padding-right: .3rem;
-      line-height: .9rem;
+      line-height: 0.9rem;
       width: 100%;
       color: #000000;
-      font-size: .45rem;
+      font-size: 0.45rem;
       word-break: keep-all;
       white-space: nowrap;
       overflow: hidden;
@@ -103,14 +103,14 @@
       width: 100%;
       line-height: 0.7rem;
       color: #f50606;
-      font-size: .43rem;
+      font-size: 0.43rem;
       font-weight: bold;
     }
     .right-bottom {
       height: 0.8rem;
       .float-left {
         color: #666666;
-        font-size: .4rem;
+        font-size: 0.4rem;
         height: 0.8rem;
         width: 3rem;
         line-height: 0.8rem;
@@ -128,4 +128,74 @@
       }
     }
   }
+}
+
+.mui-bar ~ .mui-content .mui-fullscreen {
+  top: 44px;
+  height: auto;
+}
+.mui-pull-top-tips {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  margin-left: -25px;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  z-index: 1;
+}
+.mui-bar ~ .mui-pull-top-tips {
+  top: 24px;
+}
+.mui-pull-top-wrapper {
+  width: 42px;
+  height: 42px;
+  display: block;
+  text-align: center;
+  background-color: #efeff4;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  background-clip: padding-box;
+  box-shadow: 0 4px 10px #bbb;
+  overflow: hidden;
+}
+.mui-pull-top-tips.mui-transitioning {
+  -webkit-transition-duration: 200ms;
+  transition-duration: 200ms;
+}
+.mui-pull-top-tips .mui-pull-loading {
+  /*-webkit-backface-visibility: hidden;
+  -webkit-transition-duration: 400ms;
+  transition-duration: 400ms;*/
+
+  margin: 0;
+}
+.mui-pull-top-wrapper .mui-icon,
+.mui-pull-top-wrapper .mui-spinner {
+  margin-top: 7px;
+}
+.mui-pull-top-wrapper .mui-icon.mui-reverse {
+  /*-webkit-transform: rotate(180deg) translateZ(0);*/
+}
+.mui-pull-bottom-tips {
+  text-align: center;
+  background-color: #efeff4;
+  font-size: 15px;
+  line-height: 40px;
+  color: #777;
+}
+.mui-pull-top-canvas {
+  overflow: hidden;
+  background-color: #fafafa;
+  border-radius: 40px;
+  box-shadow: 0 4px 10px #bbb;
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+}
+.mui-pull-top-canvas canvas {
+  width: 40px;
+}
+.mui-slider-indicator.mui-segmented-control {
+  background-color: #efeff4;
 }

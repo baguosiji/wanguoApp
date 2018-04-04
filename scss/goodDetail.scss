@@ -6,10 +6,10 @@
   bottom: 1.333333rem;
 }
 .goodDetail-img {
-  height: 6rem;
+  height: 10rem;
   width: 100%;
   img {
-    height: 6rem;
+    height: 100%;
     width: 100%;
   }
 }
@@ -200,11 +200,11 @@
         text-align: center;
         font-size: 0.373333rem;
         color: #666666;
-        .font{
-          font-size: .5rem;
+        .font {
+          font-size: 0.5rem;
         }
-        .active{
-          color: #e77f1d
+        .active {
+          color: #e77f1d;
         }
       }
     }
@@ -230,6 +230,7 @@
 .good-name {
   width: 100%;
   background-color: #ffffff;
+  overflow: hidden;
   text-align: center;
   height: 1.2rem;
   line-height: 1.2rem;
@@ -251,6 +252,12 @@
     line-height: 1.2rem;
     color: #000000;
     font-size: 0.46rem;
+  }
+}
+#good-message-list {
+  img {
+    width: 10rem;
+    height: 100%;
   }
 }
 .good-message-list {

@@ -11,6 +11,11 @@
     <link rel="stylesheet" href="../css/common.css">
     <title>新闻详情</title>
 </head>
+<style>
+    .mui-scroll-wrapper {
+        top: 45px;
+    }
+</style>
 
 <body>
     <div class="action-bar-no-search">
@@ -36,13 +41,44 @@
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container" id="app">
         <div class="mui-scroll-wrapper">
-            <div class="mui-scroll">
+            <div class="mui-scroll" v-html="content.contents">
 
             </div>
         </div>
     </div>
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/common.js"></script>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                content: {}
+            }
+        })
+        mui.plusReady(function () {
+            var self = plus.webview.currentWebview();
+            console.log(self.message);
+            mui.ajax(http_url + '/api.php/About/page?id=' + self.message, {
+                dataType: 'json',
+                type: 'get',
+                timeout: 10000,
+                headers: { 'Content-Type': 'application/json' },
+                success: function (data) {
+                    console.log(JSON.stringify(data));
+                    if (data.status == 200) {
+                        vm.content = data.data
+                    } else {
+                        toast(data.message);
+                    }
+                },
+                error: function (xhr, type, errorThrown) {
+
+                }
+            })
+        })
+    </script>
 </body>
 
 </html>

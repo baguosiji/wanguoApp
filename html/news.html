@@ -21,9 +21,11 @@
         align-items: center;
         height: 2.4rem;
     }
-    .mui-scroll-wrapper{
+
+    .mui-scroll-wrapper {
         top: 45px;
     }
+
     .news-img {
         width: 3.2rem;
         height: 1.8rem;
@@ -43,166 +45,118 @@
 </style>
 
 <body>
-    <div class="action-bar-no-search">
-        <div class="title-left mui-action-back">
-            <div>
-                <span class="mui-icon mui-icon-back">
+    <div id="app">
+        <div class="action-bar-no-search">
+            <div class="title-left mui-action-back">
+                <div>
+                    <span class="mui-icon mui-icon-back">
 
-                </span>
-                <span>
+                    </span>
+                    <span>
 
-                </span>
+                    </span>
+                </div>
+            </div>
+            <div class="title-center">
+                咨询中心
+            </div>
+            <div class="title-right">
+                <div class="title-right-left">
+                    <img src="" />
+                </div>
+                <div class="title-right-right">
+                    <img src="" alt="">
+                </div>
             </div>
         </div>
-        <div class="title-center">
-            咨询中心
-        </div>
-        <div class="title-right">
-            <div class="title-right-left">
-                <img src="" />
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <div class="mui-slider">
+                    <div class="mui-slider-group mui-slider-loop">
+                        <div class="mui-slider-item">
+                            <a href="#">
+                                <img src="../img/1.png" />
+                            </a>
+                        </div>
+                        <div class="mui-slider-item">
+                            <a href="#">
+                                <img src="../img/2.png" />
+                            </a>
+                        </div>
+                        <div class="mui-slider-item">
+                            <a href="#">
+                                <img src="../img/3.png" />
+                            </a>
+                        </div>
+                        <div class="mui-slider-item">
+                            <a href="#">
+                                <img src="../img/4.png" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="news-content" v-for="item in news" @tap="jumpMessage(item.id)">
+                    <div class="news-img">
+                        <img src="../img/good03.png" alt="">
+                    </div>
+                    <div class="news-title">
+                        {{item.title}}
+                    </div>
+                </div>
             </div>
-            <div class="title-right-right">
-                <img src="" alt="">
-            </div>
         </div>
+        <div style="height: 100px;"></div>
     </div>
-    <div class="mui-scroll-wrapper">
-        <div class="mui-scroll">
-            <div class="mui-slider">
-                <div class="mui-slider-group mui-slider-loop">
-                    <div class="mui-slider-item">
-                        <a href="#">
-                            <img src="../img/1.png" />
-                        </a>
-                    </div>
-                    <div class="mui-slider-item">
-                        <a href="#">
-                            <img src="../img/2.png" />
-                        </a>
-                    </div>
-                    <div class="mui-slider-item">
-                        <a href="#">
-                            <img src="../img/3.png" />
-                        </a>
-                    </div>
-                    <div class="mui-slider-item">
-                        <a href="#">
-                            <img src="../img/4.png" />
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="news-content">
-                <div class="news-img">
-                    <img src="../img/good03.png" alt="">
-                </div>
-                <div class="news-title">
-                    全球首起致死事故，自动驾驶汽车撞死行人
-                </div>
-            </div>
-            <div class="news-content">
-                <div class="news-img">
-                    <img src="../img/good03.png" alt="">
-                </div>
-                <div class="news-title">
-                    全球首起致死事故，自动驾驶汽车撞死行人
-                </div>
-            </div>
-            <div class="news-content">
-                <div class="news-img">
-                    <img src="../img/good03.png" alt="">
-                </div>
-                <div class="news-title">
-                    全球首起致死事故，自动驾驶汽车撞死行人
-                </div>
-            </div>
-            <div class="news-content">
-                <div class="news-img">
-                    <img src="../img/good03.png" alt="">
-                </div>
-                <div class="news-title">
-                    全球首起致死事故，自动驾驶汽车撞死行人
-                </div>
-            </div>
-            <div class="news-content">
-                <div class="news-img">
-                    <img src="../img/good03.png" alt="">
-                </div>
-                <div class="news-title">
-                    全球首起致死事故，自动驾驶汽车撞死行人
-                </div>
-            </div>
-            <div class="news-content">
-                <div class="news-img">
-                    <img src="../img/good03.png" alt="">
-                </div>
-                <div class="news-title">
-                    全球首起致死事故，自动驾驶汽车撞死行人
-                </div>
-            </div>
-            <div class="news-content">
-                <div class="news-img">
-                    <img src="../img/good03.png" alt="">
-                </div>
-                <div class="news-title">
-                    全球首起致死事故，自动驾驶汽车撞死行人
-                </div>
-            </div>
-            <div class="news-content">
-                <div class="news-img">
-                    <img src="../img/good03.png" alt="">
-                </div>
-                <div class="news-title">
-                    全球首起致死事故，自动驾驶汽车撞死行人
-                </div>
-            </div>
-            <div class="news-content">
-                <div class="news-img">
-                    <img src="../img/good03.png" alt="">
-                </div>
-                <div class="news-title">
-                    全球首起致死事故，自动驾驶汽车撞死行人
-                </div>
-            </div>
-            <div class="news-content">
-                <div class="news-img">
-                    <img src="../img/good03.png" alt="">
-                </div>
-                <div class="news-title">
-                    全球首起致死事故，自动驾驶汽车撞死行人
-                </div>
-            </div>
-            <div class="news-content">
-                <div class="news-img">
-                    <img src="../img/good03.png" alt="">
-                </div>
-                <div class="news-title">
-                    全球首起致死事故，自动驾驶汽车撞死行人
-                </div>
-            </div>
-            <div class="news-content">
-                <div class="news-img">
-                    <img src="../img/good03.png" alt="">
-                </div>
-                <div class="news-title">
-                    全球首起致死事故，自动驾驶汽车撞死行人
-                </div>
-            </div>
-        </div>
-    </div>
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/common.js"></script>
     <script>
+        mui.init();
         mui(".mui-scroll-wrapper").scroll({
             deceleration: 0.0005
         })
-        var active = document.getElementsByClassName("news-content");
-        for (var i = 0; i < active.length; i++) {
-            active[i].addEventListener("tap", function () {
-                mui.openWindow({
-                    url: "newsMessage.html",
-                    id: "newsMessage.html"
-                })
-            }, false)
+        function jumpMessage(id) {
+            console.log("这是id" + id)
+            mui.openWindow({
+                url: "newsMessage.html",
+                id: "newsMessage.html",
+                extras: {
+                    message: id //扩展参数
+                }
+            })
         }
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                news: [
+                    {title:"12343"},
+                    {title:"12343"},
+                    {title:"12343"},
+                    {title:"12343"},
+                    {title:"12343"},
+                    {title:"12343"},
+                    {title:"12343"},
+                    {title:"12343"},
+                    {title:"12343"}
+                ],
+            }
+        })
+        // mui.ajax(http_url + '/api.php/About/index', {
+        //     dataType: 'json',
+        //     type: 'get',
+        //     timeout: 10000,
+        //     headers: { 'Content-Type': 'application/json' },
+        //     success: function (data) {
+        //         alert(JSON.stringify(data));
+        //         if (data.status == 200) {
+        //             vm.news = data.data
+        //         } else {
+        //             toast(data.message);
+        //         }
+        //     },
+        //     error: function (xhr, type, errorThrown) {
+
+        //     }
+        // })
     </script>
 </body>
 

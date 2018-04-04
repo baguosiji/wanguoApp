@@ -15,14 +15,15 @@
 </head>
 
 <body>
-    <div class="mui-scroll-wrapper">
+    <div class="mui-scroll-wrapper" id="app">
         <div class="mui-scroll">
             <div class="user-message">
                 <div class="user-header-img">
-                    <img src="../img/userHeader.png" alt="">
+                    <img v-if="!user_message" src="../img/userHeader.png" alt="">
+                    <img v-if="user_message" v-bind:src="http_url+user_message.headimg" alt="">
                 </div>
                 <div class="user-name">
-                    请登录
+                    {{user_message?user_message.nickname:"请登录"}}
                 </div>
                 <div class="more">
                     <img src="../img/right-black.png" alt="">
@@ -80,14 +81,40 @@
             </div>
         </div>
     </div>
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/common.js"></script>
     <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                user_message: {},
+            }
+        })
+        vm.user_message = JSON.parse(localStorage.getItem("user-message"))
+        console.log(vm.user_message);
         mui(".mui-scroll-wrapper").scroll({
             deceleration: 0.0005
         })
         document.getElementsByClassName("sign-out")[0].addEventListener("tap", function () {
-            mui.openWindow({
-                id: "login.html",
-                url: "login.html"
+            mui.ajax(http_url + '/api.php/Login/logout', {
+                dataType: 'json',
+                type: 'get',
+                timeout: 10000,
+                // headers: { 'Content-Type': 'application/json' },
+                success: function (data) {
+                    localStorage.removeItem("token");
+                    localStorage.removeItem("user-message");
+                    mui.alert(data.message, "万国提示", function () {
+                        mui.openWindow({
+                            id: "login.html",
+                            url: "login.html"
+                        })
+                    })
+                },
+                error: function (xhr, type, errorThrown) {
+                    //异常处理；
+                    console.log(type);
+                }
             })
         });
         document.getElementsByClassName("user-message")[0].addEventListener("tap", function () {

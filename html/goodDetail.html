@@ -41,24 +41,36 @@
     <div id="container" class="container" style="background-color: #F7F5F4;">
         <div class="mui-scroll-wrapper">
             <div class="mui-scroll">
-                <div class="goodDetail-img">
-                    <img src="../img/goodDetail.png" alt="">
+                <div class="mui-slider">
+                    <div class="mui-slider-group">
+                        <div class="mui-slider-item" v-for="img in goodMessage.goods_images">
+                            <a href="#">
+                                <img v-bind:src="http_url+img.pic" />
+                            </a>
+                        </div>
+                    </div>
+                    <div class="mui-slider-indicator">
+                        <div class="mui-indicator mui-active"></div>
+                        <div class="mui-indicator"></div>
+                        <div class="mui-indicator"></div>
+                        <div class="mui-indicator"></div>
+                    </div>
                 </div>
                 <div class="good-message">
                     <div class="good-name-price">
                         <div class="top">
                             <div class="left">
-                                <div>博世 铂金火花塞 适用于大众--高尔夫系列
+                                <div>{{goodMessage.goods_name}}
                                 </div>
                                 <p>
-                                    <span>￥</span>209</p>
+                                    <span>￥</span>{{goodMessage.market_price}}</p>
                             </div>
-                            <div class="right">
-                                <div>
-                                    <img src="../img/share.png" alt="">
-                                </div>
-                                分享
+                            <!-- <div class="right" @tap="share()">
+                            <div>
+                                <img src="../img/share.png" alt="">
                             </div>
+                            分享
+                        </div> -->
                         </div>
                         <div class="bottom">
                             <div class="freight">
@@ -90,78 +102,78 @@
                             </div>
                         </div>
                     </div>
-                    <div class="list-message">
-                        <div class="parpmeter" style="border-bottom: 1px solid #F7F5F4">
-                            <span>
-                                产品参数
-                            </span>
-                            <span class="mui-icon mui-icon-arrowright">
-
-                            </span>
-                        </div>
-                        <div class="parpmeter">
-                            <span>
-                                适用车型
-                            </span>
-                            <span class="mui-icon mui-icon-arrowright">
-
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="common">
-                    <div class="line">
-
-                    </div>
-                    <div class="message">
-                        <span class="mui-icon mui-icon-chatbubble">
-
-                        </span>
+                    <!-- <div class="list-message">
+                    <div class="parpmeter" style="border-bottom: 1px solid #F7F5F4">
                         <span>
-                            评价
+                            产品参数
+                        </span>
+                        <span class="mui-icon mui-icon-arrowright">
+
                         </span>
                     </div>
-                    <div class="line">
+                    <div class="parpmeter">
+                        <span>
+                            适用车型
+                        </span>
+                        <span class="mui-icon mui-icon-arrowright">
 
+                        </span>
+                    </div>
+                </div> -->
+                </div>
+                <!-- <div class="common">
+                <div class="line">
+
+                </div>
+                <div class="message">
+                    <span class="mui-icon mui-icon-chatbubble">
+
+                    </span>
+                    <span>
+                        评价
+                    </span>
+                </div>
+                <div class="line">
+
+                </div>
+            </div> -->
+                <!-- <div class="good-assess">
+                <div class="padding">
+                    <p>宝贝评价 (
+                        <span>3247</span>)</p>
+                    <div class="clearfloat" @tap="getHttp()">
+                        <div class="assess-button">
+                            质量很好 (
+                            <span>85</span>)
+                        </div>
+                        <div class="assess-button">
+                            质量很好 (
+                            <span>85</span>)
+                        </div>
+                        <div class="assess-button">
+                            质量很好 (
+                            <span>85</span>)
+                        </div>
+                        <div class="assess-button">
+                            质量很好 (
+                            <span>85</span>)
+                        </div>
+                        <div class="assess-button">
+                            质量很好 (
+                            <span>85</span>)
+                        </div>
+                    </div>
+                    <div class="video-message clearfloat">
+                        已评价43526次
+                        <div class="video-comment-love-it float-right">
+                            <img src="../img/comment.png" alt=""> 点击评论
+                        </div>
+                        <div class="video-comment-love-it float-right">
+                            <img src="../img/love-it.png" alt=""> 点赞
+                        </div>
                     </div>
                 </div>
-                <div class="good-assess">
-                    <div class="padding">
-                        <p>宝贝评价 (
-                            <span>3247</span>)</p>
-                        <div class="clearfloat">
-                            <div class="assess-button">
-                                质量很好 (
-                                <span>85</span>)
-                            </div>
-                            <div class="assess-button">
-                                质量很好 (
-                                <span>85</span>)
-                            </div>
-                            <div class="assess-button">
-                                质量很好 (
-                                <span>85</span>)
-                            </div>
-                            <div class="assess-button">
-                                质量很好 (
-                                <span>85</span>)
-                            </div>
-                            <div class="assess-button">
-                                质量很好 (
-                                <span>85</span>)
-                            </div>
-                        </div>
-                        <div class="video-message clearfloat">
-                            已评价43526次
-                            <div class="video-comment-love-it float-right">
-                                <img src="../img/comment.png" alt=""> 点击评论
-                            </div>
-                            <div class="video-comment-love-it float-right">
-                                <img src="../img/love-it.png" alt=""> 点赞
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            </div> -->
                 <div class="common">
                     <div class="line">
 
@@ -179,54 +191,57 @@
                     </div>
                 </div>
                 <div class="good-name">
-                    〝博世品牌 铂金材质火塞花（四支价）〞
+                    {{goodMessage.goods_remark}}
                 </div>
                 <div class="good-text">
                     <div class="good">
                         商品信息
                     </div>
                 </div>
-                <div class="good-message-list">
-                    <div class="good-message-list-every-last">
-                        <div class="good-message-list-every-last-left">
-                            包装价格
-                        </div>
-                        <div class="good-message-list-every-last-right">
-                            4支装
-                        </div>
+                <div>
+                    <!-- <div class="good-message-list-every-last">
+                    <div class="good-message-list-every-last-left">
+                        包装价格
                     </div>
-                    <div class="good-message-list-every-last">
-                        <div class="good-message-list-every-last-left">
-                            包装价格
-                        </div>
-                        <div class="good-message-list-every-last-right">
-                            4支装
-                        </div>
+                    <div class="good-message-list-every-last-right">
+                        4支装
                     </div>
-                    <div class="good-message-list-every-last">
-                        <div class="good-message-list-every-last-left">
-                            品牌
-                        </div>
-                        <div class="good-message-list-every-last-right">
-                            Bosch/博世
-                        </div>
+                </div>
+                <div class="good-message-list-every-last">
+                    <div class="good-message-list-every-last-left">
+                        包装价格
                     </div>
-                    <div class="good-message-list-every-last">
-                        <div class="good-message-list-every-last-left">
-                            零配件分类
-                        </div>
-                        <div class="good-message-list-every-last-right">
-                            汽车配件
-                        </div>
+                    <div class="good-message-list-every-last-right">
+                        4支装
                     </div>
-                    <div class="good-message-list-every-last">
-                        <div class="good-message-list-every-last-left">
-                            火花塞类型
-                        </div>
-                        <div class="good-message-list-every-last-right">
-                            电阻火花塞
-                        </div>
+                </div>
+                <div class="good-message-list-every-last">
+                    <div class="good-message-list-every-last-left">
+                        品牌
                     </div>
+                    <div class="good-message-list-every-last-right">
+                        Bosch/博世
+                    </div>
+                </div>
+                <div class="good-message-list-every-last">
+                    <div class="good-message-list-every-last-left">
+                        零配件分类
+                    </div>
+                    <div class="good-message-list-every-last-right">
+                        汽车配件
+                    </div>
+                </div>
+                <div class="good-message-list-every-last">
+                    <div class="good-message-list-every-last-left">
+                        火花塞类型
+                    </div>
+                    <div class="good-message-list-every-last-right">
+                        电阻火花塞
+                    </div>
+                </div> -->
+                </div>
+                <div id="good-message-list">
+
                 </div>
             </div>
         </div>
@@ -240,11 +255,11 @@
                         客服
                     </p>
                 </div>
-                <div @tap="collection($event)">
+                <div @tap="collection($event)" id="collection">
                     <p>
                         <span class="iconfont icon-shoucang1 font"></span>
                     </p>
-                    <p>
+                    <p class="text">
                         收藏
                     </p>
                 </div>
@@ -263,11 +278,11 @@
                     </div>
                     <div class="popup-good-message">
                         <div class="popup-good-name">
-                            博世 铂金火花塞 适用于大众--高 尔夫系列
+                            {{goodMessage.goods_name}}
                         </div>
                         <div class="popup-price-specification">
                             <div class="popup-price">
-                                ￥299
+                                ￥{{goodMessage.market_price}}
                             </div>
                             <div class="popup-specification">
                                 请选择商品属性
@@ -417,14 +432,92 @@
 
     </div>
     <script src="../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/common.js"></script>
     <script>
-        var goodDetail = new Vue({
+        var gallery = mui('.mui-slider');
+        gallery.slider({
+            interval: 2000//自动轮播周期，若为0则不自动播放，默认为0；
+        });
+        var vm = new Vue({
             el: "#container",
             data: {
-
+                goodMessage: {},
+                goodData: {}
             },
+            methods: {
+                resetData: function () {//重置数据
+                    Object.assign(this.$data, goodMessage);
+                }
+            }
         })
+        //在details页面接收id参数
+        var firstImage;                                                             //轮播图的第一张图片
+        var lastImage;                                                              //轮播图的最后一张图片
+        window.addEventListener('goodId', function (event) {
+            //获得事件参数
+            var id = event.detail.id;
+            mui.ajax(http_url + '/api.php/Mall/details?id=' + id, {
+                dataType: 'json',
+                type: 'get',
+                timeout: 10000,
+                headers: { 'Content-Type': 'application/json' },
+                success: function (data) {
+                    vm.goodMessage = data.data.info;
+                    firstImage = data.data.info.goods_images[0];
+                    lastImage = data.data.info.goods_images.pop();
+                    vm.goodData = data.data;
+                    if (data.data.addFav == 1) {
+                        console.log("?????")
+                        collection_good.querySelector(".text").innerText = "已收藏";
+                        collection_good.querySelectorAll("p")[0].style.color = "red";
+                        collection_good.querySelectorAll("p")[1].style.color = "red";
+                    } else {
+                        collection_good.querySelector(".text").innerText = "收藏";
+                        collection_good.querySelectorAll("p")[0].style.color = "#666";
+                        collection_good.querySelectorAll("p")[1].style.color = "#666";
+                    }
+                    document.getElementById("good-message-list").innerHTML = vm.goodMessage.goods_content;
+                    console.log(vm.goodMessage);
+                },
+                error: function (xhr, type, errorThrown) {
+                    //异常处理；ss
+                    console.log(errorThrown);
+                }
+            });
+            console.log(http_url + '/Mall/details?id=' + id);
+
+        });
+
+        function getHttp() {
+            console.log(document.querySelector(".whd").src);
+        }
+
+        mui.plusReady(function () {
+            // plus.share.getServices(function (s) {
+            //     shares = s;
+            // }, function (e) {
+            //     alert("获取分享服务列表失败：" + e.message);
+            // });
+        })
+        // 分享
+        // function share() {
+        //     plus.share.getServices(function (s) {
+        //         shares = ss;
+        //         for (var i in ss) {
+        //             var s = ss[i];
+        //             var item = document.createElement("li");
+        //             item.setAttribute("class", "ditem");
+        //             item.setAttribute("onclick", (s.id == "weixin") ? "shareWeiXin(this.plusShare)" : "shareAction(this.plusShare)");
+        //             item.innerText = s.description;
+        //             item.plusShare = s;
+        //             list.appendChild(item);
+        //         }
+        //     }, function (e) {
+        //         alert("获取分享服务列表失败：" + e.message);
+        //     });
+        // }
         //初始化input value值;
+        var collection_good = document.getElementById("collection");
         var number = 1;         //购买数量
         var inputDom = document.querySelector(".popup").getElementsByClassName("buy-number-input")[0];
         inputDom.value = number;
@@ -442,12 +535,57 @@
                 inputDom.value = number;
             }
         })
+
         //点击选择收藏商品
         function collection(e) {
-            console.log(123456)
-            console.log(e.currentTarget);
+            var eTarget = e.currentTarget;
+            var id = vm.goodMessage.goods_id;
+            var token = localStorage.getItem("token");
+            if (!token) {
+                toast("请登录");
+                return;
+            }
+            if (e.currentTarget.querySelector(".text").innerText == "收藏") {
+                mui.ajax(http_url + '/api.php/Mall/add_collect?id=' + id + '&token=' + token, {
+                    dataType: 'json',
+                    type: 'get',
+                    timeout: 10000,
+                    headers: { 'Content-Type': 'application/json' },
+                    success: function (data) {
+                        toast(data.message);
+                        console.log(e.currentTarget);
+                        eTarget.querySelector(".text").innerText = "已收藏";
+                        eTarget.querySelectorAll("p")[0].style.color = "red";
+                        eTarget.querySelectorAll("p")[1].style.color = "red";
+
+                    },
+                    error: function (xhr, type, errorThrown) {
+                        //异常处理；ss
+                        console.log(errorThrown);
+                    }
+                })
+            } else {
+                mui.ajax(http_url + '/api.php/Mall/del_collect?id=' + id + '&token=' + token, {
+                    dataType: 'json',
+                    type: 'get',
+                    timeout: 10000,
+                    headers: { 'Content-Type': 'application/json' },
+                    success: function (data) {
+                        toast(data.message);
+                        eTarget.querySelector(".text").innerText = "收藏";
+                        eTarget.querySelectorAll("p")[0].style.color = "#666";
+                        eTarget.querySelectorAll("p")[1].style.color = "#666";
+                    },
+                    error: function (xhr, type, errorThrown) {
+                        //异常处理；ss
+                        console.log(errorThrown);
+                    }
+                })
+            }
+
 
         }
+
         //选择商品属性
         var goodAttribute = document.getElementsByClassName("good-attribute-list-every-last");
         console.log(goodAttribute);
@@ -487,6 +625,10 @@
             indicators: true
         });
         mui(".bottom-nav").on("tap", ".center", function () {
+            popup.style.bottom = 0;
+            mask.style.display = "block";
+        })
+        mui(".bottom-nav").on("tap", ".right", function () {
             popup.style.bottom = 0;
             mask.style.display = "block";
         })
