@@ -43,6 +43,7 @@ body {
 }
 .clearfloat:after {
   display: block;
+  
   clear: both;
   content: "";
   visibility: hidden;
@@ -63,8 +64,8 @@ body {
   background-color: #39ace5;
   padding: 0 0.3rem;
   border-bottom: 0;
-  -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.85);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0.85);
+  // -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.85);
+  // box-shadow: 0 0 1px rgba(0, 0, 0, 0.85);
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   .title-center {

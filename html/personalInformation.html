@@ -37,7 +37,7 @@
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container" id="app">
         <div id="picture-btn" class="user-header">
             <div class="text">
                 上传头像
@@ -53,19 +53,19 @@
             <div>
                 <span>登录名：</span>
             </div>
-            <span class="account-number">18135238363</span>
+            <span class="account-number">{{userMessage.phone}}</span>
         </div>
         <div class="common-list">
             <div>
                 <span>昵称：</span>
             </div>
-            <input type="text">
+            <input v-bind:value="userMessage.nickname" type="text">
         </div>
         <div class="common-list">
             <div>
                 <span>姓名：</span>
             </div>
-            <input type="text">
+            <input v-bind:value="userMessage.truename" type="text">
         </div>
         <div class="common-list">
             <div>
@@ -74,11 +74,11 @@
                 </span>
             </div>
             <div class="mui-radio">
-                <input name="radio1" type="radio" checked>
+                <input name="radio1" value="男" v-model=" sex" type="radio">
                 <span>男</span>
             </div>
             <div class="mui-radio">
-                <input name="radio1" type="radio">
+                <input name="radio1" value="女" v-model="sex" type="radio">
                 <span>女</span>
             </div>
         </div>
@@ -86,14 +86,37 @@
             <div>
                 <span>生日：</span>
             </div>
-            <span class="account-number">1993-07-20</span>
+            <span class="account-number">{{userMessage.birthday}}</span>
             <span class="mui-icon mui-icon-arrowright float-right"></span>
         </div>
-        <div class="submit-button">
+        <div class="submit-button" @tap="submit()">
             保存
         </div>
     </div>
+    <script src="../js/common.js"></script>
+    <script src="../js/vue.min.js"></script>
     <script>
+        mui.ajax(http_url + "/api.php/User/info", {
+            dataType: 'json',
+            type: 'get',
+            timeout: 10000,
+            headers: { 'Content-Type': 'application/json' },
+            success: function (data) {
+                vm.sex = data.data.sex;
+                vm.userMessage = data.data;
+            },
+            error: function (xhr, type, errorThrown) {
+                //异常处理；ss
+                console.log(errorThrown);
+            }
+        })
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                userMessage: {},
+                sex: "",
+            }
+        })
         function plusReady() {
         }
         if (window.plus) {
@@ -108,7 +131,7 @@
         function pickDate(data) {
             plus.nativeUI.pickDate(function (e) {
                 var d = e.date;
-                data.querySelector(".account-number").innerText = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+                vm.userMessage.birthday = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
                 console.log("选择的日期：" + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate());
             }, function (e) {
                 console.log("未选择日期：" + e.message);
@@ -148,6 +171,7 @@
             var res = cmr.supportedImageResolutions[0];
             var fmt = cmr.supportedImageFormats[0];
             cmr.captureImage(function (path) {
+                localPicture = path;
                 plus.io.resolveLocalFileSystemURL(path, function (entry) {
                     var src = entry.toLocalURL();
                     user_header_img.src = src;
@@ -159,11 +183,13 @@
                 { resolution: res, format: fmt }
             );
         }
+        var localPicture;
         //调用相册的方法
         // 从相册中选择图片 
         function galleryImg() {
             // 从相册中选择图片
             plus.gallery.pick(function (path) {
+                localPicture = path;
                 plus.io.resolveLocalFileSystemURL(path, function (entry) {
                     var src = entry.toLocalURL();
                     user_header_img.src = src;
@@ -171,6 +197,59 @@
             }, function (e) {
                 console.log("取消选择图片");
             }, { filter: "image" });
+        }
+        //保存用户信息
+        function submit() {
+            console.log("123455")
+            var task = plus.uploader.createUpload(http_url + "/api.php/User/upload_attachment",
+                { method: "POST", blocksize: 204800, priority: 100 },
+                function (t, status) {
+                    // 上传完成
+                    if (status == 200) {
+                        mui.alert(JSON.stringify(t));
+                    } else {
+                        mui.alert("Upload failed: " + status);
+                    }
+                }
+            );
+            task.addData("fileupload", "img");
+            task.addFile(user_header_img.src, { key: "dddd" });
+            task.start();
+
+            // mui.ajax(http_url + "/api.php/User/info", {
+            //     data: {
+            //         nickname: vm.userMessage.nickname,
+            //         truename: vm.userMessage.truename,
+            //         sex: vm.userMessage.sex,
+            //         birthday: vm.userMessage.birthday,
+            //     },
+            //     dataType: 'json',
+            //     type: 'post',
+            //     timeout: 10000,
+            //     success: function (data) {
+            //         mui.alert(vm.sex);
+            //     },
+            //     error: function (xhr, type, errorThrown) {
+            //         console.log(errorThrown);
+            //     }
+            // })
+        }
+        //上传头像
+        function createUpload() {
+            var task = plus.uploader.createUpload(http_url + "/api.php/User/upload_attachment",
+                { method: "POST", blocksize: 204800, priority: 100 },
+                function (t, status) {
+                    // 上传完成
+                    if (status == 200) {
+                        alert("Upload success: " + t.url);
+                    } else {
+                        alert("Upload failed: " + status);
+                    }
+                }
+            );
+            task.addData("name", "img");
+            task.addFile(user_header_img.src, { key: "dddd" });
+            task.start();
         }
     </script>
 </body>

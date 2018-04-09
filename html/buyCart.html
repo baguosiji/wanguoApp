@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <div class="mui-scroll-wrapper">
+    <div class="mui-scroll-wrapper" id="app">
         <div class="mui-scroll">
             <div class="mui-slider">
                 <div class="mui-slider-group mui-slider-loop">
@@ -48,160 +48,65 @@
                 </div>
             </div>
             <div class="cart-region">
-                <div class="cart-region-every-last">
+                <div class="cart-region-every-last" v-for="x in cars" @tap="jump_to_detail(x.bid)">
                     <div class="left">
-                        <img src="../img/good04.png" alt="">
+                        <img :src="http_url+x.pic" alt="">
                     </div>
                     <div class="right">
-                        <p>宝马5系 2014款 525Li豪华设计套装</p>
+                        <p>{{x.title}}</p>
                         <p>
                             <span>2014-6</span>/
-                            <span>9.00万公里</span>
+                            <span>{{x.bxlc}}万公里</span>
                         </p>
                         <p class="price">
-                            <span>13.00</span> 万</p>
-                        <a href="">在线支付</a>
-                    </div>
-                </div>
-                <div class="cart-region-every-last">
-                    <div class="left">
-                        <img src="../img/good04.png" alt="">
-                    </div>
-                    <div class="right">
-                        <p>宝马5系 2014款 525Li豪华设计套装</p>
-                        <p>
-                            <span>2014-6</span>/
-                            <span>9.00万公里</span>
-                        </p>
-                        <p class="price">
-                            <span>13.00</span> 万</p>
-                        <a href="">在线支付</a>
-                    </div>
-                </div>
-                <div class="cart-region-every-last">
-                    <div class="left">
-                        <img src="../img/good04.png" alt="">
-                    </div>
-                    <div class="right">
-                        <p>宝马5系 2014款 525Li豪华设计套装</p>
-                        <p>
-                            <span>2014-6</span>/
-                            <span>9.00万公里</span>
-                        </p>
-                        <p class="price">
-                            <span>13.00</span> 万</p>
-                        <a href="">在线支付</a>
-                    </div>
-                </div>
-                <div class="cart-region-every-last">
-                    <div class="left">
-                        <img src="../img/good04.png" alt="">
-                    </div>
-                    <div class="right">
-                        <p>宝马5系 2014款 525Li豪华设计套装</p>
-                        <p>
-                            <span>2014-6</span>/
-                            <span>9.00万公里</span>
-                        </p>
-                        <p class="price">
-                            <span>13.00</span> 万</p>
-                        <a href="">在线支付</a>
-                    </div>
-                </div>
-                <div class="cart-region-every-last">
-                    <div class="left">
-                        <img src="../img/good04.png" alt="">
-                    </div>
-                    <div class="right">
-                        <p>宝马5系 2014款 525Li豪华设计套装</p>
-                        <p>
-                            <span>2014-6</span>/
-                            <span>9.00万公里</span>
-                        </p>
-                        <p class="price">
-                            <span>13.00</span> 万</p>
-                        <a href="">在线支付</a>
-                    </div>
-                </div>
-                <div class="cart-region-every-last">
-                    <div class="left">
-                        <img src="../img/good04.png" alt="">
-                    </div>
-                    <div class="right">
-                        <p>宝马5系 2014款 525Li豪华设计套装</p>
-                        <p>
-                            <span>2014-6</span>/
-                            <span>9.00万公里</span>
-                        </p>
-                        <p class="price">
-                            <span>13.00</span> 万</p>
-                        <a href="">在线支付</a>
-                    </div>
-                </div>
-                <div class="cart-region-every-last">
-                    <div class="left">
-                        <img src="../img/good04.png" alt="">
-                    </div>
-                    <div class="right">
-                        <p>宝马5系 2014款 525Li豪华设计套装</p>
-                        <p>
-                            <span>2014-6</span>/
-                            <span>9.00万公里</span>
-                        </p>
-                        <p class="price">
-                            <span>13.00</span> 万</p>
-                        <a href="">在线支付</a>
-                    </div>
-                </div>
-                <div class="cart-region-every-last">
-                    <div class="left">
-                        <img src="../img/good04.png" alt="">
-                    </div>
-                    <div class="right">
-                        <p>宝马5系 2014款 525Li豪华设计套装</p>
-                        <p>
-                            <span>2014-6</span>/
-                            <span>9.00万公里</span>
-                        </p>
-                        <p class="price">
-                            <span>13.00</span> 万</p>
-                        <a href="">在线支付</a>
-                    </div>
-                </div>
-                <div class="cart-region-every-last">
-                    <div class="left">
-                        <img src="../img/good04.png" alt="">
-                    </div>
-                    <div class="right">
-                        <p>宝马5系 2014款 525Li豪华设计套装</p>
-                        <p>
-                            <span>2014-6</span>/
-                            <span>9.00万公里</span>
-                        </p>
-                        <p class="price">
-                            <span>13.00</span> 万</p>
-                        <a href="">在线支付</a>
-                    </div>
-                </div>
-                <div class="cart-region-every-last">
-                    <div class="left">
-                        <img src="../img/good04.png" alt="">
-                    </div>
-                    <div class="right">
-                        <p>宝马5系 2014款 525Li豪华设计套装</p>
-                        <p>
-                            <span>2014-6</span>/
-                            <span>9.00万公里</span>
-                        </p>
-                        <p class="price">
-                            <span>13.00</span> 万</p>
+                            <span>{{x.price}}</span> 万</p>
                         <a href="">在线支付</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/common.js"></script>
     <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                cars: [
+
+                ],
+            }
+        })
+        //  	数据接口
+        mui.ajax(http_url + '/api.php/Buycar/index', {
+            dataType: 'json',
+            type: 'get',
+            timeout: 10000,
+            headers: { 'Content-Type': 'application/json' },
+            success: function (data) {
+                console.log(JSON.stringify(data));
+                if (data.status == 200) {
+                    vm.cars = data.data
+                } else {
+                    toast(data.message);
+                }
+            },
+            error: function (xhr, type, errorThrown) {
+
+            }
+        })
+
+        function jump_to_detail(id) {
+            console.log("商品列表"+id)
+            mui.openWindow({
+                url: "cartDetail.html",
+                id: "cartDetail.html",
+                extras: {
+                    good_id: id
+                }
+            })
+        }
+
         var gallery = mui('.mui-slider');
         gallery.slider({
             interval: 1000//自动轮播周期，若为0则不自动播放，默认为0；

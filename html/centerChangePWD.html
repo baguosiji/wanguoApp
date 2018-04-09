@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/personalInformation.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <script src="../js/flexible.js"></script>
+    <script src="../js/mui.min.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/vue.min.js"></script>
+    <title>Document</title>
+</head>
+<style>
+</style>
+
+<body>
+    <div class="action-bar-no-search">
+        <div class="title-left mui-action-back">
+            <div>
+                <span class="mui-icon mui-icon-back">
+
+                </span>
+                <span>
+
+                </span>
+            </div>
+        </div>
+        <div class="title-center">
+            个人信息
+        </div>
+        <div class="title-right">
+            <div class="title-right-left">
+                <img src="" />
+            </div>
+            <div class="title-right-right">
+                <img src="" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="container" id="app">
+        <div class="common-list">
+            <div style="width: 3rem">
+                <span>旧密码:</span>
+            </div>
+            <input v-bind:value="oldpwd" type="text">
+        </div>
+        <div class="common-list">
+            <div style="width: 3rem">
+                <span>新密码:</span>
+            </div>
+            <input v-bind:value="pwd" type="text">
+        </div>
+        <div class="common-list">
+            <div style="width: 3rem">
+                <span>确认新密码:</span>
+            </div>
+            <input v-bind:value="rpwd" type="text">
+        </div>
+        <div class="submit-button">
+            确认修改
+        </div>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                oldpwd: "",
+                pwd: "",
+                rpwd: ""
+            }
+        });
+        var pwdReg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;        //8到16位数字与字母组合
+        function submit() {
+            if (!vm.oldpwd) {
+                toast("请输入旧密码");
+            } else if (!vm.pwd || pwdReg.test(vm.pwd)) {
+                toast("密码长度为8-16位数字字母组合")
+            } else if (vm.pwd != vm.pwdReg) {
+                toast("两次输入密码不一致")
+            } else {
+                mui.ajax(http_url + "/api.php/User/editpass", {
+                    data: {
+                        oldpwd: vm.oldpwd,
+                        pwd: vm.pwd,
+                        rpwd: vm.rpwd
+                    },
+                    dataType: "json",
+                    type: "post",
+                    timeout: 10000,
+                    success: function (data) {
+                        console.log(JSON.stringify(data));
+                    },
+                    error: function (xhr, type, errorThrown) {
+
+                    }
+
+                })
+            }
+        }
+    </script>
+</body>
+
+</html>

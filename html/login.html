@@ -81,7 +81,7 @@
     <script src="../js/common.js"></script>
     <script>
         mui.plusReady(function () {
-
+            myPage = plus.webview.getWebviewById("my.html");
         })
         var login = new Vue({
             el: "#login",
@@ -116,7 +116,7 @@
                 alert("兄嘚，验证码发送成功了")
             }
         }
-        var myPage = plus.webview.getWebviewById("my.html");
+        var myPage;
         function logins() {
             var waiting = plus.nativeUI.showWaiting("加载中", { width: '130px', height: '130px' });
             mui.ajax(http_url + '/api.php/Login/login', {
@@ -130,6 +130,7 @@
                 timeout: 10000,
                 // headers: { 'Content-Type': 'application/json' },
                 success: function (data) {
+                    console.log(JSON.stringify(data));
                     if (data.status == 200) {
                         localStorage.setItem("token", data.data.token);
                         localStorage.setItem("user-message", JSON.stringify(data.data));
