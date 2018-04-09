@@ -23,6 +23,11 @@ img {
 html {
   height: 100%;
 }
+input[type="text"] {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
 body {
   height: 100%;
 }
@@ -43,7 +48,7 @@ body {
 }
 .clearfloat:after {
   display: block;
-  
+
   clear: both;
   content: "";
   visibility: hidden;

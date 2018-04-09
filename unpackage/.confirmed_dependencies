@@ -17,7 +17,10 @@
 		"refer": [
 			"index.html",
 			"html/order/all.html",
-			"html/order/pendingPayment.html"
+			"html/order/pendingPayment.html",
+			"html/order/goodsToBeReceived.html",
+			"html/order/evaluate.html",
+			"html/order/pendingdelivery.html"
 		],
 		"resources": [
 			"html/order/all.html"
@@ -38,7 +41,8 @@
 			"html/evaluate.html",
 			"html/login.html",
 			"html/personalInformation.html",
-			"html/myCollection.html"
+			"html/myCollection.html",
+			"html/centerChangePWD.html"
 		],
 		"resources": []
 	},
@@ -53,7 +57,8 @@
 	},
 	"html/goodDetail.html": {
 		"refer": [
-			"html/settlementPage.html"
+			"html/settlementPage.html",
+			"html/paymentMessage.html"
 		],
 		"resources": []
 	},

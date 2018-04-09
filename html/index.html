@@ -63,6 +63,7 @@
             <span class="mui-tab-label">我的</span>
         </a>
     </nav>
+    <script src="../js/common.js"></script>
     <script>
         var Index = 0;
         var subpages = ["indexIndex.html", "buyCart.html", "shoppingMall.html", "my.html"];
@@ -110,6 +111,14 @@
                 action_bar_right.style.visibility = "hidden";
                 // document.querySelector(".title-right").querySelector("span") = "img/setting.png";
                 url = "setting.html"
+                url = "setting.html"
+                if (!user_token()) {
+                    mui.openWindow({
+                        url: "login.html",
+                        id: "login.html"
+                    })
+                    return;
+                }
             } else {
                 title.innerHTML = "";
                 url = "order.html"
@@ -149,7 +158,6 @@
                 title.innerHTML = that.querySelector(".mui-tab-label").innerHTML;
                 document.querySelector(".title-left").style.visibility = "hidden";
                 // document.querySelector(".title-right").querySelector("span") = "img/setting.png";
-                url = "setting.html"
             } else {
                 title.innerHTML = "";
                 url = "order.html"

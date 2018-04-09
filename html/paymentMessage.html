@@ -143,14 +143,15 @@
     </div>
     <script>
         //支付通道
-        var payment;
+        var channel;
         mui.plusReady(function () {
             plus.payment.getChannels(function (channels) {
                 for (var i in channels) {
                     if (channels[i].id == "wxpay") {
-                        wxChannel = channels[i];
+                        channel = channels[i];
+                        console.log(wxChannel);
                     } else {
-                        aliChannel = channels[i];
+                        channel = channels[i];
                     }
                 }
             }, function (e) {
@@ -159,24 +160,51 @@
 
         })
         //支付请求
+        var ALIPAYSERVER = 'http://demo.dcloud.net.cn/helloh5/payment/alipay.php?total=';
+        // var WXPAYSERVER = 'http://demo.dcloud.net.cn/helloh5/payment/wxpay.php?total=';
+        var WXPAYSERVER = 'http://192.168.50.50:81/api.php/About/pay';
         function pay(pay) {
+    
+            var PAYSERVER = '';
             if (pay == "alipay") {
-                payment = aliChannel;
+                PAYSERVER = ALIPAYSERVER;
             } else if (pay == "wxpay") {
-                payment = wxChannel;
+                PAYSERVER = WXPAYSERVER;
             } else {
                 return;
             }
-            plus.payment.request(payment, "", function () {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
 
-            })
+                switch (xhr.readyState) {
+                    case 4:
+                        if (xhr.status == 200) {
+                            plus.payment.request(channel, xhr.responseText, function (result) {
+                                plus.nativeUI.alert("支付成功！", function () {
+                                    back();
+                                });
+                            }, function (error) {
+                                plus.nativeUI.alert("支付失败：" + error.code);
+                            });
+                        } else {
+                            alert("获取订单信息失败！");
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+            xhr.open('GET', PAYSERVER);
+            xhr.send();
         }
         //点击微信支付
         mui("#popup").on("tap", ".wechat", function () {
+            console.log("dianji");
             pay("wxpay");
         })
         //点击支付宝支付
         mui("#popup").on("tap", ".alipay", function () {
+            console.log("dianji");
             pay("alipay")
         })
         //点击关闭支付弹框

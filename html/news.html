@@ -42,9 +42,6 @@
         font-size: .4rem;
         color: #666;
     }
-    .mui-scroll-wrapper{
-        overflow: scroll;
-    }
 </style>
 
 <body>
@@ -114,9 +111,7 @@
     <script src="../js/common.js"></script>
     <script>
         mui.init();
-        mui(".mui-scroll-wrapper").scroll({
-            deceleration: 0.0005
-        })
+      
         function jumpMessage(id) {
             console.log("这是id" + id)
             mui.openWindow({
@@ -135,23 +130,27 @@
                 ],
             }
         })
-        // mui.ajax(http_url + '/api.php/About/index', {
-        //     dataType: 'json',
-        //     type: 'get',
-        //     timeout: 10000,
-        //     headers: { 'Content-Type': 'application/json' },
-        //     success: function (data) {
-        //         alert(JSON.stringify(data));
-        //         if (data.status == 200) {
-        //             vm.news = data.data
-        //         } else {
-        //             toast(data.message);
-        //         }
-        //     },
-        //     error: function (xhr, type, errorThrown) {
+        mui(".mui-scroll-wrapper").scroll({
+            deceleration: 0.0005
+        })
+        mui.ajax(http_url + '/api.php/About/index', {
+            dataType: 'json',
+            type: 'get',
+            timeout: 10000,
+            headers: { 'Content-Type': 'application/json' },
+            success: function (data) {
+                alert(JSON.stringify(data));
+                if (data.status == 200) {
+                    vm.news = data.data
+                } else {
+                    toast(data.message);
+                }
+            },
+            error: function (xhr, type, errorThrown) {
 
-        //     }
-        // })
+            }
+        })
+        
     </script>
 </body>
 

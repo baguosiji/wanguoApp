@@ -1,4 +1,5 @@
 var http_url = "http://192.168.50.50:81";
+// 时间转换
 Date.prototype.format = function(fmt) {
   //author: meizz
   var o = {
@@ -23,6 +24,23 @@ Date.prototype.format = function(fmt) {
       );
   return fmt;
 };
+// 毫秒转时间
+Date.prototype.toLocaleString = function() {
+  return (
+    this.getFullYear() +
+    "年" +
+    (this.getMonth() + 1) +
+    "月" +
+    this.getDate() +
+    "日 " +
+    this.getHours() +
+    "点" +
+    this.getMinutes() +
+    "分" +
+    this.getSeconds() +
+    "秒"
+  );
+};
 var http_time = new Date().format("yyyy-MM-dd hh");
 // 原生toast弹出框
 function toast(message) {
@@ -31,4 +49,13 @@ function toast(message) {
 //MD5加密计算方法
 function self_MD5(path) {
   return hex_md5(path + http_time + "wanguo.net!@#");
+}
+//获取用户头
+function user_token() {
+  var token = JSON.parse(localStorage.getItem("user-message"));
+  if (token) {
+    return true;
+  } else {
+    return false;
+  }
 }

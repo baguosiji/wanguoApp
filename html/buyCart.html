@@ -97,7 +97,7 @@
         })
 
         function jump_to_detail(id) {
-            console.log("商品列表"+id)
+            console.log("商品列表" + id)
             mui.openWindow({
                 url: "cartDetail.html",
                 id: "cartDetail.html",
@@ -115,12 +115,6 @@
             indicators: false,
             deceleration: 0.0005,//flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
         });
-        mui(".cart-region-every-last").on("tap", "a", function () {
-            mui.openWindow({
-                url: "cartDetail.html",
-                id: "cartDetail.html"
-            })
-        })
     </script>
 </body>
 

@@ -5,19 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <script src="../../js/flexible.js"></script>
     <script src="../../js/mui.min.js"></script>
     <link href="../../css/mui.min.css" rel="stylesheet" />
+    <script src="../../js/common.js"></script>
     <link rel="stylesheet" href="../../css/common.css">
     <title>Document</title>
 </head>
 <style>
-    .container{
-        padding: 0;
-        background-color: #F7F4F4;
-    }
     .every-last-evaluate {
-        padding: 0 .3rem;
+        padding: 0 .3rem .3rem .3rem;
         border: 1px solid #eeeded;
         background-color: #ffffff;
     }
@@ -45,11 +43,13 @@
         color: #000000;
         text-indent: .8rem;
     }
-    .evaluate-img{
+
+    .evaluate-img {
         display: flex;
         flex-wrap: wrap;
     }
-    .evaluate-img>img{
+
+    .evaluate-img>img {
         margin-right: .2rem;
         height: 2rem;
         width: 2rem;
@@ -58,25 +58,113 @@
 </style>
 
 <body>
-    <div class="container">
-        <div class="every-last-evaluate">
-            <div class="user-header-name">
-                <img src="" alt="">
-                <span>王海栋</span>
-            </div>
-            <p>2018-03-20</p>
-            <div class="evaluate-message">
-                首先性价比很高，装上去感到点火很有劲，抖动比以前小了，质量过一段时间在评论。
-            </div>
-            <div class="evaluate-img">
-                <img src="12" alt="">
-                <img src="12" alt="">
-                <img src="12" alt="">
-                <img src="12" alt="">
-                <img src="12" alt="">
+    <div class="mui-scroll-wrapper" id="pullrefresh">
+        <div class="mui-scroll" id="app">
+            <div>
+                <div class="every-last-evaluate" v-for="item in items">
+                    <div class="user-header-name">
+                        <img src="" alt="">
+                        <span>{{item.username}}</span>
+                    </div>
+                    <p>{{changeTime(item.add_time)}}</p>
+                    <div class="evaluate-message">
+                        {{item.content}}
+                    </div>
+                    <div class="evaluate-img">
+                        <img v-for="img in item.imgs" v-bind:src="http_url+img" alt="">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    <script src="../../js/vue.min.js"></script>
+    <script>
+        mui.init({
+            swipeBack: false,
+            keyEventBind: {
+                backbutton: false //关闭back按键监听
+            },
+            pullRefresh: {
+                container: '#pullrefresh',
+                up: {
+                    auto: true,
+                    contentrefresh: '正在加载...',
+                    callback: pullupRefresh
+                }
+            }
+        });
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                items: []
+
+            }
+        })
+        mui(".mui-scroll-wrapper").scroll({
+            deceleration: 0.0005
+        })
+        var page = 1;
+        function changeTime(time) {
+            return new Date(time * 1000).format("yyyy-MM-dd");
+        }
+        // mui.ajax(http_url + '/api.php/User/evaluation?p=' + page, {
+        //     dataType: 'json',
+        //     type: 'get',
+        //     timeout: 10000,
+        //     headers: { 'Content-Type': 'application/json' },
+        //     success: function (data) {
+        //         if (data.status == 200) {
+        //             for (var i = 0; i < data.data.length; i++) {
+        //                 console.log(i);
+        //                 var num = data.data
+        //                 if (num[i].imgs) {
+        //                     num[i].imgs = num[i].imgs.substr(1).split(",");
+        //                 }
+        //             }
+        //             vm.items = data.data;
+        //             console.log(JSON.stringify(vm.items))
+        //             page++;
+        //         } else {
+        //             toast(data.message);
+        //         }
+        //     },
+        //     error: function (xhr, type, errorThrown) {
+
+        //     }
+        // })
+        //下拉刷新
+        function pullupRefresh() {
+            mui.ajax(http_url + '/api.php/User/evaluation?isimg=1&p=' + page, {
+                dataType: 'json',
+                type: 'get',
+                timeout: 10000,
+                headers: { 'Content-Type': 'application/json' },
+                success: function (data) {
+                    if (data.status == 200) {
+                        for (var i = 0; i < data.data.length; i++) {
+                            console.log(i);
+                            var num = data.data
+                            if (num[i].imgs) {
+                                num[i].imgs = num[i].imgs.substr(1).split(",");
+                            }
+                        }
+                        vm.items = vm.items.concat(data.data);
+                        page++;
+                        if (data.data.length == 0) {
+                            mui('#pullrefresh').pullRefresh().endPullupToRefresh(true)
+                        } else {
+                            mui('#pullrefresh').pullRefresh().endPullupToRefresh(false)
+                        }
+                    } else {
+                        toast(data.message);
+                    }
+                },
+                error: function (xhr, type, errorThrown) {
+
+                }
+            })
+        }
+    </script>
 </body>
 
 </html>

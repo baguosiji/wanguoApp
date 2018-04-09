@@ -57,6 +57,9 @@
                 content: {}
             }
         })
+        mui(".mui-scroll-wrapper").scroll({
+            deceleration: 0.0005
+        })
         mui.plusReady(function () {
             var self = plus.webview.currentWebview();
             console.log(self.message);
