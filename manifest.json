@@ -278,6 +278,13 @@
 					"html/goodDetail.html"
 				],
 				"priority": 0
+			},
+			"html/shoppingCart.html": {
+				"resources": [],
+				"refer": [
+					"html/settlementPage.html"
+				],
+				"priority": 0
 			}
 		},
 		"idle": {

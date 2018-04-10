@@ -52,7 +52,7 @@
         color: #666;
     }
 
-    
+
     .submit {
         width: 9.3rem;
         line-height: 1rem;
@@ -104,7 +104,7 @@
             <div>
                 车型
             </div>
-            <select id="s1" onchange="selectCart(this)">
+            <select id="s1" onchange="selectCarts(this)">
                 <!-- 根据id获取value，onchange（）触发函数move（）修改二级select的text值实现联动 -->
                 <option selected value="s1">汽车品牌</option>
                 <option value="1">12345</option>
@@ -239,9 +239,10 @@
             cartType = e.options[index].text;
         }
         // 选择汽车品牌
-        function selectCart(e) {
+        function selectCarts(e) {
             var index = e.selectedIndex;
             selectCart = e.options[index].text;
+            console.log(e.value);
             mui.ajax(http_url + "/api.php/Salecar/car_series?b_id=" + e.value, {
                 dataType: 'json',
                 type: 'get',
@@ -250,6 +251,7 @@
                 success: function (data) {
                     vm.selectCart = [];
                     vm.selectCart = data.data;
+                    console.log(data.data);
                 },
                 error: function (xhr, type, errorThrown) {
                     //异常处理；ss

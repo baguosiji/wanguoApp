@@ -129,5 +129,10 @@
 			"html/buyCart.html",
 			"html/goodDetail.html"
 		]
+	},
+	"html/shoppingCart.html": {
+		"refer": [
+			"html/settlementPage.html"
+		]
 	}
 }

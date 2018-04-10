@@ -1,8 +1,36 @@
 .address {
-  min-height: 2rem;
+  // min-height: 2rem;
   background-color: #ffffff;
   padding: 0 0.3rem;
-  display: flex;
+  // display: flex;
+  .common {
+    width: 100%;
+    height: 1.066667rem;
+    display: flex;
+    border-bottom: 1px solid #ededed;
+    div {
+      width: 2rem;
+      height: 1.066667rem;
+      line-height: 1.066667rem;
+      color: #000000;
+      font-size: 0.38rem;
+    }
+    .address-city {
+      flex: 1;
+      height: 1.066667rem;
+      line-height: 1.066667rem;
+      color: #999999;
+    }
+    input {
+      border: 0;
+      padding: 0;
+      margin: 0;
+      height: 1rem;
+      outline: none;
+      flex: 1;
+      font-size: 0.38rem;
+    }
+  }
   .address-left {
     height: 2rem;
     width: 8.5rem;
@@ -24,7 +52,7 @@
   }
 }
 .settlement-good {
-  height: 3.8rem;
+  height: 3rem;
   margin-top: 0.3rem;
   background-color: #ffffff;
   padding: 0 0.3rem;
@@ -158,7 +186,7 @@
     text-align: center;
     font-size: 0.45rem;
     color: #ffffff;
-    
+
     line-height: 1.306667rem;
     background: linear-gradient(to bottom right, #f6822f, #fd5a28);
   }
@@ -244,4 +272,8 @@
   background-color: #000000;
   opacity: 0.3;
   z-index: 15;
+}
+.mui-scroll-wrapper {
+  top: 45px;
+  bottom: 1.306667rem;
 }

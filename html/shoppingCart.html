@@ -5,16 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="../js/flexible.js"></script>
-    <script src="../js/mui.min.js"></script>
     <link href="../css/mui.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/iconfont.css">
     <link rel="stylesheet" href="../css/shoppingCart.css">
+    <script src="../js/flexible.js"></script>
+    <script src="../js/mui.min.js"></script>
     <title>购物车</title>
 </head>
 
 <body>
-    <div id="" class="action-bar-no-search">
+    <div class="action-bar-no-search">
         <div class="title-left mui-action-back">
             <div>
                 <span class="mui-icon mui-icon-back">
@@ -28,273 +29,229 @@
         <div class="title-center">
             购物车
         </div>
-        <div class="title-right">
+        <div class="title-right" style="visibility: visible">
             <div class="title-right-left">
-                <img src="../img/close.png" />
+
             </div>
             <div class="title-right-right">
-                <img src="" alt="">
+                <span>编辑</span>
             </div>
         </div>
     </div>
-    <div class="container" style="background-color: #F9F4F4">
-        <!-- 顶部操作栏 -->
-        <div class="operation clearfloat">
-            <div class="padding">
-                <div class="float-left">
-                    <img src="../img/lightning.png" alt="">
-                    <span>清理工具</span>
-                </div>
-                <div class="float-right">
-                    <div class="add-collection">
-                        移入收藏夹
-                    </div>
-                    <div class="delect">
-                        删除
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="mui-scroll-wrapper">
+    <!-- <div class="container" id="app" style="background-color: #F9F4F4"> -->
+    <!-- 顶部操作栏 -->
+    <div class="container" id="app">
+        <div class="mui-scroll-wrapper" id="pullrefresh">
             <div class="mui-scroll">
-                <!-- 每一个商品 -->
-                <div class="every-last-good">
-                    <!-- <div class="shop-name">
-                        <img class="select-shop" src="../img/selectFalse.png" alt="">
-                        <span>*******旗舰店</span>
-                        <img src="../img/right-black.png" alt="">
-                    </div> -->
-                    <div class="good-message">
-                        <div class="select-good">
-                            <img src="../img/selectFalse.png" alt="">
-                        </div>
-                        <div class="left">
-                            <img src="../img/shoppingMall2.png" alt="">
-                        </div>
-                        <div class="right float-left">
-                            <div class="right-top">
-                                <div class="right-top-left">
-                                    博世 铂金火花塞 适用于 大众--高尔夫系列
-                                </div>
-                                <div class="right-top-right">
-                                    <img src="../img/edit1.png" alt="">
-                                </div>
+                <div>
+                    <div class="every-last-good" v-for="good in goods">
+                        <!-- <div class="shop-name">
+                                                <img class="select-shop" src="../img/selectFalse.png" alt="">
+                                                <span>*******旗舰店</span>
+                                                <img src="../img/right-black.png" alt="">
+                                            </div> -->
+                        <div class="good-message">
+                            <div class="select-good" v-bind:id="good.goods.shop_price" @tap="select_goods($event,good.id,good.goods_num,good)">
+                                <img class="noedit" src="../img/selectFalse.png" alt="">
                             </div>
-                            <div class="right-center">
-                                <span>颜色：铂金；型号：F70（30)</span>
+                            <div class="left">
+                                <img v-bind:src="http_url+good.goods.pic" alt="">
                             </div>
-                            <div class="right-bottom">
-                                <span>￥58.00</span>
-                                <del>￥125.45</del>
-                                <span class="float-right">x1</span>
+                            <div class="right float-left">
+                                <div class="right-top">
+                                    <div class="right-top-left">
+                                        {{good.goods.goods_name}}
+                                    </div>
+                                    <div class="right-top-right">
+                                        <img v-bind:src="http_url+good.goods.pic" alt="">
+                                    </div>
+                                </div>
+                                <!-- <div class="right-center">
+                                                    <span>颜色：铂金；型号：F70（30)</span>
+                                                </div> -->
+                                <div class="right-bottom">
+                                    <span>￥ {{good.goods.shop_price}}
+                                    </span>
+                                    <!-- <del>￥125.45</del> -->
+                                    <span class="float-right">x {{good.goods_num}}
+                                    </span>
+                                </div>
+                                <div class="buy-number">
+                                    <div class="iconfont icon-jia1" @tap="add_num(good)">
+
+                                    </div>
+                                    <div class="buy-number-input">
+                                        {{good.goods_num}}
+                                    </div>
+                                    <div class="iconfont icon-jian" @tap="remove_num(good)">
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="every-last-good">
-                    <!-- <div class="shop-name">
-                        <img class="select-shop" src="../img/selectFalse.png" alt="">
-                        <span>*******旗舰店</span>
-                        <img src="../img/right-black.png" alt="">
-                    </div> -->
-                    <div class="good-message">
-                        <div class="select-good">
-                            <img src="../img/selectFalse.png" alt="">
-                        </div>
-                        <div class="left">
-                            <img src="../img/shoppingMall2.png" alt="">
-                        </div>
-                        <div class="right float-left">
-                            <div class="right-top">
-                                <div class="right-top-left">
-                                    博世 铂金火花塞 适用于 大众--高尔夫系列
-                                </div>
-                                <div class="right-top-right">
-                                    <img src="../img/edit1.png" alt="">
-                                </div>
-                            </div>
-                            <div class="right-center">
-                                <span>颜色：铂金；型号：F70（30)</span>
-                            </div>
-                            <div class="right-bottom">
-                                <span>￥58.00</span>
-                                <del>￥125.45</del>
-                                <span class="float-right">x1</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="every-last-good">
-                    <!-- <div class="shop-name">
-                        <img class="select-shop" src="../img/selectFalse.png" alt="">
-                        <span>*******旗舰店</span>
-                        <img src="../img/right-black.png" alt="">
-                    </div> -->
-                    <div class="good-message">
-                        <div class="select-good">
-                            <img src="../img/selectFalse.png" alt="">
-                        </div>
-                        <div class="left">
-                            <img src="../img/shoppingMall2.png" alt="">
-                        </div>
-                        <div class="right float-left">
-                            <div class="right-top">
-                                <div class="right-top-left">
-                                    博世 铂金火花塞 适用于 大众--高尔夫系列
-                                </div>
-                                <div class="right-top-right">
-                                    <img src="../img/edit1.png" alt="">
-                                </div>
-                            </div>
-                            <div class="right-center">
-                                <span>颜色：铂金；型号：F70（30)</span>
-                            </div>
-                            <div class="right-bottom">
-                                <span>￥58.00</span>
-                                <del>￥125.45</del>
-                                <span class="float-right">x1</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="every-last-good">
-                    <!-- <div class="shop-name">
-                        <img class="select-shop" src="../img/selectFalse.png" alt="">
-                        <span>*******旗舰店</span>
-                        <img src="../img/right-black.png" alt="">
-                    </div> -->
-                    <div class="good-message">
-                        <div class="select-good">
-                            <img src="../img/selectFalse.png" alt="">
-                        </div>
-                        <div class="left">
-                            <img src="../img/shoppingMall2.png" alt="">
-                        </div>
-                        <div class="right float-left">
-                            <div class="right-top">
-                                <div class="right-top-left">
-                                    博世 铂金火花塞 适用于 大众--高尔夫系列
-                                </div>
-                                <div class="right-top-right">
-                                    <img src="../img/edit1.png" alt="">
-                                </div>
-                            </div>
-                            <div class="right-center">
-                                <span>颜色：铂金；型号：F70（30)</span>
-                            </div>
-                            <div class="right-bottom">
-                                <span>￥58.00</span>
-                                <del>￥125.45</del>
-                                <span class="float-right">x1</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="every-last-good">
-                    <!-- <div class="shop-name">
-                        <img class="select-shop" src="../img/selectFalse.png" alt="">
-                        <span>*******旗舰店</span>
-                        <img src="../img/right-black.png" alt="">
-                    </div> -->
-                    <div class="good-message">
-                        <div class="select-good">
-                            <img class="" src="../img/selectFalse.png" alt="">
-                        </div>
-                        <div class="left">
-                            <img src="../img/shoppingMall2.png" alt="">
-                        </div>
-                        <div class="right float-left">
-                            <div class="right-top">
-                                <div class="right-top-left">
-                                    博世 铂金火花塞 适用于 大众--高尔夫系列
-                                </div>
-                                <div class="right-top-right">
-                                    <img src="../img/edit1.png" alt="">
-                                </div>
-                            </div>
-                            <div class="right-center">
-                                <span>颜色：铂金；型号：F70（30)</span>
-                            </div>
-                            <div class="right-bottom">
-                                <span>￥58.00</span>
-                                <del>￥125.45</del>
-                                <span class="float-right">x1</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="every-last-good">
-                    <!-- <div class="shop-name">
-                        <img class="select-shop" src="../img/selectFalse.png" alt="">
-                        <span>*******旗舰店</span>
-                        <img src="../img/right-black.png" alt="">
-                    </div> -->
-                    <div class="good-message">
-                        <div class="select-good">
-                            <img src="../img/selectFalse.png" alt="">
-                        </div>
-                        <div class="left">
-                            <img src="../img/shoppingMall2.png" alt="">
-                        </div>
-                        <div class="right float-left">
-                            <div class="right-top">
-                                <div class="right-top-left">
-                                    博世 铂金火花塞 适用于 大众--高尔夫系列
-                                </div>
-                                <div class="right-top-right">
-                                    <img src="../img/edit1.png" alt="">
-                                </div>
-                            </div>
-                            <div class="right-center">
-                                <span>颜色：铂金；型号：F70（30)</span>
-                            </div>
-                            <div class="right-bottom">
-                                <span>￥58.00</span>
-                                <del>￥125.45</del>
-                                <span class="float-right">x1</span>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
-
-    </div>
-    <div class="bottom-nav">
-        <div class="bottom-nav-left">
-            <img id="select-all" src="../img/selectFalse.png" alt="">
-            <span style="color: #999;font-size: .34rem;margin-left: 1rem;">不含运费</span>
-            <span>合计:</span>
-            <span class="payable">￥980:00</span>
+        <div class="bottom-nav">
+            <div class="bottom-nav-left">
+                <img id="select-all" src="../img/selectFalse.png" alt="">
+                <span v-if="!edit" style="color: #999;font-size: .34rem;margin-left: 1rem;">不含运费</span>
+                <span v-if="!edit">合计:</span>
+                <span v-if="!edit" class="payable">￥{{total.toFixed(2)}}</span>
+            </div>
+            <div class="bottom-nav-right" v-if="!edit" @tap="payfor()">
+                去付款
+            </div>
+            <div class="bottom-nav-right" v-if="edit" @tap="delect_good()">
+                删除
+            </div>
         </div>
-        <div class="bottom-nav-right">
-            去付款
-        </div>
     </div>
+    <script src="../js/common.js"></script>
+    <script src="../js/vue.min.js"></script>
     <script>    
-        mui('.mui-scroll-wrapper').scroll({
+        // mui.init({
+        //     pullRefresh: {
+        //         container: '#pullrefresh',
+        //         up: {
+        //             auto: true,
+        //             contentrefresh: '正在加载...',
+        //             callback: pullupRefresh
+        //         }
+        //     }
+        // });
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                goods: [],
+                total: 0,
+                edit: false,
+                mydata: [],
+            }
+        })
+        mui(".mui-scroll-wrapper").scroll({
             deceleration: 0.0005,
-            indicators: false,
-        });
+            indicators: false, //是否显示滚动条
+        })
+        mui.ajax(http_url + "/api.php/User/cart?p=" + page + "&token=" + user_all_message.token, {
+            dataType: 'json',
+            type: 'get',
+            timeout: 10000,
+            headers: { 'Content-Type': 'application/json' },
+            success: function (data) {
+                if (data.status == 200) {
+
+                    vm.goods = vm.goods.concat(data.data);
+                    page++;
+                    // if (data.data.length == 0) {
+                    //     mui('#pullrefresh').pullRefresh().endPullupToRefresh(true)
+                    // } else {
+                    //     mui('#pullrefresh').pullRefresh().endPullupToRefresh(false)
+                    // }
+                } else {
+                    toast(data.message);
+                }
+            },
+            error: function (xhr, type, errorThrown) {
+
+            }
+        })
+
+
+        var page = 1;
+        // 下拉刷新
+        function pullupRefresh() {
+            //当前页码
+            mui.ajax(http_url + "/api.php/User/cart?p=" + page + "&token=" + user_all_message.token, {
+                dataType: 'json',
+                type: 'get',
+                timeout: 10000,
+                headers: { 'Content-Type': 'application/json' },
+                success: function (data) {
+                    if (data.status == 200) {
+
+                        vm.goods = vm.goods.concat(data.data);
+                        page++;
+                        if (data.data.length == 0) {
+                            mui('#pullrefresh').pullRefresh().endPullupToRefresh(true)
+                        } else {
+                            mui('#pullrefresh').pullRefresh().endPullupToRefresh(false)
+                        }
+                    } else {
+                        toast(data.message);
+                    }
+                },
+                error: function (xhr, type, errorThrown) {
+
+                }
+            })
+        }
+
+        //点击编辑按钮
+        mui(".action-bar-no-search").on("tap", ".title-right-right", function () {
+            if (vm.edit) {
+                vm.edit = false;
+                this.querySelector("span").innerText = "编辑";
+            } else {
+                vm.edit = true;
+                this.querySelector("span").innerText = "完成";
+            }
+        })
         // 选择单个商品
         var select_good = document.getElementsByClassName("select-good");
         var number = 0;
-        for (var i = 0; i < select_good.length; i++) {
-            select_good[i].querySelector("img").addEventListener("tap", function () {
-                if ((this.src.indexOf("True")) >= 0) {
-                    this.src = "../img/selectFalse.png";
-                    number--;
-                    if (number != select_good.length) {
-                        select_all.src = "../img/selectFalse.png";
-                    }
-                } else {
-                    this.src = "../img/selectTrue.png";
-                    number++
-                    if (number == select_good.length) {
-                        select_all.src = "../img/selectTrue.png";
-                    }
+        // for (var i = 0; i < select_good.length; i++) {
+        //     select_good[i].querySelector("img").addEventListener("tap", function () {
+        //         if ((this.src.indexOf("True")) >= 0) {
+        //             this.src = "../img/selectFalse.png";
+        //             number--;
+        //             if (number != select_good.length) {
+        //                 select_all.src = "../img/selectFalse.png";
+        //             }
+        //         } else {
+        //             this.src = "../img/selectTrue.png";
+        //             number++
+        //             if (number == select_good.length) {
+        //                 select_all.src = "../img/selectTrue.png";
+        //             }
+        //         }
+        //     }, false)
+        // }
+        //选择单个商品
+        function select_goods(e, id, buy_num, nowGood) {
+            if ((e.currentTarget.querySelector(".noedit").src.indexOf("True")) >= 0) {
+                e.currentTarget.querySelector(".noedit").src = "../img/selectFalse.png";
+                number--;
+                vm.total = vm.total - (Number(e.currentTarget.id) * Number(buy_num));
+                var nowChange;
+                for (var j = 0; j < vm.mydata.length; j++) {
+                    vm.mydata[j].delect == id ? nowChange = vm.mydata[j] : null;
                 }
-            }, false)
+                vm.mydata.splice(vm.mydata.indexOf(nowChange), 1);
+                if (number != select_good.length) {
+                    select_all.src = "../img/selectFalse.png";
+                }
+                nowGood.active = false;
+
+            } else {
+                e.currentTarget.querySelector(".noedit").src = "../img/selectTrue.png";
+                number++
+                vm.total = vm.total + Number(e.currentTarget.id) * buy_num;
+                var data = {
+                    delect: "",
+                    number: "",
+                }
+                data.delect = id;
+                data.number = buy_num;
+                vm.mydata.push(data);
+                if (number == select_good.length) {
+                    select_all.src = "../img/selectTrue.png";
+                    console.log(JSON.stringify(nowGood));
+                }
+                nowGood.active = true;
+            }
         }
         //选择所有商品
         var select_all = document.getElementById("select-all");
@@ -302,71 +259,103 @@
             if ((this.src.indexOf("True")) >= 0) {
                 this.src = "../img/selectFalse.png";
                 number = 0;
+                vm.delect = [];
+                vm.number = [];
                 for (var i = 0; i < select_good.length; i++) {
-                    select_good[i].querySelector("img").src = "../img/selectFalse.png";
+                    vm.total = 0;
+                    vm.goods[i].active = false;
+                    select_good[i].querySelector(".noedit").src = "../img/selectFalse.png";
                 }
             } else {
                 this.src = "../img/selectTrue.png";
                 number = select_good.length;
+                vm.delect = [];
+                var data = {
+                    delect: "",
+                    number: "",
+                }
                 for (var i = 0; i < select_good.length; i++) {
-                    select_good[i].querySelector("img").src = "../img/selectTrue.png";
+                    select_good[i].querySelector(".noedit").src = "../img/selectTrue.png";
+                    data.delect = vm.goods[i].id;
+                    data.number = vm.goods[i].goods_num;
+                    vm.mydata.push(data);
+                    console.log(vm.delect);
+                    vm.goods[i].active = true;
+                    vm.total += Number(vm.goods[i].goods.shop_price) * vm.goods[i].goods_num;
                 }
             }
         }, false)
+
+
+
         //点击去付款按钮
-        document.querySelector(".bottom-nav-right").addEventListener("tap", function () {
+        function payfor() {
+            var lastNumber = [];
+            var lastBuy = [];
+            for (var i = 0; i < vm.mydata.length; i++) {
+                lastNumber.push(vm.mydata[i].number);
+                lastBuy.push(vm.mydata[i].delect);
+            }
             mui.openWindow({
                 url: "settlementPage.html",
-                id: "settlementPage.html"
+                id: "settlementPage.html",
+                extras: {
+                    goodId: lastBuy,
+                    goodNum: lastNumber
+                }
             })
-        }, false)
-        // 给选择店铺绑定上点击事件
-        // for (var shop = 0; shop < select_shop.length; shop++) {
-        //     var select_shop_click = select_shop[shop];
-        //     select_shop_click.onclick = function () {
-        //         var every_last_good = this.parentNode.parentNode.getElementsByClassName("select-good");
-        //         if ((this.src.indexOf("True")) >= 0) {
-        //             this.src = "../img/selectFalse.png";
-        //             for (var good = 0; good < every_last_good.length; good++) {
-        //                 every_last_good[good].getElementsByTagName("img")[0].src = "../img/selectFalse.png";
-        //             }
-        //         } else {
-        //             this.src = "../img/selectTrue.png";
-        //             for (var good = 0; good < every_last_good.length; good++) {
-        //                 every_last_good[good].getElementsByTagName("img")[0].src = "../img/selectTrue.png";
-        //             }
-        //         }
+        }
+        function delect_good() {
+            var delect = [];
+            for (var i = 0; i < vm.mydata.length; i++) {
+                delect.push(vm.mydata[i].delect);
+            }
+            mui.confirm("确认删除？", "您正在进行删除操作", ['确认', '取消'], function (e) {
+                if (e.index == 0) {
+                    mui.ajax(http_url + "/api.php/User/delcart?ids=" + delect + "&token=" + user_all_message.token, {
+                        dataType: 'json',
+                        type: 'get',
+                        timeout: 10000,
+                        headers: { 'Content-Type': 'application/json' },
+                        success: function (data) {
+                            if (data.status == 200) {
+                                toast(data.message);
+                                page = 1;
+                                vm.goods = [];
+                                pullupRefresh();
+                            } else {
+                                toast(data.message);
+                            }
+                        },
+                        error: function (xhr, type, errorThrown) {
+                            console.log(xhr)
+                        }
+                    })
+                } else {
 
-        //     }
-        // }
-        // 给选择商品绑定上点击事件
-        // for (var good = 0; good < select_good.length; good++) {
-        //     var select_good_click = select_good[good];
-        //     select_good_click.getElementsByTagName("img")[0].onclick = function () {
-        //         var parent_shop = this.parentNode.parentNode.parentNode.getElementsByClassName("select-shop")[0];
-        //         if ((this.src.indexOf("True")) >= 0) {
-        //             this.src = "../img/selectFalse.png";
-        //         } else {
-        //             this.src = "../img/selectTrue.png";
-        //         }
-        //         var now_good = this.parentNode.parentNode.parentNode.getElementsByClassName("select-good");
-        //         var number = 0;
-        //         for (var j = 0; j < now_good.length; j++) {
-        //             if (now_good[j].getElementsByTagName("img")[0].src.indexOf("True") >= 0) {
-        //                 number += 1;
-        //             } else {
-        //                 number -= 1;
-        //             }
-        //         }
-        //         if (Math.abs(number) == now_good.length && number > 0) {
-        //             parent_shop.src = "../img/selectTrue.png";
-        //         } else if (Math.abs(number) == now_good.length && number < 0) {
-        //             parent_shop.src = "../img/selectFalse.png";
-        //         } else {
-        //             parent_shop.src = "../img/selectFalse.png";
-        //         }
-        //     }
-        // }
+                }
+            })
+        }
+        //购买数量加
+        function add_num(number) {
+            number.goods_num++;
+            if (number.active) {
+                vm.total += Number(number.goods.shop_price);
+            }
+        }
+        //购买数量减少
+        function remove_num(number) {
+            if (number.goods_num <= 1) {
+
+            } else {
+                number.goods_num--;
+                console.log(number.active);
+                if (number.active) {
+                    console.log(number.goods.shop_price);
+                    vm.total -= Number(number.goods.shop_price);
+                }
+            }
+        }
     </script>
 </body>
 

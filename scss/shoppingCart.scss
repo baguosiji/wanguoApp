@@ -1,6 +1,9 @@
 .container {
   padding-top: 45px;
 }
+#page {
+  position: relative;
+}
 // 顶部操作栏
 .operation {
   height: 1.173333rem;
@@ -23,7 +26,7 @@
       min-width: 4px;
       height: 1.173333rem;
       display: flex;
-      
+
       align-items: center;
       .add-collection {
         height: 0.613333rem;
@@ -76,7 +79,8 @@
     height: 3rem;
     background-color: #ffffff;
     display: flex;
-    .select-good {
+    .select-good,
+    .select-good-delect {
       width: 10%;
       height: 2rem;
       text-align: right;
@@ -110,6 +114,10 @@
           font-size: 0.38rem;
           color: #000000;
           line-height: 0.5rem;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+          overflow: hidden;
         }
         .right-top-right {
           width: 20%;
@@ -151,7 +159,7 @@
 .mui-scroll-wrapper {
   top: 45px;
   bottom: 1.306667rem;
-  margin-top: 1.173333rem;
+  // margin-top: 1.173333rem;
 }
 
 //底部操作栏
@@ -198,5 +206,28 @@
     color: #ffffff;
     line-height: 1.306667rem;
     background: linear-gradient(to bottom right, #f6822f, #fd5a28);
+  }
+}
+//添加购买数量
+.buy-number {
+  display: flex;
+  height: 1rem;
+  align-items: center;
+  flex-direction: row-reverse;
+  div {
+    width: 0.8rem;
+    height: 0.8rem;
+    font-size: 0.8rem;
+    padding: 3px;
+    line-height: 0.8rem;
+  }
+  .buy-number-input {
+    font-size: 0.4rem;
+    padding: 0;
+    background-color: #ebebeb;
+    line-height: 0.6rem;
+    text-align: center;
+    height: 0.6rem;
+    width: 0.9rem;
   }
 }

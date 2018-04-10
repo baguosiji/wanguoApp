@@ -50,6 +50,10 @@ function toast(message) {
 function self_MD5(path) {
   return hex_md5(path + http_time + "wanguo.net!@#");
 }
+var reg_phone = /^[1][3,4,5,7,8][0-9]{9}$/;
+
+//用户token;
+var user_all_message = JSON.parse(localStorage.getItem("user-message"));
 //获取用户头
 function user_token() {
   var token = JSON.parse(localStorage.getItem("user-message"));

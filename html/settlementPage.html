@@ -9,8 +9,11 @@
     <script src="../js/mui.min.js"></script>
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/mui.min.css">
+    <link rel="stylesheet" href="../css/iconfont.css">
+    <link href="../css/mui.picker.css" rel="stylesheet" />
+    <link href="../css/mui.poppicker.css" rel="stylesheet" />
     <link rel="stylesheet" href="../css/settlementPage.css">
-    <title>Document</title>
+    <title>商品结算</title>
 </head>
 
 <body>
@@ -37,136 +40,171 @@
             </div>
         </div>
     </div>
-    <div class="container" style="background: #F7F5f4">
-        <div class="address">
-            <div class="address-left">
-                <div class="address-name-phone">
-                    <span>
-                        姓名：
-                    </span>
-                    <span>
-                        王先生
-                    </span>
-                    <span style="margin-left: 1rem">
-                        联系方式：
-                    </span>
-                    <span class="telephone">
-                        12345789629
-                    </span>
-                </div>
-                <div class="address-location">
-                    地址：
-                </div>
-            </div>
-            <div class="address-right">
-                <span class="mui-icon mui-icon-arrowright">
-
-                </span>
-            </div>
-        </div>
-        <div class="settlement-good">
-            <div class="shop-name">
-                <img src="../img/userHeader.png" alt="">
-                <span style="margin-left: .5rem">阿迪达斯旗舰店</span>
-            </div>
-            <div class="settlement-good-message">
-                <div class="settlement-good-img">
-                    <img src="../img/good02.png" alt="">
-                </div>
-                <div class="settlement-good-name-price">
-                    <div class="good-name">
-                        NGK铱铂金火花塞比亚迪F0F3 G5S6S7M6L3G3F6G6速锐思 锐秦唐S8宋元...
+    <div class="container" id="app" style="background: #F7F5f4">
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <div class="address">
+                    <div class="common">
+                        <div>
+                            收货人：
+                        </div>
+                        <input v-model="name" type="text" placeholder="请输入收货人姓名">
                     </div>
-                    <div class="good-price clearfloat">
-                        <span class="float-left">￥88</span>
-                        <span class="float-right">×1</span>
+                    <div class="common" id="showCityPicker3">
+                        <div>
+                            所在地区：
+                        </div>
+                        <div class="address-city">
+                            {{address}}
+                        </div>
+                        <div class="iconfont icon-gengduo1" style="width: 1rem;font-size:.6rem;color: #999999">
+
+                        </div>
+                    </div>
+                    <div class="common">
+                        <div>
+                            详细地址：
+                        </div>
+                        <input v-model="address_detail" type="text" placeholder="请输入详细地址">
+                    </div>
+                    <div class="common">
+                        <div>
+                            手机号码：
+                        </div>
+                        <input type="text" v-model="phone" placeholder="请输入收货人手机号">
+                    </div>
+                    <!-- <div class="address-left">
+                        <div class="address-name-phone">
+                            <span>
+                                姓名：
+                            </span>
+                            <span>
+                                王先生
+                            </span>
+                            <span style="margin-left: 1rem">
+                                联系方式：
+                            </span>
+                            <span class="telephone">
+                                12345789629
+                            </span>
+                        </div>
+                        <div class="address-location">
+                            地址：
+                        </div>
+                    </div>
+                    <div class="address-right">
+                        <span class="mui-icon mui-icon-arrowright">
+
+                        </span>
+                    </div> -->
+                </div>
+                <div class="settlement-good" v-for="good in goods">
+                    <!-- <div class="shop-name">
+                        <img src="../img/userHeader.png" alt="">
+                        <span style="margin-left: .5rem">阿迪达斯旗舰店</span>
+                    </div> -->
+                    <div class="settlement-good-message">
+                        <div class="settlement-good-img">
+                            <img v-bind:src="http_url+good.goods.pic" alt="">
+                        </div>
+                        <div class="settlement-good-name-price">
+                            <div class="good-name">
+                                {{good.goods.goods_name}}
+                            </div>
+                            <div class="good-price clearfloat">
+                                <span class="float-left">￥ {{good.goods.shop_price}}
+                                </span>
+                                <span class="float-right">× {{good.goods_num}}
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="discount">
-            <div class="discount-left">
-                <p>优惠券</p>
-                <div class="usable-discount-button">
-                    (
-                    <span>0</span>)张可用
+                <!-- <div class="discount">
+                            <div class="discount-left">
+                                <p>优惠券</p>
+                                <div class="usable-discount-button">
+                                    (
+                                    <span>0</span>)张可用
+                                </div>
+                            </div>
+                            <div class="discount-right">
+                                <span style="margin-right: .3rem;color: #666;font-size: .38rem">未使用</span>
+                                <span class="mui-icon mui-icon-arrowright"></span>
+                            </div>
+                        </div> -->
+                <div class="price-discount-message">
+                    <div class="good-price">
+                        <span class="float-left">
+                            商品金额：
+                        </span>
+                        <span class="float-right">
+                            ￥{{total.toFixed(2)}}
+                        </span>
+                    </div>
+                    <!-- <div class="discount-price">
+                                <span class="float-left">
+                                    活动优惠金额：
+                                </span>
+                                <span class="float-right">
+                                    0.00元
+                                </span>
+                            </div>
+                            <div class="activity-price">
+                                <span class="float-left">
+                                    优惠券优惠金额：
+                                </span>
+                                <span class="float-right">
+                                    0.00元
+                                </span>
+                            </div> -->
                 </div>
             </div>
-            <div class="discount-right">
-                <span style="margin-right: .3rem;color: #666;font-size: .38rem">未使用</span>
-                <span class="mui-icon mui-icon-arrowright"></span>
-            </div>
         </div>
-        <div class="price-discount-message">
-            <div class="good-price">
-                <span class="float-left">
-                    商品金额：
-                </span>
-                <span class="float-right">
-                    ￥88.00元
-                </span>
+        <div class="bottom-nav">
+            <div class="bottom-nav-left">
+                <span>应付款</span>
+                <span class="payable">￥{{total.toFixed(2)}}</span>
             </div>
-            <div class="discount-price">
-                <span class="float-left">
-                    活动优惠金额：
-                </span>
-                <span class="float-right">
-                    0.00元
-                </span>
+            <div class="bottom-nav-right">
+                去付款
             </div>
-            <div class="activity-price">
-                <span class="float-left">
-                    优惠券优惠金额：
-                </span>
-                <span class="float-right">
-                    0.00元
-                </span>
-            </div>
-        </div>
-    </div>
-    <div class="bottom-nav">
-        <div class="bottom-nav-left">
-            <span>应付款</span>
-            <span class="payable">￥88.00</span>
-        </div>
-        <div class="bottom-nav-right">
-            去付款
-        </div>
 
-        <!-- 弹出支付方式框 -->
-        <div id="popup" class="popup">
-            <div class="popup-title">
-                <span>
-                    万国电商钱包
-                </span>
-                <div class="close">
-                    ×
+            <!-- 弹出支付方式框 -->
+            <div id="popup" class="popup">
+                <div class="popup-title">
+                    <span>
+                        万国电商钱包
+                    </span>
+                    <div class="close">
+                        ×
+                    </div>
                 </div>
-            </div>
-            <div class="popup-good-message">
-                <div class="popup-price">
-                    ￥88
+                <div class="popup-good-message">
+                    <div class="popup-price">
+                        ￥88
+                    </div>
+                    <div class="popup-good-name">
+                        NGK铱铂金火花塞比亚迪F0F3G5S6S7M6L3 G3F6G6速锐思锐秦唐S8宋元
+                    </div>
                 </div>
-                <div class="popup-good-name">
-                    NGK铱铂金火花塞比亚迪F0F3G5S6S7M6L3 G3F6G6速锐思锐秦唐S8宋元
+                <div class="select-payment">
+                    第三方支付
                 </div>
-            </div>
-            <div class="select-payment">
-                第三方支付
-            </div>
-            <div class="wechat">
-                <div class="wechat-icon">
-                    <span class="mui-icon mui-icon-weixin" style="font-size: .8rem;color:#07B906"></span>
-                    <span>微信支付</span>
+                <div class="wechat">
+                    <div class="wechat-icon">
+                        <span class="mui-icon mui-icon-weixin" style="font-size: .8rem;color:#07B906"></span>
+                        <span>微信支付</span>
+                    </div>
+                    <span class="mui-icon mui-icon-arrowright"></span>
                 </div>
-                <span class="mui-icon mui-icon-arrowright"></span>
-            </div>
-            <div class="alipay">
-                <div class="alipay-icon">
-                    <span class="mui-icon-extra mui-icon-extra-alipay" style="font-size: .6rem"></span>
-                    <span> 阿里支付</span>
+                <div class="alipay">
+                    <div class="alipay-icon">
+                        <span class="mui-icon-extra mui-icon-extra-alipay" style="font-size: .6rem"></span>
+                        <span> 阿里支付</span>
+                    </div>
+                    <span class="mui-icon mui-icon-arrowright"></span>
                 </div>
-                <span class="mui-icon mui-icon-arrowright"></span>
             </div>
         </div>
     </div>
@@ -174,10 +212,114 @@
     <div id="mask">
 
     </div>
+    <script src="../js/common.js"></script>
+    <script src="../js/mui.picker.js"></script>
+    <script src="../js/mui.poppicker.js"></script>
+    <script src="../js/city.data-3.js"></script>
+    <script src="../js/vue.min.js"></script>
     <script>
+        (function ($, doc) {
+            $.init();
+            $.ready(function () {
+                /**
+                 * 获取对象属性的值
+                 * 主要用于过滤三级联动中，可能出现的最低级的数据不存在的情况，实际开发中需要注意这一点；
+                 * @param {Object} obj 对象
+                 * @param {String} param 属性名
+                 */
+                var _getParam = function (obj, param) {
+                    return obj[param] || '';
+                };
+
+                //-----------------------------------------
+                //					//级联示例
+                var cityPicker3 = new $.PopPicker({
+                    layer: 3
+                });
+                cityPicker3.setData(cityData3);
+                var showCityPickerButton = doc.getElementById('showCityPicker3');
+                showCityPickerButton.addEventListener('tap', function (event) {
+                    cityPicker3.show(function (items) {
+                        vm.address = _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') + " " + _getParam(items[2], 'text');
+                        vm.province = _getParam(items[0], 'text');
+                        vm.city = _getParam(items[1], 'text');
+                        vm.area = _getParam(items[2], 'text');
+                        //返回 false 可以阻止选择框的关闭
+                        //return false;
+                    });
+                }, false);
+            });
+        })(mui, document);
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                goods: [],
+                name: "",
+                phone: "",
+                address: "",
+                address_detail: "",
+                province: "",
+                city: "",
+                area: "",
+                total: 1000
+            }
+        })
+
+        // (function ($, doc) {
+        //     $.ready(function () {
+        //         var _getParam = function (obj, param) {
+        //             return obj[param] || '';
+        //         };
+        //         var cityPicker3 = new $.PopPicker({
+        //             layer: 3
+        //         });
+        //         cityPicker3.setData(cityData3);
+        //         var showCityPickerButton = doc.getElementById('showCityPicker3');
+        //         var cityResult3 = doc.getElementById('cityResult3');
+        //         showCityPickerButton.addEventListener('tap', function (event) {
+        //             cityPicker3.show(function (items) {
+        //                 cityResult3.innerText = "你选择的城市是:" + _getParam(items[0], 'text') + " " + _getParam(items[1], 'text') + " " + _getParam(items[2], 'text');
+        //                 //返回 false 可以阻止选择框的关闭
+        //                 //return false;
+        //             });
+        //         }, false);
+        //     })
+        // })(mui, document);
+        mui(".mui-scroll-wrapper").scroll({
+            deceleration: 0.0005,
+            indicators: false, //是否显示滚动条
+        })
+        //当前页面
+        var nowPage;
         //支付通道
         var payment;
         mui.plusReady(function () {
+            nowPage = plus.webview.currentWebview();
+            //获取支付商品信息
+            console.log(nowPage.goodId);
+            console.log(nowPage.goodNum);
+            mui.ajax(http_url + "/api.php/User/cartpay?token=" + user_all_message.token, {
+                dataType: 'json',
+                type: 'post',
+                data: {
+                    ids: nowPage.goodId,
+                    nums: nowPage.goodNum
+                },
+                timeout: 10000,
+                success: function (data) {
+                    if (data.status == 200) {
+                        vm.goods = data.data
+                        // for (var i = 0; i < vm.goods.length; i++) {
+                        //     vm.total += Number(vm.goods[i].goods.shop_price) * vm.goods[i].goods_name;
+                        // }
+                    } else {
+                        toast(data.message);
+                    }
+                },
+                error: function (xhr, type, errorThrown) {
+
+                }
+            })
             plus.payment.getChannels(function (channels) {
                 for (var i in channels) {
                     if (channels[i].id == "wxpay") {
@@ -191,6 +333,7 @@
             });
 
         })
+
         //支付请求
         function pay(pay) {
             if (pay == "alipay") {
@@ -220,13 +363,46 @@
         var popup = document.getElementById("popup");
         var mask = document.getElementById("mask");
         mui(".bottom-nav").on("tap", ".bottom-nav-right", function () {
-            popup.style.bottom = 0;
-            mask.style.display = "block";
+            if (!vm.name) {
+                toast("请输入收货人姓名")
+            } else if (!vm.address) {
+                toast("请选择所在地区")
+            } else if (!vm.address_detail) {
+                toast("请输入详细地址")
+            } else if (!reg_phone.test(vm.phone)) {
+                toast("请输入正确手机号");
+            } else {
+                popup.style.bottom = 0;
+                mask.style.display = "block";
+            }
         })
         mask.addEventListener("tap", function () {
             popup.style.bottom = -11 + "rem";
             mask.style.display = "none";
         })
+        //发起支付请求
+        function postPay() {
+            mui.ajax(http_url + "/api.php/User/cartpay", {
+                dataType: 'json',
+                type: 'post',
+                data: {
+                    ids: nowPage.goodId,
+                    nums: nowPage.goodNum,
+                    truename: vm.name,
+                    mobile: vm.phone,
+                    province: vm.province,
+                    city: vm.city,
+                    area: vm.area
+                },
+                timeout: 10000,
+                success: function (data) {
+                    console.log(JSON.stringify(data))
+                },
+                error: function (xhr, type, errorThrown) {
+
+                }
+            })
+        }
     </script>
 </body>
 
