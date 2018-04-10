@@ -114,11 +114,14 @@
     }
   }
   .boutique-message {
+    position: relative;
     margin-top: 0.3rem;
+    height: 4rem;
     display: flex;
     justify-content: space-around;
     .boutique-good {
-      width: 33%;
+      width: 3.3rem;
+      display: inline-block;
       height: 4rem;
       img {
         width: 100%;
@@ -371,4 +374,11 @@
   top: 0;
   z-index: 500;
   left: 0;
+}
+// 自定义滚动样式左右滑动
+#mui-scroll-wrapper{
+  height: 4rem;
+  .mui-scroll{
+    height: 4rem;
+  }
 }

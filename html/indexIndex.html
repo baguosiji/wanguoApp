@@ -139,12 +139,22 @@
                     </div>
                 </div>
                 <div class="boutique-message">
-                    <div class="boutique-good" v-for="item in cars">
-                        <img v-bind:src="item.pic">
-                        <p>{{item.title}}</p>
-                        <p style="color: #f51212">￥{{item.price}}</p>
-                        <p style="font-size: .3rem;">{{item.djrq}} | {{item.bxlc}}万公里</p>
-                    </div>`
+                    <div id="mui-scroll-wrapper" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+                        <div class="mui-scroll">
+                            <div class="boutique-good" v-for="item in cars">
+                                <img v-bind:src="item.pic">
+                                <p>
+                                    {{item.title}}
+                                </p>
+                                <p style="color: #f51212">￥ {{item.price}}
+                                </p>
+                                <p style="font-size: .3rem;">
+                                    {{item.djrq}} | {{item.bxlc}} 万公里
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <!-- 新闻部分 -->
@@ -321,6 +331,12 @@
             indicators: false,
             deceleration: 0.0005,//flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
         });
+        mui("#mui-scroll-wrapper").scroll({
+            scrollY: false,
+            scrollX: true,
+            indicators: false,
+            deceleration: 0.0005,
+        })
         // 获取分类
         var activity = document.getElementsByClassName("every-category");
         for (var i = 0; i < activity.length; i++) {
