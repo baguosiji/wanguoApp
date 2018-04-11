@@ -45,13 +45,29 @@
         padding: .3rem 0;
         font-size: .42rem;
     }
+
+    .active {
+        color: #07B906;
+    }
+
+    .bottom-button {
+        width: 10rem;
+        position: fixed;
+        bottom: 0;
+        height: 1.2rem;
+        font-size: .42rem;
+        color: #ffffff;
+        text-align: center;
+        line-height: 1.2rem;
+        background-color: #07B906;
+    }
 </style>
 
 <body>
     <div class="action-bar-no-search">
         <div class="title-left">
             <div>
-                <span class="mui-icon mui-icon-back">
+                <span class="mui-icon mui-icon-back ">
 
                 </span>
                 <span>
@@ -71,13 +87,14 @@
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container" id="app">
         <div class="title">
             <p>
                 订单提交成功，请尽快付款！
             </p>
             <p style="padding: .1rem 0">
-                订单号：32133313 待支付：456.00元
+                订单号：{{order_message.ordinfo.order_sn}} 待支付：
+                <strong style="color: #07B906">{{order_message.ordinfo.order_amount}}</strong> 元
             </p>
         </div>
         <div style="padding: .2rem .3rem ;font-size: .36rem">
@@ -86,23 +103,151 @@
         </div>
         <div>
             <p style="padding:.2rem .3rem">选择支付方式</p>
-            <div class="wechat">
+            <div class="wechat  active" @tap="selectPayment('wxpay')">
                 <div class="wechat-icon">
                     <span class="mui-icon mui-icon-weixin" style="font-size: .8rem;color:#07B906"></span>
                     <span>微信支付</span>
                 </div>
-                <span class="iconfont icon-duihaocheckmark17"></span>
+                <span class="iconfont icon-duihaocheckmark17" style="font-size: .55rem"></span>
             </div>
-            <div class="alipay">
+            <div class="alipay" @tap="selectPayment('alipay')">
                 <div class="alipay-icon">
                     <span class="iconfont icon-alipay" style="font-size: .7rem;color: #4395FF"></span>
                     <span> 阿里支付</span>
                 </div>
-                <span class="iconfont icon-duihaocheckmark17"></span>
+                <span class="iconfont icon-duihaocheckmark17" style="font-size: .55rem"></span>
             </div>
         </div>
+        <div class="bottom-button" @tap="pay('wechat')">
+            支付({{order_message.ordinfo.order_amount}}元)
+        </div>
     </div>
+    <script src="../js/common.js"></script>
     <script src="../js/vue.min.js"></script>
+    <script>
+        var channel = null;
+        var nowPage = null;
+        mui.plusReady(function () {
+            nowPage = plus.webview.currentWebview();
+            mui.ajax(http_url + '/api.php/Order/payment?token=' + user_all_message.token + "&order_id=" + nowPage.order_id, {
+                dataType: 'json',
+                type: 'get',
+                timeout: 10000,
+                headers: { 'Content-Type': 'application/json' },
+                success: function (data) {
+                    if (data.status == 200) {
+                        vm.order_message = data.data;
+                    }
+                },
+                error: function (xhr, type, errorThrown) {
+                    //异常处理；ss
+                    console.log(errorThrown);
+                }
+            });
+
+            plus.payment.getChannels(function (channels) {
+                channel = channels[0];
+            }, function (e) {
+            });
+        });
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                order_message: { ordinfo: {} }
+            }
+        })
+        //选择支付方式;
+        var payment = "wxpay";
+        var alipayDom = document.querySelector(".alipay");
+        var wxpayDom = document.querySelector(".wechat");
+        function selectPayment(pay) {
+            if (pay == "wxpay") {
+                wxpayDom.classList.add("active");
+                alipayDom.classList.remove("active");
+            } else {
+                wxpayDom.classList.remove("active");
+                alipayDom.classList.add("active");
+            }
+            payment = pay;
+        }
+        //调起支付
+        function pay() {
+            // var iscart = 0;
+            // if (nowPage.one) {
+            //     iscart = 0;
+            // } else {
+            //     iscart = 1;
+            // }
+            var waiting = plus.nativeUI.showWaiting("正在支付", { width: '120px', height: '120px' });
+            if (payment == "alipay") {
+                mui.ajax(http_url + "/api.php/Order/dopay?token=" + user_all_message.token, {
+                    type: 'post',
+                    data: {
+                        order_id: nowPage.order_id,
+                        pay_type: payment,
+                        iscart: vm.iscart,
+                    },
+                    timeout: 10000,
+                    success: function (res) {
+                        console.log(res);
+                        plus.payment.request(channel, res, function (result) {
+                            plus.nativeUI.alert("支付成功！", function () {
+                                waiting.close();
+                                jump_to_order();
+                                // back();
+                            });
+                        }, function (error) {
+                            waiting.close();
+                            plus.nativeUI.alert("支付失败：" + error.code);
+                        });
+
+                    },
+                    error: function (xhr, type, errorThrown) {
+                        console.log(xhr)
+                        console.log(type)
+                        console.log(errorThrown)
+                    }
+                })
+            } else if (payment == "wxpay") {
+                mui.ajax(http_url + "/api.php/Order/dopay?token=" + user_all_message.token, {
+                    dataType: 'json',
+                    type: 'post',
+                    data: {
+                        order_id: nowPage.order_id,
+                        pay_type: payment,
+                        iscart: vm.iscart,
+                    },
+                    timeout: 10000,
+                    success: function (res) {
+                        console.log(JSON.stringify(res));
+                        plus.payment.request(channel, res, function (result) {
+                            plus.nativeUI.alert("支付成功！", function () {
+                                // back();
+                                jump_to_order();
+                            });
+                        }, function (error) {
+                            plus.nativeUI.alert("支付失败：" + error.code);
+                        });
+
+                    },
+                    error: function (xhr, type, errorThrown) {
+
+                    }
+                })
+            } else {
+                return;
+            }
+        }
+        mui(".action-bar-no-search").on("tap", ".title-left", function () {
+            jump_to_order();
+        })
+        function jump_to_order() {
+            mui.openWindow({
+                url: "order.html",
+                id: "order.html"
+            })
+        }
+    </script>
 </body>
 
 </html>

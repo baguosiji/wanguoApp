@@ -429,9 +429,15 @@
                     success: function (data) {
                         waiting.close();
                         if (data.status == 200) {
-                            vm.order_id = data.data.order_id;
-                            popup.style.bottom = 0;
-                            mask.style.display = "block";
+                            // vm.order_id = data.data.order_id;
+                            mui.openWindow({
+                                url: "payment.html",
+                                id: "payment.html",
+                                extras: {
+                                    order_id: data.data.order_id,
+                                    iscart: nowPage.one
+                                }
+                            })
                         } else {
                             toast(data.message);
                         }
@@ -459,10 +465,15 @@
                     success: function (data) {
                         waiting.close();
                         if (data.status == 200) {
-                            vm.order_id = data.data.order_id;
-                            console.log(JSON.stringify(data));
-                            popup.style.bottom = 0;
-                            mask.style.display = "block";
+                            // vm.order_id = data.data.order_id;
+                            mui.openWindow({
+                                url: "payment.html",
+                                id: "payment.html",
+                                extras: {
+                                    order_id: data.data.order_id,
+                                    iscart: nowPage.one
+                                }
+                            })
                         } else {
                             toast(data.message);
                         }
@@ -478,7 +489,6 @@
         var WXPAYSERVER = 'http://192.168.50.50:81/api.php/About/pay';
         //调起支付
         function pay(pay) {
-            var PAYSERVER = '';
             var iscart = 0;
             if (nowPage.one) {
                 iscart = 0;
@@ -486,7 +496,6 @@
                 iscart = 1;
             }
             if (pay == "alipay") {
-                PAYSERVER = ALIPAYSERVER;
                 mui.ajax(http_url + "/api.php/Order/dopay?token=" + user_all_message.token, {
                     type: 'post',
                     data: {
@@ -513,7 +522,6 @@
                     }
                 })
             } else if (pay == "wxpay") {
-                PAYSERVER = WXPAYSERVER;
                 mui.ajax(http_url + "/api.php/Order/dopay?token=" + user_all_message.token, {
                     dataType: 'json',
                     type: 'post',
