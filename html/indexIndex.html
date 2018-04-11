@@ -169,7 +169,7 @@
                     </div>
                 </div>
                 <div class="news-message">
-                    <div class="news" v-for="item in news">
+                    <div class="news" v-for="item in news" @tap="jump_to_new_detail(item.id)">
                         <div class="news-icon">
                             知识
                         </div>
@@ -404,6 +404,16 @@
                 ck("功能尚未开通，敬请期待！");
             }
         })
+        //跳转到新闻详情页
+        function jump_to_new_detail(id) {
+            mui.openWindow({
+                url: "newsMessage.html",
+                id: "newsMessage.html",
+                extras: {
+                    message: id //扩展参数
+                }
+            })
+        }
     </script>
 </body>
 

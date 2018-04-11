@@ -62,7 +62,6 @@
         })
         mui.plusReady(function () {
             var self = plus.webview.currentWebview();
-            console.log(self.message);
             mui.ajax(http_url + '/api.php/About/page?id=' + self.message, {
                 dataType: 'json',
                 type: 'get',
