@@ -24,7 +24,7 @@
       line-height: 0.75rem;
       color: #000000;
       font-size: 0.426667rem;
-      
+
       .left {
         div {
           color: #000000;
@@ -324,6 +324,10 @@
       height: 3rem;
       padding-left: 0.3rem;
       .popup-good-name {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
         color: #333333;
         height: 1.2rem;
         font-weight: 500;
@@ -367,6 +371,10 @@
         margin-right: 0.2rem;
         margin-top: 0.2rem;
         border-radius: 0.4rem;
+      }
+      .active{
+        color:#ffffff;
+        background-color: #f69a07;
       }
     }
   }

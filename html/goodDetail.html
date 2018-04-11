@@ -121,59 +121,6 @@
                     </div>
                 </div> -->
                 </div>
-                <!-- <div class="common">
-                <div class="line">
-
-                </div>
-                <div class="message">
-                    <span class="mui-icon mui-icon-chatbubble">
-
-                    </span>
-                    <span>
-                        评价
-                    </span>
-                </div>
-                <div class="line">
-
-                </div>
-            </div> -->
-                <!-- <div class="good-assess">
-                <div class="padding">
-                    <p>宝贝评价 (
-                        <span>3247</span>)</p>
-                    <div class="clearfloat" @tap="getHttp()">
-                        <div class="assess-button">
-                            质量很好 (
-                            <span>85</span>)
-                        </div>
-                        <div class="assess-button">
-                            质量很好 (
-                            <span>85</span>)
-                        </div>
-                        <div class="assess-button">
-                            质量很好 (
-                            <span>85</span>)
-                        </div>
-                        <div class="assess-button">
-                            质量很好 (
-                            <span>85</span>)
-                        </div>
-                        <div class="assess-button">
-                            质量很好 (
-                            <span>85</span>)
-                        </div>
-                    </div>
-                    <div class="video-message clearfloat">
-                        已评价43526次
-                        <div class="video-comment-love-it float-right">
-                            <img src="../img/comment.png" alt=""> 点击评论
-                        </div>
-                        <div class="video-comment-love-it float-right">
-                            <img src="../img/love-it.png" alt=""> 点赞
-                        </div>
-                    </div>
-                </div>
-            </div> -->
                 <div class="common">
                     <div class="line">
 
@@ -199,46 +146,7 @@
                     </div>
                 </div>
                 <div>
-                    <!-- <div class="good-message-list-every-last">
-                    <div class="good-message-list-every-last-left">
-                        包装价格
-                    </div>
-                    <div class="good-message-list-every-last-right">
-                        4支装
-                    </div>
-                </div>
-                <div class="good-message-list-every-last">
-                    <div class="good-message-list-every-last-left">
-                        包装价格
-                    </div>
-                    <div class="good-message-list-every-last-right">
-                        4支装
-                    </div>
-                </div>
-                <div class="good-message-list-every-last">
-                    <div class="good-message-list-every-last-left">
-                        品牌
-                    </div>
-                    <div class="good-message-list-every-last-right">
-                        Bosch/博世
-                    </div>
-                </div>
-                <div class="good-message-list-every-last">
-                    <div class="good-message-list-every-last-left">
-                        零配件分类
-                    </div>
-                    <div class="good-message-list-every-last-right">
-                        汽车配件
-                    </div>
-                </div>
-                <div class="good-message-list-every-last">
-                    <div class="good-message-list-every-last-left">
-                        火花塞类型
-                    </div>
-                    <div class="good-message-list-every-last-right">
-                        电阻火花塞
-                    </div>
-                </div> -->
+                    <img v-for="img in goodMessage.goods_images" v-bind:src="http_url+img.pic" style="width: 10rem;height: 100%" alt="">
                 </div>
                 <div id="good-message-list">
 
@@ -255,7 +163,7 @@
                         客服
                     </p>
                 </div>
-                <div @tap="collection($event)" id="collection">
+                <div @tap="collections($event)" id="collection">
                     <p>
                         <span class="iconfont icon-shoucang1 font"></span>
                     </p>
@@ -274,7 +182,7 @@
             <div id="popup" class="popup">
                 <div class="popup-top">
                     <div class="popup-img">
-                        <img src="../img/good03.png" alt="">
+                        <img v-bind:src="http_url+goodMessage.pic" alt="">
                     </div>
                     <div class="popup-good-message">
                         <div class="popup-good-name">
@@ -282,10 +190,11 @@
                         </div>
                         <div class="popup-price-specification">
                             <div class="popup-price">
-                                ￥{{goodMessage.market_price}}
+                                ￥{{good_spec.goodMessage?good_spec.price:goodMessage.shop_price}}
+                                <span style="margin-left: 1.5rem">库存：{{goodData.sec_list.spec?good_spec.store_count:goodMessage.store_num}}</span>
                             </div>
-                            <div class="popup-specification">
-                                请选择商品属性
+                            <div class="popup-specification" v-if="goodData.sec_list.spec">
+                                {{good_spec.spec_names?good_spec.spec_names:'请选择商品规格'}}
                             </div>
                         </div>
                     </div>
@@ -293,105 +202,14 @@
                 <div class="scroll-wrapper">
                     <div class="mui-scroll">
                         <div class="popup-center">
-                            <div class="good-attribute">
-                                属性：
-                            </div>
-                            <div class="good-attribute-list">
-                                <div class="good-attribute-list-every-last">
-                                    FR8DPP30X（4支）
+                            <div v-for="(spec,index) in goodData.sec_list.spec">
+                                <div class="good-attribute">
+                                    {{spec.spec_name}}：
                                 </div>
-                                <div class="good-attribute-list-every-last">
-                                    FR7HPP332W（4支）
-                                </div>
-                                <div class="good-attribute-list-every-last">
-                                    FR5KPP332S（4支）
-                                </div>
-                                <div class="good-attribute-list-every-last">
-                                    FR6HI332（4支）
-                                </div>
-                                <div class="good-attribute-list-every-last">
-                                    FR8DPP30X（4支）
-                                </div>
-                                <div class="good-attribute-list-every-last">
-                                    FR7HPP332W（4支）
-                                </div>
-                                <div class="good-attribute-list-every-last">
-                                    FR5KPP332S（4支）
-                                </div>
-                                <div class="good-attribute-list-every-last">
-                                    FR6HI332（4支）
-                                </div>
-                                <div class="good-attribute-list-every-last">
-                                    FR8DPP30X（4支）
-                                </div>
-                                <div class="good-attribute-list-every-last">
-                                    FR7HPP332W（4支）
-                                </div>
-                                <div class="good-attribute-list-every-last">
-                                    FR5KPP332S（4支）
-                                </div>
-                                <div class="good-attribute-list-every-last">
-                                    FR6HI332（4支）
-                                </div>
-                                <div class="good-attribute-list-every-last">
-                                    FR8DPP30X（4支）
-                                </div>
-                                <div class="good-attribute-list-every-last">
-                                    FR7HPP332W（4支）
-                                </div>
-                                <div class="good-attribute-list-every-last">
-                                    FR5KPP332S（4支）
-                                </div>
-                                <div class="good-attribute-list-every-last">
-                                    FR6HI332（4支）
-                                </div>
-                                <div class="good-attribute-list-every-last">
-                                    FR8DPP30X（4支）
-                                </div>
-                                <div class="good-attribute-list-every-last">
-                                    FR7HPP332W（4支）
-                                </div>
-                                <div class="good-attribute-list-every-last">
-                                    FR5KPP332S（4支）
-                                </div>
-                                <div class="good-attribute-list-every-last">
-                                    FR6HI332（4支）
-                                </div>
-                                <div class="good-attribute-list-every-last">
-                                    FR8DPP30X（4支）
-                                </div>
-                                <div class="good-attribute-list-every-last">
-                                    FR7HPP332W（4支）
-                                </div>
-                                <div class="good-attribute-list-every-last">
-                                    FR5KPP332S（4支）
-                                </div>
-                                <div class="good-attribute-list-every-last">
-                                    FR6HI332（4支）
-                                </div>
-                                <div class="good-attribute-list-every-last">
-                                    FR8DPP30X（4支）
-                                </div>
-                                <div class="good-attribute-list-every-last">
-                                    FR7HPP332W（4支）
-                                </div>
-                                <div class="good-attribute-list-every-last">
-                                    FR5KPP332S（4支）
-                                </div>
-                                <div class="good-attribute-list-every-last">
-                                    FR6HI332（4支）
-                                </div>
-                                <div class="good-attribute-list-every-last">
-                                    FR8DPP30X（4支）
-                                </div>
-                                <div class="good-attribute-list-every-last">
-                                    FR7HPP332W（4支）
-                                </div>
-                                <div class="good-attribute-list-every-last">
-                                    FR5KPP332S（4支）
-                                </div>
-                                <div class="good-attribute-list-every-last">
-                                    FR6HI332（4支）
+                                <div class="good-attribute-list">
+                                    <div v-for="detail in spec.goods_spec_item" @tap="selectType(index,detail.id,$event)" class="good-attribute-list-every-last">
+                                        {{detail.item}}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -405,7 +223,7 @@
 
                                     </span>
                                 </div>
-                                <input value="1" class="buy-number-input" type="text">
+                                <input v-model="buy_num" class="buy-number-input" type="text">
 
                                 <div class="remove">
                                     <span>
@@ -417,7 +235,7 @@
                     </div>
                 </div>
                 <div class="popup-bottom">
-                    <div class="add-shoppingcart">
+                    <div class="add-shoppingcart" @tap="add_to_shopping_cart()">
                         加入购物车
                     </div>
                     <div class="buy">
@@ -434,18 +252,13 @@
     <script src="../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="../js/common.js"></script>
     <script>
-        var gallery = mui('.mui-slider');
-        gallery.slider({
-            interval: 2000//自动轮播周期，若为0则不自动播放，默认为0；
-        });
-        mui.ajax(http_url + "/api.php/Salecar/car_brand", {
-
-        })
         var vm = new Vue({
             el: "#container",
             data: {
-                goodMessage: {},
-                goodData: {}
+                goodMessage: { goods_images: [] },
+                goodData: { sec_list: { spec: [] } },
+                buy_num: 1,
+                good_spec: {}
             },
             methods: {
                 resetData: function () {//重置数据
@@ -453,6 +266,15 @@
                 }
             }
         })
+
+        var gallery = mui('.mui-slider');
+        gallery.slider({
+            interval: 2000//自动轮播周期，若为0则不自动播放，默认为0；
+        });
+        mui.ajax(http_url + "/api.php/Salecar/car_brand", {
+
+        })
+        var collection_good = document.getElementById("collection");
         //在details页面接收id参数
         var firstImage;                                                             //轮播图的第一张图片
         var lastImage;                                                              //轮播图的最后一张图片
@@ -470,7 +292,6 @@
                     lastImage = data.data.info.goods_images.pop();
                     vm.goodData = data.data;
                     if (data.data.addFav == 1) {
-                        console.log("?????")
                         collection_good.querySelector(".text").innerText = "已收藏";
                         collection_good.querySelectorAll("p")[0].style.color = "red";
                         collection_good.querySelectorAll("p")[1].style.color = "red";
@@ -490,57 +311,61 @@
             console.log(http_url + '/Mall/details?id=' + id);
 
         });
-
+        //点击选择商品分类
+        var rememberId = [];
+        function selectType(index, id, e) {
+            if (e.currentTarget.parentNode.index == index) {
+                e.currentTarget.parentNode.childNodes;
+                for (var i = 0; i < e.currentTarget.parentNode.childNodes.length; i++) {
+                    e.currentTarget.parentNode.childNodes[i].classList.remove("active");
+                }
+                e.currentTarget.classList.add("active");
+            } else {
+                e.currentTarget.parentNode.index = index;
+                e.currentTarget.classList.add("active");
+            }
+            rememberId[index] = id;
+            var text = "";
+            for (var j = 0; j < rememberId.length; j++) {
+                if (j + 1 == rememberId.length) {
+                    text += rememberId[j];
+                } else {
+                    text += rememberId[j] + "_"
+                }
+            }
+            if (vm.goodData.sec_list.spec.length == rememberId.length) {
+                vm.good_spec = vm.goodData.sec_list.spec_val.find(function (every) {
+                    return every.spec_ids == text;
+                })
+            }
+        }
         function getHttp() {
             console.log(document.querySelector(".whd").src);
         }
 
         mui.plusReady(function () {
-            // plus.share.getServices(function (s) {
-            //     shares = s;
-            // }, function (e) {
-            //     alert("获取分享服务列表失败：" + e.message);
-            // });
+
         })
-        // 分享
-        // function share() {
-        //     plus.share.getServices(function (s) {
-        //         shares = ss;
-        //         for (var i in ss) {
-        //             var s = ss[i];
-        //             var item = document.createElement("li");
-        //             item.setAttribute("class", "ditem");
-        //             item.setAttribute("onclick", (s.id == "weixin") ? "shareWeiXin(this.plusShare)" : "shareAction(this.plusShare)");
-        //             item.innerText = s.description;
-        //             item.plusShare = s;
-        //             list.appendChild(item);
-        //         }
-        //     }, function (e) {
-        //         alert("获取分享服务列表失败：" + e.message);
-        //     });
-        // }
         //初始化input value值;
-        var collection_good = document.getElementById("collection");
-        var number = 1;         //购买数量
-        var inputDom = document.querySelector(".popup").getElementsByClassName("buy-number-input")[0];
-        inputDom.value = number;
         var popup = document.getElementById("popup");
         var mask = document.getElementById("mask");
         // 购买数量添加
         mui(".popup").on("tap", ".add", function () {
-            number++;
-            inputDom.value = number;
+            if (vm.buy_num >= vm.good_spec.store_count) {
+                toast("库存不足")
+            } else {
+                vm.buy_num++;
+            }
         })
         //购买数量减少
         mui(".popup").on("tap", ".remove", function () {
-            if (number > 1) {
-                number--;
-                inputDom.value = number;
+            if (vm.buy_num > 1) {
+                vm.buy_num--;
             }
         })
 
         //点击选择收藏商品
-        function collection(e) {
+        function collections(e) {
             var eTarget = e.currentTarget;
             var id = vm.goodMessage.goods_id;
             var token = localStorage.getItem("token");
@@ -589,34 +414,20 @@
 
         }
 
-        //选择商品属性
-        var goodAttribute = document.getElementsByClassName("good-attribute-list-every-last");
-        console.log(goodAttribute);
-        var oldIndex = 0;
-        goodAttribute[oldIndex].style.backgroundColor = "#f8c750";
-        goodAttribute[oldIndex].style.color = "#ffffff";
-        document.getElementsByClassName("popup-specification")[0].innerText = "已选：" + goodAttribute[oldIndex].innerText;
-        for (var i = 0; i < goodAttribute.length; i++) {
-            goodAttribute[i].index = i;
-            goodAttribute[i].addEventListener("tap", function () {
-                console.log(this.index);
-                if (oldIndex != this.index) {
-                    this.style.backgroundColor = "#f8c750";
-                    this.style.color = "#ffffff";
-                    goodAttribute[oldIndex].style.backgroundColor = "#e6e5e3";
-                    document.getElementsByClassName("popup-specification")[0].innerText = "已选：" + this.innerText;
-                    goodAttribute[oldIndex].style.color = "#666666";
-                    oldIndex = this.index;
-                }
-            })
-        }
         //跳转到结算页面
         var url;
         mui(".popup-bottom").on("tap", ".buy", function () {
-            url = "paymentMessage.html"
+            url = "settlementPage.html"
             mui.openWindow({
                 url: url,
-                id: url
+                id: url,
+                extras: {
+                    goodId: vm.goodMessage.goods_id,
+                    goodNum: vm.buy_num,
+                    spec_ids: vm.good_spec.spec_ids ? vm.good_spec.spec_ids : "",
+                    spec_names: vm.good_spec.spec_names ? vm.good_spec.spec_names : "",
+                    one: true,
+                }
             })
         })
         mui('.mui-scroll-wrapper').scroll({
@@ -639,6 +450,64 @@
             popup.style.bottom = -14 + "rem";
             mask.style.display = "none";
         })
+        //添加商品到购物车
+        function add_to_shopping_cart() {
+            if (user_token()) {
+                var token = localStorage.getItem("token");
+                if (!vm.goodData.sec_list.spec) {
+                    mui.ajax(http_url + '/api.php/Order/addcart?token=' + token, {
+                        dataType: 'json',
+                        type: 'post',
+                        data: {
+                            goods_id: vm.goodMessage.goods_id,
+                            num: vm.buy_num,
+                            // spec_ids:  "",
+                            // spec_names:  ""
+                        },
+                        timeout: 10000,
+                        success: function (data) {
+                            toast(data.message);
+                        },
+                        error: function (xhr, type, errorThrown) {
+                            //异常处理；ss
+                            console.log(errorThrown);
+                        }
+                    })
+                } else if (!vm.good_spec.id) {
+                    toast("请选择商品规格")
+                } else if (vm.buy_num > vm.good_spec.store_count) {
+                    toast("库存不足")
+                } else {
+                    mui.ajax(http_url + '/api.php/Order/addcart?token=' + token, {
+                        dataType: 'json',
+                        type: 'post',
+                        data: {
+                            goods_id: vm.goodMessage.goods_id,
+                            num: vm.buy_num,
+                            spec_ids: vm.good_spec.spec_ids,
+                            spec_names: vm.good_spec.spec_names
+                        },
+                        timeout: 10000,
+                        success: function (data) {
+                            toast(data.message);
+                        },
+                        error: function (xhr, type, errorThrown) {
+                            //异常处理；ss
+                            console.log(errorThrown);
+                        }
+                    })
+                }
+            } else {
+                mui.confirm("您还未登录!", "万国提示", ['去登录', '取消'], function (e) {
+                    if (e.index == 0) {
+                        mui.openWindow({
+                            url: "login.html",
+                            id: "login.html"
+                        })
+                    }
+                })
+            }
+        }
     </script>
 </body>
 

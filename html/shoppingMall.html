@@ -105,7 +105,7 @@
                                                     5468
                                                 </strong>
                                             </div>
-                                            <div class="float-right buy-now">
+                                            <div class="float-right buy-now" @tap="jump_to_good_detail(item.goods_id)">
                                                 立即购买
                                             </div>
                                         </div>
@@ -137,7 +137,7 @@
                                                     5468
                                                 </strong>
                                             </div>
-                                            <div class="float-right buy-now">
+                                            <div class="float-right buy-now" @tap="jump_to_good_detail(item.goods_id)">
                                                 立即购买
                                             </div>
                                         </div>
@@ -168,7 +168,7 @@
                                                 5468
                                             </strong>
                                         </div>
-                                        <div class="float-right buy-now">
+                                        <div class="float-right buy-now" @tap="jump_to_good_detail(item.goods_id)">
                                             立即购买
                                         </div>
                                     </div>
@@ -198,7 +198,7 @@
                                                 5468
                                             </strong>
                                         </div>
-                                        <div class="float-right buy-now" @tap="pull_up_refresh()">
+                                        <div class="float-right buy-now" @tap="jump_to_good_detail(item.goods_id)">
                                             立即购买
                                         </div>
                                     </div>
@@ -338,7 +338,6 @@
             interval: 0,
         })
         function change_list(index) {
-            console.log("第几页" + index);
             slid_list.slider().gotoItem(index);
             if (vm.classification[index].id) {
                 get_goods(index + 2, vm.classification[index].id);
@@ -414,6 +413,18 @@
 
                 }
             });
+        }
+        var goodDetailPage;
+        //跳转到商品详情页
+        function jump_to_good_detail(id) {
+            if (!goodDetailPage) {
+                goodDetailPage = plus.webview.getWebviewById("goodDetail.html");
+            }
+            console.log(id);
+            mui.fire(goodDetailPage, 'goodId', { id: id });
+            mui.openWindow({
+                id: "goodDetail.html",
+            })
         }
         var page = 1;
         var pull = document.querySelector(".refreshContainer");
