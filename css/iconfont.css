@@ -22,7 +22,9 @@
 .icon-gouwuche:before {
   content: "\e608";
 }
-
+.icon-alipay:before {
+  content: "\e612";
+}
 .icon-shoucang1:before {
   content: "\e61c";
 }

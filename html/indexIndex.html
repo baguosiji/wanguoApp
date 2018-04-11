@@ -180,7 +180,7 @@
                 </div>
             </div>
             <div class="all">
-                <div class="car-money">
+                <div class="car-money" @tap="jump_open_new_page('payment.html')">
                     <div class="car-money-common">
                         <img src="../img/index01.png" alt="">
                         <div class="car-money-common-text">大平台有保障</div>
@@ -361,7 +361,6 @@
         }
         //点击跳转到新的页面
         function jump_open_new_page(url) {
-            console.log(url);
             mui.openWindow({
                 url: url,
                 id: url,
