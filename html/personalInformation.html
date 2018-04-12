@@ -43,7 +43,7 @@
                 上传头像
             </div>
             <div class="select-img">
-                <img id="user-header-img" src="../img/userHeader.png" alt="">
+                <img id="user-header-img" v-bind:src="http_url+userMessage.headimg" alt="">
                 <span class="mui-icon mui-icon-arrowright">
 
                 </span>
@@ -73,13 +73,13 @@
                     性别：
                 </span>
             </div>
-            <div class="mui-radio">
-                <input name="radio1" value="男" v-model=" sex" type="radio">
-                <span>男</span>
+            <div class="mui-input-row mui-radio">
+                <label v-model="sex">男</label>
+                <input value="男" name="radio1" type="radio">
             </div>
-            <div class="mui-radio">
-                <input name="radio1" value="女" v-model="sex" type="radio">
-                <span>女</span>
+            <div class="mui-input-row mui-radio">
+                <label v-model="sex">女</label>
+                <input value="女" name="radio1" type="radio">
             </div>
         </div>
         <div id="birtady" class="common-list">
@@ -200,39 +200,24 @@
         }
         //保存用户信息
         function submit() {
-            console.log("123455")
-            var task = plus.uploader.createUpload(http_url + "/api.php/User/upload_attachment",
-                { method: "POST", blocksize: 204800, priority: 100 },
-                function (t, status) {
-                    // 上传完成
-                    if (status == 200) {
-                        mui.alert(JSON.stringify(t));
-                    } else {
-                        mui.alert("Upload failed: " + status);
-                    }
-                }
-            );
-            task.addData("fileupload", "img");
-            task.addFile(user_header_img.src, { fileupload: user_header_img.src });
-            task.start();
+            alert(vm.sex);
+            mui.ajax(http_url + '/api.php/User/info?token=' + user_all_message.token, {
+                data: {
+                    nickname: vm.userMessage.nickname,
+                    truename: vm.userMessage.truename,
+                    sex: vm.sex,
+                    birthday: vm.userMessage.birthday,
+                },
+                dataType: 'json',
+                type: 'post',
+                timeout: 10000,
+                success: function (data) {
+                    console.log(JSON.stringify(data));
+                },
+                error: function (xhr, type, errorThrown) {
 
-            // mui.ajax(http_url + "/api.php/User/info", {
-            //     data: {
-            //         nickname: vm.userMessage.nickname,
-            //         truename: vm.userMessage.truename,
-            //         sex: vm.userMessage.sex,
-            //         birthday: vm.userMessage.birthday,
-            //     },
-            //     dataType: 'json',
-            //     type: 'post',
-            //     timeout: 10000,
-            //     success: function (data) {
-            //         mui.alert(vm.sex);
-            //     },
-            //     error: function (xhr, type, errorThrown) {
-            //         console.log(errorThrown);
-            //     }
-            // })
+                }
+            });
         }
         //上传头像
         function createUpload() {
@@ -241,14 +226,15 @@
                 function (t, status) {
                     // 上传完成
                     if (status == 200) {
-                        alert("Upload success: " + t.url);
+                        console.log(JSON.stringify(t))
+                        alert("上传成功：" + t.responseText);
                     } else {
-                        alert("Upload failed: " + status);
+
                     }
                 }
             );
-            task.addData("name", "img");
-            task.addFile(user_header_img.src, { fileupload: localPicture });
+            task.addFile(user_header_img.src, { key: "fileupload" });
+            // task.addData("fileupload", user_header_img.src);
             task.start();
         }
     </script>

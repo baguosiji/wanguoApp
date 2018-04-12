@@ -56,16 +56,20 @@
                             <span>共1件商品 合计¥{{order.order_amount}}（含运费¥0.00）</span>
                         </div>
                     </div>
+                    <div class="address">
+                        <span>收货信息：</span> {{order.truename}} {{order.mobile}}
+                        <p>{{order.province}}{{order.city}}{{order.area}}{{order.address}}</p>
+                    </div>
                     <div class="order-button">
                         <div class="evaluate">
                             评价
                         </div>
-                        <div class="logistics" style="width: 2rem">
+                        <!-- <div class="logistics" style="width: 2rem">
                             查看物流
                         </div>
                         <div class="more">
                             更多
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -96,15 +100,15 @@
             }
         })
         var token = JSON.parse(localStorage.getItem("user-message"));
-        console.log(token);
-        mui.ajax(http_url + "/api.php/User/order?status=3&comment=1&p=1&token=" + token.token, {
+        var count = 2;
+        mui.ajax(http_url + "/api.php/User/order?status=3" + "&comment=" + 0 + "&p=" + count + "&token=" + token.token, {
             dataType: 'json',
             type: 'get',
             timeout: 10000,
             headers: { 'Content-Type': 'application/json' },
             success: function (data) {
                 if (data.status == 200) {
-                    console.log(JSON.stringify(data));
+                    count++;
                     vm.orders = data.data;
                 } else {
                     toast(data.message);
@@ -132,7 +136,7 @@
         })
         var count = 2;
         function pullupRefresh() {
-            mui.ajax(http_url + "/api.php/User/order?status=" + 3 + "&comment=" + 1 + "&p=" + count + "&token=" + token.token, {
+            mui.ajax(http_url + "/api.php/User/order?status=" + 3 + "&comment=" + 0 + "&p=" + count + "&token=" + token.token, {
                 dataType: 'json',
                 type: 'get',
                 timeout: 10000,
@@ -153,6 +157,16 @@
                 },
                 error: function (xhr, type, errorThrown) {
 
+                }
+            })
+        }
+        function jump_to_evaluate(order_id, goods_id) {
+            mui.openWindow({
+                url: "../publicationEvaluation.html",
+                id: "../publicationEvaluation.html",
+                extras: {
+                    order_id: order_id,
+                    good_id: goods_id
                 }
             })
         }

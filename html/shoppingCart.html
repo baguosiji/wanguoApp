@@ -62,9 +62,9 @@
                                     <div class="right-top-left">
                                         {{good.goods.goods_name}}
                                     </div>
-                                    <div class="right-top-right">
+                                    <!-- <div class="right-top-right">
                                         <img v-bind:src="http_url+good.goods.pic" alt="">
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <!-- <div class="right-center">
                                                     <span>颜色：铂金；型号：F70（30)</span>
@@ -112,16 +112,16 @@
     <script src="../js/common.js"></script>
     <script src="../js/vue.min.js"></script>
     <script>    
-        // mui.init({
-        //     pullRefresh: {
-        //         container: '#pullrefresh',
-        //         up: {
-        //             auto: true,
-        //             contentrefresh: '正在加载...',
-        //             callback: pullupRefresh
-        //         }
-        //     }
-        // });
+        mui.init({
+            pullRefresh: {
+                container: '#pullrefresh',
+                up: {
+                    auto: true,
+                    contentrefresh: '正在加载...',
+                    callback: pullupRefresh
+                }
+            }
+        });
         var vm = new Vue({
             el: "#app",
             data: {
@@ -145,11 +145,11 @@
 
                     vm.goods = vm.goods.concat(data.data);
                     page++;
-                    // if (data.data.length == 0) {
-                    //     mui('#pullrefresh').pullRefresh().endPullupToRefresh(true)
-                    // } else {
-                    //     mui('#pullrefresh').pullRefresh().endPullupToRefresh(false)
-                    // }
+                    if (data.data.length == 0) {
+                        mui('#pullrefresh').pullRefresh().endPullupToRefresh(true)
+                    } else {
+                        mui('#pullrefresh').pullRefresh().endPullupToRefresh(false)
+                    }
                 } else {
                     toast(data.message);
                 }

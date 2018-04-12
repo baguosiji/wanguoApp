@@ -9,7 +9,7 @@
     <script src="../../js/flexible.js"></script>
     <script src="../../js/mui.min.js"></script>
     <link href="../../css/mui.min.css" rel="stylesheet" />
-    <script src="../../js/common.js"></script>
+    <link rel="stylesheet" href="../../css/iconfont.css">
     <link rel="stylesheet" href="../../css/common.css">
     <title>Document</title>
 </head>
@@ -25,11 +25,11 @@
         align-items: center;
         color: #666;
         font-size: .4rem;
-        height: .5rem;
+        padding: .2rem 0;
     }
 
     .every-last-evaluate>p {
-        font-size: .35rem;
+        font-size: .4rem;
         padding: .1rem 0;
         color: #666;
         vertical-align: middle;
@@ -39,9 +39,21 @@
 
     .evaluate-message {
         padding: .2rem 0;
-        font-size: .4rem;
+        font-size: .42rem;
         color: #000000;
         text-indent: .8rem;
+    }
+
+    .user-header-name>img {
+        width: .9rem;
+        height: .9rem;
+        border-radius: 50%
+    }
+
+    .user-header-name>strong {
+        font-size: .4rem;
+        margin: 0 .3rem;
+        color: #39ace5
     }
 
     .evaluate-img {
@@ -55,6 +67,12 @@
         width: 2rem;
         margin-top: .2rem;
     }
+
+    .iconfont {
+        font-size: 0.5rem;
+        margin-right: 0.25rem;
+        color: #ffa500;
+    }
 </style>
 
 <body>
@@ -63,12 +81,13 @@
             <div>
                 <div class="every-last-evaluate" v-for="item in items">
                     <div class="user-header-name">
-                        <img src="" alt="">
-                        <span>{{item.username}}</span>
+                        <img v-bind:src="http_url+user_all_message.headimg" alt="">
+                        <strong>{{item.username}}</strong>
+                        <span class="iconfont icon-star" v-for="rank in item.goods_rank"></span>
                     </div>
                     <p>{{changeTime(item.add_time)}}</p>
                     <div class="evaluate-message">
-                        {{item.content}}
+                        {{item.content?item.content:"该用户没有评价"}}
                     </div>
                     <div class="evaluate-img">
                         <img v-for="img in item.imgs" v-bind:src="http_url+img" alt="">
@@ -77,6 +96,7 @@
             </div>
         </div>
     </div>
+    <script src="../../js/common.js"></script>
     <script src="../../js/vue.min.js"></script>
     <script>
         mui.init({
@@ -97,7 +117,6 @@
             el: "#app",
             data: {
                 items: []
-
             }
         })
         mui(".mui-scroll-wrapper").scroll({
@@ -134,7 +153,7 @@
         // })
         //下拉刷新
         function pullupRefresh() {
-            mui.ajax(http_url + '/api.php/User/evaluation?p=' + page, {
+            mui.ajax(http_url + '/api.php/User/evaluation?p=' + page + "&token=" + user_all_message.token, {
                 dataType: 'json',
                 type: 'get',
                 timeout: 10000,
@@ -142,8 +161,13 @@
                 success: function (data) {
                     if (data.status == 200) {
                         for (var i = 0; i < data.data.length; i++) {
-                            console.log(i);
+                            var goods_rank = [];
                             var num = data.data
+                            for (var j = 0; j < num[i].goods_rank; j++) {
+                                goods_rank.push(j);
+                            }
+                            // goods_rank.length = num[i].goods_rank;
+                            num[i].goods_rank = goods_rank;
                             if (num[i].imgs) {
                                 num[i].imgs = num[i].imgs.substr(1).split(",");
                             }

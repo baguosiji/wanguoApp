@@ -242,10 +242,14 @@
             jump_to_order();
         })
         function jump_to_order() {
-            mui.openWindow({
-                url: "order.html",
-                id: "order.html"
-            })
+            if (nowPage.is_order) {
+                mui.back();
+            } else {
+                mui.openWindow({
+                    url: "order.html",
+                    id: "order.html"
+                })
+            }
         }
     </script>
 </body>

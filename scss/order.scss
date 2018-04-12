@@ -5,7 +5,7 @@
 .every-last-order {
   margin-bottom: 0.2rem;
   width: 10rem;
-  height: 5.426667rem;
+  // height: 6.426667rem;
   background-color: #ffffff;
   .shop-message {
     height: 0.88rem;
@@ -57,7 +57,7 @@
           width: 65%;
           height: 100%;
           font-size: 0.36rem;
-          line-height: .55rem;
+          line-height: 0.55rem;
           color: #000000;
           display: -webkit-box;
           -webkit-box-orient: vertical;
@@ -119,6 +119,20 @@
       text-align: center;
       color: #666666;
       padding: 0 0.2rem;
+    }
+  }
+  .address {
+    border-bottom: 1px solid #dad8d8;
+    padding: 0 0.3rem;
+    font-size: 0.38rem;
+    span {
+      color: #eda336;
+    }
+    p {
+      padding: 0.1rem 0;
+      font-size: 0.32rem;
+      margin: 0;
+      padding: 0;
     }
   }
 }

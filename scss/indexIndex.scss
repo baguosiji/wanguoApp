@@ -1,4 +1,3 @@
-
 /*分类选择部分样式*/
 
 .category {
@@ -26,7 +25,6 @@
         text-align: center;
         vertical-align: middle;
         height: 0.8rem;
-        
       }
     }
     .text {
@@ -50,7 +48,7 @@
     text-align: center;
     line-height: 1.066667rem;
     letter-spacing: 5px;
-    font-size: .4rem;
+    font-size: 0.4rem;
     color: #000000;
   }
   .play-video {
@@ -78,7 +76,7 @@
   }
   .video-message {
     height: 1rem;
-    font-size: .4rem;
+    font-size: 0.4rem;
     letter-spacing: 5px;
     line-height: 1rem;
     .video-comment-love-it {
@@ -115,18 +113,19 @@
   }
   .boutique-message {
     position: relative;
-    margin-right: .4rem;
     margin-top: 0.3rem;
     height: 4rem;
     display: flex;
     justify-content: space-around;
     .boutique-good {
       width: 3.3rem;
+      margin-right: 0.4rem;
       display: inline-block;
       height: 4rem;
       img {
         width: 100%;
         height: 2rem;
+        border: 0;
       }
       p {
         padding: 0;
@@ -208,7 +207,7 @@
         height: 2.8rem;
       }
       .car-money-common-text {
-        font-size: .38rem;
+        font-size: 0.38rem;
         color: #000000;
         text-align: center;
       }
@@ -217,7 +216,7 @@
         height: 0.7rem;
         border: 2px solid #f39800;
         border-radius: 4px;
-        font-size: .38rem;
+        font-size: 0.38rem;
         color: #f39800;
         margin: 0 auto;
         text-align: center;
@@ -233,7 +232,7 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  font-size: .38rem;
+  font-size: 0.38rem;
   align-items: center;
   margin: 0.1rem 0;
   img {
@@ -277,18 +276,17 @@
   }
   .good-message {
     height: 1rem;
-    font-size: .39rem;
+    font-size: 0.4rem;
     margin: 0.1rem 0;
-
-    overflow: hidden;
-    text-overflow: ellipsis;
+    line-height: 0.5rem;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
   }
   .good-price {
     height: 0.7rem;
-    font-size: .5rem;
+    font-size: 0.5rem;
     font-weight: bold;
     color: #fd0006;
   }
@@ -298,7 +296,7 @@
 /* 弹出框样式 */
 .out-div {
   color: #000;
-  font-size: .4rem;
+  font-size: 0.4rem;
   border-radius: 5px;
   background-color: #ffffff;
   position: absolute;
@@ -327,7 +325,7 @@
       margin-left: 0.2rem;
     }
     div {
-      font-size: .4rem;
+      font-size: 0.4rem;
       width: 2rem;
       margin-right: 0.3rem;
       text-align: center;
@@ -356,7 +354,7 @@
     margin-left: 0.2rem;
   }
   div {
-    font-size: .5rem;
+    font-size: 0.5rem;
     width: 3rem;
     margin-right: 0.5rem;
     text-align: center;
@@ -377,9 +375,9 @@
   left: 0;
 }
 // 自定义滚动样式左右滑动
-#mui-scroll-wrapper{
+#mui-scroll-wrapper {
   height: 4rem;
-  .mui-scroll{
+  .mui-scroll {
     height: 4rem;
   }
 }

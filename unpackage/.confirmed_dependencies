@@ -68,7 +68,8 @@
 			"html/sellCart.html",
 			"html/news.html",
 			"html/goodDetail.html",
-			"html/QRCode.html"
+			"html/QRCode.html",
+			"html/newsMessage.html"
 		],
 		"resources": []
 	},
@@ -127,12 +128,18 @@
 			"html/indexIndex.html",
 			"html/shoppingMall.html",
 			"html/buyCart.html",
-			"html/goodDetail.html"
+			"html/goodDetail.html",
+			"html/login.html"
 		]
 	},
 	"html/shoppingCart.html": {
 		"refer": [
 			"html/settlementPage.html"
+		]
+	},
+	"html/order/pendingPayment.html": {
+		"refer": [
+			"html/payment.html"
 		]
 	}
 }

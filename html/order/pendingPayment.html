@@ -55,108 +55,21 @@
                             <span>共1件商品 合计¥{{order.order_amount}}（含运费¥0.00）</span>
                         </div>
                     </div>
+                    <div class="address">
+                        <span>收货信息：</span> {{order.truename}} {{order.mobile}}
+                        <p>{{order.province}}{{order.city}}{{order.area}}{{order.address}}</p>
+                    </div>
                     <div class="order-button">
-                        <div class="logistics" style="width: 2rem" @tap="popupPay()">
+                        <div class="logistics" style="width: 2rem" @tap="jump_to_payment(order.order_id)">
                             立即付款
                         </div>
-                        <div class="more">
+                        <div class="more" @tap="tap_delect_goods(order.order_id)">
                             删除订单
                         </div>
                     </div>
                 </div>
             </div>
-            <!--这里放置真实显示的DOM内容-->
-            <!-- <div class="every-last-order clearfloat">
-                <div class="shop-message clearfloat">
-                    <div class="float-left">
-                        <span>万国电商旗舰店</span>
-                        <img src="../img/right-black.png" alt="">
-                    </div>
-                    <div class="float-right">
-                        <span>交易成功</span>
-                    </div>
-                </div>
-                <div class="good-message">
-                    <div class="left">
-                        <img src="../img/shoppingMall2.png" alt="">
-                    </div>
-                    <div class="right float-left">
-                        <div class="right-top">
-                            <div class="right-top-left">
-                                博世 铂金火花塞 适用于 大众--高尔夫系列
-                            </div>
-                            <div class="right-top-right">
-                                <p style="color: #333333">￥58.00</p>
-                                <p style="text-decoration:line-through">￥125.45</p>
-                            </div>
-                        </div>
-                        <div class="right-center">
-                            <span>颜色：铂金；型号：F70（30)</span>
-                            <span class="float-right">×1</span>
-                        </div>
-                        <div class="right-bottom">
-                            七天退换
-                        </div>
-                    </div>
-                </div>
-                <div class="order-price">
-                    <div>
-                        <span>共1件商品 合计¥58.00（含运费¥0.00）</span>
-                    </div>
-                </div>
-                <div class="order-button">
-                    <div class="logistics" style="width: 2rem">
-                        立即付款
-                    </div>
-                    <div class="more">
-                        删除订单
-                    </div>
-                </div>
-            </div> -->
         </div>
-    </div>
-    <!-- 支付框弹出 -->
-    <div id="bottom">
-        <div id="popup" class="popup">
-            <div class="popup-title">
-                <span>
-                    万国电商钱包
-                </span>
-                <div class="close">
-                    ×
-                </div>
-            </div>
-            <div class="popup-good-message">
-                <div class="popup-price">
-                    ￥88
-                </div>
-                <div class="popup-good-name">
-                    NGK铱铂金火花塞比亚迪F0F3G5S6S7M6L3 G3F6G6速锐思锐秦唐S8宋元
-                </div>
-            </div>
-            <div class="select-payment">
-                第三方支付
-            </div>
-            <div class="wechat">
-                <div class="wechat-icon">
-                    <span class="mui-icon mui-icon-weixin" style="font-size: .8rem;color:#07B906"></span>
-                    <span>微信支付</span>
-                </div>
-                <span class="mui-icon mui-icon-arrowright"></span>
-            </div>
-            <div class="alipay">
-                <div class="alipay-icon">
-                    <span class="mui-icon-extra mui-icon-extra-alipay" style="font-size: .6rem"></span>
-                    <span> 阿里支付</span>
-                </div>
-                <span class="mui-icon mui-icon-arrowright"></span>
-            </div>
-        </div>
-    </div>
-
-    <!-- 遮罩层 -->
-    <div id="mask">
-
     </div>
     <script src="../../js/common.js"></script>
     <script src="../../js/vue.min.js"></script>
@@ -182,15 +95,13 @@
             }
         })
         var token = JSON.parse(localStorage.getItem("user-message"));
-        console.log(token);
-        mui.ajax(http_url + "/api.php/User/order?status=3&comment=1&p=1&token=" + token.token, {
+        mui.ajax(http_url + "/api.php/User/order?status=0&p=1&token=" + token.token, {
             dataType: 'json',
             type: 'get',
             timeout: 10000,
             headers: { 'Content-Type': 'application/json' },
             success: function (data) {
                 if (data.status == 200) {
-                    console.log(JSON.stringify(data));
                     vm.orders = data.data;
                 } else {
                     toast(data.message);
@@ -218,14 +129,13 @@
         })
         var count = 2;
         function pullupRefresh() {
-            mui.ajax(http_url + "/api.php/User/order?status=" + 3 + "&comment=" + 1 + "&p=" + count + "&token=" + token.token, {
+            mui.ajax(http_url + "/api.php/User/order?status=" + 0 + "&p=" + count + "&token=" + token.token, {
                 dataType: 'json',
                 type: 'get',
                 timeout: 10000,
                 headers: { 'Content-Type': 'application/json' },
                 success: function (data) {
                     if (data.status == 200) {
-                        console.log(JSON.stringify(data));
                         count++;
                         vm.orders = vm.orders.concat(data.data);
                         if (data.data.length == 0) {
@@ -242,26 +152,38 @@
                 }
             })
         }
-        // 获取弹出框
-        var popup = document.getElementById("popup");
-        //获取遮罩层
-        var mask = document.getElementById("mask");
-        //弹出支付支付方式弹框
-        function popup_close() {
-            popup.style.bottom = -11 + "rem";
-            mask.style.display = "none";
+        //点击跳转到支付页面
+        function jump_to_payment(id) {
+            mui.openWindow({
+                url: "../payment.html",
+                id: "../payment.html",
+                extras: {
+                    order_id: id,
+                    is_order:true,
+                }
+            })
         }
-        //点击遮罩层关闭弹出框
-        mask.addEventListener("tap", function () {
-            popup_close();
-        }, false)
+        //点击删除订单
+        function tap_delect_goods(id) {
+            mui.confirm("确认删除订单?", "您正在进行删除操作", ['取消', '确认'], function (e) {
+                if (e.index == 1) {
+                    mui.ajax(http_url + "/api.php/Order/delord?token=" + user_all_message.token + "&order_id=" + id, {
+                        dataType: 'json',
+                        type: 'get',
+                        timeout: 10000,
+                        headers: { 'Content-Type': 'application/json' },
+                        success: function (data) {
+                            toast(data.message);
+                        },
+                        error: function (xhr, type, errorThrown) {
 
-        var number = 100
-        //点击弹出支付框
-        function popupPay() {
-            popup.style.bottom = 0;
-            mask.style.display = "block";
+                        }
+                    })
+                }
+            })
+
         }
+        var number = 100
     </script>
 </body>
 

@@ -38,7 +38,7 @@
             </div>
         </div>
     </div>
-    <div class="container" style="background-color:#f7f5f4">
+    <div id="app" class="container" style="background-color:#f7f5f4">
         <div class="prompt">
             <div class="top">
                 <div class="background">
@@ -75,20 +75,29 @@
                     买家印象
                 </div>
                 <div class="select-button">
-                    <div class="button">
+                    <div class="button" @tap="tap_select_tag($event,1)">
                         质量好
                     </div>
-                    <div class="button">
+                    <div class="button" @tap="tap_select_tag($event,2)">
                         如实描述
                     </div>
-                    <div class="button">
+                    <div class="button" @tap="tap_select_tag($event,3)">
                         快递不错
                     </div>
-                    <div class="button">
+                    <div class="button" @tap="tap_select_tag($event,4)">
                         效果好
                     </div>
-                    <div class="button">
+                    <div class="button" @tap="tap_select_tag($event,5)">
                         品类齐全
+                    </div>
+                    <div class="button" @tap="tap_select_tag($event,6)">
+                        包装精美
+                    </div>
+                    <div class="button" @tap="tap_select_tag($event,7)">
+                        值得购买
+                    </div>
+                    <div class="button" @tap="tap_select_tag($event,8)">
+                        有待改进
                     </div>
                 </div>
             </div>
@@ -96,7 +105,7 @@
                 <div class="left-text">
                     宝贝评价
                 </div>
-                <textarea name="" id="" cols="30" rows="4"></textarea>
+                <textarea name="" v-model="user_input" cols="30" rows="4"></textarea>
             </div>
             <div class="img-upload">
                 <p>上传照片</p>
@@ -113,12 +122,26 @@
                 </div>
             </div>
         </div>
+        <div class="bottom-button">
+            提交评价
+        </div>
     </div>
-    <div class="bottom-button">
-        提交评价
-    </div>
+    <script src="../js/common.js"></script>
+    <script src="../js/vue.min.js"></script>
     <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                user_input: "",
+                img_url: [],
+                tag: [],
+                tag_text: "",
+                stars: 0,
+            }
+        })
+        var nowpage = null;
         mui.plusReady(function () {
+            nowpage = plus.webview.currentWebview();
             //弹出选择按钮框
             document.getElementById("picture-btn").addEventListener('tap', function () {
                 if (img_container.children.length >= 3) {
@@ -132,7 +155,6 @@
                     buttons: btnArray
                 }, function (e) {
                     var index = e.index;
-                    console.log(JSON.stringify(e));
                     switch (index) {
                         case 0:
                             break;
@@ -160,13 +182,13 @@
             cmr.captureImage(function (path) {
                 plus.io.resolveLocalFileSystemURL(path, function (entry) {
                     var src = entry.toLocalURL();
+                    vm.img_url.push(src);
                     var img = document.createElement("img");
                     img.src = src;
                     img_container.appendChild(img);
                 })
             },
                 function (error) {
-                    console.log(JSON.stringify(error));
                 },
                 { resolution: res, format: fmt }
             );
@@ -180,10 +202,11 @@
                     var src = entry.toLocalURL();
                     var img = document.createElement("img");
                     img.src = src;
+                    vm.img_url.push(src);
                     img_container.appendChild(img);
                 })
             }, function (e) {
-                console.log("取消选择图片");
+
             }, { filter: "image" });
         }
         // 选择星星之后提示文字dom
@@ -193,6 +216,7 @@
         for (var i = 0; i < stars.length; i++) {
             stars[i].index = i + 1;
             stars[i].addEventListener("tap", function () {
+                vm.stars = this.index;
                 if (this.index == 1) {
                     text.innerText = "非常差";
                 } else if (this.index == 2) {
@@ -201,7 +225,7 @@
                     text.innerText = "一般";
                 } else if (this.index == 4) {
                     text.innerText = "好";
-                } else {
+                } else if (this.index == 5) {
                     text.innerText = "非常好";
                 }
                 for (var j = 0; j < this.index; j++) {
@@ -217,18 +241,85 @@
             }, false)
         }
         //点击选择好评标签
-        mui(".select-button").on("tap", ".button", function () {
-            if (this.classList.length == 1) {
-                this.classList.add("button-active");
+        function tap_select_tag(e, index) {
+            if (e.currentTarget.classList.length == 1) {
+                e.currentTarget.classList.add("button-active");
+                vm.tag[index] = e.currentTarget.innerText;
+                vm.tag_text = "";
+                for (i in vm.tag) {
+                    if (vm.tag[i]) {
+                        vm.tag_text += "," + vm.tag[i]
+                    }
+                }
+                vm.tag_text = vm.tag_text.substring(1);
             } else {
-                this.classList.remove("button-active");
+                e.currentTarget.classList.remove("button-active");
+                vm.tag[index] = "";
+                vm.tag_text = "";
+                for (i in vm.tag) {
+                    if (vm.tag[i]) {
+                        vm.tag_text += "," + vm.tag[i]
+                    }
+                }
+                vm.tag_text = vm.tag_text.substring(1);
             }
-        })
+        }
+        //图片上传
+        var is_Submit = 1;
+        function createUpload() {
+            var waiting = plus.nativeUI.showWaiting("正在提交...", { width: '120px', height: '120px' });
+            var upload_img = "";
+            for (var i = 0; i < vm.img_url.length; i++) {
+                var task = plus.uploader.createUpload(http_url + "/api.php/User/upload_attachment",
+                    { method: "POST", blocksize: 204800, priority: 100 },
+                    function (t, status) {
+                        // 上传完成
+                        upload_img += `,${JSON.parse(t.responseText).data.file_path}`;
+                        if (is_Submit < vm.img_url.length) {
+                            is_Submit++;
+                            return;
+                        } else {
+                            // upload_img = upload_img.substring(1);
+                            mui.ajax(http_url + '/api.php/Order/evaluation?token=' + user_all_message.token, {
+                                dataType: 'json',
+                                data: {
+                                    goods_id: nowpage.goods_id,
+                                    order_id: nowpage.order_id,
+                                    tag: vm.tag_text,
+                                    goods_rank: vm.stars,
+                                    imgs: upload_img,
+                                    content: vm.user_input,
+                                },
+                                type: 'post',
+                                timeout: 10000,
+                                success: function (data) {
+                                    if (data.status == 200) {
+                                        waiting.close();
+                                        toast(data.message);
+                                        mui.back();
+                                    }
+                                    toast(data.message);
+                                    waiting.close();
+                                },
+                                error: function (xhr, type, errorThrown) {
+                                    waiting.close();
+                                    //异常处理；
+                                    console.log(type);
+                                }
+                            });
+                        }
+                    }
+                );
+                task.addFile(vm.img_url[i], { key: "fileupload" });
+                // task.addData("fileupload", user_header_img.src);
+                task.start();
+            }
+        }
         //点击提交按钮
         document.querySelector(".bottom-button").addEventListener("tap", function () {
             if (text.innerText) {
-                toast("感谢您的支持");
-                mui.back();
+                createUpload();
+
             } else {
                 toast("请对本次购物进行评分");
             }

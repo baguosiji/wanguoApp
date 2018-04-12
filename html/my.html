@@ -96,7 +96,7 @@
             deceleration: 0.0005
         })
         document.getElementsByClassName("sign-out")[0].addEventListener("tap", function () {
-            mui.ajax(http_url + '/api.php/Login/logout', {
+            mui.ajax(http_url + '/api.php/Login/logout?token=' + user_all_message.token, {
                 dataType: 'json',
                 type: 'get',
                 timeout: 10000,
