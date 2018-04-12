@@ -213,7 +213,7 @@
                 }
             );
             task.addData("fileupload", "img");
-            task.addFile(user_header_img.src, { key: "dddd" });
+            task.addFile(user_header_img.src, { fileupload: user_header_img.src });
             task.start();
 
             // mui.ajax(http_url + "/api.php/User/info", {
@@ -248,7 +248,7 @@
                 }
             );
             task.addData("name", "img");
-            task.addFile(user_header_img.src, { key: "dddd" });
+            task.addFile(user_header_img.src, { fileupload: localPicture });
             task.start();
         }
     </script>
