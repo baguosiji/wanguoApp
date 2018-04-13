@@ -59,13 +59,13 @@
             <div>
                 <span>昵称：</span>
             </div>
-            <input v-bind:value="userMessage.nickname" type="text">
+            <input v-model="nickname" type="text">
         </div>
         <div class="common-list">
             <div>
                 <span>姓名：</span>
             </div>
-            <input v-bind:value="userMessage.truename" type="text">
+            <input v-model="truename" type="text">
         </div>
         <div class="common-list">
             <div>
@@ -74,12 +74,12 @@
                 </span>
             </div>
             <div class="mui-input-row mui-radio">
-                <label v-model="sex">男</label>
-                <input value="男" name="radio1" type="radio">
+                <label>男</label>
+                <input type="radio" name="sex" value="男" v-model="sex">
             </div>
             <div class="mui-input-row mui-radio">
-                <label v-model="sex">女</label>
-                <input value="女" name="radio1" type="radio">
+                <label>女</label>
+                <input type="radio" name="sex" value="女" v-model="sex">
             </div>
         </div>
         <div id="birtady" class="common-list">
@@ -96,14 +96,17 @@
     <script src="../js/common.js"></script>
     <script src="../js/vue.min.js"></script>
     <script>
-        mui.ajax(http_url + "/api.php/User/info", {
+        mui.ajax(http_url + "/api.php/User/info?token=" + user_all_message.token, {
             dataType: 'json',
             type: 'get',
             timeout: 10000,
             headers: { 'Content-Type': 'application/json' },
             success: function (data) {
-                vm.sex = data.data.sex;
                 vm.userMessage = data.data;
+                vm.sex = data.data.sex;
+                vm.truename = data.data.truename;
+                vm.birthday = data.data.birthday;
+                vm.nickname = data.data.nickname;
             },
             error: function (xhr, type, errorThrown) {
                 //异常处理；ss
@@ -114,10 +117,15 @@
             el: "#app",
             data: {
                 userMessage: {},
+                truename: "",
+                nickname: "",
+                birthday: "",
                 sex: "",
             }
         })
+        var myPage;
         function plusReady() {
+            myPage = plus.webview.getWebviewById("my.html");
         }
         if (window.plus) {
             plusReady();
@@ -131,7 +139,7 @@
         function pickDate(data) {
             plus.nativeUI.pickDate(function (e) {
                 var d = e.date;
-                vm.userMessage.birthday = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+                vm.birthday = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
                 console.log("选择的日期：" + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate());
             }, function (e) {
                 console.log("未选择日期：" + e.message);
@@ -175,6 +183,7 @@
                 plus.io.resolveLocalFileSystemURL(path, function (entry) {
                     var src = entry.toLocalURL();
                     user_header_img.src = src;
+                    createUpload();
                 })
             },
                 function (error) {
@@ -193,6 +202,7 @@
                 plus.io.resolveLocalFileSystemURL(path, function (entry) {
                     var src = entry.toLocalURL();
                     user_header_img.src = src;
+                    createUpload();
                 })
             }, function (e) {
                 console.log("取消选择图片");
@@ -200,19 +210,21 @@
         }
         //保存用户信息
         function submit() {
-            alert(vm.sex);
+            console.log(vm.nickname);
             mui.ajax(http_url + '/api.php/User/info?token=' + user_all_message.token, {
                 data: {
-                    nickname: vm.userMessage.nickname,
-                    truename: vm.userMessage.truename,
+                    nickname: vm.nickname,
+                    truename: vm.truename,
                     sex: vm.sex,
-                    birthday: vm.userMessage.birthday,
+                    birthday: vm.birthday,
                 },
                 dataType: 'json',
                 type: 'post',
                 timeout: 10000,
                 success: function (data) {
                     console.log(JSON.stringify(data));
+                    myPage.reload(true);
+                    mui.back();
                 },
                 error: function (xhr, type, errorThrown) {
 
@@ -227,7 +239,6 @@
                     // 上传完成
                     if (status == 200) {
                         console.log(JSON.stringify(t))
-                        alert("上传成功：" + t.responseText);
                     } else {
 
                     }

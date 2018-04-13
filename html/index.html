@@ -112,13 +112,6 @@
                 // document.querySelector(".title-right").querySelector("span") = "img/setting.png";
                 url = "setting.html"
                 url = "setting.html"
-                if (!user_token()) {
-                    mui.openWindow({
-                        url: "login.html",
-                        id: "login.html"
-                    })
-                    return;
-                }
             } else {
                 title.innerHTML = "";
                 url = "order.html"

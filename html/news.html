@@ -62,10 +62,10 @@
             </div>
             <div class="title-right">
                 <div class="title-right-left">
-                    <img src="" />
+
                 </div>
                 <div class="title-right-right">
-                    <img src="" alt="">
+
                 </div>
             </div>
         </div>
@@ -73,6 +73,11 @@
             <div class="mui-scroll">
                 <div class="mui-slider">
                     <div class="mui-slider-group mui-slider-loop">
+                        <div class="mui-slider-item mui-slider-item-duplicate">
+                            <a href="#">
+                                <img src="../img/1.png" />
+                            </a>
+                        </div>
                         <div class="mui-slider-item">
                             <a href="#">
                                 <img src="../img/1.png" />
@@ -93,11 +98,22 @@
                                 <img src="../img/4.png" />
                             </a>
                         </div>
+                        <div class="mui-slider-item mui-slider-item-duplicate">
+                            <a href="#">
+                                <img src="../img/4.png" />
+                            </a>
+                        </div>
+                    </div>
+                    <div class="mui-slider-indicator">
+                        <div class="mui-indicator mui-active"></div>
+                        <div class="mui-indicator"></div>
+                        <div class="mui-indicator"></div>
+                        <div class="mui-indicator"></div>
                     </div>
                 </div>
                 <div class="news-content" v-for="item in news" @tap="jumpMessage(item.id)">
-                    <div class="news-img">
-                        <img src="../img/good03.png" alt="">
+                    <div class="news-img" v-if="item.pic">
+                        <img v-bind:src="http_url+item.pic" alt="">
                     </div>
                     <div class="news-title">
                         {{item.title}}
@@ -111,7 +127,7 @@
     <script src="../js/common.js"></script>
     <script>
         mui.init();
-      
+
         function jumpMessage(id) {
             mui.openWindow({
                 url: "newsMessage.html",
@@ -125,10 +141,14 @@
             el: "#app",
             data: {
                 news: [
-                   
+
                 ],
             }
         })
+        var gallery = mui('.mui-slider');
+        gallery.slider({
+            interval: 1000//自动轮播周期，若为0则不自动播放，默认为0；
+        });
         mui(".mui-scroll-wrapper").scroll({
             deceleration: 0.0005
         })
@@ -138,7 +158,6 @@
             timeout: 10000,
             headers: { 'Content-Type': 'application/json' },
             success: function (data) {
-                alert(JSON.stringify(data));
                 if (data.status == 200) {
                     vm.news = data.data
                 } else {
@@ -149,7 +168,7 @@
 
             }
         })
-        
+
     </script>
 </body>
 

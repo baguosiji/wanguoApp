@@ -275,9 +275,8 @@
         //支付通道
         var channel = null;
         mui.plusReady(function () {
-            console.log("sfs")
             nowPage = plus.webview.currentWebview();
-            console.log(nowPage.one);
+            console.log(JSON.stringify(nowPage));
             //获取支付商品信息
             if (nowPage.one) {
                 if (nowPage.spec_ids) {
@@ -373,6 +372,7 @@
             } else {
                 postPay()
             }
+
         })
         mask.addEventListener("tap", function () {
             // popup.style.bottom = -11 + "rem";

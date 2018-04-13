@@ -73,8 +73,12 @@
     <script>    
         mui.init();
         var pendingPaymentPage;
+        var _self;
         mui.plusReady(function () {
-            var _self = plus.webview.currentWebview();
+            // plus.webview.close("payment.html");
+            console.log(JSON.stringify(plus.webview.getWebviewById("settlementPage.html")));
+            pendingPaymentPage = plus.webview.getWebviewById("order/pendingPayment.html");
+            _self = plus.webview.currentWebview();
             var group = new webviewGroup(_self.id, {
                 items: [{
                     id: "order/all.html",
@@ -123,6 +127,7 @@
                 }
                 ],
                 onChange: function (obj) {
+                    console.log(JSON.stringify(obj));
                     var c = document.querySelector("div.active");
                     if (c) {
                         c.classList.remove("active");
@@ -136,16 +141,27 @@
             });
             mui(".padding").on("tap", ".shopping-mall-classification-every-last", function (e) {
                 var wid = this.getAttribute("data-wid");
-                pendingPaymentPage = plus.webview.getWebviewById("order/pendingPayment.html");
                 group.switchTab(wid);
-                pendingPaymentPage.evalJS("popup_close()");
+                plus.webview.getWebviewById(wid).reload(true);
+                // pendingPaymentPage.evalJS("popup_close()");
             });
 
         });
-        mui.back = function () {
-            var _self = plus.webview.currentWebview();
-            _self.close("auto");
-        }
+        // mui.back = function () {
+        //     var _self = plus.webview.currentWebview();
+        //     _self.close("auto");
+        // }
+        //点击返回按钮的逻辑
+        // mui(".action-bar-no-search").on("tap", ".title-left", function () {
+        //     if(_self.is_payment){
+        //         mui.openWindow({
+        //             url:"index.html",
+        //             id:"index.html"
+        //         })
+        //     }else{
+        //         mui.back();
+        //     }
+        // })
     </script>
 </body>
 

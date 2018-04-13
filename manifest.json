@@ -49,7 +49,7 @@
 		},
 		"runmode": "liberate",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
 		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保留给应用签名，暂不使用*/
-		"distribute": {"plugins":{"payment":{"weixin":{"description":"微信支付","appid":"wx66c1f137d0214ac1"},"alipay":{"description":"阿里支付","scheme":""}}},
+		"distribute": {"plugins":{"payment":{"weixin":{"description":"微信支付","appid":"wx3522e8cdd48bf289"},"alipay":{"description":"阿里支付","scheme":""}}},
 			"apple": {
 				"appid": "",/*iOS应用标识，苹果开发网站申请的appid，如io.dcloud.HelloH5*/
 				"mobileprovision": "",/*iOS应用打包配置文件*/
@@ -204,7 +204,8 @@
 					"html/news.html",
 					"html/goodDetail.html",
 					"html/QRCode.html",
-					"html/newsMessage.html"
+					"html/newsMessage.html",
+					"html/payment.html"
 				],
 				"priority": 0
 			},
@@ -292,6 +293,13 @@
 				"resources": [],
 				"refer": [
 					"html/payment.html"
+				],
+				"priority": 0
+			},
+			"html/order/evaluate.html": {
+				"resources": [],
+				"refer": [
+					"html/publicationEvaluation.html"
 				],
 				"priority": 0
 			}

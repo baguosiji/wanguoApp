@@ -28,7 +28,7 @@
                             <span>交易成功</span>
                         </div>
                     </div>
-                    <div class="good-message">
+                    <div class="good-message" @tap="jump_to_good_detial(order.goods_id)">
                         <div class="left">
                             <img v-bind:src="http_url+order.pic" alt="">
                         </div>
@@ -61,8 +61,8 @@
                         <p>{{order.province}}{{order.city}}{{order.area}}{{order.address}}</p>
                     </div>
                     <div class="order-button">
-                        <div class="evaluate">
-                            评价
+                        <div class="evaluate" style="color: #eda336; border: 1px solid #eda336" @tap="jump_to_evaluate(order.order_id,order.goods_id)">
+                            立即评价
                         </div>
                         <!-- <div class="logistics" style="width: 2rem">
                             查看物流
@@ -99,9 +99,8 @@
                 ]
             }
         })
-        var token = JSON.parse(localStorage.getItem("user-message"));
-        var count = 2;
-        mui.ajax(http_url + "/api.php/User/order?status=3" + "&comment=" + 0 + "&p=" + count + "&token=" + token.token, {
+        var count = 1;
+        mui.ajax(http_url + "/api.php/User/order?status=3" + "&p=" + count + "&token=" + user_all_message.token, {
             dataType: 'json',
             type: 'get',
             timeout: 10000,
@@ -136,7 +135,7 @@
         })
         var count = 2;
         function pullupRefresh() {
-            mui.ajax(http_url + "/api.php/User/order?status=" + 3 + "&comment=" + 0 + "&p=" + count + "&token=" + token.token, {
+            mui.ajax(http_url + "/api.php/User/order?status=" + 3 + "&p=" + count + "&token=" + user_all_message.token, {
                 dataType: 'json',
                 type: 'get',
                 timeout: 10000,
@@ -168,6 +167,17 @@
                     order_id: order_id,
                     good_id: goods_id
                 }
+            })
+        }
+        // 跳转到商品详情页面
+        var goodDetailPage = null;
+        function jump_to_good_detial(id) {
+            if (!goodDetailPage) {
+                goodDetailPage = plus.webview.getWebviewById("goodDetail.html");
+            }
+            mui.fire(goodDetailPage, 'goodId', { id: id });
+            mui.openWindow({
+                id: "goodDetail.html"
             })
         }
     </script>

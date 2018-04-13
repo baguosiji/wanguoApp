@@ -69,7 +69,8 @@
 			"html/news.html",
 			"html/goodDetail.html",
 			"html/QRCode.html",
-			"html/newsMessage.html"
+			"html/newsMessage.html",
+			"html/payment.html"
 		],
 		"resources": []
 	},
@@ -140,6 +141,11 @@
 	"html/order/pendingPayment.html": {
 		"refer": [
 			"html/payment.html"
+		]
+	},
+	"html/order/evaluate.html": {
+		"refer": [
+			"html/publicationEvaluation.html"
 		]
 	}
 }

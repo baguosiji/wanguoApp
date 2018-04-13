@@ -63,7 +63,7 @@
                                 <div>{{goodMessage.goods_name}}
                                 </div>
                                 <p>
-                                    <span>￥</span>{{goodMessage.market_price}}</p>
+                                    <span>￥</span>{{goodMessage.shop_price}}</p>
                             </div>
                             <!-- <div class="right" @tap="share()">
                             <div>
@@ -76,14 +76,14 @@
                             <div class="freight">
                                 <div class="left">
                                     运费：
-                                    <span>10.00</span>
+                                    <span>咨询客服</span>
                                 </div>
                                 <div class="center">
                                     月销
-                                    <strong>5824</strong>笔
+                                    <strong>{{goodMessage.sale_num}}</strong>笔
                                 </div>
                                 <div class="right">
-                                    太原晋源
+                                    山西太原
                                 </div>
                             </div>
                             <div class="true-yellow">
@@ -96,9 +96,9 @@
                                 <div>
                                     <img src="../img/true-yellow.png" alt=""> 运费险
                                 </div>
-                                <div>
+                                <!-- <div>
                                     <span class="mui-icon mui-icon-arrowright"></span>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -414,18 +414,24 @@
         //跳转到结算页面
         var url;
         mui(".popup-bottom").on("tap", ".buy", function () {
-            url = "settlementPage.html"
-            mui.openWindow({
-                url: url,
-                id: url,
-                extras: {
-                    goodId: vm.goodMessage.goods_id,
-                    goodNum: vm.buy_num,
-                    spec_ids: vm.good_spec.spec_ids ? vm.good_spec.spec_ids : "",
-                    spec_names: vm.good_spec.spec_names ? vm.good_spec.spec_names : "",
-                    one: true,
-                }
-            })
+            var settlementPage = plus.webview.getWebviewById("settlementPage.html");
+            if (settlementPage) {
+                plus.webview.show("settlementPage.html");
+            } else {
+                mui.openWindow({
+                    url: "settlementPage.html",
+                    id: "settlementPage.html",
+                    extras: {
+                        goodId: vm.goodMessage.goods_id,
+                        goodNum: vm.buy_num,
+                        spec_ids: vm.good_spec.spec_ids ? vm.good_spec.spec_ids : "",
+                        spec_names: vm.good_spec.spec_names ? vm.good_spec.spec_names : "",
+                        one: true,
+                    },
+                    createNew: true
+                })
+            }
+            // console.log(JSON.stringify(mui.webview.getCur))
         })
         mui('.mui-scroll-wrapper').scroll({
             deceleration: 0.0005,

@@ -25,10 +25,10 @@
                             <span>{{order.order_sn}}</span>
                         </div>
                         <div class="float-right">
-                            <span>交易成功</span>
+                            <span>卖家已发货，等待买家确认</span>
                         </div>
                     </div>
-                    <div class="good-message">
+                    <div class="good-message" @tap="jump_to_good_detial(order.goods_id)">
                         <div class="left">
                             <img v-bind:src="http_url+order.pic" alt="">
                         </div>
@@ -61,11 +61,11 @@
                         <p>{{order.province}}{{order.city}}{{order.area}}{{order.address}}</p>
                     </div>
                     <div class="order-button">
-                        <div class="evaluate" @tap="goods_to_be_received(order.order_id)">
-                            确认收货
+                        <div class="logistics" @tap="shouhou()">
+                            申请售后
                         </div>
-                        <div class="logistics" style="width: 2rem">
-                            查看物流
+                        <div class="evaluate" style="color: #eda336; border: 1px solid #eda336" @tap="goods_to_be_received(order.order_id)">
+                            确认收货
                         </div>
                     </div>
                 </div>
@@ -96,10 +96,8 @@
                 ]
             }
         })
-        var count = 2;
-        var token = JSON.parse(localStorage.getItem("user-message"));
-        console.log(token);
-        mui.ajax(http_url + "/api.php/User/order?status=2+" + "&p=" + count + "&token=" + token.token, {
+        var count = 1;
+        mui.ajax(http_url + "/api.php/User/order?status=2+" + "&p=" + count + "&token=" + user_all_message.token, {
             dataType: 'json',
             type: 'get',
             timeout: 10000,
@@ -134,7 +132,7 @@
         })
         var count = 2;
         function pullupRefresh() {
-            mui.ajax(http_url + "/api.php/User/order?status=" + 2 + "&p=" + count + "&token=" + token.token, {
+            mui.ajax(http_url + "/api.php/User/order?status=" + 2 + "&p=" + count + "&token=" + user_all_message.token, {
                 dataType: 'json',
                 type: 'get',
                 timeout: 10000,
@@ -161,7 +159,7 @@
         function goods_to_be_received(id) {
             mui.confirm("确认收货?", "收货操作", ['取消', '确认'], function (e) {
                 if (e.index == 1) {
-                    mui.ajax(http_url + "/api.php/Order/receipt?token=" + token.token + "&order_id=" + id, {
+                    mui.ajax(http_url + "/api.php/Order/receipt?token=" + user_all_message.token + "&order_id=" + id, {
                         dataType: 'json',
                         type: 'get',
                         timeout: 10000,
@@ -169,6 +167,7 @@
                         success: function (data) {
                             if (data.status == 200) {
                                 toast(data.message);
+                                plus.webview.currentWebview().reload(true);
                             } else {
                                 toast(data.message);
                             }
@@ -178,6 +177,22 @@
                         }
                     })
                 }
+            })
+        }
+        function shouhou() {
+            mui.alert("请联系客服", "售后服务", function () {
+
+            })
+        }
+        // 跳转到商品详情页面
+        var goodDetailPage = null;
+        function jump_to_good_detial(id) {
+            if (!goodDetailPage) {
+                goodDetailPage = plus.webview.getWebviewById("goodDetail.html");
+            }
+            mui.fire(goodDetailPage, 'goodId', { id: id });
+            mui.openWindow({
+                id: "goodDetail.html"
             })
         }
     </script>

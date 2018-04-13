@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/cartDetail.css">
     <title>Document</title>
-    <title>Document</title>
 </head>
 
 <body>
@@ -67,7 +66,7 @@
     </div>
     <div class="func-btn clearfloat ">
         <a href="#" class="float-left ">在线1元抵500</a>
-        <a href="javascript:layer.alert( '请联系客服：') " class="float-right ">更多方案</a>
+        <a href="javascript:mui.alert( '请联系客服：') " class="float-right ">更多方案</a>
     </div>
     <script src="../js/common.js "></script>
     <script>
@@ -103,11 +102,14 @@
         mui(".mui-scroll-wrapper ").scroll({
             deceleration: 0.0005,
         })
-        mui(".func-btn ").on("tap ", ".float-left ", function () {
-            console.log("点击了");
+        mui(".func-btn ").on("tap", ".float-left ", function () {
+            console.log("点击");
             mui.openWindow({
-                url: "paymentMessage.html ",
-                id: "paymentMessage.html "
+                url: "paymentMessage.html",
+                id: "paymentMessage.html",
+                extras: {
+                    bid: id  //扩展参数
+                }
             })
         })
     </script>
