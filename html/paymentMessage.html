@@ -131,6 +131,7 @@
         </div>
 
     </div>
+    <script src="../js/md5.js"></script>
     <script src="../js/common.js"></script>
     <script src="../js/mui.picker.js"></script>
     <script src="../js/mui.poppicker.js"></script>
@@ -189,6 +190,7 @@
                 dataType: 'json',
                 type: 'get',
                 timeout: 10000,
+                headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Order/buycar_add'), },
                 success: function (data) {
                     if (data.status == 200) {
                         vm.order = data.data;
@@ -223,6 +225,7 @@
                         area: vm.area,
                         address: vm.address_detail
                     },
+                    headers: { "apitoken": c('/api.php/Order/buycar_add'), },
                     timeout: 10000,
                     success: function (data) {
                         if (data.status == 200) {

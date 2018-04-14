@@ -249,6 +249,7 @@
             </div>
         </div>
     </div>
+    <script src="../js/md5.js"></script>
     <script src="../js/mui.min.js"></script>
     <script src="../js/common.js"></script>
     <script src="../js/vue.min.js"></script>
@@ -310,9 +311,7 @@
             dataType: 'json',
             type: 'get',
             timeout: 10000,
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Mall/index'), },
             success: function (data) {
                 vm.good1 = data.data.list;
                 vm.classification = data.data.cat_list;
@@ -395,9 +394,7 @@
                 dataType: 'json',
                 type: 'get',
                 timeout: 10000,
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Mall/index'), },
                 success: function (data) {
                     switch (index) {
                         case 1:
@@ -425,16 +422,16 @@
         }
         var goodDetailPage;
         //跳转到商品详情页
-        function jump_to_good_detail(id) {
-            if (!goodDetailPage) {
-                goodDetailPage = plus.webview.getWebviewById("goodDetail.html");
-            }
-            console.log(id);
-            mui.fire(goodDetailPage, 'goodId', { id: id });
+        function jump_to_good_detail(ids) {
             mui.openWindow({
+                url: "goodDetail.html",
                 id: "goodDetail.html",
+                extras: {
+                    good_id: ids,
+                }
             })
-        }
+
+        };
         var page = 1;
         var pull = document.querySelector(".refreshContainer");
         var num = 0;
@@ -445,9 +442,7 @@
                 dataType: 'json',
                 type: 'get',
                 timeout: 10000,
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Mall/index'), },
                 success: function (data) {
                     if (data.data.list.length > 0) {
                         switch (nowData) {

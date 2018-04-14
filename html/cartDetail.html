@@ -66,8 +66,9 @@
     </div>
     <div class="func-btn clearfloat ">
         <a href="#" class="float-left ">在线1元抵500</a>
-        <a href="javascript:mui.alert( '请联系客服：') " class="float-right ">更多方案</a>
+        <a href="#" class="float-right ">更多方案</a>
     </div>
+    <script src="../js/md5.js"></script>
     <script src="../js/common.js "></script>
     <script>
         var vm = new Vue({
@@ -83,7 +84,7 @@
                 dataType: 'json',
                 type: 'get',
                 timeout: 10000,
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Buycar/details'), },
                 success: function (data) {
                     if (data.status == 200) {
                         vm.cartDetail = data.data;
@@ -103,7 +104,6 @@
             deceleration: 0.0005,
         })
         mui(".func-btn ").on("tap", ".float-left ", function () {
-            console.log("点击");
             mui.openWindow({
                 url: "paymentMessage.html",
                 id: "paymentMessage.html",
@@ -111,6 +111,9 @@
                     bid: id  //扩展参数
                 }
             })
+        })
+        mui(".func-btn ").on("tap", ".float-right ", function () {
+            mui.alert("请联系客服：400-0998-058", "万国提示");
         })
     </script>
 </body>

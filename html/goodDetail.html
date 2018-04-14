@@ -31,10 +31,10 @@
         </div>
         <div class="title-right">
             <div class="title-right-left">
-                <img src="" />
+
             </div>
             <div class="title-right-right">
-                <img src="" alt="">
+
             </div>
         </div>
     </div>
@@ -42,18 +42,12 @@
         <div class="mui-scroll-wrapper">
             <div class="mui-scroll">
                 <div class="mui-slider">
-                    <div class="mui-slider-group">
+                    <div class="mui-slider-group" style="height:10rem;width:10rem">
                         <div class="mui-slider-item" v-for="img in goodMessage.goods_images">
                             <a href="#">
                                 <img v-bind:src="http_url+img.pic" />
                             </a>
                         </div>
-                    </div>
-                    <div class="mui-slider-indicator">
-                        <div class="mui-indicator mui-active"></div>
-                        <div class="mui-indicator"></div>
-                        <div class="mui-indicator"></div>
-                        <div class="mui-indicator"></div>
                     </div>
                 </div>
                 <div class="good-message">
@@ -223,7 +217,7 @@
 
                                     </span>
                                 </div>
-                                <input v-model="buy_num" class="buy-number-input" type="text">
+                                <input v-model="buy_num" disabled="disabled" class="buy-number-input" type="text">
 
                                 <div class="remove">
                                     <span>
@@ -249,6 +243,7 @@
     <div id="mask">
 
     </div>
+    <script src="../js/md5.js"></script>
     <script src="../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="../js/common.js"></script>
     <script>
@@ -260,11 +255,6 @@
                 buy_num: 1,
                 good_spec: {}
             },
-            methods: {
-                resetData: function () {//重置数据
-                    Object.assign(this.$data, goodMessage);
-                }
-            }
         })
 
         var gallery = mui('.mui-slider');
@@ -275,14 +265,14 @@
         //在details页面接收id参数
         var firstImage;                                                             //轮播图的第一张图片
         var lastImage;                                                              //轮播图的最后一张图片
-        window.addEventListener('goodId', function (event) {
-            //获得事件参数
-            var id = event.detail.id;
+        mui.plusReady(function () {
+
+            var id = plus.webview.currentWebview().good_id;
             mui.ajax(http_url + '/api.php/Mall/details?id=' + id, {
                 dataType: 'json',
                 type: 'get',
                 timeout: 10000,
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Mall/details') },
                 success: function (data) {
                     vm.goodMessage = data.data.info;
                     firstImage = data.data.info.goods_images[0];
@@ -305,9 +295,8 @@
                     console.log(errorThrown);
                 }
             });
-            console.log(http_url + '/Mall/details?id=' + id);
+        })
 
-        });
         //点击选择商品分类
         var rememberId = [];
         function selectType(index, id, e) {
@@ -339,10 +328,6 @@
         function getHttp() {
             console.log(document.querySelector(".whd").src);
         }
-
-        mui.plusReady(function () {
-
-        })
         //初始化input value值;
         var popup = document.getElementById("popup");
         var mask = document.getElementById("mask");
@@ -365,24 +350,23 @@
         function collections(e) {
             var eTarget = e.currentTarget;
             var id = vm.goodMessage.goods_id;
-            var token = localStorage.getItem("token");
-            if (!token) {
+            if (!user_token()) {
                 toast("请登录");
                 return;
-            }
-            if (e.currentTarget.querySelector(".text").innerText == "收藏") {
-                mui.ajax(http_url + '/api.php/Mall/add_collect?id=' + id + '&token=' + token, {
+            } else if (e.currentTarget.querySelector(".text").innerText == "收藏") {
+
+                mui.ajax(http_url + '/api.php/Mall/add_collect?id=' + id + '&token=' + user_all_message.token, {
                     dataType: 'json',
                     type: 'get',
                     timeout: 10000,
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Mall/add_collect'), },
                     success: function (data) {
                         toast(data.message);
-                        console.log(e.currentTarget);
-                        eTarget.querySelector(".text").innerText = "已收藏";
-                        eTarget.querySelectorAll("p")[0].style.color = "red";
-                        eTarget.querySelectorAll("p")[1].style.color = "red";
-
+                        if (data.status == 200) {
+                            eTarget.querySelector(".text").innerText = "已收藏";
+                            eTarget.querySelectorAll("p")[0].style.color = "red";
+                            eTarget.querySelectorAll("p")[1].style.color = "red";
+                        }
                     },
                     error: function (xhr, type, errorThrown) {
                         //异常处理；ss
@@ -390,16 +374,19 @@
                     }
                 })
             } else {
-                mui.ajax(http_url + '/api.php/Mall/del_collect?id=' + id + '&token=' + token, {
+                request_url = "/api.php/Mall/del_collect";
+                mui.ajax(http_url + '/api.php/Mall/del_collect?id=' + id + '&token=' + user_all_message.token, {
                     dataType: 'json',
                     type: 'get',
                     timeout: 10000,
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Mall/del_collect'), },
                     success: function (data) {
                         toast(data.message);
-                        eTarget.querySelector(".text").innerText = "收藏";
-                        eTarget.querySelectorAll("p")[0].style.color = "#666";
-                        eTarget.querySelectorAll("p")[1].style.color = "#666";
+                        if (data.status == 200) {
+                            eTarget.querySelector(".text").innerText = "收藏";
+                            eTarget.querySelectorAll("p")[0].style.color = "#666";
+                            eTarget.querySelectorAll("p")[1].style.color = "#666";
+                        }
                     },
                     error: function (xhr, type, errorThrown) {
                         //异常处理；ss
@@ -407,17 +394,13 @@
                     }
                 })
             }
-
-
         }
 
         //跳转到结算页面
-        var url;
         mui(".popup-bottom").on("tap", ".buy", function () {
-            var settlementPage = plus.webview.getWebviewById("settlementPage.html");
-            if (settlementPage) {
-                plus.webview.show("settlementPage.html");
-            } else {
+            if (user_token()) {
+                popup.style.bottom = -14 + "rem";
+                mask.style.display = "none";
                 mui.openWindow({
                     url: "settlementPage.html",
                     id: "settlementPage.html",
@@ -428,7 +411,17 @@
                         spec_names: vm.good_spec.spec_names ? vm.good_spec.spec_names : "",
                         one: true,
                     },
-                    createNew: true
+                })
+            } else {
+                mui.confirm("您还未登录!", "万国提示", ['取消', '去登录'], function (e) {
+                    if (e.index == 1) {
+                        popup.style.bottom = -14 + "rem";
+                        mask.style.display = "none";
+                        mui.openWindow({
+                            url: "login.html",
+                            id: "login.html"
+                        })
+                    }
                 })
             }
             // console.log(JSON.stringify(mui.webview.getCur))
@@ -458,9 +451,11 @@
             if (user_token()) {
                 var token = localStorage.getItem("token");
                 if (!vm.goodData.sec_list.spec) {
+
                     mui.ajax(http_url + '/api.php/Order/addcart?token=' + token, {
                         dataType: 'json',
                         type: 'post',
+                        headers: { "apitoken": c('/api.php/Order/addcart'), },
                         data: {
                             goods_id: vm.goodMessage.goods_id,
                             num: vm.buy_num,
@@ -469,6 +464,8 @@
                         },
                         timeout: 10000,
                         success: function (data) {
+                            popup.style.bottom = -14 + "rem";
+                            mask.style.display = "none";
                             toast(data.message);
                         },
                         error: function (xhr, type, errorThrown) {
@@ -481,9 +478,11 @@
                 } else if (vm.buy_num > vm.good_spec.store_count) {
                     toast("库存不足")
                 } else {
+
                     mui.ajax(http_url + '/api.php/Order/addcart?token=' + token, {
                         dataType: 'json',
                         type: 'post',
+                        headers: { "apitoken": c('/api.php/Order/addcart'), },
                         data: {
                             goods_id: vm.goodMessage.goods_id,
                             num: vm.buy_num,
@@ -501,8 +500,8 @@
                     })
                 }
             } else {
-                mui.confirm("您还未登录!", "万国提示", ['去登录', '取消'], function (e) {
-                    if (e.index == 0) {
+                mui.confirm("您还未登录!", "万国提示", ['取消', '去登录'], function (e) {
+                    if (e.index == 1) {
                         mui.openWindow({
                             url: "login.html",
                             id: "login.html"

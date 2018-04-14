@@ -131,14 +131,16 @@
             提交
         </div>
     </div>
+    <script src="../js/md5.js"></script>
     <script src="../js/vue.min.js"></script>
     <script src="../js/common.js"></script>
     <script>
+        request_url = "/api.php/Salecar/car_brand";
         mui.ajax(http_url + "/api.php/Salecar/car_brand", {
             dataType: 'json',
             type: 'get',
             timeout: 10000,
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Salecar/car_brand'), },
             success: function (data) {
                 vm.cart = data.data;
             },
@@ -187,7 +189,7 @@
                 dataType: 'json',
                 type: 'get',
                 timeout: 10000,
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Salecar/car_series'), },
                 success: function (data) {
                     vm.selectCart = [];
                     vm.selectCart = data.data;
@@ -226,6 +228,7 @@
                         mileage: vm.distance
                     },
                     dataType: 'json',
+                    headers: { "apitoken": c('/api.php/Salecar/add'), },
                     type: 'post',
                     timeout: 10000,
                     success: function (data) {

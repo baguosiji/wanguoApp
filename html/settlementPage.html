@@ -212,6 +212,7 @@
     <div id="mask">
 
     </div>
+    <script src="../js/md5.js"></script>
     <script src="../js/common.js"></script>
     <script src="../js/mui.picker.js"></script>
     <script src="../js/mui.poppicker.js"></script>
@@ -276,7 +277,6 @@
         var channel = null;
         mui.plusReady(function () {
             nowPage = plus.webview.currentWebview();
-            console.log(JSON.stringify(nowPage));
             //获取支付商品信息
             if (nowPage.one) {
                 if (nowPage.spec_ids) {
@@ -297,6 +297,7 @@
                     type: 'post',
                     data: data,
                     timeout: 10000,
+                    headers: {  "apitoken": c('/api.php/Order/addorder'), },
                     success: function (data) {
                         console.log(JSON.stringify(data));
                         if (data.status == 200) {
@@ -319,6 +320,7 @@
                         nums: nowPage.goodNum
                     },
                     timeout: 10000,
+                    headers: { "apitoken": c('/api.php/User/cartpay'), },
                     success: function (data) {
                         if (data.status == 200) {
                             vm.goods = data.data
@@ -425,6 +427,7 @@
                         area: vm.area,
                         address: vm.address_detail,
                     },
+                    headers: {"apitoken": c('/api.php/Order/saveorder'), },
                     timeout: 10000,
                     success: function (data) {
                         waiting.close();
@@ -461,6 +464,7 @@
                         address: vm.address_detail,
                         goods_id: 1,
                     },
+                    headers: {  "apitoken": c('/api.php/User/cartsave'), },
                     timeout: 10000,
                     success: function (data) {
                         waiting.close();
@@ -484,9 +488,7 @@
                 })
             }
         }
-        var ALIPAYSERVER = 'http://demo.dcloud.net.cn/helloh5/payment/alipay.php?total=';
-        // var WXPAYSERVER = 'http://demo.dcloud.net.cn/helloh5/payment/wxpay.php?total=';
-        var WXPAYSERVER = 'http://192.168.50.50:81/api.php/About/pay';
+
         //调起支付
         function pay(pay) {
             var iscart = 0;
@@ -503,6 +505,7 @@
                         pay_type: pay,
                         iscart: iscart,
                     },
+                    headers: {  "apitoken": c('/api.php/Order/dopay'), },
                     timeout: 10000,
                     success: function (res) {
                         console.log(res);
@@ -530,6 +533,7 @@
                         pay_type: pay,
                         iscart: iscart,
                     },
+                    headers: {  "apitoken": c('/api.php/Order/dopay'), },
                     timeout: 10000,
                     success: function (res) {
                         console.log(JSON.stringify(res));

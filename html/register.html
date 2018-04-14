@@ -70,6 +70,7 @@
             </div>
         </div>
     </div>
+    <script src="../js/md5.js"></script>
     <script src="../js/vue.min.js"></script>
     <script src="../js/common.js"></script>
     <script>
@@ -95,7 +96,7 @@
                     dataType: 'json',
                     type: 'post',
                     timeout: 10000,
-                    // headers: { 'Content-Type': 'application/json' },
+                    headers: {  "apitoken": c('/api.php/Login/getsms'), },
                     success: function (data) {
                         toast(data.message);
                     },
@@ -126,6 +127,7 @@
                     },
                     dataType: 'json',
                     type: 'post',
+                    headers: { "apitoken": c('/api.php/Login/reg'), },
                     timeout: 10000,
                     success: function (data) {
                         if (data.status == 200) {

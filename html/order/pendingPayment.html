@@ -9,6 +9,7 @@
     <script src="../../js/mui.min.js"></script>
     <link href="../../css/mui.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../css/common.css">
+    <script src="../../js/md5.js"></script>
     <link rel="stylesheet" href="../../css/order.css">
     <title>订单</title>
 </head>
@@ -98,7 +99,7 @@
             dataType: 'json',
             type: 'get',
             timeout: 10000,
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/User/order'), },
             success: function (data) {
                 if (data.status == 200) {
                     vm.orders = data.data;
@@ -132,7 +133,7 @@
                 dataType: 'json',
                 type: 'get',
                 timeout: 10000,
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/User/order'), },
                 success: function (data) {
                     if (data.status == 200) {
                         count++;
@@ -170,7 +171,7 @@
                         dataType: 'json',
                         type: 'get',
                         timeout: 10000,
-                        headers: { 'Content-Type': 'application/json' },
+                        headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Order/delord'), },
                         success: function (data) {
                             toast(data.message);
                             plus.webview.currentWebview().reload(true);
@@ -186,14 +187,13 @@
         var number = 100
 
         // 跳转到商品详情页面
-        var goodDetailPage = null;
         function jump_to_good_detial(id) {
-            if (!goodDetailPage) {
-                goodDetailPage = plus.webview.getWebviewById("goodDetail.html");
-            }
-            mui.fire(goodDetailPage, 'goodId', { id: id });
             mui.openWindow({
-                id: "goodDetail.html"
+                url: "../goodDetail.html",
+                id: "goodDetail.html",
+                extras: {
+                    good_id: id,
+                }
             })
         }
     </script>

@@ -15,17 +15,12 @@
     <script type="text/javascript" charset="utf-8">
         //初始化预加载详情页面
         mui.init({
-            preloadPages: [{
-                id: "goodDetail.html",
-                url: "goodDetail.html",
-            }
-            ]
         });
     </script>
 </head>
 
 <body>
-    <div id="" class="action-bar">
+    <div id="app" class="action-bar">
         <div class="title-left">
             <div>
                 <span>
@@ -63,8 +58,10 @@
             <span class="mui-tab-label">我的</span>
         </a>
     </nav>
+    <script src="../js/md5.js"></script>
     <script src="../js/common.js"></script>
     <script>
+        var click = true;
         var Index = 0;
         var subpages = ["indexIndex.html", "buyCart.html", "shoppingMall.html", "my.html"];
         mui.plusReady(function () {
@@ -85,7 +82,20 @@
             }
             indexSubject = plus.webview.getWebviewById("indexIndex.html");
             document.querySelector(".title-right").addEventListener("tap", function () {
-                indexSubject.evalJS("openmore()");
+                console.log(click);
+                if (user_token()) {
+                    click ? indexSubject.evalJS("openmore()") : null;
+                } else {
+                    if (!click) return;
+                    mui.confirm("您还未登录!", "万国提示", ['取消', '去登录'], function (e) {
+                        if (e.index == 1) {
+                            mui.openWindow({
+                                url: "login.html",
+                                id: "login.html"
+                            })
+                        }
+                    })
+                }
             })
         })
         //当前激活选项
@@ -105,6 +115,7 @@
             //更换标题
             // title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
             if (this.querySelector(".mui-tab-label").innerHTML == "我的") {
+                click = false;
                 title.getElementsByClassName("title-input")[0].style.display = "none";
                 title.innerHTML = this.querySelector(".mui-tab-label").innerHTML;
                 document.querySelector(".title-left").style.visibility = "hidden";
@@ -112,13 +123,25 @@
                 // document.querySelector(".title-right").querySelector("span") = "img/setting.png";
                 url = "setting.html"
                 url = "setting.html"
-            } else {
+            } else if (this.querySelector(".mui-tab-label").innerHTML == "首页") {
                 title.innerHTML = "";
                 url = "order.html"
+                click = true;
                 var div = document.createElement("div");
                 document.querySelector(".title-left").style.visibility = "visible";
                 action_bar_right.style.visibility = "visible";
-                // document.querySelector(".title-right").querySelector("span").src = "img/close.png";
+                div.setAttribute("class", "title-input");
+                var input = document.createElement("input");
+                input.setAttribute("placeholder", "请输入搜索内容");
+                div.appendChild(input);
+                title.appendChild(div);
+            } else {
+                title.innerHTML = "";
+                url = "order.html"
+                click = false;
+                var div = document.createElement("div");
+                document.querySelector(".title-left").style.visibility = "visible";
+                action_bar_right.style.visibility = "hidden";
                 div.setAttribute("class", "title-input");
                 var input = document.createElement("input");
                 input.setAttribute("placeholder", "请输入搜索内容");
@@ -146,23 +169,27 @@
                 return;
             }
             that.classList.add("mui-active");
-            if (that.querySelector(".mui-tab-label").innerHTML == "我的") {
+            if (c) {
                 title.getElementsByClassName("title-input")[0].style.display = "none";
                 title.innerHTML = that.querySelector(".mui-tab-label").innerHTML;
-                document.querySelector(".title-left").style.visibility = "hidden";
-                // document.querySelector(".title-right").querySelector("span") = "img/setting.png";
-            } else {
-                title.innerHTML = "";
-                url = "order.html"
-                var div = document.createElement("div");
                 document.querySelector(".title-left").style.visibility = "visible";
-                // document.querySelector(".title-right").querySelector("span").src = "img/close.png";
-                div.setAttribute("class", "title-input");
-                var input = document.createElement("input");
-                input.setAttribute("placeholder", "请输入搜索内容");
-                div.appendChild(input);
-                title.appendChild(div);
-            }
+                action_bar_right.style.visibility = "hidden";
+                // document.querySelector(".title-right").querySelector("span") = "img/setting.png";
+            } 
+            // else {
+            //     title.innerHTML = "";
+            //     url = "order.html"
+            //     click = false;
+            //     var div = document.createElement("div");
+            //     document.querySelector(".title-left").style.visibility = "visible";
+            //     action_bar_right.style.visibility = "hidden";
+            //     // document.querySelector(".title-right").querySelector("span").src = "img/close.png";
+            //     div.setAttribute("class", "title-input");
+            //     var input = document.createElement("input");
+            //     input.setAttribute("placeholder", "请输入搜索内容");
+            //     div.appendChild(input);
+            //     title.appendChild(div);
+            // }
             //显示目标选项卡
             plus.webview.show(targetTab);
             //隐藏当前选项卡

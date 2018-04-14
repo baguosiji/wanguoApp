@@ -126,6 +126,7 @@
             提交评价
         </div>
     </div>
+    <script src="../js/md5.js"></script>
     <script src="../js/common.js"></script>
     <script src="../js/vue.min.js"></script>
     <script>
@@ -290,6 +291,7 @@
                                     imgs: upload_img,
                                     content: vm.user_input,
                                 },
+                                headers: { "apitoken": c('/api.php/Order/evaluation'), },
                                 type: 'post',
                                 timeout: 10000,
                                 success: function (data) {
@@ -311,6 +313,7 @@
                     }
                 );
                 task.addFile(vm.img_url[i], { key: "fileupload" });
+                task.setRequestHeader('apitoken', c('/api.php/User/upload_attachment'));
                 // task.addData("fileupload", user_header_img.src);
                 task.start();
             }

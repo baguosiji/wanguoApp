@@ -10,8 +10,8 @@
     <script src="../../js/mui.min.js"></script>
     <link href="../../css/mui.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../css/iconfont.css">
-    <script src="../../js/common.js"></script>
     <link rel="stylesheet" href="../../css/common.css">
+    <script src="../../js/common.js"></script>
     <title>Document</title>
 </head>
 <style>
@@ -97,6 +97,7 @@
             </div>
         </div>
     </div>
+    <script src="../../js/md5.js"></script>
     <script src="../../js/vue.min.js"></script>
     <script>
         mui.init({
@@ -158,29 +159,28 @@
                 dataType: 'json',
                 type: 'get',
                 timeout: 10000,
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/User/evaluation'), },
                 success: function (data) {
+                    console.log(JSON.stringify(data))
                     if (data.status == 200) {
                         for (var i = 0; i < data.data.length; i++) {
-                            for (var i = 0; i < data.data.length; i++) {
-                                var goods_rank = [];
-                                var num = data.data;
-                                for (var j = 0; j < num[i].goods_rank; j++) {
-                                    goods_rank.push(j);
-                                }
-                                num[i].goods_rank = goods_rank;
+                            var goods_rank = [];
+                            var num = data.data;
+                            for (var j = 0; j < num[i].goods_rank; j++) {
+                                goods_rank.push(j);
+                            }
+                            num[i].goods_rank = goods_rank;
 
-                                if (num[i].imgs) {
-                                    num[i].imgs = num[i].imgs.substr(1).split(",");
-                                }
+                            if (num[i].imgs) {
+                                num[i].imgs = num[i].imgs.substr(1).split(",");
                             }
-                            vm.items = vm.items.concat(data.data);
-                            page++;
-                            if (data.data.length == 0) {
-                                mui('#pullrefresh').pullRefresh().endPullupToRefresh(true)
-                            } else {
-                                mui('#pullrefresh').pullRefresh().endPullupToRefresh(false)
-                            }
+                        }
+                        vm.items = vm.items.concat(data.data);
+                        page++;
+                        if (data.data.length == 0) {
+                            mui('#pullrefresh').pullRefresh().endPullupToRefresh(true)
+                        } else {
+                            mui('#pullrefresh').pullRefresh().endPullupToRefresh(false)
                         }
                     } else {
                         toast(data.message);

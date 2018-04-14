@@ -141,7 +141,7 @@
                 <div class="boutique-message">
                     <div id="mui-scroll-wrapper" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
                         <div class="mui-scroll">
-                            <div class="boutique-good" v-for="item in cars">
+                            <div class="boutique-good" v-for="item in cars" @tap="jump_to_detail(item.bid)">
                                 <img v-bind:src="item.pic">
                                 <p>
                                     {{item.title}}
@@ -155,6 +155,29 @@
                         </div>
                     </div>
 
+                </div>
+            </div>
+            <!--最新活动-->
+            <div class="boutique">
+                <div class="title-left">
+                    最新活动
+                </div>
+                <div class="content">
+                    <div class="every-last-boutique" @tap="jump_open_new_page('active1.html')">
+                        <img src="../img/act1.png" alt="">
+                        <p style="color: #000;">推荐好车源</p>
+                        <p>优惠好礼等你拿</p>
+                    </div>
+                    <div class="every-last-boutique" @tap="jump_open_new_page('active2.html')">
+                        <img src="../img/act2.png" alt="">
+                        <p style="color: #000;">平台买二手车</p>
+                        <p>送超值大礼包</p>
+                    </div>
+                    <div class="every-last-boutique" @tap="jump_open_new_page('active3.html')">
+                        <img src="../img/act3.png" alt="">
+                        <p style="color: #000;">平台买二手车</p>
+                        <p>1元抵500</p>
+                    </div>
                 </div>
             </div>
             <!-- 新闻部分 -->
@@ -216,7 +239,7 @@
                 </div>
                 <!-- 商品列表区域 -->
                 <div class="good-area">
-                    <div class="good" v-for="item in goods" v-bind:id="item.goods_id">
+                    <div class="good" v-for="item in goods" v-bind:id="item.goods_id" @tap="every_last_goods(item.goods_id)">
                         <div class="good-img" v-bind:style="{backgroundImage:'url(' + item.pic + ')'}">
 
                         </div>
@@ -230,33 +253,33 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="out-div" id="popup">
-        <div class="arrow"></div>
-        <div class="popup-list">
-            <span class="iconfont icon-gouwuche"></span>
-            <div>购物车</div>
-        </div>
-        <div class="popup-list">
-            <span class="iconfont  icon-single"></span>
-            <div>我的订单</div>
-        </div>
-        <div class="popup-list">
-            <span class="iconfont icon-shoucang2"></span>
-            <div>我的收藏</div>
-        </div>
-        <!-- <div class="popup-list">
+        <div class="out-div" id="popup">
+            <div class="arrow"></div>
+            <div class="popup-list">
+                <span class="iconfont icon-gouwuche"></span>
+                <div>购物车</div>
+            </div>
+            <div class="popup-list">
+                <span class="iconfont  icon-single"></span>
+                <div>我的订单</div>
+            </div>
+            <div class="popup-list">
+                <span class="iconfont icon-shoucang2"></span>
+                <div>我的收藏</div>
+            </div>
+            <!-- <div class="popup-list">
             <span class="iconfont icon-richscan_icon"></span>
             <div>扫一扫</div>
         </div> -->
-    </div>
-    <div id="shade" onclick="shadeHidden()">
+        </div>
+        <div id="shade" onclick="shadeHidden()">
 
+        </div>
     </div>
     <script src="../js/flexible.js"></script>
+    <script src="../js/md5.js"></script>
     <script src="../js/common.js"></script>
     <script src="../js/mui.min.js"></script>
-    <script src="../js/md5.js"></script>
     <script src="../js/httprequest.js"></script>
     <script src="../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
     <script>
@@ -274,13 +297,11 @@
                 news: []
             }
         })
-
-        var password = hex_md5('/api.php/Index/index' + http_time + 'wanguo.net!@#');
         mui.ajax(http_url + '/api.php/Index/index', {
             dataType: 'json',
             type: 'get',
             timeout: 10000,
-            headers: { 'Content-Type': 'application/json', "apitoken": password, },
+            headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Index/index') },
             success: function (data) {
                 good_list.cars = data.data.car;
                 good_list.news = data.data.news;
@@ -342,19 +363,16 @@
         for (var i = 0; i < activity.length; i++) {
             activity[i].index = i;
         }
-        var goodDetailPage = null;
-        //给每个商品添加点击事件跳转到商品详情页
-        mui(".good-area").on("tap", ".good", function () {
-            var id = this.id;
-            if (!goodDetailPage) {
-                goodDetailPage = plus.webview.getWebviewById("goodDetail.html");
 
-            }
-            mui.fire(goodDetailPage, 'goodId', { id: id });
+        function every_last_goods(ids) {
             mui.openWindow({
+                url: "goodDetail.html",
                 id: "goodDetail.html",
+                extras: {
+                    good_id: ids,
+                }
             })
-        })
+        }
         //点击跳转
         function jump_buycar() {
             parent.evalJS("changeView('buyCart.html')")
@@ -411,6 +429,16 @@
                 id: "newsMessage.html",
                 extras: {
                     message: id //扩展参数
+                }
+            })
+        }
+        //跳转到汽车详情页面
+        function jump_to_detail(id) {
+            mui.openWindow({
+                url: "cartDetail.html",
+                id: "cartDetail.html",
+                extras: {
+                    good_id: id
                 }
             })
         }

@@ -81,6 +81,7 @@
             </div>
         </div>
     </div>
+    <script src="../js/md5.js"></script>
     <script src="../js/vue.min.js"></script>
     <script src="../js/common.js"></script>
     <script>
@@ -96,7 +97,7 @@
                 dataType: 'json',
                 type: 'get',
                 timeout: 10000,
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/User/info'), },
                 success: function (data) {
                     vm.user_message = data.data;
                     localStorage.removeItem("user-message");
@@ -117,7 +118,7 @@
                     dataType: 'json',
                     type: 'get',
                     timeout: 10000,
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Login/logout'), },
                     success: function (data) {
                         localStorage.removeItem("token");
                         localStorage.removeItem("user-message");

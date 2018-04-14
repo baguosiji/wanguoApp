@@ -62,6 +62,7 @@
     </div>
     <script src="../js/flexible.js"></script>
     <script src="../js/mui.min.js"></script>
+    <script src="../js/md5.js"></script>
     <script src="../js/common.js"></script>
     <script src="../js/vue.min.js"></script>
     <script>
@@ -85,6 +86,7 @@
                 toast("两次输入密码不一致")
             } else {
                 var waiting = plus.nativeUI.showWaiting("加载中", { width: '130px', height: '130px' });
+                
                 mui.ajax(http_url + "/api.php/User/editpass", {
                     data: {
                         oldpwd: vm.oldpwd,
@@ -93,6 +95,7 @@
                     },
                     dataType: "json",
                     type: "post",
+                    headers: {  "apitoken": c('/api.php/User/editpass'), },
                     timeout: 10000,
                     success: function (data) {
                         if (data.status == 200) {

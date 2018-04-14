@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="../js/flexible.js"></script>
     <script src="../js/mui.min.js"></script>
+    <script src="../js/md5.js"></script>
     <link rel="stylesheet" href="../css/mui.min.css">
     <link rel="stylesheet" href="../css/common.css">
     <title>新闻详情</title>
@@ -83,7 +84,7 @@
                 dataType: 'json',
                 type: 'get',
                 timeout: 10000,
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/About/page'), },
                 success: function (data) {
                     console.log(JSON.stringify(data));
                     if (data.status == 200) {

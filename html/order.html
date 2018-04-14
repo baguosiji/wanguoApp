@@ -75,8 +75,8 @@
         var pendingPaymentPage;
         var _self;
         mui.plusReady(function () {
-            // plus.webview.close("payment.html");
-            console.log(JSON.stringify(plus.webview.getWebviewById("settlementPage.html")));
+            plus.webview.close("payment.html");
+            console.log(JSON.stringify(plus.webview.all()));
             pendingPaymentPage = plus.webview.getWebviewById("order/pendingPayment.html");
             _self = plus.webview.currentWebview();
             var group = new webviewGroup(_self.id, {

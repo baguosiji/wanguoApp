@@ -54,7 +54,7 @@
             <div class="user-phone-verfication">
                 <input v-model="code" type="text" placeholder="请输入验证码">
                 <div class="send-verfication">
-                    <img v-bind:src="http_url+'/api.php/Login/verify'" @tap="changeImg($event)" style="height: 100%;width: 100%" alt="">
+                    <img src="https://api.wanguo.net/api.php/Login/verify" @tap="changeImg($event)" style="height: 100%;width: 100%" alt="">
                 </div>
             </div>
             <!-- <div class="user-phone-number">
@@ -119,7 +119,7 @@
                 dataType: 'json',
                 type: 'post',
                 timeout: 10000,
-                // headers: { 'Content-Type': 'application/json' },
+                headers: { "apitoken": c('/api.php/Login/login'), },
                 success: function (data) {
                     console.log(JSON.stringify(data));
                     if (data.status == 200) {
@@ -130,6 +130,7 @@
                         mui.back();
                     } else if (data.status == 404) {
                         waiting.close();
+                        plus.webview.currentWebview().reload(true);
                         toast(data.message);
                     }
                 },
@@ -148,9 +149,7 @@
         }, false)
         //点击更换图片
         function changeImg(e) {
-            console.log(e.currentTarget.src);
-            e.currentTarget.src = http_url + "/api.php/Login/verify";
-            console.log(e.currentTarget.src);
+            e.currentTarget.src = "https://api.wanguo.net/api.php/Login/verify";
         }
     </script>
 </body>

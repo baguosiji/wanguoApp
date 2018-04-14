@@ -1,4 +1,5 @@
-var http_url = "http://192.168.50.50:81";
+// var http_url = "http://192.168.50.50:81";
+var http_url = "https://api.wanguo.net";
 // 时间转换
 Date.prototype.format = function(fmt) {
   //author: meizz
@@ -41,14 +42,16 @@ Date.prototype.toLocaleString = function() {
     "秒"
   );
 };
-var http_time = new Date().format("yyyy-MM-dd hh");
+
 // 原生toast弹出框
 function toast(message) {
   plus.nativeUI.toast(message, { verticalAlign: "center" });
 }
 //MD5加密计算方法
-function self_MD5(path) {
-  return hex_md5(path + http_time + "wanguo.net!@#");
+function c(path) {
+  var http_time = new Date().format("yyyy-MM-dd hh");
+  var apitoken = path + http_time + "wanguo.net!@#";
+  return hex_md5(apitoken.toString());
 }
 var reg_phone = /^[1][3,4,5,7,8][0-9]{9}$/;
 
@@ -62,4 +65,21 @@ function user_token() {
   } else {
     return false;
   }
+}
+//ajax公共请求
+function my_Ajax(url, token, type, data, callback) {
+  mui.ajax(http_url + url + token, {
+    data: data,
+    type: type, //HTTP请求类型
+    timeout: 10000, //超时时间设置为10秒；
+    headers: {
+      apitoken: token
+    },
+    success: function(res) {
+      return callback(res);
+    },
+    error: function(xhr, type, errorThrown) {
+      mui.alert("网络错误，请重试");
+    }
+  });
 }

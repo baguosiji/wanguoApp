@@ -75,6 +75,7 @@
             </div>
         </div>
     </div>
+    <script src="../js/md5.js"></script>
     <script src="../js/vue.min.js"></script>
     <script src="../js/common.js"></script>
     <script>
@@ -91,7 +92,7 @@
             dataType: 'json',
             type: 'get',
             timeout: 10000,
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Buycar/index'), },
             success: function (data) {
                 console.log(JSON.stringify(data));
                 if (data.status == 200) {
@@ -104,9 +105,8 @@
 
             }
         })
-
+        //跳转到汽车详情页面
         function jump_to_detail(id) {
-            console.log("商品列表" + id)
             mui.openWindow({
                 url: "cartDetail.html",
                 id: "cartDetail.html",

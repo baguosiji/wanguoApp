@@ -107,6 +107,7 @@
             </div>
         </div>
     </div>
+    <script src="../js/md5.js"></script>
     <script src="../js/common.js"></script>
     <script src="../js/vue.min.js"></script>
     <script>
@@ -124,7 +125,7 @@
             dataType: 'json',
             type: 'get',
             timeout: 10000,
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/User/collect'), },
             success: function (data) {
                 if (data.status == 200) {
                     for (var i = 0; i < data.data.length; i++) {
@@ -141,14 +142,13 @@
 
             }
         })
-        var goodDetailPage;
         function jump_to_good_detail(id) {
-            if (!goodDetailPage) {
-                goodDetailPage = plus.webview.getWebviewById("goodDetail.html");
-            }
-            mui.fire(goodDetailPage, 'goodId', { id: id });
             mui.openWindow({
+                url: "goodDetail.html",
                 id: "goodDetail.html",
+                extras: {
+                    good_id: id,
+                }
             })
         }
     </script>

@@ -109,6 +109,7 @@
             </div>
         </div>
     </div>
+    <script src="../js/md5.js"></script>
     <script src="../js/common.js"></script>
     <script src="../js/vue.min.js"></script>
     <script>    
@@ -139,7 +140,7 @@
             dataType: 'json',
             type: 'get',
             timeout: 10000,
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/User/cart'), },
             success: function (data) {
                 if (data.status == 200) {
 
@@ -168,7 +169,7 @@
                 dataType: 'json',
                 type: 'get',
                 timeout: 10000,
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/User/cart'), },
                 success: function (data) {
                     if (data.status == 200) {
 
@@ -316,7 +317,7 @@
                         dataType: 'json',
                         type: 'get',
                         timeout: 10000,
-                        headers: { 'Content-Type': 'application/json' },
+                        headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/User/delcart'), },
                         success: function (data) {
                             if (data.status == 200) {
                                 toast(data.message);

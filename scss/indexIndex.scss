@@ -90,6 +90,35 @@
     }
   }
 }
+//活动区域
+.boutique {
+  background-color: #fff;
+  padding: 0 0.3rem;
+  .title-left {
+    width: 100%;
+    font-size: 0.4rem;
+    line-height: 1.173333rem;
+    border-bottom: 1px solid #ededed;
+  }
+  .content {
+    display: flex;
+    margin-top: 0.2rem;
+    justify-content: space-between;
+    .every-last-boutique {
+      width: 3rem;
+      img {
+        width: 100%;
+        height: 2.9rem;
+      }
+      p {
+        margin: 0;
+        font-size: 0.34rem;
+        padding: 0;
+        text-align: center;
+      }
+    }
+  }
+}
 //精品推荐区域样式
 .boutique-area {
   padding: 0 0.3rem;
