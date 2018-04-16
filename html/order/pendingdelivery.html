@@ -80,6 +80,13 @@
     <script src="../../js/common.js"></script>
     <script src="../../js/vue.min.js"></script>
     <script>    
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                orders: [
+                ]
+            }
+        })
         mui.init({
             swipeBack: false,
             keyEventBind: {
@@ -93,13 +100,6 @@
                 }
             }
         });
-        var vm = new Vue({
-            el: "#app",
-            data: {
-                orders: [
-                ]
-            }
-        })
         mui.ajax(http_url + "/api.php/User/order?status=1&p=1&token=" + user_all_message.token, {
             dataType: 'json',
             type: 'get',
@@ -122,10 +122,10 @@
 
             });
         }
-        mui('.mui-scroll-wrapper').scroll({
-            deceleration: 0.0005, //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
-            indicators: false
-        });
+        // mui('.mui-scroll-wrapper').scroll({
+        //     deceleration: 0.0005, //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+        //     indicators: false
+        // });
         //跳转到换货页面
         mui(".every-last-order").on("tap", ".more", function () {
             mui.openWindow({
@@ -159,8 +159,8 @@
                 }
             })
         }
-          // 跳转到商品详情页面
-          function jump_to_good_detial(id) {
+        // 跳转到商品详情页面
+        function jump_to_good_detial(id) {
             mui.openWindow({
                 url: "../goodDetail.html",
                 id: "goodDetail.html",

@@ -27,13 +27,11 @@
 		"Console": {
 			"description": "跟踪调试输出日志"
 		},
-		
+
 		"Events": {
 			"description": "应用扩展事件"
 		},
-		
-		
-		
+
 		"Camera": {
 			"description": "摄像头"
 		},
@@ -44,12 +42,14 @@
 			"description": "文件上传，管理文件上传任务"
 		},
 		"NativeUI": {
-		"description": "原生UI控件"
+			"description": "原生UI控件"
 		},
 		"Gallery": {
-		"description": "系统相册"
-		}, 	
-		"Payment": {}
+			"description": "系统相册"
+		},
+		"Payment": {
+			"description": "支付"
+		}
 	},
 	"plus": {
 		"splashscreen": {
@@ -87,7 +87,24 @@
 				"keystore": "",/*Android应用打包使用的密钥库文件*/
 				"password": "",/*Android应用打包使用密钥库中证书的密码*/
 				"aliasname": "",/*Android应用打包使用密钥库中证书的别名*/
-				"permissions": ["<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>","<uses-permission android:name=\"android.permission.INTERNET\"/>","<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>","<uses-permission android:name=\"android.permission.VIBRATE\"/>","<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>","<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>","<uses-permission android:name=\"android.permission.CALL_PHONE\"/>","<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>","<uses-feature android:name=\"android.hardware.camera.autofocus\"/>","<uses-feature android:name=\"android.hardware.camera\"/>","<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>","<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>","<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>","<uses-permission android:name=\"android.permission.CAMERA\"/>"]
+				"permissions": [
+					"<uses-permission android:name=\"com.android.launcher.permission.INSTALL_SHORTCUT\"/>",
+					"<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
+					"<uses-permission android:name=\"android.permission.INTERNET\"/>",
+					"<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.VIBRATE\"/>",
+					"<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
+					"<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
+					"<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
+					"<uses-feature android:name=\"android.hardware.camera.autofocus\"/>",
+					"<uses-feature android:name=\"android.hardware.camera\"/>",
+					"<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+					"<uses-permission android:name=\"com.android.launcher.permission.UNINSTALL_SHORTCUT\"/>",
+					"<uses-permission android:name=\"android.permission.CAMERA\"/>"
+				]
 			},
 			"orientation": [
 				"portrait-primary"
@@ -197,11 +214,11 @@
 			},
 			"html/order.html": {
 				"resources": [
-					"html/order/all.html"
+					"html/order/all.html",
+					"html/order/pendingPayment.html"
 				],
 				"refer": [
 					"index.html",
-					"html/order/pendingPayment.html",
 					"html/order/goodsToBeReceived.html",
 					"html/order/evaluate.html",
 					"html/order/pendingdelivery.html"
@@ -259,7 +276,8 @@
 					"html/payment.html",
 					"html/active1.html",
 					"html/active3.html",
-					"html/active2.html"
+					"html/active2.html",
+					"html/cartDetail.html"
 				],
 				"priority": 0
 			},
@@ -312,7 +330,8 @@
 				"resources": [],
 				"refer": [
 					"html/selectService.html",
-					"html/goodDetail.html"
+					"html/goodDetail.html",
+					"html/payment.html"
 				],
 				"priority": 0
 			},
@@ -370,6 +389,13 @@
 				"resources": [],
 				"refer": [
 					"html/goodDetail.html"
+				],
+				"priority": 0
+			},
+			"html/paymentMessage.html": {
+				"resources": [],
+				"refer": [
+					"html/payment.html"
 				],
 				"priority": 0
 			}
@@ -448,9 +474,9 @@
 			]
 		}
 	},
-	"unpackage":[
-	  "scss/common.scss",
-	  "scss/index.scss",
-	  "scss/indexIndex.scss"
+	"unpackage": [
+		"scss/common.scss",
+		"scss/index.scss",
+		"scss/indexIndex.scss"
 	]
 }

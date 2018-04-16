@@ -56,10 +56,48 @@
                     <div class="mui-indicator"></div>
                 </div>
             </div>
+            <div class="screen">
+                <div @tap="get_all()">
+                    <span v-bind:class="{active:all}">默认排序</span>
+                </div>
+                <div class="price" @tap="select_price()">
+                    <span>价格</span>
+                    <div class="screen-click" v-if="is_price">
+                        <strong class="mui-icon mui-icon-arrowup" v-bind:class="{active:price}"></strong>
+                        <strong class="mui-icon mui-icon-arrowdown" v-bind:class="{active:!price}"></strong>
+                    </div>
+                    <div class="screen-click" v-if="!is_price">
+                        <strong class="mui-icon mui-icon-arrowup"></strong>
+                        <strong class="mui-icon mui-icon-arrowdown"></strong>
+                    </div>
+                </div>
+                <div class="time" @tap="select_time()">
+                    <span>时间</span>
+                    <div class="screen-click" v-if="is_time">
+                        <strong class="mui-icon mui-icon-arrowup" v-bind:class="{active:time}"></strong>
+                        <strong class="mui-icon mui-icon-arrowdown" v-bind:class="{active:!time}"></strong>
+                    </div>
+                    <div class="screen-click" v-if="!is_time">
+                        <strong class="mui-icon mui-icon-arrowup"></strong>
+                        <strong class="mui-icon mui-icon-arrowdown"></strong>
+                    </div>
+                </div>
+                <div class="kilometre" @tap="select_kilometre()">
+                    <span>公里</span>
+                    <div class="screen-click" v-if="is_kilometre">
+                        <strong class="mui-icon mui-icon-arrowup" v-bind:class="{active:kilometre}"></strong>
+                        <strong class="mui-icon mui-icon-arrowdown" v-bind:class="{active:!kilometre}"></strong>
+                    </div>
+                    <div class="screen-click" v-if="!is_kilometre">
+                        <strong class="mui-icon mui-icon-arrowup"></strong>
+                        <strong class="mui-icon mui-icon-arrowdown"></strong>
+                    </div>
+                </div>
+            </div>
             <div class="cart-region">
                 <div class="cart-region-every-last" v-for="x in cars" @tap="jump_to_detail(x.bid)">
                     <div class="left">
-                        <img :src="http_url+x.pic" alt="">
+                        <img v-bind:src="http_url+x.pic" alt="">
                     </div>
                     <div class="right">
                         <p>{{x.title}}</p>
@@ -85,6 +123,16 @@
                 cars: [
 
                 ],
+                price: false,
+                time: false,
+                kilometre: false,
+                price_data: "",
+                time_data: "",
+                kilometre_data: "",
+                is_price: false,
+                is_time: false,
+                is_kilometre: false,
+                all: true,
             }
         })
         //  	数据接口
@@ -94,7 +142,6 @@
             timeout: 10000,
             headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Buycar/index'), },
             success: function (data) {
-                console.log(JSON.stringify(data));
                 if (data.status == 200) {
                     vm.cars = data.data
                 } else {
@@ -124,6 +171,125 @@
             indicators: false,
             deceleration: 0.0005,//flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
         });
+        // 价格筛选  
+        //价格筛选true代表由高到低
+        var price_data = "";
+        function select_price() {
+            vm.all = false;
+            vm.is_price = true;
+            vm.is_time = false;
+            vm.is_kilometre = false;
+            vm.price = !vm.price;
+            if (vm.price) {
+                pirce_data = "price-asc"
+            } else {
+                price_data = "price-desc"
+            }
+            mui.ajax(http_url + '/api.php/Buycar/index?ord=' + price_data, {
+                dataType: 'json',
+                type: 'get',
+                timeout: 10000,
+                headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Buycar/index'), },
+                success: function (data) {
+                    console.log(JSON.stringify(data));
+                    if (data.status == 200) {
+                        vm.cars = data.data
+                    } else {
+                        toast(data.message);
+                    }
+                },
+                error: function (xhr, type, errorThrown) {
+
+                }
+            })
+        }
+        //时间筛选
+        //时间筛选true代表由高到低
+        var time_data = ""
+        function select_time() {
+            vm.all = false;
+            vm.time = !vm.time;
+            vm.is_price = false;
+            vm.is_time = true;
+            vm.is_kilometre = false;
+            if (vm.tiem) {
+                time_data = "bid-asc"
+            } else {
+                time_data = "bid-desc"
+            }
+            mui.ajax(http_url + '/api.php/Buycar/index?ord=' + time_data, {
+                dataType: 'json',
+                type: 'get',
+                timeout: 10000,
+                headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Buycar/index'), },
+                success: function (data) {
+                    console.log(JSON.stringify(data));
+                    if (data.status == 200) {
+                        vm.cars = data.data
+                    } else {
+                        toast(data.message);
+                    }
+                },
+                error: function (xhr, type, errorThrown) {
+
+                }
+            })
+        }
+        //公里数筛选
+        //时间筛选true代表由高到底
+        var milometre_data = "";
+        function select_kilometre() {
+            vm.all = false;
+            vm.is_price = false;
+            vm.is_time = false;
+            vm.is_kilometre = true;
+            vm.kilometre = !vm.kilometre;
+            if (vm.kilometre) {
+                milometre_data = "bxlc-asc"
+            } else {
+                milometre_data = "bxlc-desc"
+            }
+            mui.ajax(http_url + '/api.php/Buycar/index?ord=' + milometre_data, {
+                dataType: 'json',
+                type: 'get',
+                timeout: 10000,
+                headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Buycar/index'), },
+                success: function (data) {
+                    console.log(JSON.stringify(data));
+                    if (data.status == 200) {
+                        vm.cars = data.data
+                    } else {
+                        toast(data.message);
+                    }
+                },
+                error: function (xhr, type, errorThrown) {
+
+                }
+            })
+        }
+        function get_all() {
+            if (vm.all) return;
+            vm.all = true;
+            vm.is_price = false;
+            vm.is_time = false;
+            vm.is_kilometre = false;
+            mui.ajax(http_url + '/api.php/Buycar/index', {
+                dataType: 'json',
+                type: 'get',
+                timeout: 10000,
+                headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Buycar/index'), },
+                success: function (data) {
+                    if (data.status == 200) {
+                        vm.cars = data.data
+                    } else {
+                        toast(data.message);
+                    }
+                },
+                error: function (xhr, type, errorThrown) {
+
+                }
+            })
+        }
     </script>
 </body>
 

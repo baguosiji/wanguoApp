@@ -135,13 +135,12 @@
             // plus.webview.hide(`settlementPage.html`);
             if (nowPage.is_cart) {
                 plus.webview.close(`paymentMessage.html`);
-                mui.ajax(http_url + '/api.php/Order/buycar_payment?token=' + user_all_message.token + "&id=" + nowPage.order_id, {
+                mui.ajax(http_url + '/api.php/Order/buycar_payment?token=' + user_all_message.token + '&id=' + nowPage.order_id, {
                     dataType: 'json',
                     type: 'get',
                     timeout: 10000,
                     headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Order/buycar_payment'), },
                     success: function (data) {
-                        console.log(JSON.stringify(data));
                         if (data.status == 200) {
                             vm.order_message = data.data;
                         }
@@ -153,7 +152,9 @@
                 });
 
             } else {
-                plus.webview.close(`settlementPage.html`);
+                if (plus.webview.getWebviewById('settlementPage.html')); {
+                    plus.webview.close(`settlementPage.html`);
+                }
                 nowPage.iscart ? vm.iscart = 1 : vm.iscart = 0;
                 mui.ajax(http_url + '/api.php/Order/payment?token=' + user_all_message.token + "&order_id=" + nowPage.order_id, {
                     dataType: 'json',
@@ -232,8 +233,8 @@
                                 timeout: 10000,
                                 headers: { 'Content-Type': 'application/json', "apitoken": c('/Order/buycar_query') },
                                 success: function (data) {
-                                    mui.alert(data.message, "支付信息", function () {
-                                        waiting.close();
+                                    waiting.close();
+                                    mui.alert(data.info, "支付信息", function () {
                                         jump_to_order();
                                     })
                                 },
@@ -250,13 +251,14 @@
                                 timeout: 10000,
                                 headers: { 'Content-Type': 'application/json', "apitoken": c('/Order/buycar_query') },
                                 success: function (data) {
-                                    mui.alert(data.message, "支付信息", function () {
-                                        waiting.close();
+                                    waiting.close();
+                                    mui.alert(data.info, "支付信息", function () {
                                         jump_to_order();
                                     })
                                 },
                                 error: function (xhr, type, errorThrown) {
                                     //异常处理；
+                                    waiting.close();
                                     console.log(type);
                                 }
                             });
@@ -284,8 +286,8 @@
                                 timeout: 10000,
                                 headers: { 'Content-Type': 'application/json', "apitoken": c('/Order/buycar_query') },
                                 success: function (data) {
-                                    mui.alert(data.message, "支付信息", function () {
-                                        waiting.close();
+                                    waiting.close();
+                                    mui.alert(data.info, "支付信息", function () {
                                         jump_to_order();
                                     })
                                 },
@@ -303,8 +305,8 @@
                                 timeout: 10000,
                                 headers: { 'Content-Type': 'application/json', "apitoken": c('/Order/buycar_query') },
                                 success: function (data) {
-                                    mui.alert(data.message, "支付信息", function () {
-                                        waiting.close();
+                                    waiting.close();
+                                    mui.alert(data.info, "支付信息", function () {
                                         jump_to_order();
                                     })
                                 },

@@ -93,10 +93,10 @@
             </div>
             <div class="mui-slider-group">
                 <div id="item1" class="mui-slider-item mui-control-content mui-active">
-                    <div id="scroll1" class="mui-scroll-wrapper">
+                    <div class="mui-scroll-wrapper">
                         <div class="mui-scroll">
                             <div class="mui-table-view">
-                                <div class="shopping-mall-good-list" v-for="item in good1" v-bind:id="item.goods_id" @tap="jump_to_good_detail(item.goods_id)">
+                                <div class="shopping-mall-good-list" v-for="item in good1.good" v-bind:id="item.goods_id" @tap="jump_to_good_detail(item.goods_id)">
                                     <div class="left">
                                         <img v-bind:src="http_url+item.pic" alt="">
                                     </div>
@@ -109,10 +109,10 @@
                                         </div>
                                         <div class="right-bottom clearfloat">
                                             <div class="float-left">
-                                                成交量
-                                                <strong>
-                                                    5468
-                                                </strong>
+                                                <!-- 库存
+                                                            <strong>
+                                                                {{item.sore}}
+                                                            </strong> -->
                                             </div>
                                             <div class="float-right buy-now">
                                                 立即购买
@@ -128,7 +128,7 @@
                     <div class="mui-scroll-wrapper">
                         <div class="mui-scroll">
                             <div class="mui-table-view">
-                                <div class="shopping-mall-good-list" v-for="item in good2" v-bind:id="item.goods_id" @tap="jump_to_good_detail(item.goods_id)">
+                                <div class="shopping-mall-good-list" v-for="item in good2.good" v-bind:id="item.goods_id" @tap="jump_to_good_detail(item.goods_id)">
                                     <div class="left">
                                         <img v-bind:src="http_url+item.pic" alt="">
                                     </div>
@@ -141,10 +141,10 @@
                                         </div>
                                         <div class="right-bottom clearfloat">
                                             <div class="float-left">
-                                                成交量
-                                                <strong>
-                                                    5468
-                                                </strong>
+                                                <!-- 成交量
+                                                            <strong>
+                                                                5468
+                                                            </strong> -->
                                             </div>
                                             <div class="float-right buy-now">
                                                 立即购买
@@ -159,90 +159,99 @@
                 <div id="item3" class="mui-slider-item mui-control-content">
                     <div class="mui-scroll-wrapper">
                         <div class="mui-scroll">
-                            <div class="shopping-mall-good-list" v-for="item in good3" v-bind:id="item.goods_id" @tap="jump_to_good_detail(item.goods_id)">
-                                <div class="left">
-                                    <img v-bind:src="http_url+item.pic" alt="">
-                                </div>
-                                <div class="right">
-                                    <div class="right-top">
-                                        {{item.goods_name}}
+                            <div class="mui-table-view">
+                                <div class="shopping-mall-good-list" v-for="item in good3.good" v-bind:id="item.goods_id" @tap="jump_to_good_detail(item.goods_id)">
+                                    <div class="left">
+                                        <img v-bind:src="http_url+item.pic" alt="">
                                     </div>
-                                    <div class="center">
-                                        ￥{{item.shop_price}}
-                                    </div>
-                                    <div class="right-bottom clearfloat">
-                                        <div class="float-left">
-                                            成交量
-                                            <strong>
-                                                5468
-                                            </strong>
+                                    <div class="right">
+                                        <div class="right-top">
+                                            {{item.goods_name}}
                                         </div>
-                                        <div class="float-right buy-now">
-                                            立即购买
+                                        <div class="center">
+                                            ￥{{item.shop_price}}
+                                        </div>
+                                        <div class="right-bottom clearfloat">
+                                            <div class="float-left">
+                                                <!-- 成交量
+                                                        <strong>
+                                                            5468
+                                                        </strong> -->
+                                            </div>
+                                            <div class="float-right buy-now">
+                                                立即购买
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
                 <div id="item4" class="mui-slider-item mui-control-content">
                     <div class="mui-scroll-wrapper">
                         <div class="mui-scroll">
-                            <div class="shopping-mall-good-list" v-for="item in good4" v-bind:id="item.goods_id" @tap="jump_to_good_detail(item.goods_id)">
-                                <div class="left">
-                                    <img v-bind:src="http_url+item.pic" alt="">
-                                </div>
-                                <div class="right">
-                                    <div class="right-top">
-                                        {{item.goods_name}}
+                            <div class="mui-table-view">
+                                <div class="shopping-mall-good-list" v-for="item in good4.good" v-bind:id="item.goods_id" @tap="jump_to_good_detail(item.goods_id)">
+                                    <div class="left">
+                                        <img v-bind:src="http_url+item.pic" alt="">
                                     </div>
-                                    <div class="center">
-                                        ￥{{item.shop_price}}
-                                    </div>
-                                    <div class="right-bottom clearfloat">
-                                        <div class="float-left">
-                                            成交量
-                                            <strong>
-                                                5468
-                                            </strong>
+                                    <div class="right">
+                                        <div class="right-top">
+                                            {{item.goods_name}}
                                         </div>
-                                        <div class="float-right buy-now">
-                                            立即购买
+                                        <div class="center">
+                                            ￥{{item.shop_price}}
+                                        </div>
+                                        <div class="right-bottom clearfloat">
+                                            <div class="float-left">
+                                                <!-- 成交量
+                                                                    <strong>
+                                                                        5468
+                                                                    </strong> -->
+                                            </div>
+                                            <div class="float-right buy-now">
+                                                立即购买
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
                 <div id="item5" class="mui-slider-item mui-control-content">
                     <div class="mui-scroll-wrapper">
                         <div class="mui-scroll">
-                            <div class="shopping-mall-good-list" v-for="item in good5" v-bind:id="item.goods_id" @tap="jump_to_good_detail(item.goods_id)">
-                                <div class="left">
-                                    <img v-bind:src="http_url+item.pic" alt="">
-                                </div>
-                                <div class="right">
-                                    <div class="right-top">
-                                        {{item.goods_name}}
+                            <div class="mui-table-view">
+                                <div class="shopping-mall-good-list" v-for="item in good5.good" v-bind:id="item.goods_id" @tap="jump_to_good_detail(item.goods_id)">
+                                    <div class="left">
+                                        <img v-bind:src="http_url+item.pic" alt="">
                                     </div>
-                                    <div class="center">
-                                        ￥{{item.shop_price}}
-                                    </div>
-                                    <div class="right-bottom clearfloat">
-                                        <div class="float-left">
-                                            成交量
-                                            <strong>
-                                                5468
-                                            </strong>
+                                    <div class="right">
+                                        <div class="right-top">
+                                            {{item.goods_name}}
                                         </div>
-                                        <div class="float-right buy-now">
-                                            立即购买
+                                        <div class="center">
+                                            ￥{{item.shop_price}}
+                                        </div>
+                                        <div class="right-bottom clearfloat">
+                                            <div class="float-left">
+                                                <!-- 成交量
+                                                                    <strong>
+                                                                        5468
+                                                                    </strong> -->
+                                            </div>
+                                            <div class="float-right buy-now">
+                                                立即购买
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -256,56 +265,36 @@
     <script src="../js/mui.pullToRefresh.js"></script>
     <script src="../js/mui.pullToRefresh.material.js"></script>
     <script>
-        // mui.init({
-        //     pullRefresh: {
-        //         container: ".refreshContainer",//待刷新区域标识，querySelector能定位的css选择器均可，比如：id、.class等
-        //         up: {
-        //             height: 50,//可选.默认50.触发上拉加载拖动距离
-        //             contentrefresh: "正在加载...",//可选，正在加载状态时，上拉加载控件上显示的标题内容
-        //             contentnomore: '没有更多数据了',//可选，请求完毕若没有更多数据时显示的提醒内容；
-        //             callback: pull_up_refresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
-        //         }
-        //     }
-        // })
-        mui.init();
-        // (function ($) {
-        //     //阻尼系数
-        //     var deceleration = mui.os.ios ? 0.003 : 0.0009;
-        //     $('.mui-scroll-wrapper').scroll({
-        //         bounce: false,
-        //         indicators: true, //是否显示滚动条
-        //         deceleration: deceleration
-        //     });
-        //     $.ready(function () {
-        //         //循环初始化所有下拉刷新，上拉加载。
-        //         $.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function (index, pullRefreshEl) {
-        //             $(pullRefreshEl).pullToRefresh({
-        //                 down: {
-        //                     callback: function () {
-        //                         var self = this;
-        //                         setTimeout(function () {
-        //                             console.log("123456");
-        //                             // var ul = self.element.querySelector('.mui-table-view');
-        //                             // ul.insertBefore(createFragment(ul, index, 10, true), ul.firstChild);
-        //                             // self.endPullDownToRefresh();
-        //                         }, 1000);
-        //                     }
-        //                 },
-        //                 up: {
-        //                     callback: function () {
-        //                         var self = this;
-        //                         console.log("laqu");
-        //                         // setTimeout(function() {
-        //                         // 	var ul = self.element.querySelector('.mui-table-view');
-        //                         // 	ul.appendChild(createFragment(ul, index, 5));
-        //                         // 	self.endPullUpToRefresh();
-        //                         // }, 1000);
-        //                     }
-        //                 }
-        //             });
-        //         });
-        //     });
-        // })(mui);
+        (function ($) {
+            //阻尼系数
+            $.ready(function () {
+                //循环初始化所有下拉刷新，上拉加载。
+                $.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function (index, pullRefreshEl) {
+                    $(pullRefreshEl).pullToRefresh({
+                        up: {
+                            callback: pull_up_refresh
+                        }
+                    });
+                });
+            });
+        })(mui);
+        var vm = new Vue({
+            el: "#container",
+            data: {
+                good1: { good: [], page: 2 },
+                good2: { good: [], page: 2 },
+                good3: { good: [], page: 2 },
+                good4: { good: [], page: 2 },
+                good5: { good: [], page: 2 },
+                classification: [],
+            }
+        })
+        var deceleration = mui.os.ios ? 0.003 : 0.0009;
+        mui('.mui-scroll-wrapper').scroll({
+            bounce: false,
+            indicators: true, //是否显示滚动条
+            deceleration: deceleration
+        });
         //第一次获取数据
         mui.ajax(http_url + '/api.php/Mall/index?p=1&cat_id=0', {
             dataType: 'json',
@@ -313,30 +302,23 @@
             timeout: 10000,
             headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Mall/index'), },
             success: function (data) {
-                vm.good1 = data.data.list;
+                console.log(JSON.stringify(data.data.list));
+                nowId = 0;
+                vm.good1.good = data.data.list;
+                nowSelectClass = vm.good1;
                 vm.classification = data.data.cat_list;
             },
             error: function (xhr, type, errorThrown) {
 
             }
         });
-        var vm = new Vue({
-            el: "#container",
-            data: {
-                good1: [],
-                good2: [],
-                good3: [],
-                good4: [],
-                good5: [],
-                classification: [],
-            }
-        })
+
         mui.plusReady(function () {
 
         })
-        mui(".mui-scroll-wrapper").scroll({
-            deceleration: 0.0005
-        })
+        // mui(".mui-scroll-wrapper").scroll({
+        //     deceleration: 0.0005
+        // })
         var gallery = mui(".mui-slider");
         gallery.slider({
             interval: 5000 //自动轮播周期，若为0则不自动播放，默认为0；
@@ -347,8 +329,10 @@
         })
         function change_list(index) {
             slid_list.slider().gotoItem(index);
-            if (vm.classification[index].id) {
-                get_goods(index + 2, vm.classification[index].id);
+            if (index == 0) {
+                get_goods(1, 0);
+            } else {
+                get_goods(index, vm.classification[index - 1].id)
             }
         }
         mui(".shopping-mall-good-list").on("tap", ".buy-now", function () {
@@ -361,30 +345,33 @@
         // slider监听
         document.querySelector('#slider').addEventListener('slide', function (event) {
             var num = event.detail.slideNumber;
-            if (vm.classification[num - 1].id) {
+            if (num > 0) {
                 get_goods(num + 1, vm.classification[num - 1].id);
+            } else {
+                get_goods(1, 0)
             }
         });
         var nowId = 1;    //当前id
         var nowData = 1;    //当前数据
         function get_goods(index, id) {
             var goods = [];
-            nowPage = id;
+            nowId = id;
+            nowData = index;
             switch (index) {
                 case 1:
-                    goods = vm.good1;
+                    goods = vm.good1.good;
                     break;
                 case 2:
-                    goods = vm.good2;
+                    goods = vm.good2.good;
                     break;
                 case 3:
-                    goods = vm.good3;
+                    goods = vm.good3.good;
                     break;
                 case 4:
-                    goods = vm.good4;
+                    goods = vm.good4.good;
                     break;
                 case 5:
-                    goods = vm.good5;
+                    goods = vm.good5.good;
                     break;
             }
             if (goods.length >= 1) {
@@ -398,19 +385,24 @@
                 success: function (data) {
                     switch (index) {
                         case 1:
-                            vm.good1 = data.data.list;
+                            vm.good1.good = data.data.list;
+                            nowSelectClass = vm.good1;
                             break;
                         case 2:
-                            vm.good2 = data.data.list;
+                            vm.good2.good = data.data.list;
+                            nowSelectClass = vm.good2;
                             break;
                         case 3:
-                            vm.good3 = data.data.list;
+                            vm.good3.good = data.data.list;
+                            nowSelectClass = vm.good3;
                             break;
                         case 4:
-                            vm.good4 = data.data.list;
+                            vm.good4.good = data.data.list;
+                            nowSelectClass = vm.good4;
                             break;
                         case 5:
-                            vm.good5 = data.data.list;
+                            vm.good5.good = data.data.list;
+                            nowSelectClass = vm.good5;
                             break;
                     }
 
@@ -432,13 +424,11 @@
             })
 
         };
-        var page = 1;
-        var pull = document.querySelector(".refreshContainer");
-        var num = 0;
+        var page = 2;
+        var nowSelectClass;                 //当前选择的商品分类
         function pull_up_refresh() {
-            num++;
-            console.log("这个加载了几次" + num);
-            mui.ajax(http_url + '/api.php/Mall/index?p=' + page + '&cat_id=' + nowId, {
+            var self = this;
+            mui.ajax(http_url + '/api.php/Mall/index?p=' + nowSelectClass.page + '&cat_id=' + nowId, {
                 dataType: 'json',
                 type: 'get',
                 timeout: 10000,
@@ -447,21 +437,27 @@
                     if (data.data.list.length > 0) {
                         switch (nowData) {
                             case 1:
-                                vm.good1 = vm.good1.concat(data.data.list);
+                                vm.good1.good = vm.good1.good.concat(data.data.list);
+                                vm.good1.page++;
                                 break;
                             case 2:
-                                vm.good2 = vm.good1.concat(data.data.list);
+                                vm.good2.good = vm.good2.good.concat(data.data.list);
+                                vm.good2.page++;
                                 break;
                             case 3:
-                                vm.good3 = vm.good1.concat(data.data.list);
+                                vm.good3.good = vm.good2.good.concat(data.data.list);
+                                vm.good3.page++;
                                 break;
                             case 4:
-                                vm.good4 = vm.good1.concat(data.data.list);
+                                vm.good4.good = vm.good4.good.concat(data.data.list);
+                                vm.good4.page++;
                                 break;
                             case 5:
-                                vm.good5 = vm.good1.concat(data.data.list);
+                                vm.good5.good = vm.good5.good.concat(data.data.list);
+                                vm.good5.page++;
                                 break;
                         }
+                        self.endPullUpToRefresh();
                     } else {
                     }
                 },
@@ -469,7 +465,6 @@
 
                 }
             })
-            this.endPullupToRefresh(false);
         }
     </script>
 </body>

@@ -80,12 +80,26 @@
                                     <div class="iconfont icon-jia1" @tap="add_num(good)">
 
                                     </div>
-                                    <div class="buy-number-input">
-                                        {{good.goods_num}}
-                                    </div>
+                                    <input v-bind:value="good.goods_num" disabled="disabled" class="buy-number-input" type="text">
                                     <div class="iconfont icon-jian" @tap="remove_num(good)">
 
                                     </div>
+
+
+                                    <!-- 
+                                    <div class="number">
+                                        <div class="add" @tap="add_num(good)">
+                                            <span class="mui-icon mui-icon-plusempty">
+
+                                            </span>
+                                        </div>
+                                       
+                                        <div class="remove" @tap="remove_num(good)">
+                                            <span>
+                                                －
+                                            </span>
+                                        </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>

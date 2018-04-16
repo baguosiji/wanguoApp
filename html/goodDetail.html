@@ -42,10 +42,10 @@
         <div class="mui-scroll-wrapper">
             <div class="mui-scroll">
                 <div class="mui-slider">
-                    <div class="mui-slider-group" style="height:10rem;width:10rem">
-                        <div class="mui-slider-item" v-for="img in goodMessage.goods_images">
+                    <div class="mui-slider-group" style="height:10rem;width:10rem;">
+                        <div class="mui-slider-item">
                             <a href="#">
-                                <img v-bind:src="http_url+img.pic" />
+                                <img v-bind:src="http_url+goodMessage.pic" />
                             </a>
                         </div>
                     </div>
@@ -139,8 +139,8 @@
                         商品信息
                     </div>
                 </div>
-                <div>
-                    <img v-for="img in goodMessage.goods_images" v-bind:src="http_url+img.pic" style="width: 10rem;height: 100%" alt="">
+                <div v-bind:html="goodMessage.goods_content">
+                    <!-- <img v-for="img in goodMessage.goods_images" v-bind:src="http_url+img.pic" style="width: 10rem;height: 100%" alt=""> -->
                 </div>
                 <div id="good-message-list">
 
@@ -149,8 +149,8 @@
         </div>
         <div class="bottom-nav">
             <div class="left">
-                <div>
-                    <p>
+                <div @tap="call_serve()">
+                    <p style="padding-top: .1rem">
                         <span class="iconfont icon-kefu font"></span>
                     </p>
                     <p>
@@ -158,7 +158,7 @@
                     </p>
                 </div>
                 <div @tap="collections($event)" id="collection">
-                    <p>
+                    <p style="padding-top: .1rem">
                         <span class="iconfont icon-shoucang1 font"></span>
                     </p>
                     <p class="text">
@@ -274,6 +274,7 @@
                 timeout: 10000,
                 headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Mall/details') },
                 success: function (data) {
+                    console.log(JSON.stringify(data.data.info));
                     vm.goodMessage = data.data.info;
                     firstImage = data.data.info.goods_images[0];
                     lastImage = data.data.info.goods_images.pop();
@@ -345,7 +346,9 @@
                 vm.buy_num--;
             }
         })
-
+        function call_serve() {
+            mui.alert("请联系客服：400-0998-058", "万国提示");
+        }
         //点击选择收藏商品
         function collections(e) {
             var eTarget = e.currentTarget;
@@ -510,6 +513,9 @@
                 })
             }
         }
+
+
+
     </script>
 </body>
 

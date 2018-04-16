@@ -73,7 +73,8 @@
       "html/payment.html",
       "html/active1.html",
       "html/active3.html",
-      "html/active2.html"
+      "html/active2.html",
+      "html/cartDetail.html"
     ],
     "resources": []
   },
@@ -93,36 +94,43 @@
     "refer": [
       "html/sellCartMessage.html",
       "html/cartAssessment.html"
-    ]
+    ],
+    "resources": []
   },
   "html/login.html": {
     "refer": [
       "html/changePassword.html",
       "html/register.html",
       "index.html"
-    ]
+    ],
+    "resources": []
   },
   "html/news.html": {
     "refer": [
       "html/newsMessage.html"
-    ]
+    ],
+    "resources": []
   },
   "html/settlementPage.html": {
     "refer": [
       "html/paymentMessage.html"
-    ]
+    ],
+    "resources": []
   },
   "html/order/all.html": {
     "refer": [
       "html/selectService.html",
-      "html/goodDetail.html"
-    ]
+      "html/goodDetail.html",
+      "html/payment.html"
+    ],
+    "resources": []
   },
   "html/selectService.html": {
     "refer": [
       "html/applicationForRefund.html",
       "html/applicationForReturn.html"
-    ]
+    ],
+    "resources": []
   },
   "html/index.html": {
     "resources": [
@@ -140,27 +148,38 @@
   "html/shoppingCart.html": {
     "refer": [
       "html/settlementPage.html"
-    ]
+    ],
+    "resources": []
   },
   "html/order/pendingPayment.html": {
     "refer": [
       "html/payment.html",
       "html/goodDetail.html"
-    ]
+    ],
+    "resources": []
   },
   "html/order/evaluate.html": {
     "refer": [
       "html/publicationEvaluation.html"
-    ]
+    ],
+    "resources": []
   },
   "html/order/pendingdelivery.html": {
     "refer": [
       "html/goodDetail.html"
-    ]
+    ],
+    "resources": []
   },
   "html/myCollection.html": {
     "refer": [
       "html/goodDetail.html"
-    ]
+    ],
+    "resources": []
+  },
+  "html/paymentMessage.html": {
+    "refer": [
+      "html/payment.html"
+    ],
+    "resources": []
   }
 }

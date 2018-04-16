@@ -97,7 +97,8 @@
       text-align: center;
       img {
         vertical-align: middle;
-        height: 1.7rem;
+        height: 1.8rem;
+        width: 1.8rem;
       }
     }
     .right {
@@ -214,6 +215,46 @@
   height: 1rem;
   align-items: center;
   flex-direction: row-reverse;
+  .number {
+    height: 1rem;
+    width: 3rem;
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    .remove {
+      background-color: #e6e5e3;
+      width: 0.8rem;
+      height: 0.8rem;
+      text-align: center;
+      line-height: 0.8rem;
+      border-radius: 0.1rem;
+      span {
+        font-size: 0.5rem;
+      }
+    }
+    .buy-number-input {
+      border: 0;
+      height: 0.8rem;
+      width: 0.9rem;
+      margin: 0;
+      background-color: #e6e5e3;
+      padding: 0 3px;
+      margin: 0 1px;
+      text-align: center;
+    }
+    .add {
+      background-color: #e6e5e3;
+      width: 0.8rem;
+      height: 0.8rem;
+      text-align: center;
+      line-height: 0.8rem;
+      border-radius: 0.1rem;
+      .mui-icon {
+        font-size: 0.5rem;
+      }
+    }
+  }  
+  
   div {
     width: 0.8rem;
     height: 0.8rem;

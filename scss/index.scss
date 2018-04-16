@@ -3,10 +3,10 @@
   z-index: 10;
   right: 0;
   left: 0;
-  height: 44px;
+  height: 45px;
   width: 100%;
   display: flex;
-  background-color: #39ace5;
+  background-color: #20b5ff;
   padding: 0 0.3rem;
   border-bottom: 0;
   // -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.85);
@@ -16,7 +16,7 @@
   .title-center {
     flex: 1;
     text-align: center;
-    line-height: 44px;
+    line-height: 45px;
     font-size: 16px;
     color: #fff;
     .title-input {
@@ -39,25 +39,31 @@
     }
   }
   .title-left {
-    width: 1.5rem;
+    width: 2rem;
     height: 100%;
+    line-height:45px;
     text-align: left;
     display: flex;
-    div {
-      height: 44px;
-      line-height: 44px;
-      text-align: left;
-      span {
-        font-size: .36rem;
-        margin-right: 5px;
-        color: #fff;
-      }
+    img{
+      vertical-align: middle;
+      width: 1.5rem;
+      height: 30px;
     }
+    // div {
+    //   height: 44px;
+    //   line-height: 45px;
+    //   text-align: left;
+    //   span {
+    //     font-size: .36rem;
+    //     margin-right: 5px;
+    //     color: #fff;
+    //   }
+    // }
   }
   .title-right {
-    width: 1.5rem;
+    width: 2rem;
     height: 100%;
-    line-height: 44px;
+    line-height: 45px;
     text-align: right;
     span {
       color: #fff;

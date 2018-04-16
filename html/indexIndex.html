@@ -59,7 +59,7 @@
             <div class="category">
                 <div class="every-category">
                     <div class="bgk" style="background-image: url(../img/ellipse8.png)">
-                        <img src="../img/car.png" />
+                        <img style="height: 0.5rem" src="../img/car.png" />
                     </div>
                     <div class="text">我要买车</div>
                 </div>
@@ -79,7 +79,7 @@
                     <div class="bgk">
                         <img src="../img/credit.png" />
                     </div>
-                    <div class="text">最新活动</div>
+                    <div class="text">资讯中心</div>
                 </div>
                 <div class="every-category">
                     <div class="bgk" style="background-image: url(../img/ellipse7.png)">
@@ -164,17 +164,23 @@
                 </div>
                 <div class="content">
                     <div class="every-last-boutique" @tap="jump_open_new_page('active1.html')">
-                        <img src="../img/act1.png" alt="">
+                        <div>
+                            <img src="../img/act1.png" alt="">
+                        </div>
                         <p style="color: #000;">推荐好车源</p>
                         <p>优惠好礼等你拿</p>
                     </div>
                     <div class="every-last-boutique" @tap="jump_open_new_page('active2.html')">
-                        <img src="../img/act2.png" alt="">
+                        <div>
+                            <img src="../img/act2.png" alt="">
+                        </div>
                         <p style="color: #000;">平台买二手车</p>
                         <p>送超值大礼包</p>
                     </div>
                     <div class="every-last-boutique" @tap="jump_open_new_page('active3.html')">
-                        <img src="../img/act3.png" alt="">
+                        <div style="height:2.9rem;line-height: 2.9rem;">
+                            <img src="../img/act3.png" style="height: 1.5rem;vertical-align: middle;" alt="">
+                        </div>
                         <p style="color: #000;">平台买二手车</p>
                         <p>1元抵500</p>
                     </div>
@@ -203,7 +209,7 @@
                 </div>
             </div>
             <div class="all">
-                <div class="car-money">
+                <!-- <div class="car-money">
                     <div class="car-money-common">
                         <img src="../img/index01.png" alt="">
                         <div class="car-money-common-text">大平台有保障</div>
@@ -225,16 +231,18 @@
                             万国车险
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- 商品分区头部 -->
                 <div class="good-classification">
                     <img src="../img/fire.png" alt="">
                     <div style="font-size: .5rem">人气推荐</div>
                     <div class="more clearfloat">
                         <div class="float-left">
-                            更多
+                            <span>更多</span>
                         </div>
-                        <img src="../img/right.png" alt="">
+                        <div class="float-left">
+                            <img src="../img/right.png" alt="">
+                        </div>
                     </div>
                 </div>
                 <!-- 商品列表区域 -->
