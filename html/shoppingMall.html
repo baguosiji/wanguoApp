@@ -302,7 +302,6 @@
             timeout: 10000,
             headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Mall/index'), },
             success: function (data) {
-                console.log(JSON.stringify(data.data.list));
                 nowId = 0;
                 vm.good1.good = data.data.list;
                 nowSelectClass = vm.good1;
@@ -457,8 +456,9 @@
                                 vm.good5.page++;
                                 break;
                         }
-                        self.endPullUpToRefresh();
+                        self.endPullUpToRefresh(false);
                     } else {
+                        self.endPullUpToRefresh(true)
                     }
                 },
                 error: function (xhr, type, errorThrown) {

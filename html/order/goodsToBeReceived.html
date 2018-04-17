@@ -20,6 +20,9 @@
         <div class="mui-scroll" id="app">
             <!--这里放置真实显示的DOM内容-->
             <div class="content">
+                <div class="no-data" v-if="orders.length==0">
+                    <img src="../../img/nocollect.png" alt="">
+                </div>
                 <div class="every-last-order clearfloat" v-for="order in orders">
                     <div class="shop-message clearfloat">
                         <div class="float-left">
@@ -144,6 +147,7 @@
                         count++;
                         vm.orders = vm.orders.concat(data.data);
                         if (data.data.length == 0) {
+                            mui('#pullrefresh').pullRefresh().disablePullupToRefresh()
                             mui('#pullrefresh').pullRefresh().endPullupToRefresh(true)
                         } else {
                             mui('#pullrefresh').pullRefresh().endPullupToRefresh(false)

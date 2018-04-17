@@ -44,6 +44,9 @@
         <div class="mui-scroll-wrapper" id="pullrefresh">
             <div class="mui-scroll">
                 <div>
+                    <div class="no-data" v-if="goods.length==0">
+                        <img src="../img/nocollect.png" alt="">
+                    </div>
                     <div class="every-last-good" v-for="good in goods">
                         <!-- <div class="shop-name">
                                                 <img class="select-shop" src="../img/selectFalse.png" alt="">
@@ -131,7 +134,6 @@
             pullRefresh: {
                 container: '#pullrefresh',
                 up: {
-                    auto: true,
                     contentrefresh: '正在加载...',
                     callback: pullupRefresh
                 }
@@ -161,9 +163,10 @@
                     vm.goods = vm.goods.concat(data.data);
                     page++;
                     if (data.data.length == 0) {
-                        mui('#pullrefresh').pullRefresh().endPullupToRefresh(true)
+                        mui('#pullrefresh').pullRefresh().disablePullupToRefresh();
+                        mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
                     } else {
-                        mui('#pullrefresh').pullRefresh().endPullupToRefresh(false)
+                        mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
                     }
                 } else {
                     toast(data.message);
@@ -175,7 +178,7 @@
         })
 
 
-        var page = 1;
+        var page = 2;
         // 下拉刷新
         function pullupRefresh() {
             //当前页码
@@ -311,45 +314,49 @@
                 lastNumber.push(vm.mydata[i].number);
                 lastBuy.push(vm.mydata[i].delect);
             }
-            mui.openWindow({
-                url: "settlementPage.html",
-                id: "settlementPage.html",
-                extras: {
-                    goodId: lastBuy,
-                    goodNum: lastNumber
-                }
-            })
+            if (lastNumber.length > 0) {
+                mui.openWindow({
+                    url: "settlementPage.html",
+                    id: "settlementPage.html",
+                    extras: {
+                        goodId: lastBuy,
+                        goodNum: lastNumber
+                    }
+                })
+            }
         }
         function delect_good() {
             var delect = [];
             for (var i = 0; i < vm.mydata.length; i++) {
                 delect.push(vm.mydata[i].delect);
             }
-            mui.confirm("确认删除？", "您正在进行删除操作", ['确认', '取消'], function (e) {
-                if (e.index == 0) {
-                    mui.ajax(http_url + "/api.php/User/delcart?ids=" + delect + "&token=" + user_all_message.token, {
-                        dataType: 'json',
-                        type: 'get',
-                        timeout: 10000,
-                        headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/User/delcart'), },
-                        success: function (data) {
-                            if (data.status == 200) {
-                                toast(data.message);
-                                page = 1;
-                                vm.goods = [];
-                                pullupRefresh();
-                            } else {
-                                toast(data.message);
+            if (delect.length > 0) {
+                mui.confirm("确认删除？", "您正在进行删除操作", ['取消', '确认'], function (e) {
+                    if (e.index == 1) {
+                        mui.ajax(http_url + "/api.php/User/delcart?ids=" + delect + "&token=" + user_all_message.token, {
+                            dataType: 'json',
+                            type: 'get',
+                            timeout: 10000,
+                            headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/User/delcart'), },
+                            success: function (data) {
+                                if (data.status == 200) {
+                                    toast(data.message);
+                                    page = 1;
+                                    vm.goods = [];
+                                    pullupRefresh();
+                                } else {
+                                    toast(data.message);
+                                }
+                            },
+                            error: function (xhr, type, errorThrown) {
+                                console.log(xhr)
                             }
-                        },
-                        error: function (xhr, type, errorThrown) {
-                            console.log(xhr)
-                        }
-                    })
-                } else {
+                        })
+                    } else {
 
-                }
-            })
+                    }
+                })
+            }
         }
         //购买数量加
         function add_num(number) {

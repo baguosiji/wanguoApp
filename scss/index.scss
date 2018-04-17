@@ -6,7 +6,7 @@
   height: 45px;
   width: 100%;
   display: flex;
-  background-color: #20b5ff;
+  background-color: #39ace5;
   padding: 0 0.3rem;
   border-bottom: 0;
   // -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.85);
@@ -28,7 +28,7 @@
         background-color: #fff;
         font-size: 14px;
         border-radius: 60px;
-        
+
         vertical-align: middle;
         color: #333333;
         margin: 0;
@@ -41,13 +41,13 @@
   .title-left {
     width: 2rem;
     height: 100%;
-    line-height:45px;
+    line-height: 45px;
     text-align: left;
     display: flex;
-    img{
+    img {
       vertical-align: middle;
       width: 1.5rem;
-      height: 30px;
+      height: 25px;
     }
     // div {
     //   height: 44px;
@@ -61,17 +61,17 @@
     // }
   }
   .title-right {
-    width: 2rem;
+    width: 1rem;
     height: 100%;
     line-height: 45px;
     text-align: right;
     span {
       color: #fff;
-      font-size: .5rem;
+      font-size: 0.5rem;
     }
   }
 }
 // 修改mui-icon字体大小
-.mui-bar .mui-icon{
+.mui-bar .mui-icon {
   font-size: 20px;
 }

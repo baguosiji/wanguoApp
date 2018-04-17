@@ -1,31 +1,21 @@
 //筛选框样式
 .screen {
-  height: 1rem;
   width: 100%;
-  // align-items: center;
   display: flex;
+  height: 0.7rem;
+  align-items: center;
   div {
     flex: 1;
+    padding-top: 0.15rem;
     display: flex;
-    line-height: 1rem;
     text-align: center;
     font-size: 0.38rem;
     justify-content: center;
+    align-items: center;
     strong {
       font-size: 0.36rem;
       font-weight: bold;
-    }
-    span {
-      flex: 1.5;
-    }
-    .screen-click {
-      line-height: 1rem;
-      display: flex;
-      width: 0.6rem;
-      align-items: center;
-      text-align: left;
-      flex-direction: column;
-      height: 1rem;
+      margin-left: 0.1rem;
     }
   }
 }

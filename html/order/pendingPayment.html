@@ -19,6 +19,9 @@
     <div class="mui-scroll-wrapper" id="pullrefresh">
         <div class="mui-scroll" id="app">
             <div class="content">
+                <div class="no-data" v-if="orders.length==0">
+                    <img src="../../img/nocollect.png" alt="">
+                </div>
                 <div class="every-last-order clearfloat" v-for="order in orders">
                     <div class="shop-message clearfloat">
                         <div class="float-left">
@@ -102,6 +105,7 @@
             timeout: 10000,
             headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/User/order'), },
             success: function (data) {
+                console.log(JSON.stringify(data));
                 if (data.status == 200) {
                     vm.orders = data.data;
                 } else {
@@ -109,14 +113,9 @@
                 }
             },
             error: function (xhr, type, errorThrown) {
-
+                console.log("错误")
             }
         })
-        window.onload = function () {
-            mui.plusReady(function () {
-
-            });
-        }
         // mui('.mui-scroll-wrapper').scroll({
         //     deceleration: 0.0005, //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
         //     indicators: false
@@ -140,6 +139,7 @@
                         count++;
                         vm.orders = vm.orders.concat(data.data);
                         if (data.data.length == 0) {
+                            mui('#pullrefresh').pullRefresh().disablePullupToRefresh()
                             mui('#pullrefresh').pullRefresh().endPullupToRefresh(true)
                         } else {
                             mui('#pullrefresh').pullRefresh().endPullupToRefresh(false)

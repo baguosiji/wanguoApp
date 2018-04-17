@@ -236,7 +236,7 @@
                 <div class="good-classification">
                     <img src="../img/fire.png" alt="">
                     <div style="font-size: .5rem">人气推荐</div>
-                    <div class="more clearfloat">
+                    <div class="more clearfloat" @tap="jump_to_shoppingMall()">
                         <div class="float-left">
                             <span>更多</span>
                         </div>
@@ -430,6 +430,9 @@
                 ck("功能尚未开通，敬请期待！");
             }
         })
+        function jump_to_shoppingMall() {
+            parent.evalJS("changeView('shoppingMall.html')")
+        }
         //跳转到新闻详情页
         function jump_to_new_detail(id) {
             mui.openWindow({

@@ -75,11 +75,11 @@
             </div>
             <div class="mui-input-row mui-radio">
                 <label>男</label>
-                <input type="radio" name="sex" value="男" v-model="sex">
+                <input type="radio" style="top: 8px;right: 12px" name="sex" value="男" v-model="sex">
             </div>
             <div class="mui-input-row mui-radio">
                 <label>女</label>
-                <input type="radio" name="sex" value="女" v-model="sex">
+                <input type="radio" style="top: 8px;right: 12px" name="sex" value="女" v-model="sex">
             </div>
         </div>
         <div id="birtady" class="common-list">
@@ -247,7 +247,7 @@
                 }
             );
             task.addFile(user_header_img.src, { key: "fileupload" });
-            task.setRequestHeader('apitoken',c('/api.php/User/upload_attachment'));
+            task.setRequestHeader('apitoken', c('/api.php/User/upload_attachment'));
             // task.addData("fileupload", user_header_img.src);
             task.start();
         }

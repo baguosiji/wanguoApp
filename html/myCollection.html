@@ -63,6 +63,11 @@
 
     .good-message>.good-price {
         color: #f50606;
+        font-size: .34rem;
+    }
+
+    .good-message>strong {
+        font-size: .32rem;
     }
 </style>
 
@@ -93,6 +98,9 @@
     <div class="mui-scroll-wrapper">
         <div class="mui-scroll" id="app">
             <div>
+                <div class="no-data" v-if="collection.length==0">
+                    <img src="../img/nocollect.png" alt="">
+                </div>
                 <div class="my-collection" v-for="item of collection" @tap="jump_to_good_detail(item.goods_id)">
                     <div class="good-img">
                         <img v-bind:src="http_url+item.goods.pic" alt="">
@@ -121,7 +129,7 @@
             deceleration: 0.0005
         })
         var page = 1;
-        mui.ajax(http_url + '/api.php/User/collect?p=' + page+"&token="+user_all_message.token,{
+        mui.ajax(http_url + '/api.php/User/collect?p=' + page + "&token=" + user_all_message.token, {
             dataType: 'json',
             type: 'get',
             timeout: 10000,

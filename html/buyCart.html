@@ -62,36 +62,18 @@
                 </div>
                 <div class="price" @tap="select_price()">
                     <span>价格</span>
-                    <div class="screen-click" v-if="is_price">
-                        <strong class="mui-icon mui-icon-arrowup" v-bind:class="{active:price}"></strong>
-                        <strong class="mui-icon mui-icon-arrowdown" v-bind:class="{active:!price}"></strong>
-                    </div>
-                    <div class="screen-click" v-if="!is_price">
-                        <strong class="mui-icon mui-icon-arrowup"></strong>
-                        <strong class="mui-icon mui-icon-arrowdown"></strong>
-                    </div>
+                    <strong class="mui-icon mui-icon-arrowup" v-bind:class="{active:is_price==1}"></strong>
+                    <strong class="mui-icon mui-icon-arrowdown" v-bind:class="{active:is_price==0}"></strong>
                 </div>
                 <div class="time" @tap="select_time()">
                     <span>时间</span>
-                    <div class="screen-click" v-if="is_time">
-                        <strong class="mui-icon mui-icon-arrowup" v-bind:class="{active:time}"></strong>
-                        <strong class="mui-icon mui-icon-arrowdown" v-bind:class="{active:!time}"></strong>
-                    </div>
-                    <div class="screen-click" v-if="!is_time">
-                        <strong class="mui-icon mui-icon-arrowup"></strong>
-                        <strong class="mui-icon mui-icon-arrowdown"></strong>
-                    </div>
+                    <strong class="mui-icon mui-icon-arrowup" v-bind:class="{active:is_time==1}"></strong>
+                    <strong class="mui-icon mui-icon-arrowdown" v-bind:class="{active:is_time==0}"></strong>
                 </div>
                 <div class="kilometre" @tap="select_kilometre()">
                     <span>公里</span>
-                    <div class="screen-click" v-if="is_kilometre">
-                        <strong class="mui-icon mui-icon-arrowup" v-bind:class="{active:kilometre}"></strong>
-                        <strong class="mui-icon mui-icon-arrowdown" v-bind:class="{active:!kilometre}"></strong>
-                    </div>
-                    <div class="screen-click" v-if="!is_kilometre">
-                        <strong class="mui-icon mui-icon-arrowup"></strong>
-                        <strong class="mui-icon mui-icon-arrowdown"></strong>
-                    </div>
+                    <strong class="mui-icon mui-icon-arrowup" v-bind:class="{active:is_kilometre==1}"></strong>
+                    <strong class="mui-icon mui-icon-arrowdown" v-bind:class="{active:is_kilometre==0}"></strong>
                 </div>
             </div>
             <div class="cart-region">
@@ -129,9 +111,9 @@
                 price_data: "",
                 time_data: "",
                 kilometre_data: "",
-                is_price: false,
-                is_time: false,
-                is_kilometre: false,
+                is_price: -1,
+                is_time: -1,
+                is_kilometre: -1,
                 all: true,
             }
         })
@@ -176,14 +158,15 @@
         var price_data = "";
         function select_price() {
             vm.all = false;
-            vm.is_price = true;
-            vm.is_time = false;
-            vm.is_kilometre = false;
+            vm.is_time = -1;
+            vm.is_kilometre = -1;
             vm.price = !vm.price;
             if (vm.price) {
                 pirce_data = "price-asc"
+                vm.is_price = 1;
             } else {
                 price_data = "price-desc"
+                vm.is_price = 0;
             }
             mui.ajax(http_url + '/api.php/Buycar/index?ord=' + price_data, {
                 dataType: 'json',
@@ -209,13 +192,14 @@
         function select_time() {
             vm.all = false;
             vm.time = !vm.time;
-            vm.is_price = false;
-            vm.is_time = true;
-            vm.is_kilometre = false;
-            if (vm.tiem) {
-                time_data = "bid-asc"
+            vm.is_price = -1;
+            vm.is_kilometre = -1;
+            if (vm.time) {
+                time_data = "bid-asc";
+                vm.is_time = 1;
             } else {
                 time_data = "bid-desc"
+                vm.is_time = 0;
             }
             mui.ajax(http_url + '/api.php/Buycar/index?ord=' + time_data, {
                 dataType: 'json',
@@ -240,14 +224,15 @@
         var milometre_data = "";
         function select_kilometre() {
             vm.all = false;
-            vm.is_price = false;
-            vm.is_time = false;
-            vm.is_kilometre = true;
+            vm.is_price = -1;
+            vm.is_time = -1;
             vm.kilometre = !vm.kilometre;
             if (vm.kilometre) {
-                milometre_data = "bxlc-asc"
+                milometre_data = "bxlc-asc";
+                vm.is_kilometre = 1;
             } else {
-                milometre_data = "bxlc-desc"
+                milometre_data = "bxlc-desc";
+                vm.is_kilometre = 0;
             }
             mui.ajax(http_url + '/api.php/Buycar/index?ord=' + milometre_data, {
                 dataType: 'json',
@@ -270,9 +255,9 @@
         function get_all() {
             if (vm.all) return;
             vm.all = true;
-            vm.is_price = false;
-            vm.is_time = false;
-            vm.is_kilometre = false;
+            vm.is_price = -1;
+            vm.is_time = -1;
+            vm.is_kilometre = -1;
             mui.ajax(http_url + '/api.php/Buycar/index', {
                 dataType: 'json',
                 type: 'get',

@@ -126,15 +126,14 @@
     <script src="../js/common.js"></script>
     <script src="../js/vue.min.js"></script>
     <script>
-        var channel = null;
+        var wxchannel = null;
+        var alichannel = null;
         var nowPage = null;
         mui.plusReady(function () {
             // plus.webview.get
             nowPage = plus.webview.currentWebview();
-
-            // plus.webview.hide(`settlementPage.html`);
             if (nowPage.is_cart) {
-                plus.webview.close(`paymentMessage.html`);
+                plus.webview.close('paymentMessage.html');
                 mui.ajax(http_url + '/api.php/Order/buycar_payment?token=' + user_all_message.token + '&id=' + nowPage.order_id, {
                     dataType: 'json',
                     type: 'get',
@@ -153,7 +152,7 @@
 
             } else {
                 if (plus.webview.getWebviewById('settlementPage.html')); {
-                    plus.webview.close(`settlementPage.html`);
+                    plus.webview.close('settlementPage.html');
                 }
                 nowPage.iscart ? vm.iscart = 1 : vm.iscart = 0;
                 mui.ajax(http_url + '/api.php/Order/payment?token=' + user_all_message.token + "&order_id=" + nowPage.order_id, {
@@ -173,7 +172,13 @@
                 });
 
                 plus.payment.getChannels(function (channels) {
-                    channel = channels[0];
+                    for (i in channels) {
+                        if (channels[i].id == "wxpay") {
+                            wxchannel = channels[i];
+                        } else {
+                            alichannel = channels[i];
+                        }
+                    }
                 }, function (e) {
                 });
             }
@@ -226,42 +231,16 @@
                     headers: { "apitoken": c('/api.php/Order/dopay'), },
                     timeout: 10000,
                     success: function (res) {
-                        plus.payment.request(channel, res, function (result) {
-                            mui.ajax(http_url + '/Order/buycar_query?token=' + user_all_message.token + "&out_trade_no=" + nowPage.order_id, {
-                                dataType: 'json',
-                                type: 'get',
-                                timeout: 10000,
-                                headers: { 'Content-Type': 'application/json', "apitoken": c('/Order/buycar_query') },
-                                success: function (data) {
-                                    waiting.close();
-                                    mui.alert(data.info, "支付信息", function () {
-                                        jump_to_order();
-                                    })
-                                },
-                                error: function (xhr, type, errorThrown) {
-                                    //异常处理；
-                                    console.log(type);
-                                }
-                            });
-
+                        plus.payment.request(alichannel, res, function (result) {
+                            waiting.close();
+                            mui.alert("支付成功!", "支付宝支付", function () {
+                                jump_to_order();
+                            })
                         }, function (error) {
-                            mui.ajax(http_url + '/Order/buycar_query?token=' + user_all_message.token + "&out_trade_no=" + nowPage.order_id, {
-                                dataType: 'json',
-                                type: 'get',
-                                timeout: 10000,
-                                headers: { 'Content-Type': 'application/json', "apitoken": c('/Order/buycar_query') },
-                                success: function (data) {
-                                    waiting.close();
-                                    mui.alert(data.info, "支付信息", function () {
-                                        jump_to_order();
-                                    })
-                                },
-                                error: function (xhr, type, errorThrown) {
-                                    //异常处理；
-                                    waiting.close();
-                                    console.log(type);
-                                }
-                            });
+                            waiting.close();
+                            mui.alert("支付失败!", "支付宝支付", function () {
+                                jump_to_order();
+                            })
                         });
 
                     },
@@ -278,45 +257,17 @@
                     timeout: 10000,
                     success: function (res) {
                         waiting.close();
-                        console.log(JSON.stringify(res));
-                        plus.payment.request(channel, res, function (result) {
-                            mui.ajax(http_url + '/Order/buycar_query?token=' + user_all_message.token + "&out_trade_no=" + nowPage.order_id, {
-                                dataType: 'json',
-                                type: 'get',
-                                timeout: 10000,
-                                headers: { 'Content-Type': 'application/json', "apitoken": c('/Order/buycar_query') },
-                                success: function (data) {
-                                    waiting.close();
-                                    mui.alert(data.info, "支付信息", function () {
-                                        jump_to_order();
-                                    })
-                                },
-                                error: function (xhr, type, errorThrown) {
-                                    //异常处理；
-                                    waiting.close();
-                                    console.log(type);
-                                }
-                            });
+                        plus.payment.request(wxchannel, res, function (result) {
+                            waiting.close();
+                            mui.alert("支付成功!", "微信付款", function () {
+                                jump_to_order();
+                            })
 
                         }, function (error) {
-                            mui.ajax(http_url + '/Order/buycar_query?token=' + user_all_message.token + "&out_trade_no=" + nowPage.order_id, {
-                                dataType: 'json',
-                                type: 'get',
-                                timeout: 10000,
-                                headers: { 'Content-Type': 'application/json', "apitoken": c('/Order/buycar_query') },
-                                success: function (data) {
-                                    waiting.close();
-                                    mui.alert(data.info, "支付信息", function () {
-                                        jump_to_order();
-                                    })
-                                },
-                                error: function (xhr, type, errorThrown) {
-                                    //异常处理；
-                                    waiting.close();
-                                    console.log(type);
-                                }
-                            });
-
+                            waiting.close();
+                            mui.alert("支付失败!", "微信付款", function () {
+                                jump_to_order();
+                            })
                         });
 
                     },

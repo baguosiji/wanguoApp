@@ -79,6 +79,9 @@
     <div class="mui-scroll-wrapper" id="pullrefresh">
         <div class="mui-scroll" id="app">
             <div>
+                <div class="no-data" v-if="items.length==0">
+                    <img src="../../img/nocollect.png" alt="">
+                </div>
                 <div class="every-last-evaluate" v-for="item in items">
                     <div class="user-header-name">
                         <img v-bind:src="http_url+user_all_message.headimg" alt="">
@@ -120,9 +123,9 @@
                 items: []
             }
         })
-        mui(".mui-scroll-wrapper").scroll({
-            deceleration: 0.0005
-        })
+        // mui(".mui-scroll-wrapper").scroll({
+        //     deceleration: 0.0005
+        // })
         var page = 1;
         function changeTime(time) {
             return new Date(time * 1000).format("yyyy-MM-dd");
@@ -178,9 +181,10 @@
                         vm.items = vm.items.concat(data.data);
                         page++;
                         if (data.data.length == 0) {
-                            mui('#pullrefresh').pullRefresh().endPullupToRefresh(true)
+                            mui('#pullrefresh').pullRefresh().disablePullupToRefresh();
+                            mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
                         } else {
-                            mui('#pullrefresh').pullRefresh().endPullupToRefresh(false)
+                            mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
                         }
                     } else {
                         toast(data.message);
