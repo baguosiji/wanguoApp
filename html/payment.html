@@ -140,6 +140,7 @@
                     timeout: 10000,
                     headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Order/buycar_payment'), },
                     success: function (data) {
+                        alert("这是买车");
                         if (data.status == 200) {
                             vm.order_message = data.data;
                         }
@@ -154,13 +155,14 @@
                 if (plus.webview.getWebviewById('settlementPage.html')); {
                     plus.webview.close('settlementPage.html');
                 }
-                nowPage.iscart ? vm.iscart = 1 : vm.iscart = 0;
+                nowPage.iscart ? vm.iscart = 0 : vm.iscart = 1;
                 mui.ajax(http_url + '/api.php/Order/payment?token=' + user_all_message.token + "&order_id=" + nowPage.order_id, {
                     dataType: 'json',
                     type: 'get',
                     timeout: 10000,
                     headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Order/payment'), },
                     success: function (data) {
+                        alert("这是正常商品");
                         if (data.status == 200) {
                             vm.order_message = data.data.ordinfo;
                         }
@@ -219,6 +221,7 @@
                     iscart: vm.iscart,
                 }
             }
+            alert(JSON.stringify(data));
             var waiting = plus.nativeUI.showWaiting("正在支付", { width: '120px', height: '120px' });
             if (payment == "alipay") {
                 mui.ajax(http_url + "/api.php/Order/dopay?token=" + user_all_message.token, {
@@ -257,6 +260,7 @@
                     timeout: 10000,
                     success: function (res) {
                         waiting.close();
+                        alert(JSON.stringify(res));
                         plus.payment.request(wxchannel, res, function (result) {
                             waiting.close();
                             mui.alert("支付成功!", "微信付款", function () {
