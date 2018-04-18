@@ -1,185 +1,192 @@
 {
-  "index.html": {
-    "resources": [
-      "html/indexIndex.html",
-      "html/shoppingMall.html"
-    ],
-    "refer": [
-      "html/indexIndex.html",
-      "html/my.html",
-      "html/shoppingMall.html",
-      "html/order.html",
-      "html/setting.html",
-      "html/buyCart.html"
-    ]
-  },
-  "html/order.html": {
-    "refer": [
-      "index.html",
-      "html/order/all.html",
-      "html/order/pendingPayment.html",
-      "html/order/goodsToBeReceived.html",
-      "html/order/evaluate.html",
-      "html/order/pendingdelivery.html"
-    ],
-    "resources": [
-      "html/order/all.html"
-    ]
-  },
-  "html/shoppingMall.html": {
-    "resources": [
-      "img/buyNowBg.png"
-    ],
-    "refer": [
-      "html/goodDetail.html"
-    ]
-  },
-  "html/my.html": {
-    "refer": [
-      "html/order.html",
-      "html/shoppingCart.html",
-      "html/evaluate.html",
-      "html/login.html",
-      "html/personalInformation.html",
-      "html/myCollection.html",
-      "html/centerChangePWD.html"
-    ],
-    "resources": []
-  },
-  "html/evaluate.html": {
-    "resources": [
-      "html/evaluateChild/all.html"
-    ],
-    "refer": [
-      "html/evaluateChild/all.html",
-      "html/evaluateChild/haveImage.html"
-    ]
-  },
-  "html/goodDetail.html": {
-    "refer": [
-      "html/settlementPage.html",
-      "html/paymentMessage.html"
-    ],
-    "resources": []
-  },
-  "html/indexIndex.html": {
-    "refer": [
-      "html/login.html",
-      "html/sellCart.html",
-      "html/news.html",
-      "html/goodDetail.html",
-      "html/QRCode.html",
-      "html/newsMessage.html",
-      "html/payment.html",
-      "html/active1.html",
-      "html/active3.html",
-      "html/active2.html",
-      "html/cartDetail.html"
-    ],
-    "resources": []
-  },
-  "html/buyCart.html": {
-    "refer": [
-      "html/cartDetail.html"
-    ],
-    "resources": []
-  },
-  "html/cartDetail.html": {
-    "refer": [
-      "html/paymentMessage.html"
-    ],
-    "resources": []
-  },
-  "html/sellCart.html": {
-    "refer": [
-      "html/sellCartMessage.html",
-      "html/cartAssessment.html"
-    ],
-    "resources": []
-  },
-  "html/login.html": {
-    "refer": [
-      "html/changePassword.html",
-      "html/register.html",
-      "index.html"
-    ],
-    "resources": []
-  },
-  "html/news.html": {
-    "refer": [
-      "html/newsMessage.html"
-    ],
-    "resources": []
-  },
-  "html/settlementPage.html": {
-    "refer": [
-      "html/paymentMessage.html"
-    ],
-    "resources": []
-  },
-  "html/order/all.html": {
-    "refer": [
-      "html/selectService.html",
-      "html/goodDetail.html",
-      "html/payment.html"
-    ],
-    "resources": []
-  },
-  "html/selectService.html": {
-    "refer": [
-      "html/applicationForRefund.html",
-      "html/applicationForReturn.html"
-    ],
-    "resources": []
-  },
-  "html/index.html": {
-    "resources": [
-      "html/indexIndex.html"
-    ],
-    "refer": [
-      "html/my.html",
-      "html/indexIndex.html",
-      "html/shoppingMall.html",
-      "html/buyCart.html",
-      "html/goodDetail.html",
-      "html/login.html"
-    ]
-  },
-  "html/shoppingCart.html": {
-    "refer": [
-      "html/settlementPage.html"
-    ],
-    "resources": []
-  },
-  "html/order/pendingPayment.html": {
-    "refer": [
-      "html/payment.html",
-      "html/goodDetail.html"
-    ],
-    "resources": []
-  },
-  "html/order/evaluate.html": {
-    "refer": [
-      "html/publicationEvaluation.html"
-    ],
-    "resources": []
-  },
-  "html/order/pendingdelivery.html": {
-    "refer": [
-      "html/goodDetail.html"
-    ],
-    "resources": []
-  },
-  "html/myCollection.html": {
-    "refer": [
-      "html/goodDetail.html"
-    ],
-    "resources": []
-  },
-  "html/paymentMessage.html": {
-    "refer": [
-      "html/payment.html"
-    ],
-    "resources": []
-  }
+	"index.html": {
+		"resources": [
+			"html/indexIndex.html",
+			"html/shoppingMall.html"
+		],
+		"refer": [
+			"html/indexIndex.html",
+			"html/my.html",
+			"html/shoppingMall.html",
+			"html/order.html",
+			"html/setting.html",
+			"html/buyCart.html"
+		]
+	},
+	"html/order.html": {
+		"refer": [
+			"index.html",
+			"html/order/all.html",
+			"html/order/pendingPayment.html",
+			"html/order/goodsToBeReceived.html",
+			"html/order/evaluate.html",
+			"html/order/pendingdelivery.html"
+		],
+		"resources": [
+			"html/order/all.html"
+		]
+	},
+	"html/shoppingMall.html": {
+		"resources": [
+			"img/buyNowBg.png"
+		],
+		"refer": [
+			"html/goodDetail.html"
+		]
+	},
+	"html/my.html": {
+		"refer": [
+			"html/order.html",
+			"html/shoppingCart.html",
+			"html/evaluate.html",
+			"html/login.html",
+			"html/personalInformation.html",
+			"html/myCollection.html",
+			"html/centerChangePWD.html"
+		],
+		"resources": []
+	},
+	"html/evaluate.html": {
+		"resources": [
+			"html/evaluateChild/all.html"
+		],
+		"refer": [
+			"html/evaluateChild/all.html",
+			"html/evaluateChild/haveImage.html"
+		]
+	},
+	"html/goodDetail.html": {
+		"refer": [
+			"html/settlementPage.html",
+			"html/paymentMessage.html"
+		],
+		"resources": []
+	},
+	"html/indexIndex.html": {
+		"refer": [
+			"html/login.html",
+			"html/sellCart.html",
+			"html/news.html",
+			"html/goodDetail.html",
+			"html/QRCode.html",
+			"html/newsMessage.html",
+			"html/payment.html",
+			"html/active1.html",
+			"html/active3.html",
+			"html/active2.html",
+			"html/cartDetail.html"
+		],
+		"resources": []
+	},
+	"html/buyCart.html": {
+		"refer": [
+			"html/cartDetail.html"
+		],
+		"resources": []
+	},
+	"html/cartDetail.html": {
+		"refer": [
+			"html/paymentMessage.html"
+		],
+		"resources": []
+	},
+	"html/sellCart.html": {
+		"refer": [
+			"html/sellCartMessage.html",
+			"html/cartAssessment.html"
+		],
+		"resources": []
+	},
+	"html/login.html": {
+		"refer": [
+			"html/changePassword.html",
+			"html/register.html",
+			"index.html"
+		],
+		"resources": []
+	},
+	"html/news.html": {
+		"refer": [
+			"html/newsMessage.html"
+		],
+		"resources": []
+	},
+	"html/settlementPage.html": {
+		"refer": [
+			"html/paymentMessage.html",
+			"html/payment.html"
+		],
+		"resources": []
+	},
+	"html/order/all.html": {
+		"refer": [
+			"html/selectService.html",
+			"html/goodDetail.html",
+			"html/payment.html"
+		],
+		"resources": []
+	},
+	"html/selectService.html": {
+		"refer": [
+			"html/applicationForRefund.html",
+			"html/applicationForReturn.html"
+		],
+		"resources": []
+	},
+	"html/index.html": {
+		"resources": [
+			"html/indexIndex.html",
+			"html/buyCart.html"
+		],
+		"refer": [
+			"html/my.html",
+			"html/indexIndex.html",
+			"html/shoppingMall.html",
+			"html/buyCart.html",
+			"html/goodDetail.html",
+			"html/login.html"
+		]
+	},
+	"html/shoppingCart.html": {
+		"refer": [
+			"html/settlementPage.html"
+		],
+		"resources": []
+	},
+	"html/order/pendingPayment.html": {
+		"refer": [
+			"html/payment.html",
+			"html/goodDetail.html"
+		],
+		"resources": []
+	},
+	"html/order/evaluate.html": {
+		"refer": [
+			"html/publicationEvaluation.html"
+		],
+		"resources": []
+	},
+	"html/order/pendingdelivery.html": {
+		"refer": [
+			"html/goodDetail.html"
+		],
+		"resources": []
+	},
+	"html/myCollection.html": {
+		"refer": [
+			"html/goodDetail.html"
+		],
+		"resources": []
+	},
+	"html/paymentMessage.html": {
+		"refer": [
+			"html/payment.html"
+		],
+		"resources": []
+	},
+	"html/payment.html": {
+		"refer": [
+			"html/order.html"
+		]
+	}
 }

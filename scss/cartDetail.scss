@@ -16,7 +16,11 @@
   }
 }
 .car-tab {
-  padding: 0 0.3rem;
+  img{
+    width: 10rem;
+    height: 7rem;
+    margin-top: .3rem;
+  }
   .car-tab-title {
     display: flex;
     height: 0.8rem;

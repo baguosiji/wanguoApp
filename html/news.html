@@ -22,9 +22,9 @@
         height: 2.4rem;
     }
 
-    .mui-scroll-wrapper {
-        top: 45px;
-    }
+    /* .mui-scroll-wrapper {
+        padding-top: 45px;
+    } */
 
     .news-img {
         width: 3.2rem;
@@ -69,65 +69,79 @@
                 </div>
             </div>
         </div>
-        <div class="mui-scroll-wrapper">
-            <div class="mui-scroll">
-                <div class="mui-slider">
-                    <div class="mui-slider-group mui-slider-loop">
-                        <div class="mui-slider-item mui-slider-item-duplicate">
-                            <a href="#">
-                                <img src="../img/1.png" />
-                            </a>
+        <div class="container">
+            <div class="mui-scroll-wrapper" id="pullrefresh">
+                <div class="mui-scroll">
+                    <div class="mui-slider">
+                        <div class="mui-slider-group mui-slider-loop">
+                            <div class="mui-slider-item mui-slider-item-duplicate">
+                                <a href="#">
+                                    <img src="../img/1.png" />
+                                </a>
+                            </div>
+                            <div class="mui-slider-item">
+                                <a href="#">
+                                    <img src="../img/1.png" />
+                                </a>
+                            </div>
+                            <div class="mui-slider-item">
+                                <a href="#">
+                                    <img src="../img/2.png" />
+                                </a>
+                            </div>
+                            <div class="mui-slider-item">
+                                <a href="#">
+                                    <img src="../img/3.png" />
+                                </a>
+                            </div>
+                            <div class="mui-slider-item">
+                                <a href="#">
+                                    <img src="../img/4.png" />
+                                </a>
+                            </div>
+                            <div class="mui-slider-item mui-slider-item-duplicate">
+                                <a href="#">
+                                    <img src="../img/4.png" />
+                                </a>
+                            </div>
                         </div>
-                        <div class="mui-slider-item">
-                            <a href="#">
-                                <img src="../img/1.png" />
-                            </a>
-                        </div>
-                        <div class="mui-slider-item">
-                            <a href="#">
-                                <img src="../img/2.png" />
-                            </a>
-                        </div>
-                        <div class="mui-slider-item">
-                            <a href="#">
-                                <img src="../img/3.png" />
-                            </a>
-                        </div>
-                        <div class="mui-slider-item">
-                            <a href="#">
-                                <img src="../img/4.png" />
-                            </a>
-                        </div>
-                        <div class="mui-slider-item mui-slider-item-duplicate">
-                            <a href="#">
-                                <img src="../img/4.png" />
-                            </a>
+                        <div class="mui-slider-indicator">
+                            <div class="mui-indicator mui-active"></div>
+                            <div class="mui-indicator"></div>
+                            <div class="mui-indicator"></div>
+                            <div class="mui-indicator"></div>
                         </div>
                     </div>
-                    <div class="mui-slider-indicator">
-                        <div class="mui-indicator mui-active"></div>
-                        <div class="mui-indicator"></div>
-                        <div class="mui-indicator"></div>
-                        <div class="mui-indicator"></div>
-                    </div>
-                </div>
-                <div class="news-content" v-for="item in news" @tap="jumpMessage(item.id)">
-                    <div class="news-img" v-if="item.pic">
-                        <img v-bind:src="http_url+item.pic" alt="">
-                    </div>
-                    <div class="news-title">
-                        {{item.title}}
+                    <div class="news-content" v-for="item in news" @tap="jumpMessage(item.id)">
+                        <div class="news-img" v-if="item.pic">
+                            <img v-bind:src="http_url+item.pic" alt="">
+                        </div>
+                        <div class="news-title">
+                            {{item.title}}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div style="height: 100px;"></div>
     </div>
     <script src="../js/md5.js"></script>
     <script src="../js/vue.min.js"></script>
     <script src="../js/common.js"></script>
     <script>
-        mui.init();
+        mui.init({
+            pullRefresh: {
+                container: '#pullrefresh',
+                up: {
+                    contentrefresh: '正在加载...',
+                    callback: pullupRefresh
+                },
+                down: {
+                    style: 'circle',//必选，下拉刷新样式，目前支持原生5+ ‘circle’ 样式
+                    offset: '45px',
+                    callback: pullfresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+                }
+            }
+        });
 
         function jumpMessage(id) {
             mui.openWindow({
@@ -150,10 +164,7 @@
         gallery.slider({
             interval: 1000//自动轮播周期，若为0则不自动播放，默认为0；
         });
-        mui(".mui-scroll-wrapper").scroll({
-            deceleration: 0.0005
-        })
-        mui.ajax(http_url + '/api.php/About/index', {
+        mui.ajax(http_url + '/api.php/About/index?p=1', {
             dataType: 'json',
             type: 'get',
             timeout: 10000,
@@ -168,8 +179,55 @@
             error: function (xhr, type, errorThrown) {
 
             }
-        })
+        });
+        //上拉加载
+        var page = 2;
+        function pullupRefresh() {
+            mui.ajax(http_url + '/api.php/About/index?p=1', {
+                dataType: 'json',
+                type: 'get',
+                timeout: 10000,
+                headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/About/index'), },
+                success: function (data) {
+                    if (data.status == 200) {
+                        vm.news = vm.news.concat(data.data);
+                        page++;
+                        if (data.data.length == 0) {
+                            mui('#pullrefresh').pullRefresh().disablePullupToRefresh()
+                            mui('#pullrefresh').pullRefresh().endPullupToRefresh(true)
+                        } else {
+                            mui('#pullrefresh').pullRefresh().endPullupToRefresh(false)
+                        }
+                    } else {
+                        toast(data.message);
+                    }
+                },
+                error: function (xhr, type, errorThrown) {
 
+                }
+            });
+        }
+        //下拉刷新
+        function pullfresh() {
+            mui.ajax(http_url + '/api.php/About/index?p=1', {
+                dataType: 'json',
+                type: 'get',
+                timeout: 10000,
+                headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/About/index'), },
+                success: function (data) {
+                    if (data.status == 200) {
+                        vm.news = data.data
+                        page = 2;
+                        mui('#pullrefresh').pullRefresh().endPulldown(true);
+                    } else {
+                        toast(data.message);
+                    }
+                },
+                error: function (xhr, type, errorThrown) {
+
+                }
+            });
+        }
     </script>
 </body>
 

@@ -12,9 +12,9 @@
     <title>我的收藏</title>
 </head>
 <style>
-    .mui-scroll-wrapper {
+    /* .mui-scroll-wrapper {
         top: 45px;
-    }
+    } */
 
     p {
         margin: 0;
@@ -37,23 +37,25 @@
 
     .good-img>img {
         width: 2.5rem;
-        height: 2.5rem;
+        height: 2rem;
         vertical-align: middle;
     }
 
     .good-message {
-        flex: 1
+        padding: .3rem 0;
+        flex: 1;
+        font-size: .38rem;
     }
 
     .good-message>p {
         margin: 0;
         color: #999999;
-        font-size: .35rem;
+        font-size: .38rem;
         padding: 0.05rem 0;
     }
 
     .good-message>.good-name {
-        color: #333;
+        color: #000000;
         font-size: .4rem;
         overflow: hidden;
         display: -webkit-box;
@@ -63,12 +65,18 @@
 
     .good-message>.good-price {
         color: #f50606;
-        font-size: .34rem;
+        font-size: .38rem;
+        margin-top: .1rem
     }
 
-    .good-message>strong {
-        font-size: .32rem;
+    .good-message>.stock {
+        color: #333;
+        margin-top: .1rem;
     }
+
+    /* .good-message>strong {
+        font-size: .38rem;
+    } */
 </style>
 
 <body>
@@ -95,38 +103,48 @@
             </div>
         </div>
     </div>
-    <div class="mui-scroll-wrapper">
-        <div class="mui-scroll" id="app">
-            <div>
-                <div class="no-data" v-if="collection.length==0">
-                    <img src="../img/nocollect.png" alt="">
-                </div>
-                <div class="my-collection" v-for="item of collection" @tap="jump_to_good_detail(item.goods_id)">
-                    <div class="good-img">
-                        <img v-bind:src="http_url+item.goods.pic" alt="">
+    <div class="container">
+        <div class="mui-scroll-wrapper" id="pullrefresh">
+            <div class="mui-scroll">
+                <div>
+                    <div class="no-data" v-if="collection.length==0">
+                        <img src="../img/nocollect.png" alt="">
                     </div>
-                    <div class="good-message">
-                        <p class="good-name">{{item.goods.goods_name}}</p>
-                        <p class="good-price">￥{{item.goods.shop_price}}</p>
-                        库存
-                        <strong>{{item.goods.store_num}}</strong>
+                    <div class="my-collection" v-for="item of collection" @tap="jump_to_good_detail(item.goods_id)">
+                        <div class="good-img">
+                            <img v-bind:src="http_url+item.goods.pic" alt="">
+                        </div>
+                        <div class="good-message">
+                            <p class="good-name">{{item.goods.goods_name}}</p>
+                            <p class="good-price">￥{{item.goods.shop_price}}</p>
+                            <p class="stock"> 库存
+                                <strong>{{item.goods.store_num}}</strong>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <script src="../js/md5.js"></script>
     <script src="../js/common.js"></script>
     <script src="../js/vue.min.js"></script>
     <script>
+        mui.init({
+            pullRefresh: {
+                container: '#pullrefresh',
+                up: {
+                    contentrefresh: '正在加载...',
+                    callback: pullupRefresh
+                }
+            }
+        });
         var vm = new Vue({
-            el: "#app",
+            el: "#pullrefresh",
             data: {
                 collection: []
             }
-        })
-        mui(".mui-scroll-wrapper").scroll({
-            deceleration: 0.0005
         })
         var page = 1;
         mui.ajax(http_url + '/api.php/User/collect?p=' + page + "&token=" + user_all_message.token, {
@@ -136,12 +154,13 @@
             headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/User/collect'), },
             success: function (data) {
                 if (data.status == 200) {
-                    for (var i = 0; i < data.data.length; i++) {
-                        console.log(data.data[i])
-                        if (data.data[i].goods != null) {
-                            vm.collection = vm.collection.concat(data.data[i]);
-                        }
-                    }
+                    page++;
+                    vm.collection = data.data;
+                    // for (var i = 0; i < data.data.length; i++) {
+                    //     if (data.data[i].goods != null) {
+                    //         vm.collection = vm.collection.concat(data.data[i]);
+                    //     }
+                    // }
                 } else {
                     toast(data.message);
                 }
@@ -159,6 +178,31 @@
                 }
             })
         }
+        //上拉加载
+        function pullupRefresh() {
+            mui.ajax(http_url + '/api.php/User/collect?p=' + page + "&token=" + user_all_message.token, {
+                dataType: 'json',
+                type: 'get',
+                timeout: 10000,
+                headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/User/collect'), },
+                success: function (data) {
+                    if (data.status == 200) {
+                        page++;
+                        if (data.data.length == 0) {
+                            mui('#pullrefresh').pullRefresh().disablePullupToRefresh()
+                            mui('#pullrefresh').pullRefresh().endPullupToRefresh(true)
+                        } else {
+                            mui('#pullrefresh').pullRefresh().endPullupToRefresh(false)
+                        }
+                    } else {
+                        toast(data.message);
+                    }
+                },
+                error: function (xhr, type, errorThrown) {
+
+                }
+            })
+        } 
     </script>
 </body>
 

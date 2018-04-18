@@ -45,7 +45,7 @@
                     <div class="mui-slider-group" style="height:10rem;width:10rem;">
                         <div class="mui-slider-item">
                             <a href="#">
-                                <img v-bind:src="http_url+goodMessage.pic" />
+                                <img  v-bind:src="http_url+goodMessage.pic" />
                             </a>
                         </div>
                     </div>
@@ -72,10 +72,10 @@
                                     运费：
                                     <span>咨询客服</span>
                                 </div>
-                                <div class="center">
+                                <!-- <div class="center">
                                     月销
                                     <strong>{{goodMessage.sale_num}}</strong>笔
-                                </div>
+                                </div> -->
                                 <div class="right">
                                     山西太原
                                 </div>
@@ -131,15 +131,15 @@
 
                     </div>
                 </div>
-                <div class="good-name">
+                <!-- <div class="good-name">
                     {{goodMessage.goods_remark}}
-                </div>
+                </div> -->
                 <div class="good-text">
                     <div class="good">
                         商品信息
                     </div>
                 </div>
-                <div v-bind:html="goodMessage.goods_content">
+                <div id="contents">
                     <!-- <img v-for="img in goodMessage.goods_images" v-bind:src="http_url+img.pic" style="width: 10rem;height: 100%" alt=""> -->
                 </div>
                 <div id="good-message-list">
@@ -213,7 +213,7 @@
                             </div>
                             <div class="number">
                                 <div class="add">
-                                    <span class="mui-icon mui-icon-plusempty">
+                                    <span class="mui-icon mui-icon-plusempty" style="font-weight: bold">
 
                                     </span>
                                 </div>
@@ -221,7 +221,7 @@
 
                                 <div class="remove">
                                     <span>
-                                        －
+                                        ﹣
                                     </span>
                                 </div>
                             </div>
@@ -253,10 +253,14 @@
                 goodMessage: { goods_images: [] },
                 goodData: { sec_list: { spec: [] } },
                 buy_num: 1,
-                good_spec: {}
+                good_spec: {},
+                img_load: false,
             },
         })
-
+        //图片是否加载完毕
+        // document.getElementById("imgs").onload = function () {
+        //     img_load = true;
+        // }
         var gallery = mui('.mui-slider');
         gallery.slider({
             interval: 2000//自动轮播周期，若为0则不自动播放，默认为0；
@@ -274,8 +278,8 @@
                 timeout: 10000,
                 headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Mall/details') },
                 success: function (data) {
-                    console.log(JSON.stringify(data.data.info));
                     vm.goodMessage = data.data.info;
+                    document.getElementById("contents").innerHTML=data.data.info.goods_content;
                     firstImage = data.data.info.goods_images[0];
                     lastImage = data.data.info.goods_images.pop();
                     vm.goodData = data.data;
@@ -289,7 +293,7 @@
                         collection_good.querySelectorAll("p")[1].style.color = "#666";
                     }
                     document.getElementById("good-message-list").innerHTML = vm.goodMessage.goods_content;
-                    console.log(vm.goodMessage);
+
                 },
                 error: function (xhr, type, errorThrown) {
                     //异常处理；ss
@@ -347,7 +351,11 @@
             }
         })
         function call_serve() {
-            mui.alert("请联系客服：400-0998-058", "万国提示");
+            mui.confirm("请联系客服：400-0998-058", "万国提示" ,["取消","确认"],function(num){
+                if(num.index==1){
+                    window.location.href='tel:400-0998-058';
+                }
+            });
         }
         //点击选择收藏商品
         function collections(e) {

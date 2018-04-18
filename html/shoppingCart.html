@@ -41,7 +41,7 @@
     <!-- <div class="container" id="app" style="background-color: #F9F4F4"> -->
     <!-- 顶部操作栏 -->
     <div class="container" style="background-color: #efefef" id="app">
-        <div class="mui-scroll-wrapper" id="pullrefresh">
+        <div class="mui-scroll-wrapper" id="refreshContainer">
             <div class="mui-scroll">
                 <div>
                     <div class="no-data" v-if="goods.length==0">
@@ -132,7 +132,7 @@
     <script>    
         mui.init({
             pullRefresh: {
-                container: '#pullrefresh',
+                container: '#refreshContainer',
                 up: {
                     contentrefresh: '正在加载...',
                     callback: pullupRefresh
@@ -148,10 +148,10 @@
                 mydata: [],
             }
         })
-        mui(".mui-scroll-wrapper").scroll({
-            deceleration: 0.0005,
-            indicators: false, //是否显示滚动条
-        })
+        // mui(".mui-scroll-wrapper").scroll({
+        //     deceleration: 0.0005,
+        //     indicators: false, //是否显示滚动条
+        // })
         mui.ajax(http_url + "/api.php/User/cart?p=" + page + "&token=" + user_all_message.token, {
             dataType: 'json',
             type: 'get',
@@ -159,15 +159,8 @@
             headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/User/cart'), },
             success: function (data) {
                 if (data.status == 200) {
-
                     vm.goods = vm.goods.concat(data.data);
                     page++;
-                    if (data.data.length == 0) {
-                        mui('#pullrefresh').pullRefresh().disablePullupToRefresh();
-                        mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
-                    } else {
-                        mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
-                    }
                 } else {
                     toast(data.message);
                 }
@@ -189,13 +182,13 @@
                 headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/User/cart'), },
                 success: function (data) {
                     if (data.status == 200) {
-
                         vm.goods = vm.goods.concat(data.data);
                         page++;
                         if (data.data.length == 0) {
-                            mui('#pullrefresh').pullRefresh().endPullupToRefresh(true)
+                            mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
+                            mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
                         } else {
-                            mui('#pullrefresh').pullRefresh().endPullupToRefresh(false)
+                            mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
                         }
                     } else {
                         toast(data.message);
@@ -341,6 +334,7 @@
                             success: function (data) {
                                 if (data.status == 200) {
                                     toast(data.message);
+                                    vm.total = 0;
                                     page = 1;
                                     vm.goods = [];
                                     pullupRefresh();

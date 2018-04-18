@@ -28,7 +28,7 @@
         </div>
         <div class="title-center">
             <div class="title-input">
-                <input placeholder="请输入搜索内容" type="text">
+                <input placeholder="请输入搜索内容" disabled="true" type="text">
             </div>
         </div>
         <div class="title-right">
@@ -127,6 +127,7 @@
                 action_bar_right.style.visibility = "visible";
                 div.setAttribute("class", "title-input");
                 var input = document.createElement("input");
+                input.setAttribute("disabled","true");
                 input.setAttribute("placeholder", "请输入搜索内容");
                 div.appendChild(input);
                 title.appendChild(div);
@@ -139,6 +140,7 @@
                 action_bar_right.style.visibility = "hidden";
                 div.setAttribute("class", "title-input");
                 var input = document.createElement("input");
+                input.setAttribute("disabled","true");
                 input.setAttribute("placeholder", "请输入搜索内容");
                 div.appendChild(input);
                 title.appendChild(div);
@@ -165,8 +167,9 @@
             }
             that.classList.add("mui-active");
             if (c) {
-                title.getElementsByClassName("title-input")[0].style.display = "none";
-                title.innerHTML = that.querySelector(".mui-tab-label").innerHTML;
+                // title.getElementsByClassName("title-input")[0].style.display = "none";
+                // title.innerHTML = that.querySelector(".mui-tab-label").innerHTML;
+                click = false;
                 document.querySelector(".title-left").style.visibility = "visible";
                 action_bar_right.style.visibility = "hidden";
                 // document.querySelector(".title-right").querySelector("span") = "img/setting.png";

@@ -47,7 +47,7 @@
         width: 3rem;
         padding: 0;
         margin: 0;
-        margin-right: 1rem;
+        margin-right: .3rem;
         font-size: .38rem;
         color: #666;
     }
@@ -107,13 +107,12 @@
             <select id="s1" onchange="selectCarts(this)">
                 <!-- 根据id获取value，onchange（）触发函数move（）修改二级select的text值实现联动 -->
                 <option selected value="s1">汽车品牌</option>
-                <option value="1">12345</option>
                 <!--默认选中-->
                 <option v-for="item in cart" v-bind:value="item.b_id">{{item.b_name}}</option>
             </select>
-            <select id="s1" onChange="selectCartType(this)">
+            <select id="s2" onChange="selectCartType(this)">
                 <!-- 根据id获取value，onchange（）触发函数move（）修改二级select的text值实现联动 -->
-                <option selected value="s1">汽车型号</option>
+                <option selected value="s2">汽车型号</option>
                 <!--默认选中-->
                 <option v-bind:value="item.s_id" v-for="item in selectCart">{{item.s_name}}</option>
             </select>
@@ -196,9 +195,9 @@
                 toast("请输入正确手机号码");
             } else if (!vm.distance) {
                 toast("请输入您的公里数");
-            } else if (!vm.carNumber || !sixNumber.test(vm.carNumber)) {
+            } else if (!sixNumber.test(vm.carNumber)) {
                 toast("请输入您的车架号后六位");
-            } else if (!vm.engineNumber || !sixNumber.test(vm.engineNumber)) {
+            } else if (!sixNumber.test(vm.engineNumber)) {
                 toast("请输入您的发动机后六位")
             } else if (selectCart == "汽车品牌" || cartType == "汽车类型" || !selectCart || !cartType) {
                 toast("请选择您的车型")
@@ -215,12 +214,12 @@
                         car_date: dateShow.placeholder,
                         mileage: vm.distance,
                         vin: vm.carNumber,
-                        enum: vm.engineNumber
+                        enums: vm.engineNumber
                     },
                     dataType: 'json',
                     type: 'post',
                     timeout: 10000,
-                    headers: {  "apitoken": c('/api.php/Salecar/add'), },
+                    headers: { "apitoken": c('/api.php/Salecar/add'), },
                     success: function (data) {
                         mui.alert(data.message, "提交成功", function () {
                             mui.back();

@@ -105,7 +105,6 @@
             timeout: 10000,
             headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/User/order'), },
             success: function (data) {
-                console.log(JSON.stringify(data));
                 if (data.status == 200) {
                     vm.orders = data.data;
                 } else {

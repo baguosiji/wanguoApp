@@ -270,52 +270,83 @@
         function createUpload() {
             var waiting = plus.nativeUI.showWaiting("正在提交...", { width: '120px', height: '120px' });
             var upload_img = "";
-            for (var i = 0; i < vm.img_url.length; i++) {
-                var task = plus.uploader.createUpload(http_url + "/api.php/User/upload_attachment",
-                    { method: "POST", blocksize: 204800, priority: 100 },
-                    function (t, status) {
-                        // 上传完成
-                        upload_img += `,${JSON.parse(t.responseText).data.file_path}`;
-                        if (is_Submit < vm.img_url.length) {
-                            is_Submit++;
-                            return;
-                        } else {
-                            // upload_img = upload_img.substring(1);
-                            mui.ajax(http_url + '/api.php/Order/evaluation?token=' + user_all_message.token, {
-                                dataType: 'json',
-                                data: {
-                                    goods_id: nowpage.goods_id,
-                                    order_id: nowpage.order_id,
-                                    tag: vm.tag_text,
-                                    goods_rank: vm.stars,
-                                    imgs: upload_img,
-                                    content: vm.user_input,
-                                },
-                                headers: { "apitoken": c('/api.php/Order/evaluation'), },
-                                type: 'post',
-                                timeout: 10000,
-                                success: function (data) {
-                                    if (data.status == 200) {
-                                        waiting.close();
+            if (vm.img_url.length > 0) {
+                for (var i = 0; i < vm.img_url.length; i++) {
+                    var task = plus.uploader.createUpload(http_url + "/api.php/User/upload_attachment",
+                        { method: "POST", blocksize: 204800, priority: 100 },
+                        function (t, status) {
+                            // 上传完成
+                            upload_img += (","+JSON.parse(t.responseText).data.file_path);
+                            if (is_Submit < vm.img_url.length) {
+                                is_Submit++;
+                                return;
+                            } else {
+                                // upload_img = upload_img.substring(1);
+                                mui.ajax(http_url + '/api.php/Order/evaluation?token=' + user_all_message.token, {
+                                    dataType: 'json',
+                                    data: {
+                                        goods_id: nowpage.goods_id,
+                                        order_id: nowpage.order_id,
+                                        tag: vm.tag_text,
+                                        goods_rank: vm.stars,
+                                        imgs: upload_img,
+                                        content: vm.user_input,
+                                    },
+                                    headers: { "apitoken": c('/api.php/Order/evaluation'), },
+                                    type: 'post',
+                                    timeout: 10000,
+                                    success: function (data) {
+                                        if (data.status == 200) {
+                                            waiting.close();
+                                            toast(data.message);
+                                            mui.back();
+                                        }
                                         toast(data.message);
-                                        mui.back();
+                                        waiting.close();
+                                    },
+                                    error: function (xhr, type, errorThrown) {
+                                        waiting.close();
+                                        //异常处理；
+                                        console.log(type);
                                     }
-                                    toast(data.message);
-                                    waiting.close();
-                                },
-                                error: function (xhr, type, errorThrown) {
-                                    waiting.close();
-                                    //异常处理；
-                                    console.log(type);
-                                }
-                            });
+                                });
+                            }
                         }
+                    );
+                    task.addFile(vm.img_url[i], { key: "fileupload" });
+                    task.setRequestHeader('apitoken', c('/api.php/User/upload_attachment'));
+                    // task.addData("fileupload", user_header_img.src);
+                    task.start();
+                }
+            } else {
+                mui.ajax(http_url + '/api.php/Order/evaluation?token=' + user_all_message.token, {
+                    dataType: 'json',
+                    data: {
+                        goods_id: nowpage.goods_id,
+                        order_id: nowpage.order_id,
+                        tag: vm.tag_text,
+                        goods_rank: vm.stars,
+                        imgs: upload_img,
+                        content: vm.user_input,
+                    },
+                    headers: { "apitoken": c('/api.php/Order/evaluation'), },
+                    type: 'post',
+                    timeout: 10000,
+                    success: function (data) {
+                        if (data.status == 200) {
+                            waiting.close();
+                            toast(data.message);
+                            mui.back();
+                        }
+                        toast(data.message);
+                        waiting.close();
+                    },
+                    error: function (xhr, type, errorThrown) {
+                        waiting.close();
+                        //异常处理；
+                        console.log(type);
                     }
-                );
-                task.addFile(vm.img_url[i], { key: "fileupload" });
-                task.setRequestHeader('apitoken', c('/api.php/User/upload_attachment'));
-                // task.addData("fileupload", user_header_img.src);
-                task.start();
+                });
             }
         }
         //点击提交按钮

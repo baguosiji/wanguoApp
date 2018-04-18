@@ -6,7 +6,7 @@
     <title>推荐好车源</title>
     <link rel="stylesheet" href="../css/iconfont.css">
     <link rel="stylesheet" href="../css/common.css">
-    <link rel="stylesheet" href="../css/mui.css">
+    <link rel="stylesheet" href="../css/mui.min.css">
     <script src="../js/flexible.js"></script>
     <script src="../js/mui.js"></script>
 </head>
@@ -14,8 +14,35 @@
     img {
         width: 100%;
     }
-    .mui-scroll-wrapper{
+
+    .mui-scroll-wrapper {
         top: 45px;
+    }
+
+    .mui-scroll {
+        padding: .3rem;
+    }
+
+    .mui-scroll-wrapper dl dt {
+        font-size: .42rem;
+        padding: .2rem 0;
+    }
+
+    .mui-scroll-wrapper dl dd {
+        font-size: .32rem;
+        color: #666;
+        padding: .1rem 0;
+    }
+
+    .mui-scroll-wrapper ul li {
+        font-size: .32rem;
+        padding: .1rem 0;
+    }
+
+    .mui-scroll-wrapper ul li img {
+        margin-top: .3rem;
+        width: 3rem;
+        height: 3rem;
     }
 </style>
 
@@ -43,7 +70,7 @@
             </div>
         </div>
     </div>
-    <div class="mui-scroll-wrapper">
+    <div class="mui-scroll-wrapper benefit">
         <div class="mui-scroll">
             <div>
                 <img src="../img/active3.png" alt="">

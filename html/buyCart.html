@@ -57,23 +57,41 @@
                 </div>
             </div>
             <div class="screen">
-                <div @tap="get_all()">
+                <div class="all" @tap="get_all()">
                     <span v-bind:class="{active:all}">默认排序</span>
                 </div>
                 <div class="price" @tap="select_price()">
                     <span>价格</span>
-                    <strong class="mui-icon mui-icon-arrowup" v-bind:class="{active:is_price==1}"></strong>
-                    <strong class="mui-icon mui-icon-arrowdown" v-bind:class="{active:is_price==0}"></strong>
+                    <div class="common-container">
+                        <div class="top">
+                            <strong class="mui-icon mui-icon-arrowup" v-bind:class="{active:is_price==1}"></strong>
+                        </div>
+                        <div class="bottom">
+                            <strong class="mui-icon mui-icon-arrowdown" v-bind:class="{active:is_price==0}"></strong>
+                        </div>
+                    </div>
                 </div>
                 <div class="time" @tap="select_time()">
                     <span>时间</span>
-                    <strong class="mui-icon mui-icon-arrowup" v-bind:class="{active:is_time==1}"></strong>
-                    <strong class="mui-icon mui-icon-arrowdown" v-bind:class="{active:is_time==0}"></strong>
+                    <div class="common-container">
+                        <div class="top">
+                            <strong class="mui-icon mui-icon-arrowup" v-bind:class="{active:is_time==1}"></strong>
+                        </div>
+                        <div class="bottom">
+                            <strong class="mui-icon mui-icon-arrowdown" v-bind:class="{active:is_time==0}"></strong>
+                        </div>
+                    </div>
                 </div>
                 <div class="kilometre" @tap="select_kilometre()">
                     <span>公里</span>
-                    <strong class="mui-icon mui-icon-arrowup" v-bind:class="{active:is_kilometre==1}"></strong>
-                    <strong class="mui-icon mui-icon-arrowdown" v-bind:class="{active:is_kilometre==0}"></strong>
+                    <div class="common-container">
+                        <div class="top">
+                            <strong class="mui-icon mui-icon-arrowup" v-bind:class="{active:is_kilometre==1}"></strong>
+                        </div>
+                        <div class="bottom">
+                            <strong class="mui-icon mui-icon-arrowdown" v-bind:class="{active:is_kilometre==0}"></strong>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="cart-region">
@@ -89,7 +107,7 @@
                         </p>
                         <p class="price">
                             <span>{{x.price}}</span> 万</p>
-                        <a href="">在线支付</a>
+                        <div>在线支付</div>
                     </div>
                 </div>
             </div>

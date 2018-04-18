@@ -94,7 +94,7 @@
             </p>
             <p style="padding: .1rem 0">
                 订单号：{{order_message.order_sn}} 待支付：
-                <strong style="color: #07B906">{{order_message.order_amount}}</strong> 元
+                <strong style="color: #07B906">{{iscart==0?order_message.order_amount:order_message.parent_amount}}</strong> 元
             </p>
         </div>
         <div style="padding: .2rem .3rem ;font-size: .36rem">
@@ -119,7 +119,7 @@
             </div>
         </div>
         <div class="bottom-button" @tap="pay('wechat')">
-            支付({{order_message.order_amount}}元)
+            支付({{iscart==0?order_message.order_amount:order_message.parent_amount}}元)
         </div>
     </div>
     <script src="../js/md5.js"></script>
@@ -132,6 +132,7 @@
         mui.plusReady(function () {
             // plus.webview.get
             nowPage = plus.webview.currentWebview();
+            nowPage.iscart ? vm.iscart = 0 : vm.iscart = 1;
             if (nowPage.is_cart) {
                 plus.webview.close('paymentMessage.html');
                 mui.ajax(http_url + '/api.php/Order/buycar_payment?token=' + user_all_message.token + '&id=' + nowPage.order_id, {
@@ -140,7 +141,6 @@
                     timeout: 10000,
                     headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Order/buycar_payment'), },
                     success: function (data) {
-                        alert("这是买车");
                         if (data.status == 200) {
                             vm.order_message = data.data;
                         }
@@ -155,14 +155,12 @@
                 if (plus.webview.getWebviewById('settlementPage.html')); {
                     plus.webview.close('settlementPage.html');
                 }
-                nowPage.iscart ? vm.iscart = 0 : vm.iscart = 1;
-                mui.ajax(http_url + '/api.php/Order/payment?token=' + user_all_message.token + "&order_id=" + nowPage.order_id, {
+                mui.ajax(http_url + '/api.php/Order/payment?token=' + user_all_message.token + "&order_id=" + nowPage.order_id + "$iscart=" + vm.iscart, {
                     dataType: 'json',
                     type: 'get',
                     timeout: 10000,
                     headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Order/payment'), },
                     success: function (data) {
-                        alert("这是正常商品");
                         if (data.status == 200) {
                             vm.order_message = data.data.ordinfo;
                         }
@@ -221,16 +219,11 @@
                     iscart: vm.iscart,
                 }
             }
-            alert(JSON.stringify(data));
             var waiting = plus.nativeUI.showWaiting("正在支付", { width: '120px', height: '120px' });
             if (payment == "alipay") {
                 mui.ajax(http_url + "/api.php/Order/dopay?token=" + user_all_message.token, {
                     type: 'post',
-                    data: {
-                        order_id: nowPage.order_id,
-                        pay_type: payment,
-                        iscart: vm.iscart,
-                    },
+                    data: data,
                     headers: { "apitoken": c('/api.php/Order/dopay'), },
                     timeout: 10000,
                     success: function (res) {
@@ -260,7 +253,6 @@
                     timeout: 10000,
                     success: function (res) {
                         waiting.close();
-                        alert(JSON.stringify(res));
                         plus.payment.request(wxchannel, res, function (result) {
                             waiting.close();
                             mui.alert("支付成功!", "微信付款", function () {

@@ -31,10 +31,10 @@
         </div>
         <div class="title-right">
             <div class="title-right-left">
-                <img src="" />
+
             </div>
             <div class="title-right-right">
-                <img src="" alt="">
+
             </div>
         </div>
     </div>
@@ -43,10 +43,10 @@
             <div class="mui-scroll">
                 <!--这里放置真实显示的DOM内容-->
                 <div class="mui-slider">
-                    <div class="mui-slider-group mui-slider-loop">
+                    <div class="mui-slider-group">
                         <div class="mui-slider-item">
                             <a href="#">
-                                <img style="height: 6rem" v-bind:src="http_url+cartDetail.pic" />
+                                <img style="height: 7rem" v-bind:src="http_url+cartDetail.pic" />
                             </a>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                     </div>
                 </div>
                 <!-- 车辆信息部分 -->
-                <div class="car-tab " v-html="cartDetail.contents">
+                <div class="car-tab " v-html="content.content">
 
                 </div>
             </div>
@@ -74,7 +74,8 @@
         var vm = new Vue({
             el: "#container",
             data: {
-                cartDetail: {}
+                cartDetail: {},
+                content: {},
             }
         })
         var id;
@@ -88,7 +89,7 @@
                 success: function (data) {
                     if (data.status == 200) {
                         vm.cartDetail = data.data;
-                        console.log(JSON.stringify(data));
+                        Vue.set(vm.content, "content", data.data.contents)
                     } else {
                         toast(data.message);
                     }
@@ -104,16 +105,33 @@
             deceleration: 0.0005,
         })
         mui(".func-btn ").on("tap", ".float-left ", function () {
-            mui.openWindow({
-                url: "paymentMessage.html",
-                id: "paymentMessage.html",
-                extras: {
-                    bid: id  //扩展参数
-                }
-            })
+            if (user_token()) {
+                mui.openWindow({
+                    url: "paymentMessage.html",
+                    id: "paymentMessage.html",
+                    extras: {
+                        bid: id  //扩展参数
+                    }
+                })
+            } else {
+                mui.confirm("您还未登录!", "万国提示", ['取消', '去登录'], function (e) {
+                    if (e.index == 1) {
+                        popup.style.bottom = -14 + "rem";
+                        mask.style.display = "none";
+                        mui.openWindow({
+                            url: "login.html",
+                            id: "login.html"
+                        })
+                    }
+                })
+            }
         })
         mui(".func-btn ").on("tap", ".float-right ", function () {
-            mui.alert("请联系客服：400-0998-058", "万国提示");
+            mui.confirm("请联系客服：400-0998-058", "万国提示", ["取消", "确认"], function (num) {
+                if (num.index == 1) {
+                    window.location.href = 'tel:400-0998-058';
+                }
+            });
         })
     </script>
 </body>

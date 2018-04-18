@@ -60,7 +60,7 @@
         width: 3rem;
         padding: 0;
         margin: 0;
-        margin-right: 1rem;
+        margin-right: .3rem;
         font-size: .38rem;
         color: #666;
     }
@@ -103,16 +103,15 @@
             <div>
                 车型
             </div>
-            <select id="s1" onchange="selectCart(this)">
+            <select id="s1" onchange="selectCarts(this)">
                 <!-- 根据id获取value，onchange（）触发函数move（）修改二级select的text值实现联动 -->
                 <option selected value="s1">汽车品牌</option>
-                <option value="1">12345</option>
                 <!--默认选中-->
                 <option v-for="item in cart" v-bind:value="item.b_id">{{item.b_name}}</option>
             </select>
-            <select id="s1" onChange="selectCartType(this)">
+            <select id="s2" onChange="selectCartType(this)">
                 <!-- 根据id获取value，onchange（）触发函数move（）修改二级select的text值实现联动 -->
-                <option selected value="s1">汽车型号</option>
+                <option selected value="s2">汽车型号</option>
                 <!--默认选中-->
                 <option v-bind:value="item.s_id" v-for="item in selectCart">{{item.s_name}}</option>
             </select>
@@ -161,7 +160,6 @@
         })
         mui.plusReady(function () {
             mui("#app").on("tap", "#date", function () {
-                console.log(123456)
                 pickDate(this);
             })
         })
@@ -182,7 +180,7 @@
             cartType = e.options[index].text;
         }
         // 选择汽车品牌
-        function selectCart(e) {
+        function selectCarts(e) {
             var index = e.selectedIndex;
             selectCart = e.options[index].text;
             mui.ajax(http_url + "/api.php/Salecar/car_series?b_id=" + e.value, {
@@ -208,7 +206,7 @@
         function submit() {
             if (!vm.name) {
                 toast("请输入您的姓名");
-            } else if (!vm.phone || !phoneNumber.test(vm.phone)) {
+            } else if ( !phoneNumber.test(vm.phone)) {
                 toast("请输入正确手机号码");
             } else if (!vm.distance) {
                 toast("请输入您的行使公里数")
