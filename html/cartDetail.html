@@ -116,8 +116,6 @@
             } else {
                 mui.confirm("您还未登录!", "万国提示", ['取消', '去登录'], function (e) {
                     if (e.index == 1) {
-                        popup.style.bottom = -14 + "rem";
-                        mask.style.display = "none";
                         mui.openWindow({
                             url: "login.html",
                             id: "login.html"

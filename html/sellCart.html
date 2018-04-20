@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="../js/mui.min.js"></script>
     <script src="../js/flexible.js"></script>
+    <link rel="stylesheet" href="../css/swiper-4.2.2.min.css">
     <link rel="stylesheet" href="../css/mui.min.css">
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/sellCart.css">
@@ -37,39 +38,18 @@
             </div>
         </div>
     </div>
-    <div class="container" style="background-color: #F9F5F4">
+    <div class="container" id="app" style="background-color: #F9F5F4">
         <div class="mui-scroll-wrapper">
             <div class="mui-scroll">
-                <div class="mui-slider">
-                    <div class="mui-slider-group mui-slider-loop">
-
-                        <div class="mui-slider-item">
-                            <a href="#">
-                                <img src="../img/1.png" />
-                            </a>
-                        </div>
-                        <div class="mui-slider-item">
-                            <a href="#">
-                                <img src="../img/2.png" />
-                            </a>
-                        </div>
-                        <div class="mui-slider-item">
-                            <a href="#">
-                                <img src="../img/3.png" />
-                            </a>
-                        </div>
-                        <div class="mui-slider-item">
-                            <a href="#">
-                                <img src="../img/4.png" />
-                            </a>
+                <!-- 轮播图 -->
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" v-for="img in imgs">
+                            <img v-bind:src="http_url+img.pic" style="width: 10rem" alt="">
                         </div>
                     </div>
-                    <div class="mui-slider-indicator">
-                        <div class="mui-indicator mui-active"></div>
-                        <div class="mui-indicator"></div>
-                        <div class="mui-indicator"></div>
-                        <div class="mui-indicator"></div>
-                    </div>
+                    <!-- 如果需要分页器 -->
+                    <div class="swiper-pagination"></div>
                 </div>
                 <!-- 卖车汽车评估部分 -->
                 <div class="operation-button">
@@ -177,7 +157,44 @@
             </div>
         </div>
     </div>
+    <script src="../js/swiper-4.2.2.min.js"></script>
+    <script src="../js/md5.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/vue.min.js"></script>
     <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                imgs: []
+            }
+        })
+        var mySwiper = new Swiper('.swiper-container', {
+            autoplay: true,
+            autoplayDisableOnInteraction: false,//用户使用后是否停止轮播；  
+            observer: true,//修改swiper自己或子元素时，自动初始化swiper 
+            observeParents: false,//修改swiper的父元素时，自动初始化swiper 
+            // 如果需要分页器
+            pagination: {
+                el: '.swiper-pagination',
+            },
+        })
+        //  	广告图
+        mui.ajax(http_url + '/api.php/Adv/index?id=29', {
+            dataType: 'json',
+            type: 'get',
+            timeout: 10000,
+            headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Adv/index'), },
+            success: function (data) {
+                if (data.status == 200) {
+                    vm.imgs = data.data;
+                } else {
+                    toast(data.message);
+                }
+            },
+            error: function (xhr, type, errorThrown) {
+
+            }
+        })
         mui(".mui-scroll-wrapper").scroll({
             deceleration: 0.0005
         })

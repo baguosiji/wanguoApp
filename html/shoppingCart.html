@@ -80,29 +80,28 @@
                                     </span>
                                 </div>
                                 <div class="buy-number">
-                                    <div class="iconfont icon-jia1" @tap="add_num(good)">
+                                    <!-- <div class="mui-icon mui-icon-plusempty" @tap="add_num(good)">
 
                                     </div>
-                                    <input v-bind:value="good.goods_num" disabled="disabled" class="buy-number-input" type="text">
-                                    <div class="iconfont icon-jian" @tap="remove_num(good)">
-
-                                    </div>
-
-
-                                    <!-- 
+                                   
+                                    <div  @tap="remove_num(good)">
+                                        <span>
+                                            ﹣
+                                        </span>
+                                    </div> -->
                                     <div class="number">
                                         <div class="add" @tap="add_num(good)">
                                             <span class="mui-icon mui-icon-plusempty">
 
                                             </span>
                                         </div>
-                                       
+                                        <input v-bind:value="good.goods_num" disabled="disabled" class="buy-number-input" type="text">
                                         <div class="remove" @tap="remove_num(good)">
                                             <span>
-                                                －
+                                                ﹣
                                             </span>
                                         </div>
-                                    </div> -->
+                                    </div>
                                 </div>
                             </div>
                         </div>

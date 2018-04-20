@@ -93,16 +93,16 @@
     </div>
     <div class="container" style="background-color: #F7F5F4" id="app">
         <div class="mui-input-row">
-            <label>姓名</label>
+            <label>姓&emsp;&emsp;名</label>
             <input v-model="name" type="text" placeholder="请输入您的姓名">
         </div>
         <div class="mui-input-row">
-            <label>手机号</label>
+            <label>手机号码</label>
             <input v-model="phone" type="text" placeholder="请输入您的手机号">
         </div>
         <div class="select">
             <div>
-                车型
+                车辆型号
             </div>
             <select id="s1" onchange="selectCarts(this)">
                 <!-- 根据id获取value，onchange（）触发函数move（）修改二级select的text值实现联动 -->
@@ -128,7 +128,7 @@
             <input style="width: 35%" v-model="distance" type="text" placeholder="请输入行车里程">
         </div>
         <div class="mui-input-row">
-            <label>车架号</label>
+            <label>车架号码</label>
             <input v-model="carNumber" type="text" placeholder="请输入车架号后六位">
         </div>
         <div class="mui-input-row">

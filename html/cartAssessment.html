@@ -92,16 +92,16 @@
     </div>
     <div id="app" class="container" style="background-color: #F7F5F7">
         <div class="mui-input-row">
-            <label>姓名</label>
+            <label>姓&emsp;&emsp;名</label>
             <input v-model="name" type="text" placeholder="请输入您的姓名">
         </div>
         <div class="mui-input-row">
-            <label>手机号</label>
+            <label>手机号码</label>
             <input v-model="phone" type="text" placeholder="请输入您的手机号">
         </div>
         <div class="select">
             <div>
-                车型
+                车辆型号
             </div>
             <select id="s1" onchange="selectCarts(this)">
                 <!-- 根据id获取value，onchange（）触发函数move（）修改二级select的text值实现联动 -->
@@ -230,7 +230,7 @@
                     type: 'post',
                     timeout: 10000,
                     success: function (data) {
-                        mui.alert(data.message, "提交成功", function () {
+                        mui.alert(data.message, "提交成功,稍后会员专员联系您", function () {
                             mui.back();
                         })
                     },

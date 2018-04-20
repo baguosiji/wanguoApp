@@ -19,8 +19,8 @@
         <div class="mui-scroll">
             <div class="user-message">
                 <div class="user-header-img">
-                    <img v-if="!user_message" src="../img/userHeader.png" alt="">
-                    <img v-if="user_message" v-bind:src="http_url+user_message.headimg" alt="">
+                    <img v-if="user_message?!user_message.headimg:!user_message" src="../img/userHeader.png" alt="">
+                    <img v-if="user_message?user_message.headimg:user_message" v-bind:src="http_url+user_message.headimg" alt="">
                 </div>
                 <div class="user-name">
                     {{user_message?user_message.nickname:"请登录"}}
@@ -35,6 +35,15 @@
                         <img style="width:.5rem" src="../img/my1.png" alt="">
                     </div>
                     <div class="center">我的订单</div>
+                    <div class="right">
+                        <img src="../img/right-black.png" alt="">
+                    </div>
+                </div>
+                <div class="my-list-every-last">
+                    <div class="left">
+                        <img style="width:.5rem" src="../img/my4.png" alt="">
+                    </div>
+                    <div class="center">购车订单</div>
                     <div class="right">
                         <img src="../img/right-black.png" alt="">
                     </div>
@@ -59,7 +68,7 @@
                 </div>
                 <div class="my-list-every-last">
                     <div class="left">
-                        <img src="../img/my4.png" alt="">
+                        <img style="width: .45rem" src="../img/key.png" alt="">
                     </div>
                     <div class="center">修改密码</div>
                     <div class="right">
@@ -71,6 +80,15 @@
                         <img src="../img/my5.png" alt="">
                     </div>
                     <div class="center">我的购物车</div>
+                    <div class="right">
+                        <img src="../img/right-black.png" alt="">
+                    </div>
+                </div>
+                <div class="my-list-every-last">
+                    <div class="left">
+                        <img src="../img/about.png" alt="">
+                    </div>
+                    <div class="center">关于我们</div>
                     <div class="right">
                         <img src="../img/right-black.png" alt="">
                     </div>
@@ -155,11 +173,18 @@
             }
         })
         mui(".my-list-every-last").on("tap", ".center", function () {
-            if (user_token()) {
-                var text = this.innerText;
-                var url;
+            var text = this.innerText;
+            var url;
+            if (text == "关于我们") {
+                mui.openWindow({
+                    id: "aboutUs.html",
+                    url: "aboutUs.html"
+                })
+            } else if (user_token()) {
                 if (text === "我的订单") {
                     url = "order.html";
+                } else if (text == "购车订单") {
+                    url = "cartOrder.html"
                 } else if (text === "我的评价") {
                     url = "evaluate.html"
                 } else if (text === "我的收藏") {

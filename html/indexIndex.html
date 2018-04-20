@@ -8,52 +8,27 @@
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/iconfont.css">
     <link rel="stylesheet" href="../css/indexIndex.css">
+    <link rel="stylesheet" href="../css/swiper-4.2.2.min.css">
     <title>首页</title>
 </head>
+<style>
+    .swiper-container {
+        width: 10rem;
+    }
+</style>
 
 <body>
     <div id="app" class="mui-scroll-wrapper">
         <div class="mui-scroll">
             <!-- 轮播图 -->
-            <div class="mui-slider">
-                <div class="mui-slider-group mui-slider-loop">
-                    <div class="mui-slider-item mui-slider-item-duplicate">
-                        <a href="#">
-                            <img src="../img/1.png" />
-                        </a>
-                    </div>
-                    <div class="mui-slider-item">
-                        <a href="#">
-                            <img src="../img/1.png" />
-                        </a>
-                    </div>
-                    <div class="mui-slider-item">
-                        <a href="#">
-                            <img src="../img/2.png" />
-                        </a>
-                    </div>
-                    <div class="mui-slider-item">
-                        <a href="#">
-                            <img src="../img/3.png" />
-                        </a>
-                    </div>
-                    <div class="mui-slider-item">
-                        <a href="#">
-                            <img src="../img/4.png" />
-                        </a>
-                    </div>
-                    <div class="mui-slider-item mui-slider-item-duplicate">
-                        <a href="#">
-                            <img src="../img/4.png" />
-                        </a>
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" v-for="img in imgs">
+                        <img v-bind:src="http_url+img.pic" style="width: 10rem" alt="">
                     </div>
                 </div>
-                <div class="mui-slider-indicator">
-                    <div class="mui-indicator mui-active"></div>
-                    <div class="mui-indicator"></div>
-                    <div class="mui-indicator"></div>
-                    <div class="mui-indicator"></div>
-                </div>
+                <!-- 如果需要分页器 -->
+                <div class="swiper-pagination"></div>
             </div>
             <!--类别选项部分-->
             <div class="category">
@@ -146,7 +121,7 @@
                                 <p>
                                     {{item.title}}
                                 </p>
-                                <p style="color: #f51212">￥ {{item.price}}
+                                <p style="color: #f51212">￥ {{item.price}}万
                                 </p>
                                 <p style="font-size: .3rem;">
                                     {{item.djrq}} | {{item.bxlc}} 万公里
@@ -284,6 +259,7 @@
 
         </div>
     </div>
+    <script src="../js/swiper-4.2.2.min.js"></script>
     <script src="../js/flexible.js"></script>
     <script src="../js/md5.js"></script>
     <script src="../js/common.js"></script>
@@ -291,6 +267,7 @@
     <script src="../js/httprequest.js"></script>
     <script src="../js/vue.min.js" type="text/javascript" charset="utf-8"></script>
     <script>
+
         // 精品区域
         var carDOM = document.querySelector(".boutique-message");
         //新闻容器
@@ -302,9 +279,46 @@
             data: {
                 cars: [{}],
                 goods: [],
-                news: []
+                news: [],
+                imgs: []
+            },
+            mounted: function () {
+                // 初始化swiper
+
             }
         })
+        //  	广告图
+        mui.ajax(http_url + '/api.php/Adv/index?id=27', {
+            dataType: 'json',
+            type: 'get',
+            timeout: 10000,
+            headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Adv/index'), },
+            success: function (data) {
+                if (data.status == 200) {
+                    good_list.imgs = data.data;
+                    var gallery = mui('.mui-slider');
+                    gallery.slider({
+                        interval: 0//自动轮播周期，若为0则不自动播放，默认为0；
+                    });
+                } else {
+                    toast(data.message);
+                }
+            },
+            error: function (xhr, type, errorThrown) {
+
+            }
+        })
+        var mySwiper = new Swiper('.swiper-container', {
+            autoplay: true,
+            autoplayDisableOnInteraction: false,//用户使用后是否停止轮播；  
+            observer: true,//修改swiper自己或子元素时，自动初始化swiper 
+            observeParents: false,//修改swiper的父元素时，自动初始化swiper 
+            // 如果需要分页器
+            pagination: {
+                el: '.swiper-pagination',
+            },
+        })
+
         mui.ajax(http_url + '/api.php/Index/index', {
             dataType: 'json',
             type: 'get',
@@ -352,10 +366,7 @@
 
         })
         // 初始化轮播图
-        var gallery = mui('.mui-slider');
-        gallery.slider({
-            interval: 2000//自动轮播周期，若为0则不自动播放，默认为0；
-        });
+
         mui('.mui-scroll-wrapper').scroll({
             indicators: false,
             deceleration: 0.0005,//flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
@@ -425,6 +436,11 @@
                 mui.openWindow({
                     url: "news.html",
                     id: "news.html",
+                })
+            } else if (this.index == 6) {
+                mui.openWindow({
+                    url: "cartAssessment.html",
+                    id: "cartAssessment.html",
                 })
             } else {
                 ck("功能尚未开通，敬请期待！");

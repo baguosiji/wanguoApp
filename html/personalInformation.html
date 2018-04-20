@@ -43,7 +43,8 @@
                 上传头像
             </div>
             <div class="select-img">
-                <img id="user-header-img" v-bind:src="http_url+userMessage.headimg" alt="">
+                <img v-if="!userMessage.headimg" src="../img/userHeader.png" alt="">
+                <img v-if="userMessage.headimg" id="user-header-img" v-bind:src="http_url+userMessage.headimg" alt="">
                 <span class="mui-icon mui-icon-arrowright">
 
                 </span>
@@ -86,7 +87,7 @@
             <div>
                 <span>生日：</span>
             </div>
-            <span class="account-number">{{userMessage.birthday}}</span>
+            <span class="account-number">{{birthday}}</span>
             <span class="mui-icon mui-icon-arrowright float-right"></span>
         </div>
         <div class="submit-button" @tap="submit()">
@@ -141,7 +142,7 @@
             plus.nativeUI.pickDate(function (e) {
                 var d = e.date;
                 vm.birthday = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-                console.log("选择的日期：" + d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate());
+                //    Vue.set(vm,birthday,d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate())
             }, function (e) {
                 console.log("未选择日期：" + e.message);
             });

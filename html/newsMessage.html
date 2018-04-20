@@ -64,15 +64,29 @@
     <div class="container" id="app">
         <div class="mui-scroll-wrapper">
             <div class="mui-scroll">
+                <div id="content">
 
+                </div>
             </div>
         </div>
     </div>
     <script src="../js/common.js"></script>
+    <script src="../js/vue.min.js"></script>
     <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                content: {},
+            }
+        })
         mui(".mui-scroll-wrapper").scroll({
             deceleration: 0.0005
         })
+
+        // var settime=setTimeout(function () {
+        //     location.reload();
+        // }, 100)
+
         mui.plusReady(function () {
             var self = plus.webview.currentWebview();
             mui.ajax(http_url + '/api.php/About/page?id=' + self.message, {
@@ -82,7 +96,27 @@
                 headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/About/page'), },
                 success: function (data) {
                     if (data.status == 200) {
-                        document.querySelector(".mui-scroll").innerHTML = data.data.contents;
+                        document.getElementById("content").innerHTML = data.data.contents;
+                        if (document.querySelector("img").complete) {
+
+                        } else {
+                            mui.ajax(http_url + '/api.php/About/page?id=' + self.message, {
+                                dataType: 'json',
+                                type: 'get',
+                                timeout: 10000,
+                                headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/About/page'), },
+                                success: function (data) {
+                                    if (data.status == 200) {
+                                        document.getElementById("content").innerHTML = data.data.contents;
+                                    } else {
+                                        toast(data.message);
+                                    }
+                                },
+                                error: function (xhr, type, errorThrown) {
+
+                                }
+                            })
+                        }
                     } else {
                         toast(data.message);
                     }

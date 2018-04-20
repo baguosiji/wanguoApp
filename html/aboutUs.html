@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../js/flexible.js"></script>
+    <script src="../js/mui.min.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/common.css">
+    <title>关于我们</title>
+</head>
+
+<body>
+    <div class="action-bar-no-search">
+        <div class="title-left mui-action-back">
+            <div>
+                <span class="mui-icon mui-icon-back">
+
+                </span>
+                <span>
+
+                </span>
+            </div>
+        </div>
+        <div class="title-center">
+            关于我们
+        </div>
+        <div class="title-right">
+            <div class="title-right-left">
+                <img src="../img/close.png" />
+            </div>
+            <div class="title-right-right">
+                <img src="" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div style="width: 5reml;text-align: center;margin: .5rem auto;margin-bottom: 0">
+            <img style="width: 2rem;" src="../img/aboutimg.png" alt="">
+            <p style="font-size: .5rem;color: #000000;font-weight: bold;margin: .1rem 0">万国拍卖</p>
+        </div>
+        <div style="padding: 1.3rem .3rem;font-size: .45rem;color: #333333;text-indent:.9rem;letter-spacing:3px;line-height: .65rem;">
+            山西万国君威电子商务有限公司是专业的汽车后市场服务提供商，核心业务是汽车后市场维保服务以及汽配网络商城。山西万国君威电子商务有限公司依托山西万国汽贸园，通过对互联网和物联网技术的深入应用，提高汽车后市场服务在消费者心中的透明度，营造安全、放心的市场环境。致力于建立规范化、标准化的汽车后市场服务平台。
+        </div>
+        <div style="margin-top: 2rem;">
+            <p style="font-size: .42rem;text-align:center;" id="version"></p>
+            <p style="font-size: .4rem;text-align: center">山西万国君威电子商务有限公司</p>
+        </div>
+    </div>
+</body>
+<script src="../js/mui.min.js"></script>
+<script>
+    mui.plusReady(function(){
+        document.getElementById("version").innerText="版本："+plus.runtime.version;
+    })
+</script>
+</html>

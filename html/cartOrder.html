@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../js/flexible.js"></script>
+    <script src="../js/mui.min.js"></script>
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/order.css">
+    <title>订单</title>
+</head>
+
+<body>
+    <div class="action-bar-no-search">
+        <div class="title-left mui-action-back">
+            <div>
+                <span class="mui-icon mui-icon-back">
+
+                </span>
+                <span>
+
+                </span>
+            </div>
+        </div>
+        <div class="title-center">
+            购车订单
+        </div>
+        <div class="title-right">
+            <div class="title-right-left">
+                <img src="../img/close.png" />
+            </div>
+            <div class="title-right-right">
+                <img src="" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="container" style="background-color: #F7F5F4">
+        <!-- 订单分类 -->
+        <div class="shopping-mall-classification">
+            <div class="padding">
+                <div class="shopping-mall-classification-every-last active" data-wid="cartOrder/all.html">
+                    <div>
+                        全部
+                    </div>
+                </div>
+                <div class="shopping-mall-classification-every-last" data-wid="cartOrder/pendingPayment.html">
+                    <div>
+                        待付款
+                    </div>
+                </div>
+                <div class="shopping-mall-classification-every-last" data-wid="cartOrder/pendingdelivery.html">
+                    <div>
+                        已付款
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../js/webviewGroup.js"></script>
+    <script>    
+        mui.init();
+        var _self;
+        mui.plusReady(function () {
+            plus.webview.close("payment.html");
+            _self = plus.webview.currentWebview();
+            var group = new webviewGroup(_self.id, {
+                items: [{
+                    id: "cartOrder/all.html",
+                    url: "cartOrder/all.html",
+                    extras: {},
+                    styles: {
+                        top: "90px",
+                        bottom: 0
+                    }
+                },
+                {
+                    id: "cartOrder/pendingPayment.html",
+                    url: "cartOrder/pendingPayment.html",
+                    extras: {},
+                    styles: {
+                        top: "90px",
+                        bottom: 0
+                    }
+                },
+                {
+                    id: "cartOrder/pendingdelivery.html",
+                    url: "cartOrder/pendingdelivery.html",
+                    extras: {},
+                    styles: {
+                        top: "90px",
+                        bottom: 0
+                    }
+                },
+                ],
+                onChange: function (obj) {
+                    var c = document.querySelector("div.active");
+                    if (c) {
+                        c.classList.remove("active");
+                    }
+                    var target = document.querySelector(".padding>div:nth-child(" + (parseInt(obj.index) + 1) + ")");
+                    target.classList.add("active");
+                    if (target.scrollIntoView) {
+                        target.scrollIntoView();
+                    }
+                }
+            });
+            mui(".padding").on("tap", ".shopping-mall-classification-every-last", function (e) {
+                var wid = this.getAttribute("data-wid");
+                group.switchTab(wid);
+                plus.webview.getWebviewById(wid).reload(true);
+                // pendingPaymentPage.evalJS("popup_close()");
+            });
+
+        });
+    </script>
+</body>
+
+</html>

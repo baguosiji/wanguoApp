@@ -8,6 +8,7 @@
     <script src="../js/flexible.js"></script>
     <link rel="stylesheet" href="../css/mui.min.css">
     <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/swiper-4.2.2.min.css">
     <link rel="stylesheet" href="../css/buyCart.css">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
@@ -16,45 +17,15 @@
 <body>
     <div class="mui-scroll-wrapper" id="app">
         <div class="mui-scroll">
-            <div class="mui-slider">
-                <div class="mui-slider-group mui-slider-loop">
-                    <div class="mui-slider-item mui-slider-item-duplicate">
-                        <a href="#">
-                            <img src="../img/1.png" />
-                        </a>
-                    </div>
-                    <div class="mui-slider-item">
-                        <a href="#">
-                            <img src="../img/1.png" />
-                        </a>
-                    </div>
-                    <div class="mui-slider-item">
-                        <a href="#">
-                            <img src="../img/2.png" />
-                        </a>
-                    </div>
-                    <div class="mui-slider-item">
-                        <a href="#">
-                            <img src="../img/3.png" />
-                        </a>
-                    </div>
-                    <div class="mui-slider-item">
-                        <a href="#">
-                            <img src="../img/4.png" />
-                        </a>
-                    </div>
-                    <div class="mui-slider-item mui-slider-item-duplicate">
-                        <a href="#">
-                            <img src="../img/4.png" />
-                        </a>
+            <!-- 轮播图 -->
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" v-for="img in imgs">
+                        <img v-bind:src="http_url+img.pic" style="width: 10rem" alt="">
                     </div>
                 </div>
-                <div class="mui-slider-indicator">
-                    <div class="mui-indicator mui-active"></div>
-                    <div class="mui-indicator"></div>
-                    <div class="mui-indicator"></div>
-                    <div class="mui-indicator"></div>
-                </div>
+                <!-- 如果需要分页器 -->
+                <div class="swiper-pagination"></div>
             </div>
             <div class="screen">
                 <div class="all" @tap="get_all()">
@@ -113,6 +84,7 @@
             </div>
         </div>
     </div>
+    <script src="../js/swiper-4.2.2.min.js"></script>
     <script src="../js/md5.js"></script>
     <script src="../js/vue.min.js"></script>
     <script src="../js/common.js"></script>
@@ -120,6 +92,7 @@
         var vm = new Vue({
             el: "#app",
             data: {
+                imgs: [],
                 cars: [
 
                 ],
@@ -133,6 +106,34 @@
                 is_time: -1,
                 is_kilometre: -1,
                 all: true,
+            }
+        })
+        var mySwiper = new Swiper('.swiper-container', {
+            autoplay: true,
+            autoplayDisableOnInteraction: false,//用户使用后是否停止轮播；  
+            observer: true,//修改swiper自己或子元素时，自动初始化swiper 
+            observeParents: false,//修改swiper的父元素时，自动初始化swiper 
+            // 如果需要分页器
+            pagination: {
+                el: '.swiper-pagination',
+            },
+        })
+        //  	广告图
+        mui.ajax(http_url + '/api.php/Adv/index?id=28', {
+            dataType: 'json',
+            type: 'get',
+            timeout: 10000,
+            headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Adv/index'), },
+            success: function (data) {
+                if (data.status == 200) {
+                    vm.imgs = data.data;
+                    console.log(JSON.stringify(data.data))
+                } else {
+                    toast(data.message);
+                }
+            },
+            error: function (xhr, type, errorThrown) {
+
             }
         })
         //  	数据接口

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/mui.min.css" />
     <link rel="stylesheet" href="../css/iconfont.css">
     <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/swiper-4.2.2.min.css">
     <link rel="stylesheet" href="../css/shoppingMall.css">
     <title>商城</title>
     <style>
@@ -25,7 +26,7 @@
         } */
 
         .mui-fullscreen {
-            top: 4rem;
+            top: 3.3rem;
         }
 
         /* .mui-control-content {
@@ -40,45 +41,15 @@
 
 <body>
     <div id="container">
-        <div class="mui-slider">
-            <div class="mui-slider-group mui-slider-loop">
-                <div class="mui-slider-item mui-slider-item-duplicate">
-                    <a href="#">
-                        <img src="../img/1.png" />
-                    </a>
-                </div>
-                <div class="mui-slider-item">
-                    <a href="#">
-                        <img src="../img/1.png" />
-                    </a>
-                </div>
-                <div class="mui-slider-item">
-                    <a href="#">
-                        <img src="../img/2.png" />
-                    </a>
-                </div>
-                <div class="mui-slider-item">
-                    <a href="#">
-                        <img src="../img/3.png" />
-                    </a>
-                </div>
-                <div class="mui-slider-item">
-                    <a href="#">
-                        <img src="../img/4.png" />
-                    </a>
-                </div>
-                <div class="mui-slider-item mui-slider-item-duplicate">
-                    <a href="#">
-                        <img src="../img/4.png" />
-                    </a>
+        <!-- 轮播图 -->
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" v-for="img in imgs">
+                    <img v-bind:src="http_url+img.pic" style="width: 10rem" alt="">
                 </div>
             </div>
-            <div class="mui-slider-indicator">
-                <div class="mui-indicator mui-active"></div>
-                <div class="mui-indicator"></div>
-                <div class="mui-indicator"></div>
-                <div class="mui-indicator"></div>
-            </div>
+            <!-- 如果需要分页器 -->
+            <div class="swiper-pagination"></div>
         </div>
         <div id="slider" class="mui-slider mui-fullscreen">
             <div id="sliderSegmentedControl" class=" mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
@@ -258,6 +229,7 @@
             </div>
         </div>
     </div>
+    <script src="../js/swiper-4.2.2.min.js"></script>
     <script src="../js/md5.js"></script>
     <script src="../js/mui.min.js"></script>
     <script src="../js/common.js"></script>
@@ -287,7 +259,18 @@
                 good4: { good: [], page: 2 },
                 good5: { good: [], page: 2 },
                 classification: [],
+                imgs: [],
             }
+        })
+        var mySwiper = new Swiper('.swiper-container', {
+            autoplay: true,
+            autoplayDisableOnInteraction: false,//用户使用后是否停止轮播；  
+            observer: true,//修改swiper自己或子元素时，自动初始化swiper 
+            observeParents: false,//修改swiper的父元素时，自动初始化swiper 
+            // 如果需要分页器
+            pagination: {
+                el: '.swiper-pagination',
+            },
         })
         var deceleration = mui.os.ios ? 0.003 : 0.0009;
         mui('.mui-scroll-wrapper').scroll({
@@ -295,6 +278,24 @@
             indicators: true, //是否显示滚动条
             deceleration: deceleration
         });
+        //  	广告图
+        mui.ajax(http_url + '/api.php/Adv/index?id=30', {
+            dataType: 'json',
+            type: 'get',
+            timeout: 10000,
+            headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Adv/index'), },
+            success: function (data) {
+                if (data.status == 200) {
+                    vm.imgs = data.data;
+                } else {
+                    toast(data.message);
+                }
+            },
+            error: function (xhr, type, errorThrown) {
+
+            }
+        })
+
         //第一次获取数据
         mui.ajax(http_url + '/api.php/Mall/index?p=1&cat_id=0', {
             dataType: 'json',
@@ -465,6 +466,24 @@
 
                 }
             })
+        }
+        //搜索商品
+        function search(text) {
+            console.log("拿到");
+            slid_list.slider().gotoItem(0);
+            mui.ajax(http_url + '/api.php/Mall/index?keywords=' + text, {
+                dataType: 'json',
+                type: 'get',
+                timeout: 10000,
+                headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Mall/index'), },
+                success: function (data) {
+                    alert(JSON.stringify(data.data));
+                    vm.good1.good = data.data.list;
+                },
+                error: function (xhr, type, errorThrown) {
+
+                }
+            });
         }
     </script>
 </body>

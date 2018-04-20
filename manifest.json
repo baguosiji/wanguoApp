@@ -5,10 +5,10 @@
 		"iPad"
 	],
 	"id": "H54303F31",/*应用的标识，创建应用时自动生成，勿手动修改*/
-	"name": "二手码头",/*应用名称，程序桌面图标名称*/
+	"name": "万国汽车码头",/*应用名称，程序桌面图标名称*/
 	"version": {
 		"name": "1.0.0",/*应用版本名称*/
-		"code": "83"
+		"code": "84"
 	},
 	"description": "",/*应用描述信息*/
 	"icons": {
@@ -81,7 +81,7 @@
 			"icons": {
 				"ios": {
 					"prerendered": true, /*应用图标是否已经高亮处理，在iOS6及以下设备上有效*/
-					"auto": "", /*应用图标，分辨率：512x512，用于自动生成各种尺寸程序图标*/
+					 /*应用图标，分辨率：512x512，用于自动生成各种尺寸程序图标*/
 					"iphone": {
 						"normal": "",/*iPhone普通屏幕程序图标，分辨率：57x57*/
 						"retina": "",/*iPhone高分屏程序图标，分辨率：114x114*/
@@ -118,7 +118,7 @@
 						"spotlight@2x": "img/res/icons/80x80.png",
 						"notification": "img/res/icons/20x20.png",
 						"notification@2x": "img/res/icons/40x40.png"
-					}
+					},"appstore":"img/res/icons/app-logo.png"
 				},
 				"android": {
 					"mdpi": "img/res/icons/48x48.png", /*普通屏程序图标，分辨率：48x48*/
@@ -212,7 +212,9 @@
 					"html/login.html",
 					"html/personalInformation.html",
 					"html/myCollection.html",
-					"html/centerChangePWD.html"
+					"html/centerChangePWD.html",
+					"html/cartOrder.html",
+					"html/aboutUs.html"
 				],
 				"priority": 0
 			},
@@ -246,7 +248,8 @@
 					"html/active1.html",
 					"html/active3.html",
 					"html/active2.html",
-					"html/cartDetail.html"
+					"html/cartDetail.html",
+					"html/cartAssessment.html"
 				],
 				"priority": 0
 			},
@@ -285,7 +288,8 @@
 			"html/cartDetail.html": {
 				"resources": [],
 				"refer": [
-					"html/paymentMessage.html"
+					"html/paymentMessage.html",
+					"html/login.html"
 				],
 				"priority": 0
 			},
@@ -322,7 +326,8 @@
 					"html/my.html",
 					"html/shoppingMall.html",
 					"html/goodDetail.html",
-					"html/login.html"
+					"html/login.html",
+					"html/search.html"
 				],
 				"priority": 0
 			},
@@ -373,6 +378,45 @@
 				"resources": [],
 				"refer": [
 					"html/order.html"
+				],
+				"priority": 0
+			},
+			"html/centerChangePWD.html": {
+				"resources": [],
+				"refer": [
+					"html/login.html"
+				],
+				"priority": 0
+			},
+			"html/cartOrder.html": {
+				"resources": [
+					"html/cartOrder/all.html"
+				],
+				"refer": [
+					"html/cartOrder/pendingPayment.html",
+					"html/cartOrder/pendingdelivery.html"
+				],
+				"priority": 0
+			},
+			"html/cartOrder/pendingPayment.html": {
+				"resources": [],
+				"refer": [
+					"html/payment.html"
+				],
+				"priority": 0
+			},
+			"html/cartOrder/pendingdelivery.html": {
+				"resources": [],
+				"refer": [
+					"html/goodDetail.html"
+				],
+				"priority": 0
+			},
+			"html/cartOrder/all.html": {
+				"resources": [],
+				"refer": [
+					"html/cartDetail.html",
+					"html/payment.html"
 				],
 				"priority": 0
 			}

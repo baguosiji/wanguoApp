@@ -45,7 +45,7 @@
                     <div class="mui-slider-group" style="height:10rem;width:10rem;">
                         <div class="mui-slider-item">
                             <a href="#">
-                                <img  v-bind:src="http_url+goodMessage.pic" />
+                                <img v-bind:src="http_url+goodMessage.pic" />
                             </a>
                         </div>
                     </div>
@@ -279,7 +279,7 @@
                 headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Mall/details') },
                 success: function (data) {
                     vm.goodMessage = data.data.info;
-                    document.getElementById("contents").innerHTML=data.data.info.goods_content;
+                    document.getElementById("contents").innerHTML = data.data.info.goods_content;
                     firstImage = data.data.info.goods_images[0];
                     lastImage = data.data.info.goods_images.pop();
                     vm.goodData = data.data;
@@ -351,9 +351,9 @@
             }
         })
         function call_serve() {
-            mui.confirm("请联系客服：400-0998-058", "万国提示" ,["取消","确认"],function(num){
-                if(num.index==1){
-                    window.location.href='tel:400-0998-058';
+            mui.confirm("请联系客服：400-0998-058", "万国提示", ["取消", "确认"], function (num) {
+                if (num.index == 1) {
+                    window.location.href = 'tel:400-0998-058';
                 }
             });
         }
@@ -410,19 +410,25 @@
         //跳转到结算页面
         mui(".popup-bottom").on("tap", ".buy", function () {
             if (user_token()) {
-                popup.style.bottom = -14 + "rem";
-                mask.style.display = "none";
-                mui.openWindow({
-                    url: "settlementPage.html",
-                    id: "settlementPage.html",
-                    extras: {
-                        goodId: vm.goodMessage.goods_id,
-                        goodNum: vm.buy_num,
-                        spec_ids: vm.good_spec.spec_ids ? vm.good_spec.spec_ids : "",
-                        spec_names: vm.good_spec.spec_names ? vm.good_spec.spec_names : "",
-                        one: true,
-                    },
-                })
+                if (!vm.good_spec.id) {
+                    toast("请选择商品规格")
+                } else if (vm.buy_num > vm.good_spec.store_count) {
+                    toast("库存不足")
+                } else {
+                    popup.style.bottom = -14 + "rem";
+                    mask.style.display = "none";
+                    mui.openWindow({
+                        url: "settlementPage.html",
+                        id: "settlementPage.html",
+                        extras: {
+                            goodId: vm.goodMessage.goods_id,
+                            goodNum: vm.buy_num,
+                            spec_ids: vm.good_spec.spec_ids ? vm.good_spec.spec_ids : "",
+                            spec_names: vm.good_spec.spec_names ? vm.good_spec.spec_names : "",
+                            one: true,
+                        },
+                    })
+                }
             } else {
                 mui.confirm("您还未登录!", "万国提示", ['取消', '去登录'], function (e) {
                     if (e.index == 1) {

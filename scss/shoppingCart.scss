@@ -212,7 +212,6 @@
 //添加购买数量
 .buy-number {
   display: flex;
-  height: 1rem;
   align-items: center;
   flex-direction: row-reverse;
   .number {
@@ -223,13 +222,17 @@
     flex-direction: row-reverse;
     .remove {
       background-color: #e6e5e3;
+      position: relative;
       width: 0.8rem;
       height: 0.8rem;
       text-align: center;
       line-height: 0.8rem;
       border-radius: 0.1rem;
       span {
+        position: absolute;
         font-size: 0.5rem;
+        top: -1px;
+        left: .3rem;
       }
     }
     .buy-number-input {
@@ -244,6 +247,7 @@
     }
     .add {
       background-color: #e6e5e3;
+      position: relative;
       width: 0.8rem;
       height: 0.8rem;
       text-align: center;
@@ -251,10 +255,13 @@
       border-radius: 0.1rem;
       .mui-icon {
         font-size: 0.5rem;
+        position: absolute;
+        top: 8px;
+        left: .18rem;
       }
     }
-  }  
-  
+  }
+
   div {
     width: 0.8rem;
     height: 0.8rem;
