@@ -9,6 +9,7 @@
   height: 3rem;
   background-color: #fff;
   display: flex;
+  display: -webkit-flex;
   .settlement-good-img {
     height: 3rem;
     width: 3rem;
@@ -17,10 +18,10 @@
       height: 3rem;
       text-align: center;
     }
-    
   }
   .settlement-good-name-price {
     flex: 1;
+    -webkit-flex:1;
     height: 2rem;
     .good-name {
       height: 2rem;
@@ -49,6 +50,8 @@
     border-bottom: 1px solid #f7f5f4;
     line-height: 1.173333rem;
     display: flex;
+    display: -webkit-flex;
+    -webkit-justify-content: space-between;
     justify-content: space-between;
     & > span {
       color: #000000;
@@ -56,6 +59,7 @@
     }
     .select-exchange-goods-reason {
       display: flex;
+      display: -webkit-flex;
       & > div {
         height: 1.173333rem;
         span {
@@ -72,6 +76,7 @@
     height: 1.173333rem;
     line-height: 1.173333rem;
     display: flex;
+    display: -webkit-flex;
     div {
       width: 2.5rem;
       font-size: 0.38rem;
@@ -97,6 +102,7 @@
   .address-message {
     border-bottom: 1px solid #f7f5f4;
     display: flex;
+    display: -webkit-flex;
     height: 1.173333rem;
     div {
       width: 2.5rem;
@@ -129,6 +135,7 @@
   .address-message {
     border-bottom: 1px solid #f7f5f4;
     display: flex;
+    display: -webkit-flex;
     height: 1.173333rem;
     div {
       width: 2.5rem;
@@ -137,6 +144,7 @@
     }
     input {
       flex: 1;
+      -webkit-flex:1;
       outline: none;
       border: 0;
       margin: 0;
@@ -150,6 +158,8 @@
     border-bottom: 1px solid #f7f5f4;
     line-height: 1.173333rem;
     display: flex;
+    display: -webkit-flex;
+    -webkit-justify-content: space-between;
     justify-content: space-between;
     & > span {
       color: #000000;
@@ -157,6 +167,7 @@
     }
     .select-exchange-goods-reason {
       display: flex;
+      display: -webkit-flex;
       & > div {
         height: 1.173333rem;
         span {
@@ -235,21 +246,27 @@
   }
   .reason-list {
     display: flex;
+    display: -webkit-flex;
     padding: 0 0.3rem;
     border-bottom: 1px solid #ededed;
     color: #000000;
     height: 1.173333rem;
     align-items: center;
+    -webkit-align-items: center;
     justify-content: space-between;
+    -webkit-justify-content: space-between;
   }
   .reason-list-bank {
     display: flex;
+    display: -webkit-flex;
     padding: 0 0.3rem;
     border-bottom: 1px solid #ededed;
     color: #000000;
     height: 1.173333rem;
     align-items: center;
+    -webkit-align-items: center;
     justify-content: space-between;
+    -webkit-justify-content: space-between;
   }
   .select-change-goods-reason {
     color: #30b8fe;

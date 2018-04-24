@@ -66,8 +66,11 @@
                 <div id="item1" class="mui-slider-item mui-control-content mui-active">
                     <div class="mui-scroll-wrapper">
                         <div class="mui-scroll">
-                            <div class="mui-table-view">
-                                <div class="shopping-mall-good-list" v-for="item in good1.good" v-bind:id="item.goods_id" @tap="jump_to_good_detail(item.goods_id)">
+                            <div>
+                                <div class="no-data" style="padding-top: 1rem" v-if="good1.good.length==0">
+                                    <img style="width: 10rem;height: 8rem" src="../img/nocollect.png" alt="">
+                                </div>
+                                <div class="shopping-mall-good-list" v-if="good1.good.length!=0" v-for="item in good1.good" v-bind:id="item.goods_id" @tap="jump_to_good_detail(item.goods_id)">
                                     <div class="left">
                                         <img v-bind:src="http_url+item.pic" alt="">
                                     </div>
@@ -329,6 +332,7 @@
         })
         function change_list(index) {
             slid_list.slider().gotoItem(index);
+            is_search == 2 ? is_search = 3 : null;
             if (index == 0) {
                 get_goods(1, 0);
             } else {
@@ -345,6 +349,7 @@
         // slider监听
         document.querySelector('#slider').addEventListener('slide', function (event) {
             var num = event.detail.slideNumber;
+            is_search == 2 ? is_search = 3 : null;
             if (num > 0) {
                 get_goods(num + 1, vm.classification[num - 1].id);
             } else {
@@ -359,7 +364,12 @@
             nowData = index;
             switch (index) {
                 case 1:
-                    goods = vm.good1.good;
+                    if (is_search == 3) {
+                        goods = [];
+                        is_search = 1;
+                    } else {
+                        goods = vm.good1.good;
+                    }
                     break;
                 case 2:
                     goods = vm.good2.good;
@@ -422,11 +432,14 @@
                     good_id: ids,
                 }
             })
-
         };
         var page = 2;
         var nowSelectClass;                 //当前选择的商品分类
         function pull_up_refresh() {
+            if (is_search == 2) {
+                this.endPullUpToRefresh(false);
+                return;
+            }
             var self = this;
             mui.ajax(http_url + '/api.php/Mall/index?p=' + nowSelectClass.page + '&cat_id=' + nowId, {
                 dataType: 'json',
@@ -459,6 +472,7 @@
                         }
                         self.endPullUpToRefresh(false);
                     } else {
+                        // self.disablePullupToRefresh();
                         self.endPullUpToRefresh(true)
                     }
                 },
@@ -467,18 +481,22 @@
                 }
             })
         }
+        var is_search = 1;                //是否为搜索跳转的
         //搜索商品
         function search(text) {
-            console.log("拿到");
             slid_list.slider().gotoItem(0);
+            is_search = 2;
             mui.ajax(http_url + '/api.php/Mall/index?keywords=' + text, {
                 dataType: 'json',
                 type: 'get',
                 timeout: 10000,
                 headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Mall/index'), },
                 success: function (data) {
-                    alert(JSON.stringify(data.data));
+                    // alert(JSON.stringify(data.data));
+                    // alert(JSON.stringify(data));
+                    vm.good1.good = [];
                     vm.good1.good = data.data.list;
+                    // Vue.set(vm.good1,'good',data.data.list);
                 },
                 error: function (xhr, type, errorThrown) {
 

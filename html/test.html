@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    #popup {
+        position: absolute;
+        bottom: -500px;
+        transition: all 0.5s;
+        -webkit-transition: all 0.5s;
+        z-index: 100;
+    }
+</style>
+
+<body>
+    <div id="content" style="width: 100%;height: 100%;position: relative;">
+        <!-- <button onclick="popup()">点击弹出</button>
+        <div style="height: 50px;position: fixed;bottom: 0;left: 0;width: 100%">
+            弹出位置
+            <div id="popup" onclick="hiddens()" style="width: 100%;height:500px;background-color:#000;color: #ffffff">
+                点击收回
+            </div>
+        </div> -->
+    </div>
+    <script src="../js/md5.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/mui.min.js"></script>
+    <script>
+        function popup() {
+            document.getElementById("popup").style.bottom = 0;
+        }
+        function hiddens() {
+            document.getElementById("popup").style.bottom = -500 + "px";
+        }
+        mui.ajax('https://api.wanguo.net/api.php/About/page?id=98', {
+            dataType: 'json',
+            type: 'get',
+            timeout: 10000,
+            headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/About/page'), },
+            success: function (data) {
+                if (data.status == 200) {
+                    document.getElementById("content").innerHTML = data.data.contents;
+                } else {
+
+                }
+            },
+            error: function (xhr, type, errorThrown) {
+
+            }
+        })
+    </script>
+</body>
+
+</html>

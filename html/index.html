@@ -63,9 +63,11 @@
     <script>
         var click = true;
         var Index = 0;
+        var self = null;
         var subpages = ["indexIndex.html", "buyCart.html", "shoppingMall.html", "my.html"];
         mui.plusReady(function () {
-            var self = plus.webview.currentWebview();
+            document.addEventListener("netchange", onNetChange, false);
+            self = plus.webview.currentWebview();
             for (var i = 0; i < subpages.length; i++) {
                 var sub = plus.webview.create(
                     subpages[i],
@@ -82,6 +84,7 @@
             }
             shoppingMallPage = plus.webview.getWebviewById("shoppingMall.html");
             indexSubject = plus.webview.getWebviewById("indexIndex.html");
+
             // document.querySelector(".title-right").addEventListener("tap", function () {
             //     console.log(click);
             //     if (user_token()) {
@@ -99,6 +102,17 @@
             //     }
             // })
         })
+        function onNetChange() {
+            var nt = plus.networkinfo.getCurrentType();
+            if (nt == plus.networkinfo.CONNECTION_NONE) {
+                toast("当前无网络连接")
+            } else {
+                var child = self.children();
+                for (i in child) {
+                    child[i].reload(true);
+                }
+            }
+        }
         //当前激活选项
         var activeTab = subpages[Index];
         title = document.querySelector(".title-center")
@@ -135,6 +149,11 @@
                 div.setAttribute("class", "title-input");
                 childDIV.setAttribute("class", "search-button");
                 childDIV.innerText = "搜索";
+                childDIV.addEventListener("tap", function () {
+                    search();
+                    var nowinput = document.querySelector("input");
+                    shoppingMallPage.evalJS("search('" + nowinput.value + "')");
+                }, false);
                 var input = document.createElement("input");
                 input.setAttribute("placeholder", "请输入搜索内容");
                 input.setAttribute("type", "text");
@@ -152,6 +171,11 @@
                 div.setAttribute("class", "title-input");
                 childDIV.setAttribute("class", "search-button");
                 childDIV.innerText = "搜索";
+                childDIV.addEventListener("tap", function () {
+                    search();
+                    var nowinput = document.querySelector("input");
+                    shoppingMallPage.evalJS("search('" + nowinput.value + "')");
+                }, false);
                 var input = document.createElement("input");
                 input.setAttribute("type", "text");
                 input.setAttribute("placeholder", "请输入搜索内容");
@@ -168,16 +192,17 @@
         });
         //子页面点击切换页面的方法
         function changeView(now) {
+        
             var targetTab = now;
             var that;
+            if (targetTab == activeTab) {
+                return;
+            }
             for (var i = 0; i < activeA.length; i++) {
                 activeA[i].classList.remove("mui-active");
                 if (activeA[i].href.indexOf(now) >= 0) {
                     that = activeA[i];
                 }
-            }
-            if (targetTab == activeTab) {
-                return;
             }
             that.classList.add("mui-active");
             if (c) {
@@ -185,7 +210,7 @@
                 // title.innerHTML = that.querySelector(".mui-tab-label").innerHTML;
                 click = false;
                 document.querySelector(".title-left").style.visibility = "visible";
-                action_bar_right.style.visibility = "hidden";
+                // action_bar_right.style.visibility = "hidden";
                 // document.querySelector(".title-right").querySelector("span") = "img/setting.png";
             }
             // else {
@@ -234,7 +259,11 @@
         document.querySelector(".search-button").addEventListener("tap", function () {
             search();
             var nowinput = document.querySelector("input");
-            shoppingMallPage.evalJS("search('" + nowinput.value + "')");
+            if (nowinput.value) {
+                shoppingMallPage.evalJS("search('" + nowinput.value + "')");
+            } else {
+                toast(请输入搜索内容);
+            }
         }, false)
         function search() {
             var that;

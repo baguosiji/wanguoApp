@@ -158,7 +158,7 @@
         })
         mui.plusReady(function () {
             mui("#app").on("tap", "#date", function () {
-                console.log(123456)
+             
                 pickDate(this);
             })
         })
@@ -182,7 +182,7 @@
                 var d = e.date;
                 data.querySelector("#date>input").placeholder = d.getFullYear() + "-" + (d.getMonth() + 1);
             }, function (e) {
-                console.log("未选择日期：" + e.message);
+            
             });
         }
         //提交信息
@@ -252,7 +252,7 @@
                 success: function (data) {
                     vm.selectCart = [];
                     vm.selectCart = data.data;
-                    console.log(data.data);
+            
                 },
                 error: function (xhr, type, errorThrown) {
                     //异常处理；ss

@@ -76,7 +76,7 @@
         var _self;
         mui.plusReady(function () {
             plus.webview.close("payment.html");
-            console.log(JSON.stringify(plus.webview.all()));
+         
             pendingPaymentPage = plus.webview.getWebviewById("order/pendingPayment.html");
             _self = plus.webview.currentWebview();
             var group = new webviewGroup(_self.id, {
@@ -127,7 +127,6 @@
                 }
                 ],
                 onChange: function (obj) {
-                    console.log(JSON.stringify(obj));
                     var c = document.querySelector("div.active");
                     if (c) {
                         c.classList.remove("active");
@@ -142,7 +141,9 @@
             mui(".padding").on("tap", ".shopping-mall-classification-every-last", function (e) {
                 var wid = this.getAttribute("data-wid");
                 group.switchTab(wid);
-                plus.webview.getWebviewById(wid).reload(true);
+                // nowPage=plus.webview.getWebviewById(wid);
+                // nowPage.reload(true);
+                // plus.webview.getWebviewById(wid).reload(true);
                 // pendingPaymentPage.evalJS("popup_close()");
             });
 

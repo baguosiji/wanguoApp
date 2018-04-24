@@ -96,7 +96,7 @@
             }
         });
 
-        mui.ajax(http_url + "/api.php/User/buycar?order_status=0&p=1&token=" + user_all_message.token, {
+        mui.ajax(http_url + "/api.php/User/buycar?status=0&p=1&token=" + user_all_message.token, {
             dataType: 'json',
             type: 'get',
             timeout: 10000,

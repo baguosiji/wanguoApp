@@ -2,19 +2,25 @@
 .screen {
   width: 100%;
   display: flex;
+  display: -webkit-flex;
   height: 0.7rem;
   align-items: center;
+  -webkit-align-items: center;
   .price,
   .time,
   .kilometre,
   .all {
     flex: 1;
+    -webkit-flex:1;
     display: flex;
+    display: -webkit-flex;
     padding-top: 0.15rem;
     text-align: center;
     font-size: 0.38rem;
-    justify-content: center;
     align-items: center;
+    -webkit-align-items: center;
+    justify-content: center;
+    -webkit-justify-content: center;
     .common-container {
       margin-left: 0.15rem;
       height: 0.7rem;
@@ -50,6 +56,7 @@
     border-bottom: 1px solid #f7f5f4;
     position: relative;
     display: flex;
+    display: -webkit-flex;
     height: 2.3rem;
 
     margin-top: 0.2rem;
@@ -66,6 +73,7 @@
     }
     .right {
       flex: 1;
+      -webkit-flex:1;
       height: 2.3rem;
       padding: 0.3rem 0;
       p {

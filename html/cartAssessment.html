@@ -145,7 +145,6 @@
             },
             error: function (xhr, type, errorThrown) {
                 //异常处理；ss
-                console.log(errorThrown);
             }
         })
         var vm = new Vue({
@@ -169,7 +168,7 @@
                 var d = e.date;
                 data.querySelector("#date>input").placeholder = d.getFullYear() + "-" + (d.getMonth() + 1);
             }, function (e) {
-                console.log("未选择日期：" + e.message);
+              
             });
         }
         var selectCart;
@@ -194,7 +193,7 @@
                 },
                 error: function (xhr, type, errorThrown) {
                     //异常处理；ss
-                    console.log(errorThrown);
+                   
                 }
             })
         }
@@ -236,7 +235,7 @@
                     },
                     error: function (xhr, type, errorThrown) {
                         //异常处理；ss
-                        console.log(errorThrown);
+                       
                     }
                 })
             }

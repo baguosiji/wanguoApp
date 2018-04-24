@@ -4,8 +4,11 @@
   padding: 0 0.3rem;
   background-color: #fff;
   display: flex;
+  display: -webkit-flex;
   align-items: center;
+  -webkit-align-items: center;
   justify-content: space-between;
+  -webkit-justify-content: space-between;
   .operation-button-sell {
     width: 4.56rem;
     line-height: 0.8rem;
@@ -22,7 +25,7 @@
     text-align: center;
     color: #00a0e9;
     font-size: 0.42rem;
-    
+
     border-radius: 0.1rem;
   }
 }
@@ -52,9 +55,12 @@
   .content {
     height: 3rem;
     display: flex;
+    display: -webkit-flex;
     align-items: center;
+    -webkit-align-items: center;
     .left {
       flex: 1;
+      -webkit-flex: 1;
       text-align: center;
       .circle {
         margin: 0 auto;
@@ -62,8 +68,11 @@
         width: 2rem;
         border-radius: 1rem;
         display: flex;
+        display: -webkit-flex;
         align-items: center;
+        -webkit-align-items: center;
         justify-content: center;
+        -webkit-justify-content: center;
         border: 2px solid #00a0e9;
         .semi-circle {
           height: 1.3rem;
@@ -85,14 +94,18 @@
     }
     .center {
       flex: 1;
+      -webkit-flex: 1;
       .circle {
         margin: 0 auto;
         height: 2rem;
         width: 2rem;
         border-radius: 1rem;
         display: flex;
+        display: -webkit-flex;
         align-items: center;
+        -webkit-align-items: center;
         justify-content: center;
+        -webkit-justify-content: center;
         border: 2px solid #00a0e9;
         .semi-circle {
           height: 1.3rem;
@@ -113,6 +126,7 @@
     }
     .right {
       flex: 1;
+      -webkit-flex: 1;
       text-align: center;
       .circle {
         margin: 0 auto;
@@ -120,8 +134,11 @@
         width: 2rem;
         border-radius: 1rem;
         display: flex;
+        display: -webkit-flex;
         align-items: center;
+        -webkit-align-items: center;
         justify-content: center;
+        -webkit-justify-content: center;
         border: 2px solid #00a0e9;
         .semi-circle {
           height: 1.3rem;

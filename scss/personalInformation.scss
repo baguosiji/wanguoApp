@@ -2,11 +2,14 @@
   height: 1.4rem;
   padding: 0 0.3rem;
   display: flex;
+  display: -webkit-flex;
   color: #333333;
   font-size: 0.4rem;
   justify-content: space-between;
+  -webkit-justify-content: space-between;
   border-bottom: 1px solid #ebebeb;
   align-items: center;
+  -webkit-align-items: center;
   .select-img {
     img {
       height: 1.2rem;
@@ -25,7 +28,9 @@
   
   border-bottom: 1px solid #ebebeb;
   display: flex;
+  display: -webkit-flex;
   align-items: center;
+  -webkit-align-items: center;
   font-size: 0.4rem;
   div {
     width: 2rem;
@@ -40,6 +45,7 @@
   input {
     margin: 0;
     flex: 1;
+    -webkit-flex: 1;
     height: 1.173333rem;
     outline: none;
     border: 0;
@@ -60,6 +66,7 @@
   // }
   .float-right {
     flex: 1;
+    -webkit-flex: 1;
     text-align: right;
     color: #333333;
   }

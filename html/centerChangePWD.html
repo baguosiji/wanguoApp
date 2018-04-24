@@ -76,8 +76,7 @@
         });
         var pwdReg = /^(\d{8,16})?$/;        //8到16位数字与字母组合
         function submit() {
-            console.log(vm.pwd);
-            console.log(vm.rpwd);
+        
             if (!vm.oldpwd) {
                 toast("请输入旧密码");
             } else if (!pwdReg.test(vm.pwd)) {

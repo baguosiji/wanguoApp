@@ -67,7 +67,7 @@
                         <div style="color: #eda336; border: 1px solid #eda336" v-if="order.order_status==1">
                             等待发货
                         </div>
-                        <div style="color: #eda336; border: 1px solid #eda336" v-if="order.order_status==0" @tap="jump_to_payment(order.b_id)">
+                        <div style="color: #eda336; border: 1px solid #eda336" v-if="order.order_status==0" @tap="jump_to_payment(order.id)">
                             立即付款
                         </div>
                     </div>
@@ -101,7 +101,6 @@
         });
         //订单状态显示文字
         function show_text(status) {
-            console.log(status);
             if (status == 0) {
                 return "等待买家付款"
             } else if (status == 1) {

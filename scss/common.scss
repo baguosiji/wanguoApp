@@ -67,6 +67,7 @@ body {
   height: 45px;
   width: 100%;
   display: flex;
+  display: -webkit-flex;
   background-color: #39ace5;
   border-bottom: 0;
   // -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.85);
@@ -87,11 +88,14 @@ body {
     height: 100%;
     text-align: left;
     display: flex;
+    display: -webkit-flex;
     div {
       height: 45px;
       line-height: 45px;
       display: flex;
+      display: -webkit-flex;
       align-items: center;
+      -webkit-align-items: center;
       text-align: left;
       .mui-icon-back {
         color: #ffffff;
@@ -114,11 +118,13 @@ body {
     width: 2rem;
     height: 100%;
     display: flex;
+    display: -webkit-flex;
     line-height: 44px;
     text-align: right;
     div {
       height: 44px;
       flex: 1;
+      -webkit-flex:1;
       text-align: right;
       line-height: 44px;
       span {

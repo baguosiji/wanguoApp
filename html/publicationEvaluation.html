@@ -141,8 +141,12 @@
             }
         })
         var nowpage = null;
+        var orderPage = null;                     //订单页面
+        var child = [];                         //订单子页面
         mui.plusReady(function () {
             nowpage = plus.webview.currentWebview();
+            orderPage = plus.webview.getWebviewById('order.html');
+            child = orderPage.children();
             //弹出选择按钮框
             document.getElementById("picture-btn").addEventListener('tap', function () {
                 if (img_container.children.length >= 3) {
@@ -276,7 +280,7 @@
                         { method: "POST", blocksize: 204800, priority: 100 },
                         function (t, status) {
                             // 上传完成
-                            upload_img += (","+JSON.parse(t.responseText).data.file_path);
+                            upload_img += ("," + JSON.parse(t.responseText).data.file_path);
                             if (is_Submit < vm.img_url.length) {
                                 is_Submit++;
                                 return;
@@ -335,6 +339,9 @@
                     success: function (data) {
                         if (data.status == 200) {
                             waiting.close();
+                            for (i in child) {
+                                child[i].reload(true);
+                            }
                             toast(data.message);
                             mui.back();
                         }

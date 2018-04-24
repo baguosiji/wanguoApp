@@ -110,8 +110,9 @@
             mui(".padding").on("tap", ".shopping-mall-classification-every-last", function (e) {
                 var wid = this.getAttribute("data-wid");
                 group.switchTab(wid);
-                plus.webview.getWebviewById(wid).reload(true);
-                // pendingPaymentPage.evalJS("popup_close()");
+                // if (plus.webview.getWebviewById(wid)) {
+                //     plus.webview.getWebviewById(wid).reload(true);
+                // }
             });
 
         });

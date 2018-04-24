@@ -110,7 +110,7 @@
             headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/User/order'), },
             success: function (data) {
                 if (data.status == 200) {
-                    console.log(JSON.stringify(data));
+               
                     vm.orders = data.data;
                 } else {
                     toast(data.message);
@@ -120,11 +120,6 @@
 
             }
         })
-        window.onload = function () {
-            mui.plusReady(function () {
-
-            });
-        }
         // mui('.mui-scroll-wrapper').scroll({
         //     deceleration: 0.0005, //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
         //     indicators: false
@@ -145,7 +140,7 @@
                 headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/User/order'), },
                 success: function (data) {
                     if (data.status == 200) {
-                        console.log(JSON.stringify(data));
+                      
                         count++;
                         vm.orders = vm.orders.concat(data.data);
                         if (data.data.length == 0) {

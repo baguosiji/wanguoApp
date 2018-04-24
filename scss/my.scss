@@ -5,6 +5,7 @@
   height: 2.8rem;
   background-color: #ffffff;
   display: flex;
+  display: -webkit-flex;
   .user-header-img {
     width: 3rem;
     height: 100%;
@@ -19,8 +20,9 @@
   }
   .user-name {
     flex: 1;
+    -webkit-flex: 1;
     line-height: 2.8rem;
-    font-size: .4rem;
+    font-size: 0.4rem;
     color: #000000;
   }
   .more {
@@ -37,6 +39,7 @@
   margin-top: 0.15rem;
   .my-list-every-last {
     display: flex;
+    display: -webkit-flex;
     width: 100%;
     padding: 0 0.3rem;
     height: 1.2rem;
@@ -53,6 +56,7 @@
     }
     .center {
       flex: 1;
+      -webkit-flex: 1;
       line-height: 1.2rem;
       font-size: 16px;
       color: #000000;

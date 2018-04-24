@@ -3,6 +3,7 @@
   background-color: #ffffff;
   .top {
     display: flex;
+    display: -webkit-flex;
     width: 6rem;
     height: 1.2rem;
     align-items: center;
@@ -40,6 +41,7 @@
   background-color: #ffffff;
   .stars {
     display: flex;
+    display: -webkit-flex;
     height: 1.173333rem;
     margin-bottom: 0.3rem;
     .left-text {
@@ -62,6 +64,7 @@
   }
   .evaluate {
     display: flex;
+    display: -webkit-flex;
     margin-bottom: 0.2rem;
     .left-text {
       width: 2rem;
@@ -69,8 +72,11 @@
     }
     .select-button {
       flex: 1;
+      -webkit-flex: 1;
       display: flex;
+      display: -webkit-flex;
       flex-wrap: wrap;
+      -webkit-flex-wrap: wrap;
       .button {
         width: 1.6rem;
         border-radius: 0.1rem;
@@ -90,12 +96,14 @@
   }
   .user-input {
     display: flex;
+    display: -webkit-flex;
     margin-bottom: 0.2rem;
     .left-text {
       width: 2rem;
     }
     textarea {
       flex: 1;
+      -webkit-flex: 1;
       padding: 0;
       margin: 0;
       font-size: 0.32rem;
@@ -110,11 +118,15 @@
 }
 .img-upload .img-container {
   display: flex;
+  display: -webkit-flex;
   flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
 }
 .img-upload #img-container {
   display: flex;
-  flex: wrap;
+  display: -webkit-flex;
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
 }
 .img-upload #img-container > img {
   width: 2.133333rem;
@@ -131,8 +143,11 @@
   height: 2.133333rem;
   width: 2.133333rem;
   display: flex;
+  display: -webkit-flex;
   flex-direction: column;
+  -webkit-flex-direction: column;
   justify-content: space-around;
+  -webkit-justify-content: space-around;
   border: 1px dashed #999999;
   text-align: center;
 }

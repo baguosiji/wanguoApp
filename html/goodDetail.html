@@ -142,35 +142,34 @@
                 <div id="contents">
                     <!-- <img v-for="img in goodMessage.goods_images" v-bind:src="http_url+img.pic" style="width: 10rem;height: 100%" alt=""> -->
                 </div>
-                <div id="good-message-list">
-
-                </div>
             </div>
         </div>
         <div class="bottom-nav">
-            <div class="left">
-                <div @tap="call_serve()">
-                    <p style="padding-top: .1rem">
-                        <span class="iconfont icon-kefu font"></span>
-                    </p>
-                    <p>
-                        客服
-                    </p>
+            <div class="all">
+                <div class="left">
+                    <div @tap="call_serve()">
+                        <p style="padding-top: .1rem">
+                            <span class="iconfont icon-kefu font"></span>
+                        </p>
+                        <p>
+                            客服
+                        </p>
+                    </div>
+                    <div @tap="collections($event)" id="collection">
+                        <p style="padding-top: .1rem">
+                            <span class="iconfont icon-shoucang1 font"></span>
+                        </p>
+                        <p class="text">
+                            收藏
+                        </p>
+                    </div>
                 </div>
-                <div @tap="collections($event)" id="collection">
-                    <p style="padding-top: .1rem">
-                        <span class="iconfont icon-shoucang1 font"></span>
-                    </p>
-                    <p class="text">
-                        收藏
-                    </p>
+                <div class="center">
+                    加入购物车
                 </div>
-            </div>
-            <div class="center">
-                加入购物车
-            </div>
-            <div class="right">
-                立刻购买
+                <div class="right">
+                    立刻购买
+                </div>
             </div>
             <!-- 弹出选择商品分类框 -->
             <div id="popup" class="popup">
@@ -292,7 +291,7 @@
                         collection_good.querySelectorAll("p")[0].style.color = "#666";
                         collection_good.querySelectorAll("p")[1].style.color = "#666";
                     }
-                    document.getElementById("good-message-list").innerHTML = vm.goodMessage.goods_content;
+                    // document.getElementById("good-message-list").innerHTML = vm.goodMessage.goods_content;
 
                 },
                 error: function (xhr, type, errorThrown) {
@@ -325,13 +324,15 @@
                 }
             }
             if (vm.goodData.sec_list.spec.length == rememberId.length) {
-                vm.good_spec = vm.goodData.sec_list.spec_val.find(function (every) {
-                    return every.spec_ids == text;
-                })
+                for (i in vm.goodData.sec_list.spec_val) {
+                    if (vm.goodData.sec_list.spec_val[i].spec_ids == text) {
+                        vm.good_spec = vm.goodData.sec_list.spec_val[i];
+                    }
+                }
+                // vm.good_spec = vm.goodData.sec_list.spec_val.find(function (every) {
+                //     return every.spec_ids == text;
+                // })
             }
-        }
-        function getHttp() {
-            console.log(document.querySelector(".whd").src);
         }
         //初始化input value值;
         var popup = document.getElementById("popup");
@@ -410,7 +411,23 @@
         //跳转到结算页面
         mui(".popup-bottom").on("tap", ".buy", function () {
             if (user_token()) {
-                if (!vm.good_spec.id) {
+                if (!vm.goodData.sec_list.spec) {
+                    if (vm.buy_num >vm.goodMessage.store_num) {
+                        toast("库存不足");
+                    } else {
+                        popup.style.bottom = -14 + "rem";
+                        mask.style.display = "none";
+                        mui.openWindow({
+                            url: "settlementPage.html",
+                            id: "settlementPage.html",
+                            extras: {
+                                goodId: vm.goodMessage.goods_id,
+                                goodNum: vm.buy_num,
+                                one: true,
+                            },
+                        })
+                    }
+                } else if (!vm.good_spec.id) {
                     toast("请选择商品规格")
                 } else if (vm.buy_num > vm.good_spec.store_count) {
                     toast("库存不足")
@@ -468,28 +485,31 @@
             if (user_token()) {
                 var token = localStorage.getItem("token");
                 if (!vm.goodData.sec_list.spec) {
-
-                    mui.ajax(http_url + '/api.php/Order/addcart?token=' + token, {
-                        dataType: 'json',
-                        type: 'post',
-                        headers: { "apitoken": c('/api.php/Order/addcart'), },
-                        data: {
-                            goods_id: vm.goodMessage.goods_id,
-                            num: vm.buy_num,
-                            // spec_ids:  "",
-                            // spec_names:  ""
-                        },
-                        timeout: 10000,
-                        success: function (data) {
-                            popup.style.bottom = -14 + "rem";
-                            mask.style.display = "none";
-                            toast(data.message);
-                        },
-                        error: function (xhr, type, errorThrown) {
-                            //异常处理；ss
-                            console.log(errorThrown);
-                        }
-                    })
+                    if (vm.buy_num > vm.goodMessage.store_num) {
+                        toast("库存不足");
+                    } else {
+                        mui.ajax(http_url + '/api.php/Order/addcart?token=' + token, {
+                            dataType: 'json',
+                            type: 'post',
+                            headers: { "apitoken": c('/api.php/Order/addcart'), },
+                            data: {
+                                goods_id: vm.goodMessage.goods_id,
+                                num: vm.buy_num,
+                                // spec_ids:  "",
+                                // spec_names:  ""
+                            },
+                            timeout: 10000,
+                            success: function (data) {
+                                popup.style.bottom = -14 + "rem";
+                                mask.style.display = "none";
+                                toast(data.message);
+                            },
+                            error: function (xhr, type, errorThrown) {
+                                //异常处理；ss
+                                console.log(errorThrown);
+                            }
+                        })
+                    }
                 } else if (!vm.good_spec.id) {
                     toast("请选择商品规格")
                 } else if (vm.buy_num > vm.good_spec.store_count) {

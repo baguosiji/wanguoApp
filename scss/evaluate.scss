@@ -1,9 +1,11 @@
 .eva-tab{
     height: 45px;
     display: flex;
+    display: -webkit-flex;
     background-color: #ffffff;
     div{
         flex: 1;
+        -webkit-flex:1;
         height:100%;
         text-align: center;
         line-height: 45px; 

@@ -26,8 +26,9 @@
       min-width: 4px;
       height: 1.173333rem;
       display: flex;
-
+      display: -webkit-flex;
       align-items: center;
+      -webkit-align-items: center;
       .add-collection {
         height: 0.613333rem;
         line-height: 0.613333rem;
@@ -57,7 +58,9 @@
   .shop-name {
     height: 1.2rem;
     display: flex;
+    display: -webkit-flex;
     align-items: center;
+    -webkit-align-items: center;
     font-size: 0.45rem;
     color: #000000;
     .select-shop {
@@ -79,6 +82,7 @@
     height: 3rem;
     background-color: #ffffff;
     display: flex;
+    display: -webkit-flex;
     .select-good,
     .select-good-delect {
       width: 10%;
@@ -109,6 +113,7 @@
         height: 1rem;
         width: 100%;
         display: flex;
+        display: -webkit-flex;
         .right-top-left {
           width: 80%;
           height: 100%;
@@ -172,6 +177,7 @@
   z-index: 10000;
   width: 100%;
   display: flex;
+  display: -webkit-flex;
   font-size: 0.4rem;
   .bottom-nav-left {
     // .select-all {
@@ -188,6 +194,7 @@
     padding-left: 0.3rem;
     color: #000;
     flex: 1;
+    -webkit-flex: 1;
     background-color: #fff;
     height: 1.306667rem;
     line-height: 1.306667rem;
@@ -212,14 +219,20 @@
 //添加购买数量
 .buy-number {
   display: flex;
+  display: -webkit-flex;
   align-items: center;
+  -webkit-align-items: center;
   flex-direction: row-reverse;
+  -webkit-flex-direction: row-reverse;
   .number {
     height: 1rem;
     width: 3rem;
     display: flex;
+    display: -webkit-flex;
     align-items: center;
+    -webkit-align-items: center;
     flex-direction: row-reverse;
+    -webkit-flex-direction: row-reverse;
     .remove {
       background-color: #e6e5e3;
       position: relative;

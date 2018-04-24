@@ -109,9 +109,9 @@
         }
         // 发送修改密码请求
         function submit() {
-            var pwdReg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;//8到16位数字与字母组合
+            var pwdReg = /^(\d{8,16})?$/;//8到16位数字与字母组合
             if (!pwdReg.test(vm.firstPWD)) {
-                toast("密码为8-16位数字字母组合")
+                toast("密码为8-16位数字")
             } else if (vm.firstPWD != vm.nextPWD) {
                 toast("两次密码输入不一致")
             } else if (!vm.verificationCode) {

@@ -29,7 +29,7 @@
                             <span>{{order.order_sn}}</span>
                         </div>
                         <div class="float-right">
-                            <span>{{show_text(order.order_status)}}</span>
+                            <span>{{show_text(order.order_status,order.is_comment)}}</span>
                         </div>
                     </div>
                     <div class="good-message" @tap="jump_to_good_detial(order.goods_id)">
@@ -65,7 +65,8 @@
                         <p>{{order.province}}{{order.city}}{{order.area}}{{order.address}}</p>
                     </div>
                     <div class="order-button">
-                        <div class="evaluate" style="color: #eda336; border: 1px solid #eda336" v-if="order.order_status==3" @tap="jump_to_evaluate(order.order_id,order.goods_id)">
+                        <div class="evaluate" style="color: #eda336; border: 1px solid #eda336" v-if="order.order_status==3&&order.is_comment==0"
+                            @tap="jump_to_evaluate(order.order_id,order.goods_id)">
                             立即评价
                         </div>
 
@@ -111,16 +112,18 @@
             }
         });
         //订单状态显示文字
-        function show_text(status) {
-            console.log(status);
+        function show_text(status, num) {
+         
             if (status == 0) {
                 return "等待买家付款"
             } else if (status == 1) {
                 return "买家已付款，等待卖家发货"
             } else if (status == 2) {
                 return "卖家已发货，等待买家确认"
-            } else {
+            } else if (status == 3 && num == 1) {
                 return "交易成功"
+            } else if (status == 3 && num == 0) {
+                return "待评价"
             }
             // switch (status) {
             //     case 0:
@@ -153,11 +156,13 @@
 
             }
         })
-        window.onload = function () {
-            mui.plusReady(function () {
+        var orderPage = null;                     //订单页面
+        var child = [];                         //订单子页面
+        mui.plusReady(function () {
+            orderPage = plus.webview.getWebviewById('order.html');
+            child = orderPage.children();
+        });
 
-            });
-        }
         // mui('.mui-scroll-wrapper').scroll({
         //     deceleration: 0.0005, //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
         //     indicators: false
@@ -225,7 +230,7 @@
                 extras: {
                     order_id: id,
                     is_order: true,
-                    iscart:true
+                    iscart: true
                 }
             })
         }
@@ -240,8 +245,8 @@
                         headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Order/delord'), },
                         success: function (data) {
                             toast(data.message);
-                            if (plus.webview.currentWebview("order/pendingPayment.html")) {
-                                plus.webview.currentWebview("order/pendingPayment.html").reload(true);
+                            for (i in child) {
+                                child[i].reload(true);
                             }
                         },
                         error: function (xhr, type, errorThrown) {
@@ -264,7 +269,9 @@
                         success: function (data) {
                             if (data.status == 200) {
                                 toast(data.message);
-                                plus.webview.currentWebview().reload(true);
+                                for (i in child) {
+                                    child[i].reload(true);
+                                }
                             } else {
                                 toast(data.message);
                             }

@@ -36,6 +36,7 @@
     height: 2.2rem;
     background-color: #faf9f8;
     display: flex;
+    display: -webkit-flex;
     .left {
       width: 35%;
       height: 2.2rem;
@@ -53,6 +54,7 @@
         height: 50%;
         width: 100%;
         display: flex;
+        display: -webkit-flex;
         .right-top-left {
           width: 65%;
           height: 100%;
@@ -106,7 +108,9 @@
     height: 1.173333rem;
     text-align: right;
     display: flex;
+    display: -webkit-flex;
     flex-direction: row-reverse;
+    -webkit-flex-direction: row-reverse;
     padding: 0 0.3rem;
     align-items: center;
     div {
@@ -145,9 +149,11 @@
     width: 100%;
     padding: 0 0.3rem;
     display: flex;
+    display: -webkit-flex;
     .shopping-mall-classification-every-last {
       color: #333333;
       flex: 1;
+      -webkit-flex: 1;
       div {
         margin: 0 auto;
         height: 90%;
@@ -212,8 +218,11 @@
       height: 60%;
       width: 100%;
       display: flex;
+      display: -webkit-flex;
       align-items: center;
+      -webkit-align-items: center;
       justify-content: center;
+      -webkit-justify-content: center;
       //   flex-direction: column-reverse;
       font-size: 1.4rem;
       color: #fe4403;
@@ -239,8 +248,11 @@
     padding: 0 0.3rem;
     border-bottom: 1px solid #ededed;
     display: flex;
+    display: -webkit-flex;
     align-items: center;
+    -webkit-align-items: center;
     justify-content: space-between;
+    -webkit-justify-content: space-between;
   }
   .alipay {
     line-height: 1.173333rem;
@@ -249,8 +261,11 @@
     padding: 0 0.3rem;
     border-bottom: 1px solid #ededed;
     display: flex;
+    display: -webkit-flex;
     align-items: center;
+    -webkit-align-items: center;
     justify-content: space-between;
+    -webkit-justify-content: space-between;
   }
 }
 // 遮罩层样式

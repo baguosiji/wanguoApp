@@ -43,8 +43,8 @@
                 上传头像
             </div>
             <div class="select-img">
-                <img v-if="!userMessage.headimg" src="../img/userHeader.png" alt="">
-                <img v-if="userMessage.headimg" id="user-header-img" v-bind:src="http_url+userMessage.headimg" alt="">
+                <!-- <img v-if="!userMessage.headimg" src="../img/userHeader.png" alt=""> -->
+                <img id="user-header-img" v-bind:src="userMessage.headimg?http_url+userMessage.headimg:null" alt="">
                 <span class="mui-icon mui-icon-arrowright">
 
                 </span>
@@ -144,7 +144,7 @@
                 vm.birthday = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
                 //    Vue.set(vm,birthday,d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate())
             }, function (e) {
-                console.log("未选择日期：" + e.message);
+            
             });
         }
         //获取用户头像img
@@ -158,7 +158,7 @@
                 buttons: btnArray
             }, function (e) {
                 var index = e.index;
-                console.log(JSON.stringify(e));
+              
                 switch (index) {
                     case 0:
                         break;
@@ -189,7 +189,7 @@
                 })
             },
                 function (error) {
-                    console.log(JSON.stringify(error));
+                  
                 },
                 { resolution: res, format: fmt }
             );
@@ -207,12 +207,12 @@
                     createUpload();
                 })
             }, function (e) {
-                console.log("取消选择图片");
+              
             }, { filter: "image" });
         }
         //保存用户信息
         function submit() {
-            console.log(vm.nickname);
+          
             mui.ajax(http_url + '/api.php/User/info?token=' + user_all_message.token, {
                 data: {
                     nickname: vm.nickname,
@@ -225,7 +225,7 @@
                 headers: { "apitoken": c('/api.php/User/info'), },
                 timeout: 10000,
                 success: function (data) {
-                    console.log(JSON.stringify(data));
+                   
                     myPage.reload(true);
                     mui.back();
                 },
@@ -241,7 +241,7 @@
                 function (t, status) {
                     // 上传完成
                     if (status == 200) {
-                        console.log(JSON.stringify(t))
+                     
                     } else {
 
                     }

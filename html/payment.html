@@ -129,9 +129,15 @@
         var wxchannel = null;
         var alichannel = null;
         var nowPage = null;
+        var orderPage = null;                     //订单页面
+        var child = [];                         //订单子页面
         mui.plusReady(function () {
             // plus.webview.get
             nowPage = plus.webview.currentWebview();
+            if (nowPage.is_order) {
+                orderPage = plus.webview.getWebviewById('order.html');
+                child = orderPage.children();
+            }
             plus.payment.getChannels(function (channels) {
                 for (i in channels) {
                     if (channels[i].id == "wxpay") {
@@ -152,7 +158,6 @@
                     timeout: 10000,
                     headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Order/buycar_payment'), },
                     success: function (data) {
-                        console.log(JSON.stringify(data.data));
                         if (data.status == 200) {
                             vm.order_message = data.data;
                         }
@@ -256,7 +261,6 @@
 
                             }, function (error) {
                                 waiting.close();
-                                alert(JSON.stringify(error));
                                 mui.alert("支付失败!", "微信付款", function () {
                                     jump_to_order();
                                 })
@@ -337,6 +341,9 @@
         })
         function jump_to_order() {
             if (nowPage.is_order) {
+                for (i in child) {
+                    child[i].reload(true);
+                }
                 mui.back();
             } else {
                 nowPage.close();

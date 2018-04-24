@@ -258,7 +258,6 @@
                 vm.mydata.push(data);
                 if (number == select_good.length) {
                     select_all.src = "../img/selectTrue.png";
-                    console.log(JSON.stringify(nowGood));
                 }
                 nowGood.active = true;
             }
@@ -289,7 +288,6 @@
                     data.delect = vm.goods[i].id;
                     data.number = vm.goods[i].goods_num;
                     vm.mydata.push(data);
-                    console.log(vm.delect);
                     vm.goods[i].active = true;
                     vm.total += Number(vm.goods[i].goods.shop_price) * vm.goods[i].goods_num;
                 }
@@ -364,9 +362,7 @@
 
             } else {
                 number.goods_num--;
-                console.log(number.active);
                 if (number.active) {
-                    console.log(number.goods.shop_price);
                     vm.total -= Number(number.goods.shop_price);
                 }
             }

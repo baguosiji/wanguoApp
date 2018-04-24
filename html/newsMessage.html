@@ -5,9 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="../js/flexible.js"></script>
-    <script src="../js/mui.min.js"></script>
-    <script src="../js/md5.js"></script>
     <link rel="stylesheet" href="../css/mui.min.css">
     <link rel="stylesheet" href="../css/common.css">
     <title>新闻详情</title>
@@ -18,12 +15,12 @@
     }
 
     img {
-        width: 9.4rem;
+        width: 100%;
         height: 100%;
     }
 
-    .mui-scroll {
-        padding: .3rem .3rem 0 .3rem;
+    #content {
+        padding: .3rem;
     }
 
     span {
@@ -61,7 +58,7 @@
             </div>
         </div>
     </div>
-    <div class="container" id="app">
+    <div class="container">
         <div class="mui-scroll-wrapper">
             <div class="mui-scroll">
                 <div id="content">
@@ -70,23 +67,14 @@
             </div>
         </div>
     </div>
+    <script src="../js/flexible.js"></script>
+    <script src="../js/mui.min.js"></script>
+    <script src="../js/md5.js"></script>
     <script src="../js/common.js"></script>
-    <script src="../js/vue.min.js"></script>
     <script>
-        var vm = new Vue({
-            el: "#app",
-            data: {
-                content: {},
-            }
-        })
-        mui(".mui-scroll-wrapper").scroll({
-            deceleration: 0.0005
-        })
-
         // var settime=setTimeout(function () {
         //     location.reload();
         // }, 100)
-
         mui.plusReady(function () {
             var self = plus.webview.currentWebview();
             mui.ajax(http_url + '/api.php/About/page?id=' + self.message, {
@@ -97,26 +85,6 @@
                 success: function (data) {
                     if (data.status == 200) {
                         document.getElementById("content").innerHTML = data.data.contents;
-                        if (document.querySelector("img").complete) {
-
-                        } else {
-                            mui.ajax(http_url + '/api.php/About/page?id=' + self.message, {
-                                dataType: 'json',
-                                type: 'get',
-                                timeout: 10000,
-                                headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/About/page'), },
-                                success: function (data) {
-                                    if (data.status == 200) {
-                                        document.getElementById("content").innerHTML = data.data.contents;
-                                    } else {
-                                        toast(data.message);
-                                    }
-                                },
-                                error: function (xhr, type, errorThrown) {
-
-                                }
-                            })
-                        }
                     } else {
                         toast(data.message);
                     }
@@ -126,6 +94,10 @@
                 }
             })
         })
+        mui(".mui-scroll-wrapper").scroll({
+            deceleration: 0.0020
+        })
+
     </script>
 </body>
 

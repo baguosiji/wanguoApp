@@ -103,7 +103,7 @@
                 }
             }
         });
-        mui.ajax(http_url + "/api.php/User/buycar?order_status=1&p=1&token=" + user_all_message.token, {
+        mui.ajax(http_url + "/api.php/User/buycar?status=1&p=1&token=" + user_all_message.token, {
             dataType: 'json',
             type: 'get',
             timeout: 10000,
@@ -143,7 +143,6 @@
                 headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/User/buycar'), },
                 success: function (data) {
                     if (data.status == 200) {
-                        console.log(JSON.stringify(data));
                         count++;
                         vm.orders = vm.orders.concat(data.data);
                         if (data.data.length == 0) {

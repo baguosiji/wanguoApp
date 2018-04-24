@@ -2,11 +2,15 @@
   width: 10rem;
   height: 1.173333rem;
   display: flex;
+  display: -webkit-flex;
   align-items: center;
+  -webkit-align-items: center;
   background-color: #3fbeff;
   .location-camera {
     flex: 1;
+    -webkit-flex: 1;
     justify-content: space-between;
+    -webkit-justify-content: space-between;
     text-align: center;
     font-size: 16px;
     color: #fff;
@@ -74,6 +78,7 @@
   background-color: #ffffff;
   border-top: 2px solid #f7f5f4;
   display: flex;
+  display: -webkit-flex;
   .left {
     width: 2.85rem;
     height: 2.85rem;
@@ -87,6 +92,7 @@
   }
   .right {
     flex: 1;
+    -webkit-flex: 1;
     padding: 0 0.3rem;
     .right-top {
       height: 0.9rem;

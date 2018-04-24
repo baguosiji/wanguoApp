@@ -422,7 +422,7 @@
         //父窗口
         var parent;
         mui(".category").on("tap", ".every-category", function () {
-            console.log("dianji")
+        
             if (this.index == 0) {
                 parent.evalJS("changeView('buyCart.html')")
             } else if (this.index == 1) {
@@ -444,6 +444,10 @@
                 })
             } else {
                 ck("功能尚未开通，敬请期待！");
+                // mui.openWindow({
+                //     url: "test.html",
+                //     id: "test.html",
+                // })
             }
         })
         function jump_to_shoppingMall() {

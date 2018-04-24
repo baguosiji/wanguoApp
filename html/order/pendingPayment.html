@@ -5,11 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="../../js/flexible.js"></script>
-    <script src="../../js/mui.min.js"></script>
     <link href="../../css/mui.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../css/common.css">
-    <script src="../../js/md5.js"></script>
     <link rel="stylesheet" href="../../css/order.css">
     <title>订单</title>
 </head>
@@ -75,6 +72,9 @@
             </div>
         </div>
     </div>
+    <script src="../../js/md5.js"></script>
+    <script src="../../js/flexible.js"></script>
+    <script src="../../js/mui.min.js"></script>
     <script src="../../js/common.js"></script>
     <script src="../../js/vue.min.js"></script>
     <script>    
@@ -98,7 +98,12 @@
                 }
             }
         });
-
+        var orderPage = null;                     //订单页面
+        var child = [];                         //订单子页面
+        mui.plusReady(function () {
+            orderPage = plus.webview.getWebviewById('order.html');
+            child = orderPage.children();
+        });
         mui.ajax(http_url + "/api.php/User/order?status=0&p=1&token=" + user_all_message.token, {
             dataType: 'json',
             type: 'get',
@@ -175,7 +180,9 @@
                         headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Order/delord'), },
                         success: function (data) {
                             toast(data.message);
-                            plus.webview.currentWebview().reload(true);
+                            for (i in child) {
+                                child[i].reload(true);
+                            }
                         },
                         error: function (xhr, type, errorThrown) {
 
@@ -185,8 +192,6 @@
             })
 
         }
-        var number = 100
-
         // 跳转到商品详情页面
         function jump_to_good_detial(id) {
             mui.openWindow({

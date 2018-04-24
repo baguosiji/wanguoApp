@@ -164,7 +164,7 @@
                 timeout: 10000,
                 headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/User/evaluation'), },
                 success: function (data) {
-                    console.log(JSON.stringify(data))
+                 
                     if (data.status == 200) {
                         for (var i = 0; i < data.data.length; i++) {
                             var goods_rank = [];
