@@ -113,7 +113,6 @@
             success: function (data) {
                 if (data.status == 200) {
                     count++;
-                    alert(JSON.stringify(data.data));
                     vm.orders = data.data;
                 } else {
                     toast(data.message);
@@ -142,7 +141,6 @@
                 headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/User/order'), },
                 success: function (data) {
                     if (data.status == 200) {
-                    
                         count++;
                         vm.orders = vm.orders.concat(data.data);
                         if (data.data.length == 0) {

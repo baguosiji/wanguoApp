@@ -292,7 +292,9 @@
 				"priority": 0
 			},
 			"html/buyCart.html": {
-				"resources": [],
+				"resources": [
+					"fonts/mui.ttf"
+				],
 				"refer": [
 					"html/cartDetail.html"
 				],
@@ -318,7 +320,13 @@
 			"html/index.html": {
 				"resources": [
 					"html/indexIndex.html",
-					"html/buyCart.html"
+					"html/buyCart.html",
+					"js/index.js",
+					"js/common.js",
+					"js/mui.min.js",
+					"img/login.png",
+					"js/flexible.js",
+					"js/md5.js"
 				],
 				"refer": [
 					"html/my.html",
@@ -431,7 +439,6 @@
 				"img/ellipse5.png",
 				"img/1.png",
 				"img/close.png",
-				"img/login.png",
 				"img/selectTrue.png",
 				"img/love-it.png",
 				"img/llliegal.png",
@@ -444,7 +451,6 @@
 				"img/ellipse2.png",
 				"img/edit1.png",
 				"img/my5.png",
-				"fonts/mui.ttf",
 				"img/credit.png",
 				"css/mui.css",
 				"img/shoppingMall2.png",
@@ -467,7 +473,6 @@
 				"img/index01.png",
 				"img/3.png",
 				"css/index.css",
-				"js/mui.min.js",
 				"css/common.css",
 				"img/left.png",
 				"img/edit.png",

@@ -134,8 +134,8 @@
         mui.plusReady(function () {
             // plus.webview.get
             nowPage = plus.webview.currentWebview();
-            if (nowPage.is_order) {
-                orderPage = plus.webview.getWebviewById('order.html');
+            orderPage = plus.webview.getWebviewById('order.html');
+            if (orderPage) {
                 child = orderPage.children();
             }
             plus.payment.getChannels(function (channels) {

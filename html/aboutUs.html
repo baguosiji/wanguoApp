@@ -52,8 +52,14 @@
 </body>
 <script src="../js/mui.min.js"></script>
 <script>
-    mui.plusReady(function(){
-        document.getElementById("version").innerText="版本："+plus.runtime.version;
+    mui.plusReady(function () {
+        plus.runtime.getProperty(plus.runtime.appid, function (wgtinfo) {
+            //version属性
+            document.getElementById("version").innerText = "版本：" + wgtinfo.version;
+        });
     })
+
+
 </script>
+
 </html>

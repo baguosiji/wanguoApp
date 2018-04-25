@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="../css/mui.min.css">
     <link rel="stylesheet" href="../css/login.css">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="">
     <title>登录</title>
 </head>
 
@@ -32,10 +31,8 @@
         </div>
         <div class="title-right">
             <div class="title-right-left">
-                <img src="" />
             </div>
             <div class="title-right-right">
-                <img src="" alt="">
             </div>
         </div>
     </div>
@@ -54,7 +51,8 @@
             <div class="user-phone-verfication">
                 <input v-model="code" type="text" placeholder="请输入验证码">
                 <div class="send-verfication">
-                    <img src="https://api.wanguo.net/api.php/Login/verify" @tap="changeImg($event)" style="height: 100%;width: 100%" alt="">
+                    <img id="verification" src="https://api.wanguo.net/api.php/Login/verify" @tap="changeImg($event)" style="height: 100%;width: 100%"
+                        alt="">
                     <!-- <img src="http://192.168.50.50:81/api.php/Login/verify" @tap="changeImg($event)" style="height: 100%;width: 100%" alt=""> -->
                 </div>
             </div>
@@ -113,7 +111,7 @@
             jump();
         })
         var myPage;
-      
+
         function logins() {
             var waiting = plus.nativeUI.showWaiting("加载中", { width: '130px', height: '130px' });
             mui.ajax(http_url + '/api.php/Login/login', {
@@ -127,7 +125,7 @@
                 timeout: 10000,
                 headers: { "apitoken": c('/api.php/Login/login'), },
                 success: function (data) {
-                 
+
                     if (data.status == 200) {
                         localStorage.setItem("token", data.data.token);
                         localStorage.setItem("user-message", JSON.stringify(data.data));
@@ -136,7 +134,8 @@
                         mui.back();
                     } else if (data.status == 404) {
                         waiting.close();
-                        plus.webview.currentWebview().reload(true);
+                        document.getElementById("verification").src = "https://api.wanguo.net/api.php/Login/verify";
+                        // document.getElementById("verification").src="http://192.168.50.50:81/api.php/Login/verify";
                         toast(data.message);
                     }
                 },

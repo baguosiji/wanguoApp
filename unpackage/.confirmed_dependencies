@@ -86,7 +86,9 @@
     "refer": [
       "html/cartDetail.html"
     ],
-    "resources": []
+    "resources": [
+      "fonts/mui.ttf"
+    ]
   },
   "html/cartDetail.html": {
     "refer": [
@@ -141,7 +143,13 @@
   "html/index.html": {
     "resources": [
       "html/indexIndex.html",
-      "html/buyCart.html"
+      "html/buyCart.html",
+      "js/index.js",
+      "js/common.js",
+      "js/mui.min.js",
+      "img/login.png",
+      "js/flexible.js",
+      "js/md5.js"
     ],
     "refer": [
       "html/my.html",
