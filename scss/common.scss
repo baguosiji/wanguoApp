@@ -124,7 +124,7 @@ body {
     div {
       height: 44px;
       flex: 1;
-      -webkit-flex:1;
+      -webkit-flex: 1;
       text-align: right;
       line-height: 44px;
       span {
@@ -172,4 +172,7 @@ body {
     width: 10rem;
     height: 10rem;
   }
+}
+[v-cloak] {
+  display: none !important;
 }

@@ -2,8 +2,9 @@ var click = true;
 var Index = 0;
 var self = null;
 var wgtWaiting = null; //等待框
-var oldVer = null; // 当前应用版本号
-var newVer = null; //最新版本号
+var oldVer = null; // 当前应用号
+var newVer = null; //最新号
+var versionMessage = null;
 var subpages = [
   "indexIndex.html",
   "buyCart.html",
@@ -230,7 +231,6 @@ function search() {
   var that;
   if (activeTab == "shoppingMall.html") {
   } else {
-    that.classList.add("mui-active");
     plus.webview.show("shoppingMall.html");
     plus.webview.hide(activeTab);
     activeTab = "shoppingMall.html";
@@ -240,9 +240,11 @@ function search() {
         that = activeA[i];
       }
     }
+    that.classList.add("mui-active");
   }
 }
-//改变版本
+
+//改变
 function checkUpdate() {
   mui.ajax(http_url + "/api.php/Index/checkversion", {
     dataType: "json",
@@ -254,6 +256,7 @@ function checkUpdate() {
     },
     success: function(data) {
       newVer = data.data;
+      versionMessage = data;
       // 监听应用启动界面关闭事件
       if (plus.navigator.hasSplashscreen()) {
         // 启动页未关闭
@@ -266,16 +269,16 @@ function checkUpdate() {
     error: function(xhr, type, errorThrown) {}
   });
 }
-//下载资源
-function downUpload() {
+//资源
+function downUpload(text) {
   if (compareVersion(oldVer, newVer)) {
     mui.confirm(
-      "检测到最新版本" + newVer + "，是否升级?",
-      "应用升级",
-      ["暂不升级", "立刻升级"],
+      versionMessage.message,
+      "万国提示",
+      ["下次再说", "确定"],
       function(e) {
         if (e.index == 1) {
-          wgtWaiting = plus.nativeUI.showWaiting("开始下载", {
+          wgtWaiting = plus.nativeUI.showWaiting("开始任务", {
             width: "130px",
             height: "130px"
           });
@@ -285,8 +288,8 @@ function downUpload() {
             options,
             function(d, status) {
               if (status == 200) {
-                wgtWaiting.setTitle("开始安装");
-                install(d); // 安装wgt包
+                wgtWaiting.setTitle("开始");
+                install(d);
               } else {
                 wgtWaiting.close();
               }
@@ -301,13 +304,12 @@ function downUpload() {
                 break;
               case 3: // 已接收到数据
                 // if (setnum) {
-                //   wgtWaiting.setTitle("正在下载");
                 // }
                 // setnum = false;
                 // var percent = task.downloadedSize / task.totalSize * 100;
                 break;
-              case 4: // 下载完成
-                wgtWaiting.setTitle("下载完成");
+              case 4:
+                wgtWaiting.setTitle("加载完成");
                 break;
             }
           });
@@ -323,22 +325,17 @@ function install(task) {
     { force: true },
     function() {
       wgtWaiting.close();
-      mui.confirm(
-        "已更新到最新版本，重启后生效！",
-        "升级成功",
-        ["稍后重启", "立即重启"],
-        function(e) {
-          if (e.index == 1) {
-            plus.runtime.restart();
-          }
+      mui.confirm("已完成，是否重启！", "万国提示", ["取消", "确定"], function(
+        e
+      ) {
+        if (e.index == 1) {
+          plus.runtime.restart();
         }
-      );
-      // plus.runtime.restart();
+      });
     },
     function(err) {
-      // alert(JSON.stringify(err));
       wgtWaiting.close();
-      mui.toast("安装升级失败", "错误");
+      mui.toast("未知错误");
     }
   );
 }

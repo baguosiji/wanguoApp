@@ -148,7 +148,7 @@
                 url: "newsMessage.html",
                 id: "newsMessage.html",
                 extras: {
-                    message: id 
+                    message: id
                 }
             })
         }
@@ -183,7 +183,7 @@
         //上拉加载
         var page = 2;
         function pullupRefresh() {
-            mui.ajax(http_url + '/api.php/About/index?p='+page, {
+            mui.ajax(http_url + '/api.php/About/index?p=' + page, {
                 dataType: 'json',
                 type: 'get',
                 timeout: 10000,
