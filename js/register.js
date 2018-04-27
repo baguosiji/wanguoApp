@@ -4,7 +4,8 @@ var vm = new Vue({
     phone: "",
     verificationCode: "",
     firstPWD: "",
-    nextPWD: ""
+    nextPWD: "",
+    countDown: 30
   }
 });
 // 获取验证码
@@ -23,6 +24,11 @@ function getVerification() {
       headers: { apitoken: c("/api.php/Login/getsms") },
       success: function(data) {
         toast(data.message);
+        // setTimeout(function() {
+        //   if (vm.countDown > 0) {
+        //     vm.countDown--;
+        //   }
+        // }, 1000);
       },
       error: function(xhr, type, errorThrown) {
         //异常处理；

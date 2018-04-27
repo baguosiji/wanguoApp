@@ -1,0 +1,23 @@
+
+输入密钥库口令:woaiwojia0.0
+再次输入新口令:
+您的名字与姓氏是什么?
+  [Unknown]:  wanghaidong
+您的组织单位名称是什么?
+  [Unknown]:  wanguodianshang
+您的组织名称是什么?
+  [Unknown]:  wanguodianshang
+您所在的城市或区域名称是什么?
+  [Unknown]:  taiyuan
+您所在的省/市/自治区名称是什么?
+  [Unknown]:  shanxisheng
+该单位的双字母国家/地区代码是什么?
+  [Unknown]:  cn
+CN=wanghaidong, OU=wanguodianshang, O=wanguodianshang, L=taiyuan, ST=shanxisheng, C=cn是否
+
+
+应用包名：net.wanguo.app
+应用签名：141b6a8c3f660aac8a440fbb1f93c5ff
+
+
+ios私钥 111111
