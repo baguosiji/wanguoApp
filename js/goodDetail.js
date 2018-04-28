@@ -23,7 +23,7 @@ var lastImage; //轮播图的最后一张图片
 mui.plusReady(function() {
   var id = plus.webview.currentWebview().good_id;
   mui.ajax(http_url + "/api.php/Mall/details?id=" + id, {
-    dataType: "json",
+    dataType: "json", 
     type: "get",
     timeout: 10000,
     headers: {

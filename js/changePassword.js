@@ -3,13 +3,15 @@ var vm = new Vue({
   data: {
     phone: "",
     verification: "",
-    user_pwd: ""
+    user_pwd: "",
+    countDown:60
   }
 });
 var phoneNumber = /^[1][3,4,5,7,8][0-9]{9}$/;
 // 获取验证码
 function getVerification() {
   if (!phoneNumber.test(vm.phone)) {
+    
     toast("请输入正确手机号");
   } else {
     mui.ajax(http_url + "/api.php/Login/getsms", {
@@ -23,6 +25,14 @@ function getVerification() {
       // headers: { 'Content-Type': 'application/json' },
       success: function(data) {
         toast(data.message);
+        var ref_time_out = setInterval(function() {
+          if (vm.countDown > 0) {
+            vm.countDown--;
+          } else {
+            vm.countDown = 60;
+            clearInterval(ref_time_out);
+          }
+        }, 1000);
       },
       error: function(xhr, type, errorThrown) {
         //异常处理；

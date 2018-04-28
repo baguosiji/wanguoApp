@@ -37,22 +37,14 @@
         function hiddens() {
             document.getElementById("popup").style.bottom = -500 + "px";
         }
-        mui.ajax('https://api.wanguo.net/api.php/About/page?id=98', {
-            dataType: 'json',
-            type: 'get',
-            timeout: 10000,
-            headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/About/page'), },
-            success: function (data) {
-                if (data.status == 200) {
-                    document.getElementById("content").innerHTML = data.data.contents;
-                } else {
-
-                }
-            },
-            error: function (xhr, type, errorThrown) {
-
-            }
-        })
+        for (var i = 0; i < 5; i++) {
+            ((j) => {
+                console.log("这是上面的====》"+j);
+                setTimeout(() => {
+                    console.log(j);
+                }, 1000*j)
+            })(i)
+        }
 
     </script>
 </body>

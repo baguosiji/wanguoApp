@@ -5,7 +5,7 @@ var vm = new Vue({
     verificationCode: "",
     firstPWD: "",
     nextPWD: "",
-    countDown: 30
+    countDown: 60
   }
 });
 // 获取验证码
@@ -24,11 +24,14 @@ function getVerification() {
       headers: { apitoken: c("/api.php/Login/getsms") },
       success: function(data) {
         toast(data.message);
-        // setTimeout(function() {
-        //   if (vm.countDown > 0) {
-        //     vm.countDown--;
-        //   }
-        // }, 1000);
+        var ref_time_out=setInterval(function() {
+          if (vm.countDown > 0) {
+            vm.countDown--;
+          }else{
+            vm.countDown=60;
+            clearInterval(ref_time_out);
+          }
+        }, 1000);
       },
       error: function(xhr, type, errorThrown) {
         //异常处理；
@@ -79,3 +82,4 @@ function submit() {
     });
   }
 }
+//验证码倒计时
