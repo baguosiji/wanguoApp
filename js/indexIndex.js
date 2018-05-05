@@ -174,8 +174,8 @@ mui(".category").on("tap", ".every-category", function() {
   } else {
     ck("功能尚未开通，敬请期待！");
     // mui.openWindow({
-    //     url: "test.html",
-    //     id: "test.html",
+    //     url: "publicationEvaluation.html",
+    //     id: "publicationEvaluation.html",
     // })
   }
 });

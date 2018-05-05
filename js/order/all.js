@@ -11,8 +11,15 @@ mui.init({
   },
   pullRefresh: {
     container: "#pullrefresh",
+    down: {
+      height: 50, //可选,默认50.触发下拉刷新拖动距离,
+      contentdown: "下拉刷新", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+      contentover: "释放更新", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+      contentrefresh: "加载中...", //可选，正在刷新状态时，下拉刷新控件上显示的标题内
+      callback: pulldown
+    },
     up: {
-      contentrefresh: "正在加载...",
+      contentrefresh: "加载中...",
       callback: pullupRefresh
     }
   }
@@ -44,6 +51,36 @@ function show_text(status, num) {
   //         return "待评价";
   //         break;
   // }
+}
+function pulldown() {
+  mui.ajax(
+    http_url + "/api.php/User/order?p=1&token=" + user_all_message.token,
+    {
+      dataType: "json",
+      type: "get",
+      timeout: 10000,
+      headers: {
+        "Content-Type": "application/json",
+        apitoken: c("/api.php/User/order")
+      },
+      success: function(data) {
+        if (data.status == 200) {
+          vm.orders = data.data;
+          count = 2;
+        } else {
+          toast(data.message);
+        }
+        mui("#pullrefresh")
+          .pullRefresh()
+          .endPulldownToRefresh();
+      },
+      error: function(xhr, type, errorThrown) {
+        mui("#pullrefresh")
+          .pullRefresh()
+          .endPulldownToRefresh();
+      }
+    }
+  );
 }
 mui.ajax(http_url + "/api.php/User/order?p=1&token=" + user_all_message.token, {
   dataType: "json",
@@ -141,7 +178,17 @@ function jump_to_good_detial(id) {
     }
   });
 }
-
+//跳转到物流页面
+function jump_to_logistics(url, id) {
+  mui.openWindow({
+    url: "../logistics.html",
+    id: "../logistics.html",
+    extras: {
+      img: url,
+      order_id: id
+    }
+  });
+}
 //点击跳转到支付页面
 function jump_to_payment(id) {
   mui.openWindow({

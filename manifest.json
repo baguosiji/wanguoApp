@@ -247,7 +247,8 @@
 					"html/active2.html",
 					"html/cartDetail.html",
 					"html/cartAssessment.html",
-					"html/test.html"
+					"html/test.html",
+					"html/publicationEvaluation.html"
 				],
 				"priority": 0
 			},
@@ -305,7 +306,8 @@
 				"refer": [
 					"html/selectService.html",
 					"html/goodDetail.html",
-					"html/payment.html"
+					"html/payment.html",
+					"html/logistics.html"
 				],
 				"priority": 0
 			},
@@ -326,10 +328,10 @@
 					"js/mui.min.js",
 					"img/login.png",
 					"js/flexible.js",
-					"js/md5.js"
+					"js/md5.js",
+					"html/my.html"
 				],
 				"refer": [
-					"html/my.html",
 					"html/shoppingMall.html",
 					"html/goodDetail.html",
 					"html/login.html",
@@ -423,6 +425,13 @@
 				"refer": [
 					"html/cartDetail.html",
 					"html/payment.html"
+				],
+				"priority": 0
+			},
+			"html/order/goodsToBeReceived.html": {
+				"resources": [],
+				"refer": [
+					"html/logistics.html"
 				],
 				"priority": 0
 			}

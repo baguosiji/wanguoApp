@@ -4,14 +4,13 @@ var vm = new Vue({
     phone: "",
     verification: "",
     user_pwd: "",
-    countDown:60
+    countDown: 60
   }
 });
 var phoneNumber = /^[1][3,4,5,7,8][0-9]{9}$/;
 // 获取验证码
 function getVerification() {
   if (!phoneNumber.test(vm.phone)) {
-    
     toast("请输入正确手机号");
   } else {
     mui.ajax(http_url + "/api.php/Login/getsms", {

@@ -24,11 +24,11 @@ function getVerification() {
       headers: { apitoken: c("/api.php/Login/getsms") },
       success: function(data) {
         toast(data.message);
-        var ref_time_out=setInterval(function() {
+        var ref_time_out = setInterval(function() {
           if (vm.countDown > 0) {
             vm.countDown--;
-          }else{
-            vm.countDown=60;
+          } else {
+            vm.countDown = 60;
             clearInterval(ref_time_out);
           }
         }, 1000);

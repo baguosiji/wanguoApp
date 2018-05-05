@@ -23,7 +23,7 @@ var lastImage; //轮播图的最后一张图片
 mui.plusReady(function() {
   var id = plus.webview.currentWebview().good_id;
   mui.ajax(http_url + "/api.php/Mall/details?id=" + id, {
-    dataType: "json", 
+    dataType: "json",
     type: "get",
     timeout: 10000,
     headers: {
@@ -324,3 +324,26 @@ function add_to_shopping_cart() {
     });
   }
 }
+//点击预览图片
+// var content = document.getElementById("contents");
+// var imgs = [];
+// mui("#contents").on("tap", "img", function() {
+//   if (imgs.length != 0) {
+//     plus.nativeUI.previewImage(imgs, {
+//       current: this.index,
+//       indicator: "number",
+//       loop: true
+//     });
+//   } else {
+//     var contetn_imgs = content.getElementsByTagName("img");
+//     for (i in contetn_imgs) {
+//       imgs.push(contetn_imgs[i].src);
+//       contetn_imgs[i].index = i;
+//     }
+//     plus.nativeUI.previewImage(imgs, {
+//       current: this.index,
+//       indicator: "number",
+//       loop: true
+//     });
+//   }
+// });

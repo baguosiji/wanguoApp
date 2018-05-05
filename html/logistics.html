@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="../css/mui.min.css">
+  <link rel="stylesheet" href="../css/common.css">
+  <title>物流信息</title>
+</head>
+<style>
+  .mui-scroll-wrapper {
+    top: 4.1rem;
+    background-color: #F4F2F2;
+  }
+
+  .logistics {
+    width: 100%;
+    height: 2.5rem;
+    background: #ffffff;
+    padding: 0.44rem 0.3333333333rem;
+    box-sizing: border-box;
+    margin-bottom: 0.2666666667rem;
+  }
+
+  .shop-img {
+    width: 1.7866666667rem;
+    height: 1.7866666667rem;
+    float: left;
+    border: 1px solid #dfdfdf;
+    margin-right: 0.3333333333rem;
+    box-sizing: border-box;
+  }
+
+  .shop-img>img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .logistics-state {
+    width: 7.2rem;
+    height: 1.7866666667rem;
+    float: left;
+  }
+
+  .logistics-state>.state {
+    font-size: 0.4266666667rem;
+    color: #fca205;
+    height: 0.7333333333rem;
+    line-height: 1;
+  }
+
+  .logistics-category {
+    height: 0.48rem;
+    font-size: 0.3733333333rem;
+    color: #999999;
+    line-height: 1.5;
+  }
+
+  .logistics-tel {
+    height: 0.5866666667rem;
+  }
+
+  .tel-number {
+    font-size: 0.3733333333rem;
+    color: #999999;
+    line-height: 2;
+    float: left;
+  }
+
+  .tel-number>span {
+    color: #00a0e9;
+  }
+
+  .logistics-severs {
+    float: right;
+    width: 1.6266666667rem;
+    height: 100%;
+    border: 0.0133333333rem solid #d6d6d6;
+    text-align: center;
+    line-height: 1.5;
+    font-size: 0.3733333333rem;
+    color: #666666;
+    box-sizing: border-box;
+  }
+
+  .logis-detail {
+    width: 9.3333333333rem;
+    margin: 0 auto;
+    height: auto;
+  }
+
+  .logis-detail-date {
+    width: 1.0666666667rem;
+    padding: 0.1333333333rem 0 0.1333333333rem 0;
+    text-align: left;
+    font-size: 0.3733333333rem;
+    color: #666;
+  }
+
+  .logis-detail-d {
+    border-left: 0.0266666667rem solid #bdbdbd;
+    padding: 0.1333333333rem 0 0.1333333333rem 1rem;
+    margin-left: 0.3333333333rem;
+    position: relative;
+  }
+
+  .logis-detail-d::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    left: -0.16rem;
+    top: 0.6666666667rem;
+    width: 0.16rem;
+    height: 0.16rem;
+    border-radius: 0.16rem;
+    -webkit-border-radius: 0.16rem;
+    background: #BDBDBD;
+    border: 0.08rem solid #EEE;
+  }
+
+  ul .logis-detail-content {
+    display: -webkit-box;
+    position: relative;
+    background: #ddd;
+    padding: 0.0666666667rem 0.2666666667rem;
+    font-size: 0.3733333333rem;
+    color: #666;
+    border-radius: 0.0666666667rem;
+  }
+
+  .logis-detail-content::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    left: -0.2666666667rem;
+    top: 0.4933333333rem;
+    border-left: 0.2666666667rem solid transparent;
+    border-bottom: 0.2666666667rem solid #ddd;
+  }
+
+  .logis-detail-content-time {
+    width: 1.3333333333rem;
+    line-height: 0.6666666667rem;
+    font-size: 0.3733333333rem;
+  }
+
+  .logis-detail-content-detail {
+    line-height: 0.6666666667rem;
+    width: 6rem;
+  }
+
+  .logis-detail-first.logis-detail-d {
+    border-left-color: #F40;
+    color: #fff;
+  }
+
+  .logis-detail-first.logis-detail-d::after {
+    background: #F40;
+  }
+
+  .logis-detail-first>.logis-detail-content {
+    background: #F40;
+    color: #fff;
+  }
+
+  .logis-detail-first>.logis-detail-content::after {
+    border-bottom-color: #F40;
+  }
+
+  /*# sourceMappingURL=logistics.css.map */
+</style>
+
+<body>
+  <div class="action-bar-no-search">
+    <div class="title-left mui-action-back">
+      <div>
+        <span class="mui-icon mui-icon-back">
+
+        </span>
+        <span>
+
+        </span>
+      </div>
+    </div>
+    <div class="title-center">
+      物流信息
+    </div>
+    <div class="title-right">
+      <div class="title-right-left">
+
+      </div>
+      <div class="title-right-right">
+
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="logistics">
+      <div class="shop-img">
+        <img id="imgs" alt="">
+      </div>
+      <div class="logistics-state">
+        <p class="state">运输中</p>
+        <div class="logistics-category" id="text"></div>
+        <div class="logistics-tel">
+          <div class="tel-number">官方电话：
+            <span>400-0998-058</span>
+          </div>
+          <div class="logistics-severs">物流服务</div>
+        </div>
+      </div>
+    </div>
+    <div class="mui-scroll-wrapper">
+      <div class="scroll-wrapper">
+        <ul class="logis-detail">
+          <li>
+            <p class="logis-detail-date">01-19</p>
+            <div class="logis-detail-d logis-detail-first">
+              <div class="logis-detail-content">
+                <p class="logis-detail-content-time" style="color: #fff"> 11:39 </p>
+                <p class="logis-detail-content-detail" style="color: #fff"> 您的包裹已由代收点代收，请凭手机号至代收点取件 </p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <script src="../js/md5.js"></script>
+  <script src="../js/common.js"></script>
+  <script src="../js/flexible.js"></script>
+  <script src="../js/mui.min.js"></script>
+  <script>
+    mui('.mui-scroll-wrapper').scroll({
+      indicators: false, //是否显示滚动条
+      deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+    });
+    mui.plusReady(function () {
+      var nowPage = plus.webview.currentWebview();
+      document.getElementById("imgs").src = http_url + nowPage.img;
+      mui.ajax(http_url + "/api.php/User/shipping?order_id=" + nowPage.order_id + "&token" + user_all_message.token, {
+        dataType: "json",
+        type: "get",
+        timeout: 10000,
+        headers: {
+          "Content-Type": "application/json",
+          apitoken: c("/api.php/User/shipping")
+        },
+        success: function (data) {
+          document.getElementById("text").innerText = data.data.shipping_name + "：" + data.data.shipping_code;
+        },
+        error: function (xhr, type, errorThrown) { }
+      });
+    })
+  </script>
+</body>
+
+</html>

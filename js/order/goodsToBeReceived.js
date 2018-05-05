@@ -11,18 +11,24 @@ mui.init({
   },
   pullRefresh: {
     container: "#pullrefresh",
+    down: {
+      height: 50, //可选,默认50.触发下拉刷新拖动距离,
+      contentdown: "下拉刷新", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+      contentover: "释放更新", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+      contentrefresh: "加载中...", //可选，正在刷新状态时，下拉刷新控件上显示的标题内
+      callback: pulldown
+    },
     up: {
-      contentrefresh: "正在加载...",
+      contentrefresh: "加载中...",
       callback: pullupRefresh
     }
   }
 });
-var count = 1;
+var count = 2;
 mui.ajax(
   http_url +
     "/api.php/User/order?status=2+" +
-    "&p=" +
-    count +
+    "&p=1" +
     "&token=" +
     user_all_message.token,
   {
@@ -35,7 +41,6 @@ mui.ajax(
     },
     success: function(data) {
       if (data.status == 200) {
-        count++;
         vm.orders = data.data;
       } else {
         toast(data.message);
@@ -44,6 +49,40 @@ mui.ajax(
     error: function(xhr, type, errorThrown) {}
   }
 );
+function pulldown() {
+  mui.ajax(
+    http_url +
+      "/api.php/User/order?status=2+" +
+      "&p=1" +
+      "&token=" +
+      user_all_message.token,
+    {
+      dataType: "json",
+      type: "get",
+      timeout: 10000,
+      headers: {
+        "Content-Type": "application/json",
+        apitoken: c("/api.php/User/order")
+      },
+      success: function(data) {
+        if (data.status == 200) {
+          vm.orders = data.data;
+          count=2;
+        } else {
+          toast(data.message);
+        }
+        mui("#pullrefresh")
+          .pullRefresh()
+          .endPulldownToRefresh();
+      },
+      error: function(xhr, type, errorThrown) {
+        mui("#pullrefresh")
+          .pullRefresh()
+          .endPulldownToRefresh();
+      }
+    }
+  );
+}
 var orderPage = null; //订单页面
 var child = []; //订单子页面
 mui.plusReady(function() {
@@ -146,6 +185,17 @@ function jump_to_good_detial(id) {
     id: "goodDetail.html",
     extras: {
       good_id: id
+    }
+  });
+}
+//跳转到物流页面
+function jump_to_logistics(url, id) {
+  mui.openWindow({
+    url: "../logistics.html",
+    id: "../logistics.html",
+    extras: {
+      img: url,
+      order_id: id
     }
   });
 }
