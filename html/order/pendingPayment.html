@@ -28,7 +28,7 @@
                             <span>等待买家付款</span>
                         </div>
                     </div>
-                    <div class="good-message" @tap="jump_to_good_detial(order.goods_id)">
+                    <div class="good-message" @tap="jump_to_good_detial(order.goods_id,order.integral)">
                         <div class="left">
                             <img v-bind:src="http_url+order.pic" alt="">
                         </div>
@@ -38,8 +38,9 @@
                                     {{order.goods_name}}
                                 </div>
                                 <div class="right-top-right">
-                                    <p style="color: #333333">￥{{order.goods_price}}</p>
-                                    <p style="text-decoration:line-through">￥{{order.goods_price}}</p>
+                                    <p style="color: #333333">
+                                        <strong style="color: green;font-size: .34rem">{{Number(order.order_amount)!=0?'¥'+order.order_amount:''}} {{Number(order.integral)!=0&&Number(order.order_amount)!=0?' + ':''}} {{Number(order.integral)!=0?'积分'+order.integral:''}}</strong>
+                                    </p>
                                 </div>
                             </div>
                             <div class="right-center">
@@ -53,7 +54,9 @@
                     </div>
                     <div class="order-price">
                         <div>
-                            <span>共1件商品 合计¥{{order.order_amount}}（含运费¥0.00）</span>
+                            <span>共1件商品 合计
+                                <strong style="color: green;font-size: .34rem">{{Number(order.order_amount)!=0?'¥'+order.order_amount:''}} {{Number(order.integral)!=0&&Number(order.order_amount)!=0?' + ':''}} {{Number(order.integral)!=0?'积分'+order.integral:''}}</strong>
+                            </span>
                         </div>
                     </div>
                     <div class="address">
@@ -61,7 +64,7 @@
                         <p>{{order.province}}{{order.city}}{{order.area}}{{order.address}}</p>
                     </div>
                     <div class="order-button">
-                        <div class="logistics" style="color: #eda336; border: 1px solid #eda336" @tap="jump_to_payment(order.order_id)">
+                        <div class="logistics" style="color: #eda336; border: 1px solid #eda336" @tap="jump_to_payment(order.order_id,order.integral)">
                             立即付款
                         </div>
                         <div class="more" style="color: red; border: 1px solid red" @tap="tap_delect_goods(order.order_id)">

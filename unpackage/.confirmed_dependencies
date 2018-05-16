@@ -44,7 +44,10 @@
 			"html/myCollection.html",
 			"html/centerChangePWD.html",
 			"html/cartOrder.html",
-			"html/aboutUs.html"
+			"html/aboutUs.html",
+			"html/setting.html",
+			"html/integral.html",
+			"html/integralReocrd.html"
 		],
 		"resources": []
 	},
@@ -245,6 +248,18 @@
 	"html/order/goodsToBeReceived.html": {
 		"refer": [
 			"html/logistics.html"
+		],
+		"resources": []
+	},
+	"html/integral.html": {
+		"refer": [
+			"html/goodDetail.html",
+			"html/integralShopping.html"
+		]
+	},
+	"html/integralShopping.html": {
+		"refer": [
+			"html/goodDetail.html"
 		]
 	}
 }

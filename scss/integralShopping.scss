@@ -1,0 +1,131 @@
+.screen {
+  width: 100%;
+  display: flex;
+  display: -webkit-flex;
+  height: 1.2rem;
+  align-items: center;
+  -webkit-align-items: center;
+  
+  .price,
+  .time,
+  .kilometre,
+  .all {
+    flex: 1;
+    -webkit-flex: 1;
+    display: flex;
+    display: -webkit-flex;
+    line-height: 1.2rem;
+    border-bottom: 2px solid #f7f5f4;
+    // padding-top: 0.15rem;
+    text-align: center;
+    font-size: 0.38rem;
+    align-items: center;
+    -webkit-align-items: center;
+    border-right: 1px solid #f7f5f4;
+    justify-content: center;
+    -webkit-justify-content: center;
+    .common-container {
+      margin-left: 0.15rem;
+      height: 0.7rem;
+      .top {
+        height: 50%;
+        position: relative;
+        line-height: 0.35rem;
+        strong {
+          position: absolute;
+          bottom: -0.053333rem;
+          font-size: 0.36rem;
+          font-weight: bold;
+          color: #666666
+        }
+        .common{
+            color: #f6832f;
+        }
+      }
+      .bottom {
+        position: relative;
+        height: 50%;
+        line-height: 0.35rem;
+        strong {
+          position: absolute;
+          top: -0.026667rem;
+          font-size: 0.36rem;
+          font-weight: bold;
+          color: #666666
+        }
+        .common{
+            color: #f6832f;
+        }
+      }
+    }
+  }
+  .active{
+    color: #fd5a28;
+    border-bottom:2px solid #fd5a28;
+  }
+}
+// 商品列表部分样式
+.shopping-mall-good-list {
+  height: 2.85rem;
+  background-color: #ffffff;
+  border-top: 2px solid #f7f5f4;
+  display: flex;
+  display: -webkit-flex;
+  .left {
+    width: 2.85rem;
+    height: 2.85rem;
+    line-height: 2.85rem;
+    text-align: center;
+    img {
+      vertical-align: middle;
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+  }
+  .right {
+    flex: 1;
+    -webkit-flex: 1;
+    padding: 0 0.3rem;
+    .right-top {
+      height: 0.9rem;
+      // padding-right: .3rem;
+      line-height: 0.9rem;
+      width: 100%;
+      color: #000000;
+      font-size: 0.45rem;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      overflow: hidden;
+    }
+    .center {
+      height: 0.7rem;
+      width: 100%;
+      line-height: 0.7rem;
+      color: #f50606;
+      font-size: 0.43rem;
+      font-weight: bold;
+    }
+    .right-bottom {
+      height: 0.8rem;
+      .float-left {
+        color: #666666;
+        font-size: 0.4rem;
+        height: 0.8rem;
+        width: 3rem;
+        line-height: 0.8rem;
+      }
+      .float-right {
+        color: #ffffff;
+        width: 2rem;
+        border-radius: 5px;
+        border-radius: 0.04rem;
+        background: linear-gradient(to right, #f6832f, #fd5a28);
+        text-align: center;
+        line-height: 0.7rem;
+        font-size: 0.32rem;
+        color: #fff;
+      }
+    }
+  }
+}

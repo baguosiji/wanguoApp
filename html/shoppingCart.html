@@ -54,16 +54,16 @@
                                                 <img src="../img/right-black.png" alt="">
                                             </div> -->
                         <div class="good-message">
-                            <div class="select-good" v-bind:id="good.goods.shop_price" @tap="select_goods($event,good.id,good.goods_num,good)">
+                            <div class="select-good"  @tap="select_goods($event,good.id,good.goods_num,good)">
                                 <img class="noedit" src="../img/selectFalse.png" alt="">
                             </div>
                             <div class="left">
-                                <img v-bind:src="http_url+good.goods.pic" alt="">
+                                <img v-bind:src="http_url+good.pic" alt="">
                             </div>
                             <div class="right float-left">
                                 <div class="right-top">
                                     <div class="right-top-left">
-                                        {{good.goods.goods_name}}
+                                        {{good.goods_name}}
                                     </div>
                                     <!-- <div class="right-top-right">
                                         <img v-bind:src="http_url+good.goods.pic" alt="">
@@ -73,7 +73,7 @@
                                                     <span>颜色：铂金；型号：F70（30)</span>
                                                 </div> -->
                                 <div class="right-bottom">
-                                    <span>￥ {{good.goods.shop_price}}
+                                    <span>{{good.integral_status==1?good.shop_price+'现金 + '+good.integral+'.00积分':good.shop_price}}
                                     </span>
                                     <!-- <del>￥125.45</del> -->
                                     <span class="float-right">x {{good.goods_num}}
@@ -113,9 +113,8 @@
         <div class="bottom-nav">
             <div class="bottom-nav-left">
                 <img id="select-all" src="../img/selectFalse.png" alt="">
-                <span v-if="!edit" style="color: #999;font-size: .34rem;margin-left: 1rem;">不含运费</span>
                 <span v-if="!edit">合计:</span>
-                <span v-if="!edit" class="payable">￥{{total.toFixed(2)}}</span>
+                <span v-if="!edit" class="payable">{{total.toFixed(2)+'现金 '+integral.toFixed(2)+'积分'}}</span>
             </div>
             <div class="bottom-nav-right" v-if="!edit" @tap="payfor()">
                 去付款

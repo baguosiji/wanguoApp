@@ -62,9 +62,9 @@ function logins() {
           mui.back();
         } else if (data.status == 404) {
           waiting.close();
-          document.getElementById("verification").src =
-            "https://api.wanguo.net/api.php/Login/verify";
-          // document.getElementById("verification").src="http://192.168.50.50:81/api.php/Login/verify";
+          // document.getElementById("verification").src =
+          //   "https://api.wanguo.net/api.php/Login/verify";
+          document.getElementById("verification").src="http://192.168.50.50:81/api.php/Login/verify";
           toast(data.message);
         }
       },
@@ -88,6 +88,6 @@ document.querySelector(".mui-action-back").addEventListener(
 );
 //点击更换图片
 function changeImg(e) {
-  e.currentTarget.src = "https://api.wanguo.net/api.php/Login/verify";
-  // e.currentTarget.src = "http://192.168.50.50:81/api.php/Login/verify";
+  // e.currentTarget.src = "https://api.wanguo.net/api.php/Login/verify";
+  e.currentTarget.src = "http://192.168.50.50:81/api.php/Login/verify";
 }

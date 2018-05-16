@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/iconfont.css">
+    <link rel="stylesheet" href="../css/mui.min.css">
+    <link rel="stylesheet" href="../css/integral.css">
+    <title>积分商城</title>
+</head>
+
+<body>
+    <div class="action-bar-no-search">
+        <div class="title-left mui-action-back">
+            <div>
+                <span class="mui-icon mui-icon-back ">
+
+                </span>
+                <span>
+
+                </span>
+            </div>
+        </div>
+        <div class="title-center">
+            积分商城
+        </div>
+        <div class="title-right">
+            <div class="title-right-left">
+
+            </div>
+            <div class="title-right-right">
+
+            </div>
+        </div>
+    </div>
+    <div id="mui-scroll-wrapper" class="mui-scroll-wrapper">
+        <div class="mui-scroll" id="app">
+            <div class="title clearfloat">
+                <div class="float-left active">
+                    可用积分：
+                    <span id="integral">{{index.user_integral}}</span>
+                </div>
+                <div class="float-right">
+                    积分攻略
+                </div>
+            </div>
+            <img src="../img/integral.png" style="width: 100%;height: 3.4rem" alt="">
+            <div class="area">
+                <div class="area-left">
+                    新品速递
+                </div>
+                <div class="area-right" @tap="jump_to_integral_shopping(1)">
+                    <span>查看详情</span>
+                    <span class="iconfont icon-gengduo1"></span>
+                </div>
+            </div>
+            <div class="common">
+
+            </div>
+            <div class="good-area">
+                <div class="scroll mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+                    <div class="mui-scroll">
+                        <div class="every-one-good" v-for="good in index.new" @tap="jump_to_good_detail(good.goods_id)">
+                            <img v-bind:src="http_url+good.pic" alt="">
+                            <p>{{good.goods_name}}</p>
+                            <div class="exchange-now">
+                                立即兑换
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="common">
+
+            </div>
+            <div class="area">
+                <div class="area-left">
+                    热门兑换
+                </div>
+                <div class="area-right" @tap="jump_to_integral_shopping(2)">
+                    <span>查看详情</span>
+                    <span class="iconfont icon-gengduo1"></span>
+                </div>
+            </div>
+            <div class="common">
+
+            </div>
+            <div class="good-area">
+                <div class="scroll mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+                    <div class="mui-scroll">
+                        <div class="every-one-good" v-for="good in index.hot" @tap="jump_to_good_detail(good.goods_id)">
+                            <img v-bind:src="http_url+good.pic" alt="">
+                            <p>{{good.goods_name}}</p>
+                            <div class="exchange-now">
+                                立即兑换
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="common">
+
+            </div>
+            <div class="area">
+                <div class="area-left">
+                    优惠券
+                </div>
+                <div class="area-right">
+                    <span>查看详情</span>
+                    <span class="iconfont icon-gengduo1"></span>
+                </div>
+            </div>
+            <div class="title clearfloat">
+                <div class="float-left active border">
+                    商城优惠券
+                </div>
+                <div class="float-right border">
+                    维保优惠券
+                </div>
+            </div>
+            <div class="img-container">
+                <img src="../img/5.jpg" alt="">
+                <img src="../img/10.jpg" alt="">
+                <img src="../img/20.jpg" alt="">
+            </div>
+            <div class="common">
+
+            </div>
+            <div class="title">
+                &nbsp;
+                <span>
+                    热门兑换排行
+                </span>
+            </div>
+            <div class="common">
+
+            </div>
+            <div class="good-area">
+                <div class="scroll mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+                    <div class="mui-scroll">
+                        <div class="every-one-good" v-for="good in index.default" @tap="jump_to_good_detail(good.goods_id)">
+                            <img v-bind:src="http_url+good.pic" alt="">
+                            <p>{{good.goods_name}}</p>
+                            <div class="exchange-now">
+                                立即兑换
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../js/md5.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/mui.min.js"></script>
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/flexible.js"></script>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                index: {},
+            }
+        })
+        mui('.mui-scroll-wrapper').scroll({
+            deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+        });
+        mui.ajax(http_url + '/api.php/Integral/index?token=' + user_all_message.token, {
+            dataType: 'json',
+            type: 'get',
+            timeout: 10000,
+            headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/About/index'), },
+            success: function (data) {
+                if (data.status == 200) {
+                    vm.index = data.data
+                } else {
+                    toast(data.message);
+                }
+            },
+            error: function (xhr, type, errorThrown) {
+
+            }
+        });
+        //跳转到积分商城页面
+        function jump_to_integral_shopping(type) {
+            mui.openWindow({
+                url: "integralShopping.html",
+                id: "integralShopping.html",
+                extras: {
+                    type: type
+                }
+            })
+        }
+        // 跳转到商品详情页面
+        function jump_to_good_detail(id) {
+            mui.openWindow({
+                url: "goodDetail.html",
+                id: "goodDetail.html",
+                extras: {
+                    good_id: id,
+                    type: "integral"
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>

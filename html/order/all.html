@@ -32,7 +32,7 @@
                             <span>{{show_text(order.order_status,order.is_comment)}}</span>
                         </div>
                     </div>
-                    <div class="good-message" @tap="jump_to_good_detial(order.goods_id)">
+                    <div class="good-message" @tap="jump_to_good_detial(order.goods_id,order.integral)">
                         <div class="left">
                             <img v-bind:src="http_url+order.pic" alt="">
                         </div>
@@ -42,8 +42,9 @@
                                     {{order.goods_name}}
                                 </div>
                                 <div class="right-top-right">
-                                    <p style="color: #333333">￥{{order.goods_price}}</p>
-                                    <p style="text-decoration:line-through">￥{{order.goods_price}}</p>
+                                    <p style="color: #333333">
+                                        <strong style="color: green;font-size: .34rem">{{Number(order.order_amount)!=0?'¥'+order.order_amount:''}} {{Number(order.integral)!=0&&Number(order.order_amount)!=0?' + ':''}} {{Number(order.integral)!=0?'积分'+order.integral:''}}</strong>
+                                    </p>
                                 </div>
                             </div>
                             <div class="right-center">
@@ -57,7 +58,9 @@
                     </div>
                     <div class="order-price">
                         <div>
-                            <span>共1件商品 合计¥{{order.order_amount}}（含运费¥0.00）</span>
+                            <span>共1件商品 合计
+                                <strong style="color: green;font-size: .34rem">{{Number(order.order_amount)!=0?'¥'+order.order_amount:''}} {{Number(order.integral)!=0&&Number(order.order_amount)!=0?' + ':''}} {{Number(order.integral)!=0?'积分'+order.integral:''}}</strong>
+                            </span>
                         </div>
                     </div>
                     <div class="address">
@@ -73,7 +76,7 @@
                         <div style="color: #eda336; border: 1px solid #eda336" v-if="order.order_status==1">
                             等待发货
                         </div>
-                        <div style="color: #eda336; border: 1px solid #eda336" v-if="order.order_status==0" @tap="jump_to_payment(order.order_id)">
+                        <div style="color: #eda336; border: 1px solid #eda336" v-if="order.order_status==0" @tap="jump_to_payment(order.order_id,order.integral)">
                             立即付款
                         </div>
                         <div style="color: #eda336; border: 1px solid #eda336" v-if="order.order_status==2" @tap="jump_to_payment(order.order_id)">

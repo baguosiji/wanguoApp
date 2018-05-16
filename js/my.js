@@ -83,10 +83,10 @@ document
 mui(".my-list-every-last").on("tap", ".center", function() {
   var text = this.innerText;
   var url;
-  if (text == "关于我们") {
+  if (text == "设置") {
     mui.openWindow({
-      id: "aboutUs.html",
-      url: "aboutUs.html"
+      id: "setting.html",
+      url: "setting.html"
     });
   } else if (user_token()) {
     if (text === "我的订单") {
@@ -97,8 +97,10 @@ mui(".my-list-every-last").on("tap", ".center", function() {
       url = "evaluate.html";
     } else if (text === "我的收藏") {
       url = "myCollection.html";
-    } else if (text === "修改密码") {
-      url = "centerChangePWD.html";
+    } else if (text === "积分商城") {
+      url = "integral.html";
+    } else if (text == "积分记录") {
+      url = "integralReocrd.html";
     } else if (text === "我的购物车") {
       url = "shoppingCart.html";
     }

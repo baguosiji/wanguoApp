@@ -45,7 +45,7 @@
                     <div class="mui-slider-group" style="height:10rem;width:10rem;">
                         <div class="mui-slider-item">
                             <a href="#">
-                                <img  v-bind:src="http_url+goodMessage.pic" />
+                                <img v-bind:src="http_url+goodMessage.pic" />
                             </a>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                                 <div>{{goodMessage.goods_name}}
                                 </div>
                                 <p>
-                                    <span>￥</span>{{goodMessage.shop_price}}</p>
+                                    <span>￥</span>{{!payType?goodMessage.shop_price:goodMessage.integral+'积分'}}</p>
                             </div>
                             <!-- <div class="right" @tap="share()">
                             <div>
@@ -183,8 +183,10 @@
                         </div>
                         <div class="popup-price-specification">
                             <div class="popup-price">
-                                ￥{{good_spec.goodMessage?good_spec.price:goodMessage.shop_price}}
-                                <span style="margin-left: 1.5rem">库存：{{goodData.sec_list.spec?good_spec.store_count:goodMessage.store_num}}</span>
+                               <span>{{good_spec.spec_names?(payType?('￥'+good_spec.except_integral+' + '+good_spec.integral+'积分'):(good_spec.price)):(payType?('￥'+goodMessage.except_integral+' + '+goodMessage.integral+'积分'):('￥'+goodMessage.shop_price))}}</span>
+                               <!-- <span v-if="payType=='money'">{{good_spec.spec_names?good_spec.}}</span> -->
+                                <!-- ￥{{good_spec.goodMessage?good_spec.price:goodMessage.shop_price}} -->
+                                <span style="margin-left: .5rem;font-size: .36rem;color: #666">库存：{{good_spec.spec_names?good_spec.store_count:goodMessage.store_num}}</span>
                             </div>
                             <div class="popup-specification" v-if="goodData.sec_list.spec">
                                 {{good_spec.spec_names?good_spec.spec_names:'请选择商品规格'}}

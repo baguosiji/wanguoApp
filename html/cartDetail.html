@@ -58,13 +58,136 @@
                     </div>
                 </div>
                 <!-- 车辆信息部分 -->
-                <div class="car-tab " v-html="content.content">
+                <div class="car-tab " v-if="cartDetail.source_type==0" v-html="content.content">
 
+                </div>
+                <div class="car-detail">
+                    <div class="car-message">
+                        <p style="padding: .2rem 0;margin:0;border-bottom: 1px solid #ededed;color:red;font-size: .4rem">车辆信息</p>
+                        <div>
+                            <div style="width: 2rem;line-height: .8rem;border-bottom: 1px solid #ededed" class="float-left">
+                                车辆性质 ：
+                            </div>
+                            <div style="margin-left:2rem;line-height: .8rem;border-bottom: 1px solid #ededed;text-align: right;">
+                                {{cartDetail.clxz}}
+                            </div>
+                        </div>
+                        <div>
+                            <div style="width: 2rem;line-height: .8rem;border-bottom: 1px solid #ededed" class="float-left">
+                                表显里程 ：
+                            </div>
+                            <div style="margin-left:2rem;line-height: .8rem;border-bottom: 1px solid #ededed;text-align: right;">
+                                {{cartDetail.bxlc}}万公里
+                            </div>
+                        </div>
+                        <div>
+                            <div style="width: 2rem;line-height: .8rem;border-bottom: 1px solid #ededed" class="float-left">
+                                登记日期 ：
+                            </div>
+                            <div style="margin-left:2rem;line-height: .8rem;border-bottom: 1px solid #ededed;text-align: right;">
+                                {{cartDetail.djrq}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear">
+                        <div style="width: 3rem;line-height: 1rem;padding:0 .2rem;border: 1px solid #ededed;">
+                            车辆信息
+                        </div>
+                        <div class="two" style="border: 1px solid #efefef;border-left: 0">
+                            参数
+                        </div>
+                    </div>
+                    <div class="clear">
+                        <div style="width: 3rem;line-height: .8rem;padding: 0 .2rem;border: 1px solid #ededed;border-top: 0">
+                            品牌
+                        </div>
+                        <div class="two">
+                            {{cartDetail.b_name}}
+                        </div>
+                    </div>
+                    <div class="clear">
+                        <div style="width: 3rem;line-height: .8rem;padding: 0 .2rem;border: 1px solid #ededed;border-top: 0">
+                            车系
+                        </div>
+                        <div class="two">
+                            {{cartDetail.b_name}}
+                        </div>
+                    </div>
+                    <div class="clear">
+                        <div style="width: 3rem;line-height: .8rem;padding: 0 .2rem;border: 1px solid #ededed;border-top: 0">
+                            车型
+                        </div>
+                        <div class="two">
+                            {{cartDetail.t_name}}
+                        </div>
+                    </div>
+                    <div class="clear">
+                        <div style="width: 3rem;line-height: .8rem;padding: 0 .2rem;border: 1px solid #ededed;border-top: 0">
+                            VIN
+                        </div>
+                        <div class="two">
+                            {{cartDetail.vin}}
+                        </div>
+                    </div>
+                    <div class="clear">
+                        <div style="width: 3rem;line-height: .8rem;padding: 0 .2rem;border: 1px solid #ededed;border-top: 0">
+                            车身颜色
+                        </div>
+                        <div class="two">
+                            {{cartDetail.outside_color}}
+                        </div>
+                    </div>
+                    <div class="clear">
+                        <div style="width: 3rem;line-height: .8rem;padding: 0 .2rem;border: 1px solid #ededed;border-top: 0">
+                            内饰颜色
+                        </div>
+                        <div class="two">
+                            {{cartDetail.inside_color}}
+                        </div>
+                    </div>
+                    <div class="clear">
+                        <div style="width: 3rem;line-height: .8rem;padding: 0 .2rem;border: 1px solid #ededed;border-top: 0">
+                            使用性质
+                        </div>
+                        <div class="two">
+                            {{cartDetail.clxz}}
+                        </div>
+                    </div>
+                    <div class="clear">
+                        <div style="width: 3rem;line-height: .8rem;padding: 0 .2rem;border: 1px solid #ededed;border-top: 0">
+                            登记日期
+                        </div>
+                        <div class="two">
+                            {{cartDetail.djrq}}
+                        </div>
+                    </div>
+                    <div class="clear">
+                        <div style="width: 3rem;line-height: .8rem;padding: 0 .2rem;border: 1px solid #ededed;border-top: 0">
+                            表显里程
+                        </div>
+                        <div class="two">
+                            {{cartDetail.bxlc}}万公里
+                        </div>
+                    </div>
+                    <div class="clear">
+                        <div style="width: 3rem;line-height: .8rem;padding: 0 .2rem;border: 1px solid #ededed;border-top: 0">
+                            车源描述
+                        </div>
+                        <div class="two">
+                            <!-- 参数 -->
+                        </div>
+                    </div>
+                    <div class="img-content">
+                        <div v-for="img in cartDetail.images">
+                            <p style="padding: .2rem 0;color: #000000;margin: 0;font-size: .4rem">{{img.type}}</p>
+                            <img v-bind:src="http_url+img.url" alt="" style="width: 100%;">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="func-btn clearfloat ">
+    <div class="func-btn clear ">
         <a href="#" class="float-left ">在线1元抵500</a>
         <a href="#" class="float-right ">更多方案</a>
     </div>

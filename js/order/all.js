@@ -1,7 +1,8 @@
 var vm = new Vue({
   el: "#app",
   data: {
-    orders: []
+    orders: [],
+    integral: 0
   }
 });
 mui.init({
@@ -99,6 +100,25 @@ mui.ajax(http_url + "/api.php/User/order?p=1&token=" + user_all_message.token, {
   },
   error: function(xhr, type, errorThrown) {}
 });
+//查询用户积分
+mui.ajax(http_url + "/api.php/User/integral?token=" + user_all_message.token, {
+  dataType: "json",
+  type: "get",
+  timeout: 10000,
+  headers: {
+    "Content-Type": "application/json",
+    apitoken: c("/api.php/User/integral")
+  },
+  success: function(data) {
+    if (data.status == 200) {
+      vm.integral = Number(data.data);
+    }
+  },
+  error: function(xhr, type, errorThrown) {
+    //异常处理；ss
+    console.log(errorThrown);
+  }
+});
 var orderPage = null; //订单页面
 var child = []; //订单子页面
 mui.plusReady(function() {
@@ -169,13 +189,21 @@ function jump_to_evaluate(order_id, goods_id) {
   });
 }
 // 跳转到商品详情页面
-function jump_to_good_detial(id) {
+function jump_to_good_detial(id, num) {
+  if (Number(num) > 0) {
+    var extras = {
+      good_id: id,
+      type: "integral"
+    };
+  } else {
+    var extras = {
+      good_id: id
+    };
+  }
   mui.openWindow({
     url: "../goodDetail.html",
     id: "goodDetail.html",
-    extras: {
-      good_id: id
-    }
+    extras: extras
   });
 }
 //跳转到物流页面
@@ -190,7 +218,13 @@ function jump_to_logistics(url, id) {
   });
 }
 //点击跳转到支付页面
-function jump_to_payment(id) {
+function jump_to_payment(id, num) {
+  console.log(num);
+  console.log(vm.integral);
+  if (Number(num) > vm.integral) {
+    toast("您的积分不足");
+    return;
+  }
   mui.openWindow({
     url: "../payment.html",
     id: "../payment.html",

@@ -5,7 +5,9 @@ var vm = new Vue({
     goodData: { sec_list: { spec: [] } },
     buy_num: 1,
     good_spec: {},
-    img_load: false
+    img_load: false,
+    payType: false,
+    user_integral: 0
   }
 });
 //图片是否加载完毕
@@ -22,6 +24,10 @@ var firstImage; //轮播图的第一张图片
 var lastImage; //轮播图的最后一张图片
 mui.plusReady(function() {
   var id = plus.webview.currentWebview().good_id;
+  if (plus.webview.currentWebview().type) {
+    vm.payType = true;
+  }
+  console.log(http_url + "/api.php/Mall/details?id=" + id);
   mui.ajax(http_url + "/api.php/Mall/details?id=" + id, {
     dataType: "json",
     type: "get",
@@ -31,6 +37,7 @@ mui.plusReady(function() {
       apitoken: c("/api.php/Mall/details")
     },
     success: function(data) {
+      console.log(JSON.stringify(data.data.info));
       vm.goodMessage = data.data.info;
       document.getElementById("contents").innerHTML =
         data.data.info.goods_content;
@@ -53,6 +60,29 @@ mui.plusReady(function() {
       console.log(errorThrown);
     }
   });
+
+  //查询用户积分
+  mui.ajax(
+    http_url + "/api.php/User/integral?token=" + user_all_message.token,
+    {
+      dataType: "json",
+      type: "get",
+      timeout: 10000,
+      headers: {
+        "Content-Type": "application/json",
+        apitoken: c("/api.php/User/integral")
+      },
+      success: function(data) {
+        if (data.status == 200) {
+          vm.user_integral = Number(data.data);
+        }
+      },
+      error: function(xhr, type, errorThrown) {
+        //异常处理；ss
+        console.log(errorThrown);
+      }
+    }
+  );
 });
 
 //点击选择商品分类
@@ -81,6 +111,7 @@ function selectType(index, id, e) {
     for (i in vm.goodData.sec_list.spec_val) {
       if (vm.goodData.sec_list.spec_val[i].spec_ids == text) {
         vm.good_spec = vm.goodData.sec_list.spec_val[i];
+        console.log(JSON.stringify(vm.good_spec));
       }
     }
     // vm.good_spec = vm.goodData.sec_list.spec_val.find(function (every) {
@@ -188,11 +219,13 @@ function collections(e) {
 
 //跳转到结算页面
 mui(".popup-bottom").on("tap", ".buy", function() {
+  console.log(vm.user_integral);
+  console.log(vm.goodMessage.integral);
   if (user_token()) {
     if (!vm.goodData.sec_list.spec) {
       if (vm.buy_num > vm.goodMessage.store_num) {
         toast("库存不足");
-      } else {
+      } else if (!vm.payType) {
         popup.style.bottom = -14 + "rem";
         mask.style.display = "none";
         mui.openWindow({
@@ -201,7 +234,26 @@ mui(".popup-bottom").on("tap", ".buy", function() {
           extras: {
             goodId: vm.goodMessage.goods_id,
             goodNum: vm.buy_num,
-            one: true
+            one: true,
+            type: plus.webview.currentWebview().type
+          }
+        });
+      } else if (
+        vm.user_integral < Number(vm.goodMessage.integral * vm.buy_num)
+      ) {
+        toast("您的积分不足");
+      } else {
+        console.log("?????sdfsdfds");
+        popup.style.bottom = -14 + "rem";
+        mask.style.display = "none";
+        mui.openWindow({
+          url: "settlementPage.html",
+          id: "settlementPage.html",
+          extras: {
+            goodId: vm.goodMessage.goods_id,
+            goodNum: vm.buy_num,
+            one: true,
+            type: plus.webview.currentWebview().type
           }
         });
       }
@@ -209,7 +261,7 @@ mui(".popup-bottom").on("tap", ".buy", function() {
       toast("请选择商品规格");
     } else if (vm.buy_num > vm.good_spec.store_count) {
       toast("库存不足");
-    } else {
+    } else if (!vm.payType) {
       popup.style.bottom = -14 + "rem";
       mask.style.display = "none";
       mui.openWindow({
@@ -221,6 +273,23 @@ mui(".popup-bottom").on("tap", ".buy", function() {
           spec_ids: vm.good_spec.spec_ids ? vm.good_spec.spec_ids : "",
           spec_names: vm.good_spec.spec_names ? vm.good_spec.spec_names : "",
           one: true
+        }
+      });
+    } else if (vm.user_integral < Number(vm.good_spec.integral * vm.buy_num)) {
+      toast("您的积分不足");
+    } else {
+      popup.style.bottom = -14 + "rem";
+      mask.style.display = "none";
+      mui.openWindow({
+        url: "settlementPage.html",
+        id: "settlementPage.html",
+        extras: {
+          goodId: vm.goodMessage.goods_id,
+          goodNum: vm.buy_num,
+          spec_ids: vm.good_spec.spec_ids ? vm.good_spec.spec_ids : "",
+          spec_names: vm.good_spec.spec_names ? vm.good_spec.spec_names : "",
+          one: true,
+          type: plus.webview.currentWebview().type
         }
       });
     }
@@ -272,7 +341,8 @@ function add_to_shopping_cart() {
           headers: { apitoken: c("/api.php/Order/addcart") },
           data: {
             goods_id: vm.goodMessage.goods_id,
-            num: vm.buy_num
+            num: vm.buy_num,
+            buy_type: plus.webview.currentWebview().type
             // spec_ids:  "",
             // spec_names:  ""
           },
@@ -301,7 +371,8 @@ function add_to_shopping_cart() {
           goods_id: vm.goodMessage.goods_id,
           num: vm.buy_num,
           spec_ids: vm.good_spec.spec_ids,
-          spec_names: vm.good_spec.spec_names
+          spec_names: vm.good_spec.spec_names,
+          buy_type: plus.webview.currentWebview().type
         },
         timeout: 10000,
         success: function(data) {

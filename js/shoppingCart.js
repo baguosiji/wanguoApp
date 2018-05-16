@@ -13,13 +13,34 @@ var vm = new Vue({
     goods: [],
     total: 0,
     edit: false,
-    mydata: []
+    mydata: [],
+    integral: 0,
+    user_integral: 0
   }
 });
 // mui(".mui-scroll-wrapper").scroll({
 //     deceleration: 0.0005,
 //     indicators: false, //是否显示滚动条
 // })
+//查询用户积分
+mui.ajax(http_url + "/api.php/User/integral?token=" + user_all_message.token, {
+  dataType: "json",
+  type: "get",
+  timeout: 10000,
+  headers: {
+    "Content-Type": "application/json",
+    apitoken: c("/api.php/User/integral")
+  },
+  success: function(data) {
+    if (data.status == 200) {
+      vm.user_integral = Number(data.data);
+    }
+  },
+  error: function(xhr, type, errorThrown) {
+    //异常处理；ss
+    console.log(errorThrown);
+  }
+});
 mui.ajax(
   http_url +
     "/api.php/User/cart?p=" +
@@ -36,7 +57,7 @@ mui.ajax(
     },
     success: function(data) {
       if (data.status == 200) {
-        vm.goods = vm.goods.concat(data.data);
+        vm.goods = vm.goods.concat(data.data.list);
         page++;
       } else {
         toast(data.message);
@@ -46,7 +67,7 @@ mui.ajax(
   }
 );
 
-var page = 2;
+var page = 1;
 // 下拉刷新
 function pullupRefresh() {
   //当前页码
@@ -66,9 +87,9 @@ function pullupRefresh() {
       },
       success: function(data) {
         if (data.status == 200) {
-          vm.goods = vm.goods.concat(data.data);
+          vm.goods = vm.goods.concat(data.data.list);
           page++;
-          if (data.data.length == 0) {
+          if (data.data.list.length == 0) {
             mui("#refreshContainer")
               .pullRefresh()
               .disablePullupToRefresh();
@@ -124,7 +145,12 @@ function select_goods(e, id, buy_num, nowGood) {
   if (e.currentTarget.querySelector(".noedit").src.indexOf("True") >= 0) {
     e.currentTarget.querySelector(".noedit").src = "../img/selectFalse.png";
     number--;
-    vm.total = vm.total - Number(e.currentTarget.id) * Number(buy_num);
+    if (nowGood.integral_status == 0) {
+      vm.total = vm.total - Number(nowGood.shop_price) * Number(buy_num);
+    } else {
+      vm.total = vm.total - Number(nowGood.shop_price) * Number(buy_num);
+      vm.integral = vm.integral - Number(nowGood.integral) * Number(buy_num);
+    }
     var nowChange;
     for (var j = 0; j < vm.mydata.length; j++) {
       vm.mydata[j].delect == id ? (nowChange = vm.mydata[j]) : null;
@@ -137,7 +163,12 @@ function select_goods(e, id, buy_num, nowGood) {
   } else {
     e.currentTarget.querySelector(".noedit").src = "../img/selectTrue.png";
     number++;
-    vm.total = vm.total + Number(e.currentTarget.id) * buy_num;
+    if (nowGood.integral_status == 0) {
+      vm.total = vm.total + Number(nowGood.shop_price) * Number(buy_num);
+    } else {
+      vm.total = vm.total + Number(nowGood.shop_price) * Number(buy_num);
+      vm.integral = vm.integral + Number(nowGood.integral) * Number(buy_num);
+    }
     var data = {
       delect: "",
       number: ""
@@ -163,6 +194,7 @@ select_all.addEventListener(
       vm.number = [];
       for (var i = 0; i < select_good.length; i++) {
         vm.total = 0;
+        vm.integral = 0;
         vm.goods[i].active = false;
         select_good[i].querySelector(".noedit").src = "../img/selectFalse.png";
       }
@@ -170,18 +202,18 @@ select_all.addEventListener(
       this.src = "../img/selectTrue.png";
       number = select_good.length;
       vm.delect = [];
-      var data = {
-        delect: "",
-        number: ""
-      };
       for (var i = 0; i < select_good.length; i++) {
+        var data = {
+          delect: "",
+          number: ""
+        };
         select_good[i].querySelector(".noedit").src = "../img/selectTrue.png";
         data.delect = vm.goods[i].id;
         data.number = vm.goods[i].goods_num;
         vm.mydata.push(data);
         vm.goods[i].active = true;
-        vm.total +=
-          Number(vm.goods[i].goods.shop_price) * vm.goods[i].goods_num;
+        vm.total += Number(vm.goods[i].shop_price) * vm.goods[i].goods_num;
+        vm.integral += Number(vm.goods[i].integral) * vm.goods[i].goods_num;
       }
     }
   },
@@ -190,21 +222,25 @@ select_all.addEventListener(
 
 //点击去付款按钮
 function payfor() {
-  var lastNumber = [];
-  var lastBuy = [];
-  for (var i = 0; i < vm.mydata.length; i++) {
-    lastNumber.push(vm.mydata[i].number);
-    lastBuy.push(vm.mydata[i].delect);
-  }
-  if (lastNumber.length > 0) {
-    mui.openWindow({
-      url: "settlementPage.html",
-      id: "settlementPage.html",
-      extras: {
-        goodId: lastBuy,
-        goodNum: lastNumber
-      }
-    });
+  if (vm.integral > vm.user_integral) {
+    toast("您的积分不足");
+  } else {
+    var lastNumber = [];
+    var lastBuy = [];
+    for (var i = 0; i < vm.mydata.length; i++) {
+      lastNumber.push(vm.mydata[i].number);
+      lastBuy.push(vm.mydata[i].delect);
+    }
+    if (lastNumber.length > 0) {
+      mui.openWindow({
+        url: "settlementPage.html",
+        id: "settlementPage.html",
+        extras: {
+          goodId: lastBuy,
+          goodNum: lastNumber
+        }
+      });
+    }
   }
 }
 function delect_good() {
@@ -256,7 +292,8 @@ function delect_good() {
 function add_num(number) {
   number.goods_num++;
   if (number.active) {
-    vm.total += Number(number.goods.shop_price);
+    vm.total += Number(number.shop_price);
+    vm.integral += Number(number.integral);
   }
 }
 //购买数量减少
@@ -265,7 +302,8 @@ function remove_num(number) {
   } else {
     number.goods_num--;
     if (number.active) {
-      vm.total -= Number(number.goods.shop_price);
+      vm.total -= Number(number.shop_price);
+      vm.integral -= Number(number.integral);
     }
   }
 }

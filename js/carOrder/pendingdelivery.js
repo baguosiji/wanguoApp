@@ -11,6 +11,13 @@ mui.init({
   },
   pullRefresh: {
     container: "#pullrefresh",
+    down: {
+      height: 50, //可选,默认50.触发下拉刷新拖动距离,
+      contentdown: "下拉刷新", //可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+      contentover: "释放更新", //可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+      contentrefresh: "加载中...", //可选，正在刷新状态时，下拉刷新控件上显示的标题内
+      callback: pulldown
+    },
     up: {
       contentrefresh: "正在加载...",
       callback: pullupRefresh
@@ -39,6 +46,38 @@ mui.ajax(
     error: function(xhr, type, errorThrown) {}
   }
 );
+function pulldown() {
+  mui.ajax(
+    http_url +
+      "/api.php/User/buycar?status=1&p=1&token=" +
+      user_all_message.token,
+    {
+      dataType: "json",
+      type: "get",
+      timeout: 10000,
+      headers: {
+        "Content-Type": "application/json",
+        apitoken: c("/api.php/User/buycar")
+      },
+      success: function(data) {
+        if (data.status == 200) {
+          count=2;
+          vm.orders = data.data;
+        } else {
+          toast(data.message);
+        }
+        mui("#pullrefresh")
+        .pullRefresh()
+        .endPulldownToRefresh();
+      },
+      error: function(xhr, type, errorThrown) {
+        mui("#pullrefresh")
+        .pullRefresh()
+        .endPulldownToRefresh();
+      }
+    }
+  );
+}
 window.onload = function() {
   mui.plusReady(function() {});
 };

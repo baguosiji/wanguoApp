@@ -51,7 +51,9 @@ var vm = new Vue({
     area: "",
     total: 0,
     goods_id: [],
-    order_id: ""
+    order_id: "",
+    type: false,
+    integral: 0
   }
 });
 
@@ -68,16 +70,28 @@ mui.plusReady(function() {
   //获取支付商品信息
   if (nowPage.one) {
     if (nowPage.spec_ids) {
-      var data = {
-        goods_id: nowPage.goodId,
-        num: nowPage.goodNum,
-        spec_ids: nowPage.spec_ids,
-        spec_names: nowPage.spec_names
-      };
+      if (nowPage.type) {
+        console.log(nowPage.type);
+        var data = {
+          goods_id: nowPage.goodId,
+          num: nowPage.goodNum,
+          spec_ids: nowPage.spec_ids,
+          spec_names: nowPage.spec_names,
+          buy_type: nowPage.type
+        };
+      } else {
+        var data = {
+          goods_id: nowPage.goodId,
+          num: nowPage.goodNum,
+          spec_ids: nowPage.spec_ids,
+          spec_names: nowPage.spec_names
+        };
+      }
     } else {
       var data = {
         goods_id: nowPage.goodId,
-        num: nowPage.goodNum
+        num: nowPage.goodNum,
+        buy_type: nowPage.type
       };
     }
     mui.ajax(
@@ -91,6 +105,7 @@ mui.plusReady(function() {
         success: function(data) {
           if (data.status == 200) {
             vm.total = Number(data.data.total);
+            vm.integral = Number(data.data.total_integral);
             vm.goods.push(data.data);
           } else {
             toast(data.message);
@@ -102,6 +117,8 @@ mui.plusReady(function() {
       }
     );
   } else {
+    console.log(nowPage.goodNum);
+    console.log(nowPage.goodId);
     mui.ajax(
       http_url + "/api.php/User/cartpay?token=" + user_all_message.token,
       {
@@ -116,9 +133,15 @@ mui.plusReady(function() {
         success: function(data) {
           if (data.status == 200) {
             vm.goods = data.data;
+            console.log(JSON.stringify(data.data));
             for (var i = 0; i < vm.goods.length; i++) {
+              if (vm.goods[i].integral_status == 1) {
+                nowPage.type = "integral"; //如果商品中有购买类型为积分购买的则当前页面中的type属性改为integral
+              }
               vm.total +=
-                Number(vm.goods[i].goods.shop_price) * vm.goods[i].goods_num;
+                Number(vm.goods[i].shop_price) * vm.goods[i].goods_num;
+              vm.integral +=
+                Number(vm.goods[i].integral) * vm.goods[i].goods_num;
               vm.goods_id.push(vm.goods[i].goods_id);
               // alert(vm.goods_id);
             }
@@ -180,38 +203,51 @@ function postPay() {
   });
   if (nowPage.one) {
     if (nowPage.spec_ids) {
-      var data = {
-        goods_id: nowPage.goodId,
-        num: nowPage.goodNum,
-        spec_ids: nowPage.spec_ids,
-        spec_names: nowPage.spec_names,
-        truename: vm.name,
-        mobile: vm.phone,
-        province: vm.province,
-        city: vm.city,
-        area: vm.area,
-        address: vm.address_detail
-      };
+      if (nowPage.type) {
+        var data = {
+          goods_id: nowPage.goodId,
+          num: nowPage.goodNum,
+          spec_ids: nowPage.spec_ids,
+          spec_names: nowPage.spec_names,
+          truename: vm.name,
+          mobile: vm.phone,
+          province: vm.province,
+          city: vm.city,
+          area: vm.area,
+          address: vm.address_detail,
+          buy_type: nowPage.type
+        };
+      } else {
+        var data = {
+          goods_id: nowPage.goodId,
+          num: nowPage.goodNum,
+          spec_ids: nowPage.spec_ids,
+          spec_names: nowPage.spec_names,
+          truename: vm.name,
+          mobile: vm.phone,
+          province: vm.province,
+          city: vm.city,
+          area: vm.area,
+          address: vm.address_detail
+        };
+      }
     } else {
-      var data = {
-        goods_id: nowPage.goodId,
-        num: nowPage.goodNum,
-        spec_ids: "",
-        spec_names: "",
-        truename: vm.name,
-        mobile: vm.phone,
-        province: vm.province,
-        city: vm.city,
-        area: vm.area,
-        address: vm.address_detail
-      };
-    }
-    mui.ajax(
-      http_url + "/api.php/Order/saveorder?token=" + user_all_message.token,
-      {
-        dataType: "json",
-        type: "post",
-        data: {
+      if (nowPage.type) {
+        var data = {
+          goods_id: nowPage.goodId,
+          num: nowPage.goodNum,
+          spec_ids: "",
+          spec_names: "",
+          truename: vm.name,
+          mobile: vm.phone,
+          province: vm.province,
+          city: vm.city,
+          area: vm.area,
+          address: vm.address_detail,
+          buy_type: nowPage.type
+        };
+      } else {
+        var data = {
           goods_id: nowPage.goodId,
           num: nowPage.goodNum,
           spec_ids: "",
@@ -222,12 +258,21 @@ function postPay() {
           city: vm.city,
           area: vm.area,
           address: vm.address_detail
-        },
+        };
+      }
+    }
+    mui.ajax(
+      http_url + "/api.php/Order/saveorder?token=" + user_all_message.token,
+      {
+        dataType: "json",
+        type: "post",
+        data: data,
         headers: { apitoken: c("/api.php/Order/saveorder") },
         timeout: 10000,
         success: function(data) {
           waiting.close();
           if (data.status == 200) {
+            console.log(JSON.stringify(data));
             // vm.order_id = data.data.order_id;
             mui.openWindow({
               url: "payment.html",
@@ -247,27 +292,45 @@ function postPay() {
       }
     );
   } else {
+    var shoppingCartData = {};
+    if (nowPage.type) {
+      shoppingCartData = {
+        ids: nowPage.goodId,
+        nums: nowPage.goodNum,
+        truename: vm.name,
+        mobile: vm.phone,
+        province: vm.province,
+        city: vm.city,
+        area: vm.area,
+        address: vm.address_detail,
+        goods_id: 1,
+        buy_type: nowPage.type
+      };
+    } else {
+      shoppingCartData = {
+        ids: nowPage.goodId,
+        nums: nowPage.goodNum,
+        truename: vm.name,
+        mobile: vm.phone,
+        province: vm.province,
+        city: vm.city,
+        area: vm.area,
+        address: vm.address_detail,
+        goods_id: 1
+      };
+    }
     mui.ajax(
       http_url + "/api.php/User/cartsave?token=" + user_all_message.token,
       {
         dataType: "json",
         type: "post",
-        data: {
-          ids: nowPage.goodId,
-          nums: nowPage.goodNum,
-          truename: vm.name,
-          mobile: vm.phone,
-          province: vm.province,
-          city: vm.city,
-          area: vm.area,
-          address: vm.address_detail,
-          goods_id: 1
-        },
+        data: shoppingCartData,
         headers: { apitoken: c("/api.php/User/cartsave") },
         timeout: 10000,
         success: function(data) {
           waiting.close();
           if (data.status == 200) {
+            console.log(JSON.stringify(data));
             // vm.order_id = data.data.order_id;
             mui.openWindow({
               url: "payment.html",

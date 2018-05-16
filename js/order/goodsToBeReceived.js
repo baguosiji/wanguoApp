@@ -179,13 +179,21 @@ function shouhou() {
   mui.alert("请联系客服", "售后服务", function() {});
 }
 // 跳转到商品详情页面
-function jump_to_good_detial(id) {
+function jump_to_good_detial(id, num) {
+  if (Number(num) > 0) {
+    var extras = {
+      good_id: id,
+      type: "integral"
+    };
+  } else {
+    var extras = {
+      good_id: id
+    };
+  }
   mui.openWindow({
     url: "../goodDetail.html",
     id: "goodDetail.html",
-    extras: {
-      good_id: id
-    }
+    extras: extras
   });
 }
 //跳转到物流页面

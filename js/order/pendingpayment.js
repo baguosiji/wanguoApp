@@ -52,6 +52,25 @@ mui.ajax(
     }
   }
 );
+//查询用户积分
+mui.ajax(http_url + "/api.php/User/integral?token=" + user_all_message.token, {
+  dataType: "json",
+  type: "get",
+  timeout: 10000,
+  headers: {
+    "Content-Type": "application/json",
+    apitoken: c("/api.php/User/integral")
+  },
+  success: function(data) {
+    if (data.status == 200) {
+      vm.integral = Number(data.data);
+    }
+  },
+  error: function(xhr, type, errorThrown) {
+    //异常处理；ss
+    console.log(errorThrown);
+  }
+});
 function pulldown() {
   mui.ajax(
     http_url +
@@ -139,7 +158,11 @@ function pullupRefresh() {
   );
 }
 //点击跳转到支付页面
-function jump_to_payment(id) {
+function jump_to_payment(id, num) {
+  if (Number(num) > vm.integral) {
+    toast("您的积分不足");
+    return;
+  }
   mui.openWindow({
     url: "../payment.html",
     id: "../payment.html",
@@ -183,12 +206,20 @@ function tap_delect_goods(id) {
   });
 }
 // 跳转到商品详情页面
-function jump_to_good_detial(id) {
+function jump_to_good_detial(id, num) {
+  if (Number(num) > 0) {
+    var extras = {
+      good_id: id,
+      type: "integral"
+    };
+  } else {
+    var extras = {
+      good_id: id
+    };
+  }
   mui.openWindow({
     url: "../goodDetail.html",
     id: "goodDetail.html",
-    extras: {
-      good_id: id
-    }
+    extras: extras
   });
 }

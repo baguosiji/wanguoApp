@@ -49,7 +49,6 @@ body {
 }
 .clearfloat:after {
   display: block;
-
   clear: both;
   content: "";
   visibility: hidden;

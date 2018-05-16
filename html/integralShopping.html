@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/mui.min.css">
+    <link rel="stylesheet" href="../css/integralShopping.css">
+    <title>积分商城</title>
+</head>
+<style>
+    .mui-scroll-wrapper {
+        top: 110px;
+    }
+</style>
+
+<body>
+    <div class="action-bar-no-search">
+        <div class="title-left mui-action-back">
+            <div>
+                <span class="mui-icon mui-icon-back">
+
+                </span>
+                <span>
+
+                </span>
+            </div>
+        </div>
+        <div class="title-center">
+            积分商城
+        </div>
+        <div class="title-right">
+            <div class="title-right-left">
+                <img src="../img/close.png" />
+            </div>
+            <div class="title-right-right">
+
+            </div>
+        </div>
+    </div>
+    <div class="container" id="app">
+        <div class="screen">
+            <div class="all" v-bind:class="{active:type==1}" @tap="change_data(1)">
+                <span>热门</span>
+            </div>
+            <div class="price" v-bind:class="{active:type==2}" @tap="change_data(2)">
+                <span>新品</span>
+            </div>
+            <div class="time" v-bind:class="{active:type==3}" @tap="change_data(3)">
+                <span>兑换量</span>
+                <div class="common-container">
+                    <div class="top">
+                        <strong class="mui-icon mui-icon-arrowup"></strong>
+                    </div>
+                    <div class="bottom">
+                        <strong class="mui-icon mui-icon-arrowdown"></strong>
+                    </div>
+                </div>
+            </div>
+            <div class="kilometre" v-bind:class="{active:type==4}" @tap="change_data(4)">
+                <span>积分</span>
+                <div class="common-container">
+                    <div class="top">
+                        <strong class="mui-icon mui-icon-arrowup"></strong>
+                    </div>
+                    <div class="bottom">
+                        <strong class="mui-icon mui-icon-arrowdown"></strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mui-scroll-wrapper" id="refreshContainer">
+            <div class="mui-scroll">
+                <div>
+                    <div class="shopping-mall-good-list" v-for="good in data" @tap="jump_to_good_detail(good.goods_id)">
+                        <div class="left">
+                            <img v-bind:src="good.pic?http_url+good.pic:''" alt="">
+                        </div>
+                        <div class="right">
+                            <div class="right-top">
+                                {{good.goods_name}}
+                            </div>
+                            <div class="center">
+                                {{good.integral}} 积分
+                            </div>
+                            <div class="right-bottom clearfloat">
+                                <div class="float-left">
+                                    兑换量
+                                    <strong>
+                                        {{good.sale_num}}
+                                    </strong>
+                                </div>
+                                <div class="float-right buy-now">
+                                    立即购买
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../js/flexible.js"></script>
+    <script src="../js/mui.min.js"></script>
+    <script src="../js/md5.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/vue.min.js"></script>
+    <script>
+        mui.init({
+            pullRefresh: {
+                container: "#refreshContainer",//待刷新区域标识，querySelector能定位的css选择器均可，比如：id、.class等
+                up: {
+                    contentrefresh: "加载中...",
+                    contentnomore: '没有更多数据了',
+                    callback: pullfresh
+                }
+            }
+        });
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                integral: 0,
+                data: [],
+                type: 1,
+                sale_num: 1
+            }
+        })
+        mui.plusReady(function () {
+            nowPage = plus.webview.currentWebview();
+            vm.type = nowPage.type;
+            mui.ajax(http_url + '/api.php/Integral/goods_list?pageNum=1&pageSize=10&type=' + nowPage.type, {
+                dataType: 'json',
+                type: 'get',
+                timeout: 10000,
+                headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Integral/goods_list'), },
+                success: function (data) {
+                    if (data.status == 200) {
+                        vm.data = data.data.list;
+                    } else {
+                        toast(data.message);
+                    }
+                },
+                error: function (xhr, type, errorThrown) {
+
+                }
+            });
+        });
+        var nowPage = null;  //当前页面
+        var sort_name = "";      //排序方式
+        var count = 2;            //当前分页
+        //点击切换时切换数据
+        function change_data(type) {
+            vm.type = type;
+            if (vm.type == 1 || vm.type == 2) {
+                mui('#refreshContainer').pullRefresh().refresh(true);
+                sort_name = "";
+                mui.ajax(http_url + '/api.php/Integral/goods_list?pageNum=1&pageSize=10&type=' + vm.type, {
+                    dataType: 'json',
+                    type: 'get',
+                    timeout: 10000,
+                    headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Integral/goods_list'), },
+                    success: function (data) {
+                        if (data.status == 200) {
+                            vm.data = data.data.list;
+                        } else {
+                            toast(data.message);
+                        }
+                    },
+                    error: function (xhr, type, errorThrown) {
+
+                    }
+                });
+            } else if (vm.type == 3) {
+                sort_name = "sale_nume";
+                mui('#refreshContainer').pullRefresh().refresh(true);
+                vm.sale_num == 1 ? vm.sale_num = 0 : vm.sale_num = 1;
+                document.querySelector(".kilometre").querySelector(".mui-icon-arrowup").classList.remove("common");
+                document.querySelector(".kilometre").querySelector(".mui-icon-arrowdown").classList.remove("common");
+                if (vm.sale_num == 1) {
+                    document.querySelector(".time").querySelector(".mui-icon-arrowup").classList.remove("common");
+                    document.querySelector(".time").querySelector(".mui-icon-arrowdown").classList.add("common");
+                } else {
+                    document.querySelector(".time").querySelector(".mui-icon-arrowup").classList.add("common");
+                    document.querySelector(".time").querySelector(".mui-icon-arrowdown").classList.remove("common");
+                }
+                mui.ajax(http_url + '/api.php/Integral/goods_list?pageNum=1&pageSize=10&type=0&store_name=sale_nume&sort_type=' + vm.sale_num, {
+                    dataType: 'json',
+                    type: 'get',
+                    timeout: 10000,
+                    headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Integral/goods_list'), },
+                    success: function (data) {
+                        if (data.status == 200) {
+                            vm.data = data.data.list;
+                        } else {
+                            toast(data.message);
+                        }
+                    },
+                    error: function (xhr, type, errorThrown) {
+
+                    }
+                });
+            } else if (vm.type == 4) {
+                sort_name = "integral";
+                mui('#refreshContainer').pullRefresh().refresh(true);
+                vm.sale_num == 1 ? vm.sale_num = 0 : vm.sale_num = 1;
+                document.querySelector(".time").querySelector(".mui-icon-arrowup").classList.remove("common");
+                document.querySelector(".time").querySelector(".mui-icon-arrowdown").classList.remove("common");
+                if (vm.sale_num == 1) {
+                    document.querySelector(".kilometre").querySelector(".mui-icon-arrowup").classList.remove("common");
+                    document.querySelector(".kilometre").querySelector(".mui-icon-arrowdown").classList.add("common");
+                } else {
+                    document.querySelector(".kilometre").querySelector(".mui-icon-arrowup").classList.add("common");
+                    document.querySelector(".kilometre").querySelector(".mui-icon-arrowdown").classList.remove("common");
+                }
+                mui.ajax(http_url + '/api.php/Integral/goods_list?pageNum=1&pageSize=10&type=0&sort_name=integral&sort_type=' + vm.sale_num, {
+                    dataType: 'json',
+                    type: 'get',
+                    timeout: 10000,
+                    headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Integral/goods_list'), },
+                    success: function (data) {
+                        if (data.status == 200) {
+                            vm.data = data.data.list;
+                        } else {
+                            toast(data.message);
+                        }
+                    },
+                    error: function (xhr, type, errorThrown) {
+
+                    }
+                });
+            }
+        }
+        function pullfresh() {
+            var sale_num;
+            var type;
+            if (vm.type > 2) {
+                sale_num = vm.sale_num;
+                type = 0;
+            } else {
+                sale_num = 0;
+                type = vm.type;
+            }
+
+            mui.ajax(http_url + '/api.php/Integral/goods_list?pageNum=' + count + '&pageSize=10&type=' + type + '&sort_name=' + sort_name + '&sort_type=' + sale_num, {
+                dataType: 'json',
+                type: 'get',
+                timeout: 10000,
+                headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Integral/goods_list'), },
+                success: function (data) {
+                    if (data.status == 200) {
+                        count++;
+                        if (!data.data.list) {
+                            mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
+                            mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+                        } else {
+                            vm.data = vm.data.concat(data.data.list);
+                            mui('#refreshContainer').pullRefresh().endPullupToRefresh(false)
+                        }
+                    } else {
+                        toast(data.message);
+                    }
+                },
+                error: function (xhr, type, errorThrown) {
+
+                }
+            });
+        }
+        //跳转的详情页
+        function jump_to_good_detail(id) {
+            mui.openWindow({
+                url: "goodDetail.html",
+                id: "goodDetail.html",
+                extras: {
+                    good_id: id,
+                    type: "integral"
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>

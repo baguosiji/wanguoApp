@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/mui.min.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <title>积分记录</title>
+</head>
+<style>
+    .every-one-record {
+        width: 100%;
+        padding: 0 .3rem;
+        background-color: #ffffff;
+        margin-bottom: .2rem;
+    }
+
+    .container .every-one-record>p {
+        padding: .1rem 0;
+        font-size: .38rem;
+        color: #333333;
+    }
+
+    .container .every-one-record>p:first-child {
+        padding: .2rem 0;
+        font-size: .42rem;
+        color: #000000;
+    }
+
+    .mui-scroll-wrapper {
+        top: 45px;
+    }
+</style>
+
+<body>
+    <div class="action-bar-no-search">
+        <div class="title-left mui-action-back">
+            <div>
+                <span class="mui-icon mui-icon-back ">
+
+                </span>
+                <span>
+
+                </span>
+            </div>
+        </div>
+        <div class="title-center">
+            积分记录
+        </div>
+        <div class="title-right">
+            <div class="title-right-left">
+
+            </div>
+            <div class="title-right-right">
+
+            </div>
+        </div>
+    </div>
+    <div class="container" style="background-color:#efefef">
+        <div class="mui-scroll-wrapper" id="pullrefresh">
+            <div class="mui-scroll" id="app">
+                <div class="every-one-record" v-for="item in data">
+                    <p>{{item.content}}
+                    </p>
+                    <p>变更时间：{{item.add_time}}</p>
+                    <p>可用积分：
+                        <strong style="color: dodgerblue">{{item.current_integral}}</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../js/flexible.js"></script>
+    <script src="../js/mui.min.js"></script>
+    <script src="../js/md5.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/vue.min.js"></script>
+    <script>
+        mui.init({
+            pullRefresh: {
+                container: '#pullrefresh',
+                up: {
+                    contentrefresh: '正在加载...',
+                    callback: pullupRefresh
+                }
+            }
+        });
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                data: [],
+            }
+        })
+        // mui(".mui-scroll-wrapper").scroll({
+        //     deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+        // });
+        var count = 2;
+        console.log(http_url + '/api.php/Integral/get_record?token='+user_all_message.token+'&pageNum=1&pageSize=10');
+
+        mui.ajax(http_url + '/api.php/Integral/get_record?token=' + user_all_message.token + '&pageNum=1&pageSize=10', {
+            dataType: 'json',
+            type: 'get',
+            timeout: 10000,
+            headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Integral/get_record'), },
+            success: function (data) {
+                if (data.status == 200) {
+                    vm.data = data.data.list;
+                } else {
+                    toast(data.message);
+                }
+            },
+            error: function (xhr, type, errorThrown) {
+
+            }
+        })
+        function pullupRefresh() {
+            mui.ajax(http_url + '/api.php/Integral/get_record?token=533&pageNum=' + count + '&pageSize=10', {
+                dataType: 'json',
+                type: 'get',
+                timeout: 10000,
+                headers: { 'Content-Type': 'application/json', "apitoken": c('/api.php/Integral/get_record'), },
+                success: function (data) {
+                    if (data.status == 200) {
+                        vm.data = vm.data.concat(data.data.list);
+                        count++;
+                        if (data.data.lenght == 0) {
+                            mui('#pullrefresh').pullRefresh().disablePullupToRefresh()
+                            mui('#pullrefresh').pullRefresh().endPullupToRefresh(true)
+                        } else {
+                            mui('#pullrefresh').pullRefresh().endPullupToRefresh(false)
+                        }
+                    } else {
+                        toast(data.message);
+                    }
+                },
+                error: function (xhr, type, errorThrown) {
+
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>

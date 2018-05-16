@@ -62,7 +62,7 @@ mui.plusReady(function() {
         user_all_message.token +
         "&order_id=" +
         nowPage.order_id +
-        "$iscart=" +
+        "&iscart=" +
         vm.iscart,
       {
         dataType: "json",
@@ -74,6 +74,7 @@ mui.plusReady(function() {
         },
         success: function(data) {
           if (data.status == 200) {
+            console.log(JSON.stringify(data.data));
             vm.order_message = data.data.ordinfo;
           }
         },
@@ -190,77 +191,108 @@ function pay() {
       return;
     }
   } else {
-    data = {
-      order_id: nowPage.order_id,
-      pay_type: payment,
-      iscart: vm.iscart
-    };
-    if (payment == "alipay") {
+    if (
+      Number(vm.order_message.integral) > 0 &&
+      Number(vm.order_message.order_amount) == 0
+    ) {
+      console.log(nowPage.order_id);
       mui.ajax(
-        http_url + "/api.php/Order/dopay?token=" + user_all_message.token,
+        http_url +
+          "/api.php/Order/integral_pay?token=" +
+          user_all_message.token,
         {
           type: "post",
-          data: data,
-          headers: { apitoken: c("/api.php/Order/dopay") },
+          data: {
+            id: nowPage.order_id
+          },
+          headers: { apitoken: c("api.php/Order/integral_pay") },
           timeout: 10000,
           success: function(res) {
-            plus.payment.request(
-              alichannel,
-              res,
-              function(result) {
-                waiting.close();
-                mui.alert("支付成功!", "支付宝支付", function() {
-                  jump_to_order();
-                });
-              },
-              function(error) {
-                waiting.close();
-                mui.alert("支付失败!", "支付宝支付", function() {
-                  jump_to_order();
-                });
-              }
-            );
+            console.log(JSON.stringify(res));
+            waiting.close();
+            mui.alert(res.message, "积分支付", function() {
+              jump_to_order();
+            });
           },
           error: function(xhr, type, errorThrown) {
             waiting.close();
-          }
-        }
-      );
-    } else if (payment == "wxpay") {
-      mui.ajax(
-        http_url + "/api.php/Order/dopay?token=" + user_all_message.token,
-        {
-          dataType: "json",
-          type: "post",
-          data: data,
-          headers: { apitoken: c("/api.php/Order/dopay") },
-          timeout: 10000,
-          success: function(res) {
-            waiting.close();
-            plus.payment.request(
-              wxchannel,
-              res,
-              function(result) {
-                waiting.close();
-                mui.alert("支付成功!", "微信付款", function() {
-                  jump_to_order();
-                });
-              },
-              function(error) {
-                waiting.close();
-                mui.alert("支付失败!", "微信付款", function() {
-                  jump_to_order();
-                });
-              }
-            );
-          },
-          error: function(xhr, type, errorThrown) {
-            waiting.close();
+            jump_to_order();
           }
         }
       );
     } else {
-      return;
+      data = {
+        order_id: nowPage.order_id,
+        pay_type: payment,
+        iscart: vm.iscart
+      };
+      if (payment == "alipay") {
+        mui.ajax(
+          http_url + "/api.php/Order/dopay?token=" + user_all_message.token,
+          {
+            type: "post",
+            data: data,
+            headers: { apitoken: c("/api.php/Order/dopay") },
+            timeout: 10000,
+            success: function(res) {
+              plus.payment.request(
+                alichannel,
+                res,
+                function(result) {
+                  waiting.close();
+                  mui.alert("支付成功!", "支付宝支付", function() {
+                    jump_to_order();
+                  });
+                },
+                function(error) {
+                  waiting.close();
+                  mui.alert("支付失败!", "支付宝支付", function() {
+                    jump_to_order();
+                  });
+                }
+              );
+            },
+            error: function(xhr, type, errorThrown) {
+              waiting.close();
+            }
+          }
+        );
+      } else if (payment == "wxpay") {
+        mui.ajax(
+          http_url + "/api.php/Order/dopay?token=" + user_all_message.token,
+          {
+            dataType: "json",
+            type: "post",
+            data: data,
+            headers: { apitoken: c("/api.php/Order/dopay") },
+            timeout: 10000,
+            success: function(res) {
+              waiting.close();
+              plus.payment.request(
+                wxchannel,
+                res,
+                function(result) {
+                  waiting.close();
+                  mui.alert("支付成功!", "微信付款", function() {
+                    jump_to_order();
+                  });
+                },
+                function(error) {
+                  waiting.close();
+                  mui.alert("支付失败!", "微信付款", function() {
+                    jump_to_order();
+                  });
+                }
+              );
+            },
+            error: function(xhr, type, errorThrown) {
+              waiting.close();
+            }
+          }
+        );
+      } else {
+        return;
+      }
     }
   }
 }
