@@ -35,13 +35,16 @@
             background-color: #fff;
         }
 
-        a:hover {
+        /* a:hover {
             text-decoration: none;
         }
 
         a:visited {
             text-decoration: none;
         }
+        a:active{
+            text-decoration: none;
+        } */
 
         .mui-views,
         .mui-view,
@@ -313,6 +316,40 @@
             font-size: .32rem;
             padding: .1rem 0;
         }
+
+        /* 分隔符 */
+
+        .interval {
+            height: 5px;
+            background-color: #EFEFF4;
+            width: 100%;
+        }
+
+        /* 去掉a标签下划线 */
+
+        .mui-table-view>.mui-table-view-cell>a {
+            text-decoration: none;
+        }
+
+        .mui-table-view>.mui-table-view-cell>a:link {
+            text-decoration: none;
+        }
+
+        .mui-table-view>.mui-table-view-cell>a:visited {
+            text-decoration: none;
+        }
+
+        .mui-table-view>.mui-table-view-cell>a:hover {
+            text-decoration: none;
+        }
+
+        .mui-table-view>.mui-table-view-cell>a:active {
+            text-decoration: none;
+        }
+        .mui-table-view-cell:after{
+            -webkit-transform: scaleY(0);
+            transform: scaleY(0);
+        }
     </style>
 
 </head>
@@ -344,20 +381,25 @@
                 <div class="mui-scroll-wrapper">
                     <div class="mui-scroll">
                         <ul class="mui-table-view mui-table-view-chevron">
+                            <li class="interval"></li>
                             <li class="mui-table-view-cell">
                                 <a href="#password" class="mui-navigate-right" style="font-size: .4rem">修改密码</a>
                             </li>
+                            <li class="interval"></li>
                             <li class="mui-table-view-cell">
                                 <a href="#advices" class="mui-navigate-right" style="font-size: .4rem">意见建议</a>
                             </li>
+                            <li class="interval"></li>
                             <li class="mui-table-view-cell">
                                 <span class="mui-navigate-right" style="font-size: .4rem">邀请注册</span>
                             </li>
+                            <li class="interval"></li>
                             <li class="mui-table-view-cell" @tap="callPhone()">
                                 <span class="mui-navigate-right" style="font-size: .4rem">联系客服
                                     <i class="mui-pull-right update">400-0998-058</i>
                                 </span>
                             </li>
+                            <li class="interval"></li>
                             <li class="mui-table-view-cell">
                                 <a href="#about" class="mui-navigate-right" style="font-size: .4rem">关于万国
                                     <i class="mui-pull-right update">{{version}}</i>

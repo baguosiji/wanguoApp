@@ -2,7 +2,7 @@ mui.plusReady(function() {
   myPage = plus.webview.getWebviewById("my.html");
   nowPage = plus.webview.currentWebview();
   if (nowPage.change_PWD) {
-    plus.webview.getWebviewById("centerChangePWD.html").close("none");
+    plus.webview.getWebviewById("setting.html").close("none");
   }
 });
 var login = new Vue({

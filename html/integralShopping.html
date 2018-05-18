@@ -164,6 +164,10 @@
                     success: function (data) {
                         if (data.status == 200) {
                             vm.data = data.data.list;
+                            document.querySelector(".time").querySelector(".mui-icon-arrowup").classList.remove("common");
+                            document.querySelector(".time").querySelector(".mui-icon-arrowdown").classList.remove("common");
+                            document.querySelector(".kilometre").querySelector(".mui-icon-arrowup").classList.remove("common");
+                            document.querySelector(".kilometre").querySelector(".mui-icon-arrowdown").classList.remove("common");
                         } else {
                             toast(data.message);
                         }

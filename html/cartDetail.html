@@ -61,7 +61,7 @@
                 <div class="car-tab " v-if="cartDetail.source_type==0" v-html="content.content">
 
                 </div>
-                <div class="car-detail">
+                <div class="car-detail" v-if="cartDetail.source_type==1">
                     <div class="car-message">
                         <p style="padding: .2rem 0;margin:0;border-bottom: 1px solid #ededed;color:red;font-size: .4rem">车辆信息</p>
                         <div>

@@ -452,6 +452,13 @@
 					"html/goodDetail.html"
 				],
 				"priority": 0
+			},
+			"html/setting.html": {
+				"resources": [],
+				"refer": [
+					"html/login.html"
+				],
+				"priority": 0
 			}
 		},
 		"idle": {

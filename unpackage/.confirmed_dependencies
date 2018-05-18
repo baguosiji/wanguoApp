@@ -261,5 +261,10 @@
 		"refer": [
 			"html/goodDetail.html"
 		]
+	},
+	"html/setting.html": {
+		"refer": [
+			"html/login.html"
+		]
 	}
 }
